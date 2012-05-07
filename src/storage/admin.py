@@ -75,6 +75,11 @@ admin.site.register(models.Project, ProjectAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('amount', 'src', 'dst', 'transaction_type', 'transaction_vat', 'exchange_rate', 'contract', 'contractor', 'done_at')
+    list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat', 'exchange_rate', 'contract', 'contractor', 'done_at')
     salmonella_fields = ('parent', )
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
+
+
+class WalletStateAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(models.WalletState, WalletStateAdmin)

@@ -6,6 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 from src.users.models import CustomUser
 from src.users.models import CustomGroup
 
+from . managers import FinanceTransactionManager
+from . managers import WalletStateManager
+
 
 one_base = lambda values: list(enumerate(values, 1))
 
@@ -13,7 +16,7 @@ CUSTOMERS_CHOICES = one_base([_(u'primary'), _(u'secondary'), _(u'casual'), _(u'
 PARTNERSHIP_CHOICES = one_base([_(u'internal'), _(u'master'), _(u'slave'), _(u'external')])
 WALLET_CURRENCY_CHOICES = one_base([u'Рубли', u'Доллары'])
 WALLET_TYPE = one_base([u'Безналичные рубли', u'Наличные рубли', u'Безналичные доллары', u'Наличные доллары'])
-FINANCE_TRANSACTION_CHOICES = one_base([u'Приход', u'Расход', u'Трансфер'])
+FINANCE_TRANSACTION_CHOICES = one_base([u'Приход', u'Расход'])
 FINANCE_VAT_CHOICES = one_base([u'НДС включен', u'без НДС', u'НДС не взимается'])
 
 
@@ -142,14 +145,39 @@ class ProjectImage(models.Model):
 
 class FinanceTransaction(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True)
+    wallet = models.IntegerField(choices=WALLET_TYPE)
     contract = models.CharField(max_length=255)
     contractor = models.CharField(max_length=255)
     amount = models.FloatField()
-    src = models.IntegerField(choices=WALLET_TYPE, blank=True, null=True)
-    dst = models.IntegerField(choices=WALLET_TYPE, blank=True, null=True)
     description = models.CharField(max_length=255)
     transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES)
     transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES)
     exchange_rate = models.FloatField(blank=True, null=True)
     done_at = models.DateTimeField()
     registered = models.DateTimeField(auto_now_add=True)
+
+    objects = FinanceTransactionManager()
+
+    class Meta:
+        verbose_name = u'Finance Transaction'
+        verbose_name_plural = u'Finance Transactions'
+
+    def __unicode__(self):
+        return u'%s, %s, %0.2f' % (self.get_wallet_display(), self.get_transaction_type_display(), self.amount)
+
+
+class WalletState(models.Model):
+    wallet = models.IntegerField(choices=WALLET_TYPE)
+    amount = models.FloatField()
+    begin = models.DateTimeField()
+    end = models.DateTimeField()
+    registered = models.DateTimeField(auto_now_add=True)
+
+    objects = WalletStateManager()
+
+    class Meta:
+        verbose_name = u'Wallet State'
+        verbose_name_plural = u'Wallet States'
+
+    def __unicode__(self):
+        return u'%s (%f)' % (self.get_wallet_display(), self.amount)
