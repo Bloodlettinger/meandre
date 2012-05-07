@@ -72,3 +72,9 @@ class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
     salmonella_fields = ('customer',)
 
 admin.site.register(models.Project, ProjectAdmin)
+
+
+class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
+    list_display = ('amount', 'src', 'dst', 'transaction_type', 'transaction_vat', 'exchange_rate', 'contract', 'contractor', 'done_at')
+    salmonella_fields = ('parent', )
+admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)

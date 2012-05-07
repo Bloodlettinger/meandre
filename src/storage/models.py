@@ -11,8 +11,8 @@ one_base = lambda values: list(enumerate(values, 1))
 
 CUSTOMERS_CHOICES = one_base([_(u'primary'), _(u'secondary'), _(u'casual'), _(u'denied')])
 PARTNERSHIP_CHOICES = one_base([_(u'internal'), _(u'master'), _(u'slave'), _(u'external')])
-WALLET_TYPE_CHOICES = one_base([u'Безналичный расчёт', u'Наличний расчёт'])
 WALLET_CURRENCY_CHOICES = one_base([u'Рубли', u'Доллары'])
+WALLET_TYPE = one_base([u'Безналичные рубли', u'Наличные рубли', u'Безналичные доллары', u'Наличные доллары'])
 FINANCE_TRANSACTION_CHOICES = one_base([u'Приход', u'Расход', u'Трансфер'])
 FINANCE_VAT_CHOICES = one_base([u'НДС включен', u'без НДС', u'НДС не взимается'])
 
@@ -140,32 +140,16 @@ class ProjectImage(models.Model):
     publish = models.BooleanField()
 
 
-class FinanceWallet(models.Model):
-    name = models.CharField(max_length=64)
-    wallet_type = models.IntegerField(choices=WALLET_TYPE_CHOICES)
-    currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
-    exchange_rate = models.FloatField()
-    start_value = models.FloatField()
-    balance = models.FloatField()
-    last_transaction = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = _(u'Wallet')
-        verbose_name_plural = _(u'Wallets')
-
-    def __unicode__(self):
-        return self.name
-
-
 class FinanceTransaction(models.Model):
-    parent = models.ForeignKey('self')
-    wallet_src = models.ForeignKey(FinanceWallet, related_name='wallet_src', blank=True, null=True)
-    wallet_dst = models.ForeignKey(FinanceWallet, related_name='wallet_dst', blank=True, null=True)
-    transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES)
-    transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES)
-    exchange_rate = models.FloatField(blank=True, null=True)
-    done_at = models.DateTimeField(auto_now_add=True)
+    parent = models.ForeignKey('self', blank=True, null=True)
     contract = models.CharField(max_length=255)
     contractor = models.CharField(max_length=255)
     amount = models.FloatField()
+    src = models.IntegerField(choices=WALLET_TYPE, blank=True, null=True)
+    dst = models.IntegerField(choices=WALLET_TYPE, blank=True, null=True)
     description = models.CharField(max_length=255)
+    transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES)
+    transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES)
+    exchange_rate = models.FloatField(blank=True, null=True)
+    done_at = models.DateTimeField()
+    registered = models.DateTimeField(auto_now_add=True)
