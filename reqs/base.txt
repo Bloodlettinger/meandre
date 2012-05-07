@@ -1,0 +1,17 @@
+# Список зависимостей для работы проекта.
+
+Django == 1.4
+South
+
+django-extensions
+django-admin-tools
+django-salmonella == 0.5.1
+
+Markdown >= 2.0
+python-dateutil == 1.5
+pytz
+simplejson
+
+django-modeltranslation
+django-model-utils == 1.0.0
+django-tastypie == 0.9.11
