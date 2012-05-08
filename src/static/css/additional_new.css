@@ -1,0 +1,59 @@
+div.recent-desc span{
+	display:none;
+}
+
+a.logout-top, a.logout-top:visited{
+	color: #999999;
+}
+
+a.logout-top:hover{
+	color: #C1C1C1;
+}
+
+.v22-tool-edit {
+    background: url("../img/site/project-status-sprite.png") no-repeat scroll -24px 0 transparent;
+    cursor: pointer;
+    height: 24px;
+    position: absolute;
+    right: 10px;
+    top: 104px;
+    width: 24px;
+}
+
+#manager_links{
+	display:none;
+}
+
+tr.admin_items_list{
+	cursor:pointer;
+}
+tr.admin_items_list:hover{
+	background-color:#ddd;
+}
+
+.ui-widget-content .old-school-form div.input{
+	text-align: left;
+}
+
+.ui-widget-content .old-school-form div.input div.error-message{
+	text-align: left;
+	font-size: 14px;
+}
+
+div.multiple_checkboxes_inline{
+	display: inline;
+	float: left;
+	padding-left: 10px;
+}
+
+div.multiple_checkboxes_inline input{
+	margin:0;
+}
+
+div.multiple_checkboxes_inline label{
+	display: inline;
+}
+
+div.small_font label{
+	font-size: 12px !important;
+}

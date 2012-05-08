@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'south',
     'salmonella',
 
+    'src.frontend',
     'src.users',
     'src.storage',
 )
