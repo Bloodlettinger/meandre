@@ -1,0 +1,18 @@
+<!-- START OF REFERENCES -->
+<div id="v22-ref-wrap">
+    <h1>
+        <div class="v22-ref-header nova">Рекомендации</div>
+    </h1>
+    <div class="minicontacts-wrap">
+        <ul class="minicontacts">
+            {% for item in recommendations %}
+            <li>
+                <p class="nova">{{ item.name }}<em class="ptserif">{{ item.phone }}</em></p>
+                <a href="mailto:{{ item.email }}">{{ item.email }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- END OF REFERENCES -->
