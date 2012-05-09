@@ -83,3 +83,8 @@ admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 class WalletStateAdmin(admin.ModelAdmin):
     pass
 admin.site.register(models.WalletState, WalletStateAdmin)
+
+
+class RecommendationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'phone', 'email')
+admin.site.register(models.Recommendation, RecommendationAdmin)

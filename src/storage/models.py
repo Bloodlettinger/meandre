@@ -181,3 +181,16 @@ class WalletState(models.Model):
 
     def __unicode__(self):
         return u'%s (%f)' % (self.get_wallet_display(), self.amount)
+
+
+class Recommendation(models.Model):
+    name = models.CharField(max_length=128)
+    phone = models.CharField(max_length=32)
+    email = models.CharField(max_length=128)
+
+    class Meta:
+        verbose_name = u'Recommendation'
+        verbose_name_plural = u'Recommendations'
+
+    def __unicode__(self):
+        return self.name
