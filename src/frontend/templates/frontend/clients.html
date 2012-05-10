@@ -1,124 +1,20 @@
-                <!-- START OF CLIENTS -->
+<!-- START OF CLIENTS -->
+<div id="v22-clients-wrap">
+    <h1>
+        <div class="v22-clients-name nova">Заказчики</div>
+    </h1>
 
-
-                <div id="v22-clients-wrap">
-
-                    <h1>
-                        <div class="v22-clients-name nova">Заказчики</div>
-
-                    </h1>
-
-                    <div id="clientlogos-wrap">
-                        <ul class="clientlogos">
-
-                    <li>
-                                            <a href="http://www.dtz.com" target="_blank">
-                                                <img src="/files/customers/d36e354e8d1d3976bc50b4226105350b.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/69">
-                                                <img src="/files/customers/7827138d1ce3ba9b2a345d52bf217ffb.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.marykay.com" target="_blank">
-                                                <img src="/files/customers/d47435409306e225384f38b1380061ee.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/22">
-                                                <img src="/files/customers/e3b3b5cebeba0fa6a257ed95d1fb3aca.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.deloitte.com" target="_blank">
-                                                <img src="/files/customers/e0cf73bbceebf607f1d8401f8d427087.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="#">
-                                                <img src="/files/customers/17b9c070c2bc7fbe42856dac6d3d0bc8.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/6">
-                                                <img src="/files/customers/69e3ddd3de2a5beb1acbf3cde27465c1.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/16">
-                                                <img src="/files/customers/d307c122972d19530e22fb49915c0255.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/75">
-                                                <img src="/files/customers/397cf729c56f7defa43ff4a804485b38.png" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/2">
-                                                <img src="/files/customers/2003f948a860f964ef54a5b85f423a20.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.interfaceflor.ru" target="_blank">
-                                                <img src="/files/customers/36fc5c5484dbbf6de44b64d8f36496f6.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.slb.com/" target="_blank">
-                                                <img src="/files/customers/4b66e6098a2d809ef3c51cd5fc8a86fb.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/56">
-                                                <img src="/files/customers/44a3f5f32be491c2f44063f656016b3f.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.tenex.ru/" target="_blank">
-                                                <img src="/files/customers/d576da7cd2343bec4de488944ba15ac8.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="http://www.promod.com" target="_blank">
-                                                <img src="/files/customers/f489592ed68a0fb87f4abebaad30c602.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/24">
-                                                <img src="/files/customers/8918f4e2604486e39040147fcb9ddd08.jpg" />
-                        </a>
-                    </li>
-
-                    <li>
-                                            <a href="/ru/projects/view/47">
-                                                <img src="/files/customers/5bf67490028441844bb55bc31be4f196.jpg" />
-                        </a>
-                    </li>
-
-
-                            <div class="clear"></div>
-
-                        </ul>
-                    </div>
-                </div>
-
-
-                <!-- END OF CLIENTS -->
+    <div id="clientlogos-wrap">
+        <ul class="clientlogos">
+            {% for item in clients %}
+            <li>
+                <a href="{{ item.url }}" target="_blank">
+                    <img src="{{ item.logo.url }}" />
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- END OF CLIENTS -->
