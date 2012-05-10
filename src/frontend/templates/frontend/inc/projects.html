@@ -1,0 +1,34 @@
+<!-- 04 - PROJECTS START -->
+<div class="section-04-wrap ptserif">
+    <h1>
+        <div class="section-04-name nova">Проекты</div>
+    </h1>
+
+    <div class="projects-year-wrap">
+        {% for item in projects %}
+        <div class="project-container ">
+            <a href="{{ item.url }}" class="project-button">
+                <p class="pt-office" style="background-image: url('../img/site/work-emboss-32.png')">Офис Сольвей</p>
+            </a>
+            <div class="v22-project-pum-wrap">
+                <div class="pum-header"></div>
+                <div class="pum-secure">
+                    <div class="pum-clo">
+                        <p class="ptserif pum-clo-cn">Solvay</p>
+                    </div>
+                    <div class="pum-logo">
+                        <a href="www.solvay.com"><img src="/files/customers/44a3f5f32be491c2f44063f656016b3f.jpg" /></a>
+                    </div>
+                    <hr class="clear"/>
+                    <div class="pum-data ptserif"><a href="http://maps.yandex.ru?text=Москва, ул. Беговая, д.3" target="_new">Москва, ул. Беговая, д.3</a></div>
+                    <hr/>
+                    <div class="pum-action"><a class="pum-project-open" href="/ru/projects/view/56/0491"></a></div>
+                </div>
+                <div class="pum-footer"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="clear"></div>
+</div>
+<!-- 04 - PROJECTS END -->
