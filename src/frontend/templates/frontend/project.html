@@ -1,0 +1,50 @@
+{% extends "frontend/base.html" %}
+{% load staticfiles %}
+
+{% block extra_styles %}
+<link rel="stylesheet" type="text/css" href="{% static "css/projects.css" %}" />
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="{% static "js/jquery.tools.scrollable.min.js" %}"></script>
+{% endblock %}
+
+{% block main_content %}
+<div class="wide-wrap wide-bg-02">
+    <div class="col960">
+        {% include "frontend/inc/head_title.html" %}
+
+        {% if user.is_authenticated %}
+        <div id="v22-adminmenu-section-wrap">
+            <h1>
+                <div class="section-am-menu">
+                    |&nbsp;<a href="{% url frontend:index %}">К Главной Странице</a>
+                    |&nbsp;<a href="{% url admin:storage_project_change project.pk %}">Редактировать</a>
+                    &nbsp;|
+                </div>
+            </h1>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div id="wide-wrap" class="wide-bg-04">
+    <div class="col960 skybg">
+        <div id="v22-projnav">
+            <h1>
+                <em class="p-navigation ptserif">
+                    <a href="/ru/projects/view/1/0410">&larr;&nbsp;Предыдущий проект</a>
+                    &nbsp;|&nbsp;
+                    <a href="/ru/projects/view/19/0414">Следующий проект&nbsp;&rarr;</a>
+                </em>
+            </h1>
+        </div>
+
+        {% include "frontend/inc/rotator_huge.html" %}
+        {% include "frontend/inc/project_desc.html" %}
+        {% include "frontend/inc/solutions.html" %}
+        {% include "frontend/inc/project_stat.html" %}
+
+    </div>
+</div>
+{% endblock %}

@@ -8,9 +8,11 @@
         <ul class="clientlogos">
             {% for item in clients %}
             <li>
+                {% if item.logo %}
                 <a href="{{ item.url }}" target="_blank">
                     <img src="{{ item.logo.url }}" />
                 </a>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>

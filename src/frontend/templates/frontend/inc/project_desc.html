@@ -1,0 +1,30 @@
+<!-- START OF PROJECT DESCRIPTION -->
+<div id="project-header">
+    <p class="nova">{{ project.short_name }}</p>
+    <a href="{{ project.customer.url }}" target="_blank">
+        <img src="{{ project.customer.logo.url }}" />
+    </a>
+    <div class="clear"></div>
+    <div class="project-memo">{{ project.desc_short }}</div>
+</div>
+
+<div class="section-box">
+    <div id="solutions-wrap">
+        <ul class="solutions">
+            <li>
+                <strong class="nova">Задача</strong>
+                <em>{{ project.tasks|safe }}</em>
+            </li>
+            <li>
+                <strong class="nova">Сложности</strong>
+                <em>{{ project.problems|safe }}</em>
+            </li>
+            <li>
+                <strong class="nova">Результат</strong>
+                <em>{{ project.results|safe }}</em>
+            </li>
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>
+<!-- END OF PROJECT DESCRIPTION -->

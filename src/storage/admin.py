@@ -57,9 +57,9 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
 
 
 class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'registered')
+    list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'is_active', 'registered')
     fieldsets = (
-        (_(u'Base'), dict(fields=('customer', 'address', 'teaser', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
+        (_(u'Base'), dict(fields=('customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square', 'is_public', 'is_active'))),
         (_(u'Finance'), dict(fields=('currency', 'exchange_rate', 'price_full', 'price_average'))),
         (_(u'Description'), dict(fields=('desc_short', 'desc_long', 'tasks', 'problems', 'results'))),
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),

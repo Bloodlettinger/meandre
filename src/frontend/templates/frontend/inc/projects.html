@@ -7,22 +7,35 @@
     <div class="projects-year-wrap">
         {% for item in projects %}
         <div class="project-container ">
-            <a href="{{ item.url }}" class="project-button">
-                <p class="pt-office" style="background-image: url('../img/site/work-emboss-32.png')">Офис Сольвей</p>
+            <a href="{{ item.get_absolute_url }}" class="project-button">
+                <p class="pt-office" 
+                {% if item.ptype == 1 %}
+                  style="background-image: url('../static/img/site/work-emboss-32.png')"
+                {% elif item.ptype == 2 %}
+                  style="background-image: url('../static/img/site/home-emboss-32.png')"
+                {% elif item.ptype == 3 %}
+                  style="background-image: url('../static/img/site/shop-emboss-32.png')"
+                {% elif item.ptype == 4 %}
+                  style="background-image: url('../static/img/site/entertainment-emboss-32.png')"
+                {% else %}
+                {% endif %}
+                >{{ item.short_name }}</p>
             </a>
             <div class="v22-project-pum-wrap">
                 <div class="pum-header"></div>
                 <div class="pum-secure">
                     <div class="pum-clo">
-                        <p class="ptserif pum-clo-cn">Solvay</p>
+                        <p class="ptserif pum-clo-cn">{{ item.customer.short_name }}</p>
                     </div>
                     <div class="pum-logo">
-                        <a href="www.solvay.com"><img src="/files/customers/44a3f5f32be491c2f44063f656016b3f.jpg" /></a>
+                        <a href="{{ item.customer.url }}"><img src="{{ item.customer.logo.url }}" /></a>
                     </div>
                     <hr class="clear"/>
-                    <div class="pum-data ptserif"><a href="http://maps.yandex.ru?text=Москва, ул. Беговая, д.3" target="_new">Москва, ул. Беговая, д.3</a></div>
+                    {% if item.address %}
+                    <div class="pum-data ptserif"><a href="http://maps.yandex.ru?text={{ item.address }}" target="_new">{{ item.address }}</a></div>
+                    {% endif %}
                     <hr/>
-                    <div class="pum-action"><a class="pum-project-open" href="/ru/projects/view/56/0491"></a></div>
+                    <div class="pum-action"><a class="pum-project-open" href="{{ item.get_absolute_url }}"></a></div>
                 </div>
                 <div class="pum-footer"></div>
             </div>

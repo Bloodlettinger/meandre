@@ -3,6 +3,9 @@
 import operator
 
 from django.db import models
+from django.db.models.query import QuerySet
+
+from model_utils.managers import PassThroughManager
 
 from . decorators import cache_factory
 from . exceptions import WalletStateNotFound
@@ -37,3 +40,23 @@ class FinanceTransactionManager(models.Manager):
             action = ops.get(item.transaction_type)
             amount = action(amount, item.amount)
         return amount
+
+
+class ProjectQuerySet(QuerySet):
+
+    def winned(self):
+        WINNED = 2
+        return self.filter(status=WINNED)
+
+    def public(self):
+        return self.filter(is_public=True)
+
+    def active(self):
+        return self.filter(is_active=True)
+
+
+class ProjectManager(PassThroughManager):
+    use_for_related_fields = True
+
+    def __init__(self):
+        super(ProjectManager, self).__init__(ProjectQuerySet)

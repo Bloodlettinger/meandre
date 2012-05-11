@@ -1,0 +1,34 @@
+<!-- START OF HUGE ROTATOR -->
+<div class="section-box-dark">
+    <h1 class="nova">ПРОЕКТЫ / {{ project.short_name }}</h1>
+    <div id="huge-rotator-wrap">
+        <div class="huge-rotator-items">
+            {% for thumb in project.projectimage_set.all %}
+                <img src="{{ thumb.image.url }}"
+                    {% if thumb.comment %}
+                    alt="{{ thumb.comment }}"
+                    title="{{ thumb.comment }}"
+                    {% endif %}
+                    width="960" height="640" />
+            {% endfor %}
+        </div>
+    </div>
+    <div class="nav-wrap">
+        <a class="nav-prev jFlowPrev">&larr;&nbsp;Назад</a>&nbsp;|&nbsp;<a class="nav-next jFlowNext">Вперед&nbsp;&rarr;</a>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('div#huge-rotator-wrap').scrollable({
+        items: '.huge-rotator-items',
+        speed: 600,
+        easing:'swing',
+        circular: true,
+        next:'a.nav-next',
+        prev:'a.nav-prev',
+        disabledClass:'a.disabled'
+    });
+});
+</script>
+<!-- END OF HUGE ROTATOR -->

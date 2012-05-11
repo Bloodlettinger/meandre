@@ -6,10 +6,12 @@ South
 django-extensions
 django-admin-tools
 django-salmonella == 0.5.1
+django-autoslug-field
 
 Markdown >= 2.0
 python-dateutil == 1.5
 pytz
+pytils
 simplejson
 
 django-modeltranslation

@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+
+from django_autoslug.fields import AutoSlugField
 
 from src.users.models import CustomUser
 from src.users.models import CustomGroup
 
 from . managers import FinanceTransactionManager
+from . managers import ProjectManager
 from . managers import WalletStateManager
 
 
@@ -18,6 +22,8 @@ WALLET_CURRENCY_CHOICES = one_base([u'Рубли', u'Доллары'])
 WALLET_TYPE = one_base([u'Безналичные рубли', u'Наличные рубли', u'Безналичные доллары', u'Наличные доллары'])
 FINANCE_TRANSACTION_CHOICES = one_base([u'Приход', u'Расход'])
 FINANCE_VAT_CHOICES = one_base([u'НДС включен', u'без НДС', u'НДС не взимается'])
+PROJECT_TYPE_CHOICES = one_base([u'Офис', u'Квартира', u'Магазин', u'Фуд', u'Другое'])
+PROJECT_STATUS_CHOICES = one_base([u'Потенциальный', u'Выигранный', u'Проигранный'])
 
 
 class Workarea(models.Model):
@@ -92,20 +98,15 @@ class JobType(models.Model):
         return self.short_title
 
 
-PROJECT_TYPE_CHOICES = one_base([u'Офис', u'Квартира', u'Магазин', u'Фуд', u'Другое'])
-PROJECT_STATUS_CHOICES = one_base([u'Потенциальный', u'Выигранный', u'Проигранный'])
-
-
 class Project(models.Model):
     customer = models.ForeignKey(Customer)
     address = models.CharField(max_length=255, blank=True, null=True)
     staff = models.ManyToManyField(CustomUser, through='Membership')
     job_type = models.ManyToManyField(JobType)
-    short_name = models.CharField(max_length=255)
+    short_name = models.CharField(max_length=128)
     long_name = models.TextField(blank=True, null=True)
     ptype = models.IntegerField(choices=PROJECT_TYPE_CHOICES)
     status = models.IntegerField(choices=PROJECT_STATUS_CHOICES)
-    teaser = models.ImageField(upload_to='project/teaser', blank=True, null=True)
     desc_short = models.TextField(blank=True, null=True)
     desc_long = models.TextField(blank=True, null=True)
     tasks = models.TextField(blank=True, null=True)
@@ -123,7 +124,48 @@ class Project(models.Model):
     price_full = models.FloatField(default=0.0)
     currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
     exchange_rate = models.FloatField(default=1.0)
+    is_public = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     registered = models.DateTimeField(auto_now_add=True)
+
+    slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
+
+    objects = ProjectManager()
+
+    class Meta:
+        verbose_name = u'Project'
+        verbose_name_plural = u'Projects'
+
+    def __unicode__(self):
+        return self.short_name
+
+    def get_absolute_url(self):
+        return reverse('frontend:project', kwargs=dict(slug=self.slug))
+
+    @property
+    def price_meter(self):
+        u"""Цена за квадратный метр."""
+        return self.price_full / self.object_square
+
+    @property
+    def duration_full(self):
+        u"""Полные трудозатраты, в часах."""
+        return self.duration_production + self.duration_changes + self.duration_discussion + self.duration_other
+
+    @property
+    def production_percent(self):
+        u"""Процент производственного времени."""
+        return self.duration_production * 100 / self.duration_full
+
+    @property
+    def meters_per_hour(self):
+        u"""Скорость проектирования, метров в час."""
+        return self.object_square / self.duration_production
+
+    @property
+    def speed(self):
+        u"""Скорость проекта, метров в день."""
+        return self.object_square / self.duration_full
 
 
 class Membership(models.Model):
@@ -136,11 +178,18 @@ class Membership(models.Model):
     leaved_at = models.DateTimeField(verbose_name=_(u'Leaved'), blank=True, null=True)
 
 
+def upload_with_name(instance, filename):
+    return u'project/image/%s/%s' % (instance.project.slug, filename)
+
+
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project)
     position = models.IntegerField()
-    image = models.ImageField(upload_to='project/image', max_length=255)
-    publish = models.BooleanField()
+    image = models.ImageField(upload_to=upload_with_name, max_length=255)
+    comment = models.CharField(max_length=255, blank=True, null=True)
+    is_teaser = models.BooleanField()
+    is_pro6 = models.BooleanField()
+    is_publish = models.BooleanField()
 
 
 class FinanceTransaction(models.Model):

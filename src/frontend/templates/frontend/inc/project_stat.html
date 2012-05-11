@@ -1,0 +1,46 @@
+<!-- START OF STATS -->
+<div class="section-box-dark">
+    <h1 class="nova">Информация о Проекте</h1>
+    <div class="stats-wrap">
+        <ul class="stats">
+            {% if user.is_authenticated %}
+            <li>&nbsp;</li>
+            <li>Дата создания<em>{{ project.registered }}</em></li>
+            <li>Дата начала работ<em>{{ project.begin }}</em></li> 
+            <li>Дата окончания работ<em>{{ project.end }}</em></li>
+            {% endif %}
+
+            <li>&nbsp;</li>
+            <li>Год<em>{{ project.begin|date:"Y" }}</em></li>
+            <li>Расположение
+                <em>
+                    <a href="http://maps.yandex.ru?text={{ project.address }}" target="_new">{{ project.address }}</a>
+                </em>
+            </li>
+            <li>Площадь<em>{{ project.object_square }} м.кв.</em></li>
+
+            <li>&nbsp;</li>
+            {% for role, users in roles.items %}
+                <li>{{ role }}<em>
+                {% for user in users %}
+                    {% if user %}
+                        {{ user }}{% if not forloop.last %},{% endif %}
+                    {% endif %}
+                {% endfor %}
+                </em></li>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+            <li>&nbsp;</li>
+            <li>Полная стоимость:<em>{{ project.price_full|floatformat:-2 }} &#8374;</em></li>
+            <li>Стоимость за квадратный метр:<em>{{ project.price_meter|floatformat:-2 }} &#8374;/m<sup>2</sup></em></li>
+            <li>Полные трудозатраты:<em>{{ project.duration_full }} часов</em></li>
+            <li>Производственное время к общему времени:<em>{{ project.production_percent|floatformat:-2 }}%</em></li>
+            <li>Скорость проектирования:<em>{{ project.meters_per_hour|floatformat:-2 }} m<sup>2</sup>/h</em></li>
+            <li>Скорость проекта:<em>{{ project.speed|floatformat:-2 }} m<sup>2</sup>/d</em></li>
+            {% endif %}
+        </ul>
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- END OF STATS -->
