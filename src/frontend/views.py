@@ -11,7 +11,8 @@ def index(request):
     context = dict(
         projects=models.Project.objects.winned().public().active(),
         clients=models.Customer.objects.filter(logo__isnull=False, url__isnull=False),
-        recommendations=models.Recommendation.objects.all()
+        recommendations=models.Recommendation.objects.all(),
+        all_job_types=models.JobType.objects.all(),
     )
     return direct_to_template(request, 'frontend/index.html', context)
 
