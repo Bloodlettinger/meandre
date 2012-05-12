@@ -51,24 +51,7 @@
                     <a id="v22-mail" href="mailto:me@andrgavr.com">me@andrgavr.com</a>
                 </div>
                 <div id="v22-top-nav-03">
-                    <div id="v22-login-wrap">
-                        <form controller="users" id="UserLoginForm" method="post" action="/ru/users/login" accept-charset="utf-8">
-                            <div style="display:none;">
-                                <input type="hidden" name="_method" value="POST" />
-                            </div>
-                            <input name="data[User][username]" type="text" class="ptserif" id="UserUsername" />
-                            <input type="password" name="data[User][password]" class="ptserif" id="UserPassword" />
-                            <label id="user_login_button">Login</label>
-                        </form>
-                        <script type="text/javascript">
-$(document).ready(function() {
-    $('label#user_login_button').click(function(){
-        $(this).parent().submit();
-    });
-});
-                        </script>
-
-                    </div>
+                    {% include "frontend/inc/widget_auth.html" %}
                     <div id="v22-search-wrap">
                         <form>
                             <input class="ptserif" type="text" id="search_input" />

@@ -3,12 +3,14 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
+from django.contrib.auth.forms import AuthenticationForm
 
 from src.storage import models
 
 
 def index(request):
     context = dict(
+        form_auth = AuthenticationForm(),
         projects=models.Project.objects.winned().public().active(),
         clients=models.Customer.objects.filter(logo__isnull=False, url__isnull=False),
         recommendations=models.Recommendation.objects.all(),
