@@ -1,0 +1,15 @@
+<div id="v22-login-wrap">
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url auth:logout %}?next={{ request.path|urlencode }}">
+        {% csrf_token %}
+        <input type="submit" name="logout" value="Logout"/>
+    </form>
+    {% else %}
+    <form method="post" action="{% url auth:login %}?next={{ request.path|urlencode }}">
+        {% csrf_token %}
+        <input type="text" name="username" maxlength="30" id="id_username" />
+        <input type="password" name="password" id="id_password" />
+        <input type="submit" name="login" value="Login"/>
+    </form>
+    {% endif %}
+</div>
