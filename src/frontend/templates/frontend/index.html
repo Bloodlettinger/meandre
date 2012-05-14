@@ -11,46 +11,14 @@
 
 <div id="wide-wrap" class="wide-bg-03">
     <div class="col960">
-        <div id="v22-stats-section-wrap">
-            <h1>
-                <div class="section-stats-name nova">Статистика</div>
-            </h1>
-
-            <div class="statistics_block">
-                <div class="stat_wrap_01">
-                    <div class="stat_win_projects_this_year"><span>0</span><em class='ptserif'>проектов в 2012 Из</em><span>253</span><em class='ptserif'>Всего</em></div>
-
-                    <div class="stat_total_projects_this_year"><span>4</span><em class='ptserif'>предложений в 2012 Из</em><span>777</span><em class='ptserif'>Всего</em></div>
-            </div>
-
-            <div class="stat_time_spent_this_year"><span>1</span><em class='ptserif'>Потрачено часов в 2012 году на архитектурное проектирование</em></div>
-
-            <div class="stat_win_objects_square"><span>5087</span><em class='ptserif'>квадратных метров спроектировано в 2012 </em></div>
-            <div class="clear"></div>
-            <hr />
-
-            <div class="stat_years_1">
-                <span>19</span>
-                <em>Лет в проектировании</em>
-            </div>
-            <div class="stat_years_2">
-                <span>11</span>
-                <em>Лет с западными заказчиками</em>
-            </div>
-            <div class="meetings">
-                <span>2417</span>
-                <em>часов проведено на встречах</em>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
+        {% include "frontend/inc/widget_stat.html" %}
     </div>
 
-{% include "frontend/inc/directions.html" %}
-{% include "frontend/inc/solutions.html" %}
-{% include "frontend/inc/projects.html" %}
-{% include "frontend/inc/clients.html" %}
-{% include "frontend/inc/recommendations.html" %}
+    {% include "frontend/inc/directions.html" %}
+    {% include "frontend/inc/solutions.html" %}
+    {% include "frontend/inc/projects.html" %}
+    {% include "frontend/inc/clients.html" %}
+    {% include "frontend/inc/recommendations.html" %}
 
 </div>
 {% endblock %}

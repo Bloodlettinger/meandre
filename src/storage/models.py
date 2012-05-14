@@ -11,6 +11,7 @@ from src.users.models import CustomGroup
 
 from . managers import FinanceTransactionManager
 from . managers import ProjectManager
+from . managers import ProjectStatisticManager
 from . managers import WalletStateManager
 
 
@@ -118,9 +119,10 @@ class Project(models.Model):
     duration_changes = models.IntegerField(default=0)
     duration_discussion = models.IntegerField(default=0)
     duration_other = models.IntegerField(default=0)
+    productivity = models.FloatField(default=0.0)
     begin = models.DateField(blank=True, null=True)
     end = models.DateField(blank=True, null=True)
-    price_average = models.FloatField(default=0.0)
+    price_average = models.FloatField(default=0.0, help_text=u'Цена за квадратный метр')
     price_full = models.FloatField(default=0.0)
     currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
     exchange_rate = models.FloatField(default=1.0)
@@ -131,6 +133,7 @@ class Project(models.Model):
     slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
 
     objects = ProjectManager()
+    statistic = ProjectStatisticManager()
 
     class Meta:
         verbose_name = u'Project'
@@ -141,6 +144,19 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('frontend:project', kwargs=dict(slug=self.slug))
+
+    def save(self, *args, **kwargs):
+        try:
+            self.productivity = self.object_square / self.duration_production
+        except ZeroDivisionError:
+            self.productivity = 0.0
+
+        try:
+            self.price_average = self.price_full / self.object_square
+        except ZeroDivisionError:
+            self.price_average = 0.0
+
+        return super(Project, self).save(*args, **kwargs)
 
     @property
     def price_meter(self):
