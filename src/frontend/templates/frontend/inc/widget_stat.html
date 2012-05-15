@@ -52,6 +52,8 @@
             <em>часов проведено на встречах</em>
         </div>
         <div class="clear"></div>
+
+        {% if user.is_authenticated %}
         <hr/>
 
         <div class="stat_wrap_02">
@@ -139,7 +141,7 @@
             <em>CASUAL</em>
         </div>
         <div class="clear"></div>
-
+        {% endif %}
     </div>
     <div class="clear"></div>
 </div>
