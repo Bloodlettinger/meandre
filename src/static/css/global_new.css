@@ -962,7 +962,7 @@ em.p-navigation {
 	margin:0;
 	padding:0;
 	display:block;
-	position:absolute;
+	/* position:absolute; */
 	right:10px;
 	top:0px;
 

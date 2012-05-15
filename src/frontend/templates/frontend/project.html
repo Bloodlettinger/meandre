@@ -28,14 +28,26 @@
     </div>
 </div>
 
-<div id="wide-wrap" class="wide-bg-04">
+<div id="sky-wrap" class="wide-bg-04">
     <div class="col960 skybg">
         <div id="v22-projnav">
             <h1>
                 <em class="p-navigation ptserif">
-                    <a href="/ru/projects/view/1/0410">&larr;&nbsp;Предыдущий проект</a>
+                    {% with prev_url=prev.get_absolute_url %}
+                      {% if prev_url %}
+                    <a href="{{ prev_url }}">&larr;&nbsp;Предыдущий проект</a>
+                      {% else %}
+                    &larr;&nbsp;Предыдущий проект
+                      {% endif %}
+                    {% endwith %}
                     &nbsp;|&nbsp;
-                    <a href="/ru/projects/view/19/0414">Следующий проект&nbsp;&rarr;</a>
+                    {% with next_url=next.get_absolute_url %}
+                      {% if next_url %}
+                    <a href="{{ next_url }}">Следующий проект&nbsp;&rarr;</a>
+                      {% else %}
+                    Следующий проект&nbsp;&rarr;
+                      {% endif %}
+                    {% endwith %}
                 </em>
             </h1>
         </div>

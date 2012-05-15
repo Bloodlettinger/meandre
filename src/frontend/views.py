@@ -37,6 +37,8 @@ def project(request, slug):
 
     context = dict(
         project=obj,
+        next=models.Project.objects.get_next(obj),
+        prev=models.Project.objects.get_prev(obj),
         all_job_types=models.JobType.objects.all(),
         roles=role_users,
     )

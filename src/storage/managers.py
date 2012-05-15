@@ -58,6 +58,23 @@ class ProjectQuerySet(QuerySet):
     def active(self):
         return self.filter(is_active=True)
 
+    def get_neighbour(self, obj, next=True):
+        default = dict(slug__isnull=False, customer__logo__isnull=False, is_public=True)
+        if next:
+            direction, params = 'pk', dict(default, pk__gt=obj.pk)
+        else:
+            direction, params = '-pk', dict(default, pk__lt=obj.pk)
+        try:
+            return self.order_by(direction).filter(**params)[0]
+        except IndexError:
+            return None
+
+    def get_next(self, obj):
+        return self.get_neighbour(obj, next=True)
+
+    def get_prev(self, obj):
+        return self.get_neighbour(obj, next=False)
+
 
 class ProjectManager(PassThroughManager):
     use_for_related_fields = True
