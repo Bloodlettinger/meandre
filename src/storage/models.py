@@ -126,8 +126,10 @@ class Project(models.Model):
     price_full = models.DecimalField(max_digits=19, decimal_places=4, default=0.0)
     currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
     exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, default=1.0)
-    is_public = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_public = models.BooleanField(default=False, help_text=u'Публичный проект')
+    is_active = models.BooleanField(default=False, help_text=u'В разработке')
+    is_archived = models.BooleanField(default=False, help_text=u'Архивный')
+    is_finished = models.BooleanField(default=False, help_text=u'Завершённый')
     registered = models.DateTimeField(auto_now_add=True)
 
     slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
