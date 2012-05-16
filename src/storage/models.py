@@ -161,6 +161,14 @@ class Project(models.Model):
         return super(Project, self).save(*args, **kwargs)
 
     @property
+    def teaser(self):
+        u"""Возвращает главное изображение проекта."""
+        try:
+            return self.projectimage_set.get(is_teaser=True)
+        except self.DoesNotExist:
+            return None
+
+    @property
     def price_meter(self):
         u"""Цена за квадратный метр."""
         return self.price_full / self.object_square

@@ -1,70 +1,21 @@
 <!-- START OF TEASER -->
 <div id="top-teaser" class="nova">
     <ul>
+        {% for project in projects %}
+        <li>
+            <div class="TT-text-container">
+                <div class="TT-link">
+                    <a href="{{ project.get_absolute_url }}">Посмотреть проект&nbsp;&rsaquo;</a>
+                </div>
+                <div class="TT-description">{{ project.desc_short }}</div>
+            </div>
 
-    <li>
-        <div class="TT-text-container">
-        <div class="TT-link">
-            <a href="/ru/projects/view/56/0491">
-                Посмотреть проект&nbsp;&rsaquo;         </a>
-        </div>
-        <div class="TT-description">
-            Компания Сольвей пригласила нас спроектировать новый современный офис в Нордстаре       </div>
-        </div>
-
-        <div class="TT-img-container">
-            <img src="/files/teasers/c8bb2faf898973767d223fa6e4d53a731.jpg" alt="Офис Сольвей" width="630" height="420" />
-        </div>
-        <div class="clear"></div>
-    </li>
-
-    <li>
-        <div class="TT-text-container">
-        <div class="TT-link">
-            <a href="/ru/projects/view/1/0410">
-                Посмотреть проект&nbsp;&rsaquo;         </a>
-        </div>
-        <div class="TT-description">
-            Заказчик попросил придумать концепцию переговорного пространства и составить спецификацию для быстрой подготовки бюджета.       </div>
-        </div>
-
-        <div class="TT-img-container">
-            <img src="/files/teasers/b955390e04cf927455e7d67f86456c661.jpg" alt="" width="630" height="420" />
-        </div>
-        <div class="clear"></div>
-    </li>
-
-    <li>
-        <div class="TT-text-container">
-        <div class="TT-link">
-            <a href="/ru/projects/view/2/0404">
-                Посмотреть проект&nbsp;&rsaquo;         </a>
-        </div>
-        <div class="TT-description">
-            Нас попросили спроектировать ресторан, который бы выглядел точно так же как столетняя нью-йоркская таверна      </div>
-        </div>
-
-        <div class="TT-img-container">
-            <img src="/files/teasers/ba9b4b8cb8bcc9b9ee38db691749fb121.jpg" alt="Ресторан &laquo;Таверна&raquo;" width="630" height="420" />
-        </div>
-        <div class="clear"></div>
-    </li>
-
-    <li>
-        <div class="TT-text-container">
-        <div class="TT-link">
-            <a href="/ru/projects/view/4/0412">
-                Посмотреть проект&nbsp;&rsaquo;         </a>
-        </div>
-        <div class="TT-description">
-            Нас попросили придумать что-нибудь необычное для небольшого офиса в &laquo;Москва Сити&raquo;, состоящего из ВИП-зоны и бэк-офиса       </div>
-        </div>
-
-        <div class="TT-img-container">
-            <img src="/files/teasers/919e66ff76494e0713efb41698d729471.jpg" alt="Вип-Офис в Москва Сити" width="630" height="420" />
-        </div>
-        <div class="clear"></div>
-    </li>
+            <div class="TT-img-container">
+                <img src="{{ project.teaser.image.url }}" alt="{{ project.short_name }}" title="{{ project.short_name }}" width="630" height="420" />
+            </div>
+            <div class="clear"></div>
+        </li>
+        {% endfor %}
     </ul>
 </div>
 <!-- END OF TEASER -->
