@@ -13,7 +13,7 @@ def index(request):
     year = date.today().year
 
     context = dict(
-        projects=models.Project.objects.winned().public().active(),
+        projects=models.Project.objects.winned().public(),
         clients=models.Customer.objects.filter(logo__isnull=False, url__isnull=False),
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),

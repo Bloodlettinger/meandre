@@ -55,8 +55,8 @@ class ProjectQuerySet(QuerySet):
     def public(self):
         return self.filter(is_public=True)
 
-    def active(self):
-        return self.filter(is_active=True)
+    def for_stats(self):
+        return self.filter(in_stats=True)
 
     def get_neighbour(self, obj, next=True):
         default = dict(slug__isnull=False, customer__logo__isnull=False, is_public=True)

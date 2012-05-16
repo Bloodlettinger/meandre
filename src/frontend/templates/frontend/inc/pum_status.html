@@ -1,0 +1,22 @@
+{% load staticfiles %}
+{% if user.is_authenticated %}
+<div class="pum-status">
+    {% if project.is_public %}
+        <img src="{% static "img/site/PUM-PS-public.png" %}" alt="public" title="public"/>
+    {% else %}
+        <img src="{% static "img/site/PUM-PS-hidden.png" %}" alt="hidden" title="hidden"/>
+    {% endif %}
+
+    {% if project.is_archived %}
+        <img src="{% static "img/site/PUM-PS-arch.png" %}" alt="archived" title="archived"/>
+    {% else %}
+        <img src="{% static "img/site/PUM-PS-nonarch.png" %}" alt="active" title="active">
+    {% endif %}
+
+    {% if project.in_stats %}
+        <img src="{% static "img/site/PUM-PS-stats.png" %}" alt="in statistics" title="in statistics"/>
+    {% else %}
+        <img src="{% static "img/site/PUM-PS-nostats.png" %}" alt="not in statistics" title="not in statistics"/>
+    {% endif %}
+</div>
+{% endif %}

@@ -8,7 +8,7 @@
         {% for item in projects %}
         <div class="project-container ">
             <a href="{{ item.get_absolute_url }}" class="project-button">
-                <p class="pt-office" 
+                <p class="pt-office"
                 {% if item.ptype == 1 %}
                   style="background-image: url('../static/img/site/work-emboss-32.png')"
                 {% elif item.ptype == 2 %}
@@ -50,9 +50,12 @@
                     </div>
                     <hr class="clear"/>
                     {% if item.address %}
-                    <div class="pum-data ptserif"><a href="http://maps.yandex.ru?text={{ item.address }}" target="_new">{{ item.address }}</a></div>
+                    <div class="pum-data ptserif">
+                        <a href="http://maps.yandex.ru?text={{ item.address }}" target="_new">{{ item.address }}</a>
+                        </div>
                     {% endif %}
                     <hr/>
+                    {% include "frontend/inc/pum_status.html" with user=user project=item %}
                     <div class="pum-action"><a class="pum-project-open" href="{{ item.get_absolute_url }}"></a></div>
                 </div>
                 <div class="pum-footer"></div>
