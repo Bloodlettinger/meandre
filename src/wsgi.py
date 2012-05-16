@@ -14,8 +14,14 @@ framework.
 
 """
 import os
+import sys
+import site
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sag.settings")
+sys.stdout = sys.stderr
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
+sys.path.insert(0, '/home/rad/devel/django/sag')
+sys.path.insert(1, '/home/rad/devel/django/sag/env/lib/python2.6/site-packages')
+site.addsitedir('/home/rad/devel/django/sag/env/lib/python2.6/site-packages')
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

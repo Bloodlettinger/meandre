@@ -17,3 +17,5 @@ simplejson
 django-modeltranslation
 django-model-utils == 1.0.0
 django-tastypie == 0.9.11
+
+-e git+git://github.com/code-on/django-chunks.git@fad1e9eb51fc586852234eaf3a4dc6dc59daef8e#egg=django-chunks
