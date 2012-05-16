@@ -20,12 +20,30 @@
                 {% else %}
                 {% endif %}
                 >{{ item.short_name }}</p>
+                {% if user.is_authenticated %}
+                    {% if item.status == 3 %}
+                        <em class="icon-lost"></em>
+                    {% elif item.status == 2 %}
+                        {% if item.is_finished %}
+                            <em class="icon-finished"></em>
+                        {% else %}
+                            <em class="icon-inprogress"></em>
+                        {% endif %}
+                    {% elif item.status == 1 %}
+                        <em class="icon-wait"></em>
+                    {% endif %}
+                {% endif %}
             </a>
             <div class="v22-project-pum-wrap">
                 <div class="pum-header"></div>
                 <div class="pum-secure">
                     <div class="pum-clo">
                         <p class="ptserif pum-clo-cn">{{ item.customer.short_name }}</p>
+                        {% if user.is_authenticated %}
+                        <p class="nova pum-clo-at">
+                            {{ item.customer.get_customer_type_display }}
+                        </p>
+                        {% endif %}
                     </div>
                     <div class="pum-logo">
                         <a href="{{ item.customer.url }}"><img src="{{ item.customer.logo.url }}" /></a>
