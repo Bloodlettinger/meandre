@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from django.db.models import ManyToManyField
 from django.utils.translation import ugettext_lazy as _
 
 from salmonella.admin import SalmonellaMixin
@@ -11,6 +10,8 @@ from . import models
 
 class WorkareaAdmin(admin.ModelAdmin):
     list_display = ('name', )
+    list_filter = ('enabled', )
+    search_fields = ('name', )
 admin.site.register(models.Workarea, WorkareaAdmin)
 
 
@@ -21,6 +22,8 @@ admin.site.register(models.Partner, PartnerAdmin)
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('code', 'short_name', 'partner', 'customer_type', 'partnership_type', 'workareas')
+    list_filter = ('partnership_type', )
+    search_fields = ('code', 'short_name', 'partner__code', 'partner__name')
     fieldsets = (
         (_(u'Base'), dict(fields=('code', 'short_name', 'long_name', 'customer_type', 'partnership_type', 'partner', 'workarea', 'url', 'logo'))),
         )
@@ -58,6 +61,8 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
 
 class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
     list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
+    list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
+    search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
         (_(u'Base'), dict(fields=('customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
         (_(u'State'), dict(fields=('is_public', 'is_archived', 'is_finished', 'in_stats'))),
@@ -67,7 +72,6 @@ class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
     inlines = (MembershipInline, ProjectImageInline, )
-    search_fields = ('customer', 'short_name', 'long_name', 'desc_short', 'desc_long')
     filter_horizontal = ('job_type', )
     save_on_top = True
     salmonella_fields = ('customer',)
@@ -77,6 +81,8 @@ admin.site.register(models.Project, ProjectAdmin)
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat', 'exchange_rate', 'contract', 'contractor', 'done_at')
+    list_filter = ('wallet', 'transaction_type', 'transaction_vat')
+    search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
