@@ -7,3 +7,5 @@ django-fab-deploy >= 0.7.2
 sqlparse        # pretty SQL formatting
 werkzeug        # interactive debugger
 guppy           # tracks memory usage (required for MemoryUseModule)
+
+Whoosh == 1.8.4 # pretty easy search backend for xapian

@@ -136,7 +136,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_autoslug',
     'devserver',
-    'easy_thumbnails',
     'south',
     'salmonella',
 
@@ -174,6 +173,9 @@ LOGGING = {
     }
 }
 
+###
+# easy_thumbnails
+INSTALLED_APPS += ('easy_thumbnails', )
 THUMBNAIL_ALIASES = {
     '': dict(
         teaser=dict(size=(630, 420), crop=False),
@@ -181,6 +183,15 @@ THUMBNAIL_ALIASES = {
         pro6_gray=dict(size=(300, 200), crop='smart', bw=True),
     ),
 }
+
+###
+# haystack
+INSTALLED_APPS += ('haystack', )
+HAYSTACK_INCLUDE_SPELLING = True
+HAYSTACK_SEARCH_ENGINE = 'xapian'
+HAYSTACK_SITECONF = 'src.search'
+HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_DIR, 'search', 'xapian_index')
+TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, 'search', 'templates'), )
 
 try:
     LOCAL_SETTINGS

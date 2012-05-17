@@ -52,11 +52,7 @@
                 </div>
                 <div id="v22-top-nav-03">
                     {% include "frontend/inc/widget_auth.html" %}
-                    <div id="v22-search-wrap">
-                        <form>
-                            <input class="ptserif" type="text" id="search_input" />
-                        </form>
-                    </div>
+                    {% include "frontend/inc/widget_search.html" %}
                 </div>
             </div>
         </div>
@@ -318,27 +314,5 @@ $(document).ready(function() {
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#v22-search-wrap form').submit(function(){
-        return false;
-    });
-
-    $('#search_input').keydown(function(e){
-        var code = (e.keyCode ? e.keyCode : e.which);
-
-        if (code == 13) {
-            var url = '/ru/projects/search/' + $('#search_input').val() ;
-            //alert(url); return false;
-            document.location.href = url;
-
-            //e.preventDefault();
-
-            //return false;
-        }
-    });
-});
-</script>
 </body>
 </html>

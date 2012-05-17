@@ -6,7 +6,11 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 
+from haystack.query import SearchQuerySet
+
 from src.storage import models
+
+from . forms import MainSearchForm
 
 
 def index(request):
@@ -20,6 +24,20 @@ def index(request):
         stat=models.Project.statistic.compare_years(year, year - 1)
     )
     return direct_to_template(request, 'frontend/index.html', context)
+
+
+def search(request):
+    form = MainSearchForm(request.GET or None)
+
+    context = dict(form=form)
+
+    if form.is_valid():
+        query = form.cleaned_data.get('query', '')
+        sqs = SearchQuerySet().filter(description=query)
+        context = dict(context,
+            projects=models.Project.objects.filter(pk__in=[i.pk for i in sqs]),
+            searching_for=query)
+    return direct_to_template(request, 'frontend/search.html', context)
 
 
 def project(request, slug):

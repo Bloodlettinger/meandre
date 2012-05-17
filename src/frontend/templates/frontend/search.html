@@ -1,0 +1,13 @@
+{% extends "frontend/base.html" %}
+{% load staticfiles %}
+{% block main_content %}
+<div class="wide-wrap wide-bg-02">
+    <div class="col960">
+        {% include "frontend/inc/head_title.html" %}
+    </div>
+</div>
+
+<div id="wide-wrap" class="wide-bg-03">
+    {% include "frontend/inc/projects.html" %}
+</div>
+{% endblock %}

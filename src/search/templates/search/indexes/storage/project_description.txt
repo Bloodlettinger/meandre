@@ -1,0 +1,9 @@
+{{ object.address }}
+{{ object.short_name }}
+{{ object.long_name }}
+{{ object.desc_short }}
+{{ object.desc_long }}
+{{ object.tasks }}
+{{ object.problems }}
+{{ object.results }}
+{{ object.made_for }}
