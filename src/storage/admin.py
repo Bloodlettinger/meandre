@@ -2,7 +2,9 @@
 
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.fields.files import ImageField
 
+from easy_thumbnails.widgets import ImageClearableFileInput
 from salmonella.admin import SalmonellaMixin
 
 from . import models
@@ -49,7 +51,12 @@ admin.site.register(models.JobType, JobTypeAdmin)
 
 class ProjectImageInline(admin.TabularInline):
     model = models.ProjectImage
-    extra = 2
+    extra = 1
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if isinstance(db_field, ImageField):
+            kwargs['widget'] = ImageClearableFileInput
+        return super(ProjectImageInline, self).formfield_for_dbfield(db_field, **kwargs)
 
 
 class MembershipInline(SalmonellaMixin, admin.TabularInline):
