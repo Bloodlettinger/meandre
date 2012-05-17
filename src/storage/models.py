@@ -169,6 +169,14 @@ class Project(models.Model):
             return None
 
     @property
+    def pro6(self):
+        u"""Возвращает изображение проекта для витрины."""
+        try:
+            return self.projectimage_set.get(is_pro6=True)
+        except self.DoesNotExist:
+            return None
+
+    @property
     def price_meter(self):
         u"""Цена за квадратный метр."""
         return self.price_full / self.object_square

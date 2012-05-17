@@ -1,104 +1,28 @@
-                <!-- START OF RECENT PROJECTS-->
-
-
+{% load thumbnail %}
+<!-- START OF RECENT PROJECTS-->
 <div id="v22-recent-project-section">
     <h1 class="nova header-01">В Работе/Свежие</h1>
-
     <ul id="recent-projects">
-
-
+        {% for project in projects %}
         <li>
-            <a href="/ru/projects/view/56/0491">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/c8bb2faf898973767d223fa6e4d53a731.jpg" style="background: url(/files/6pro/c8bb2faf898973767d223fa6e4d53a731_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Офис Сольвей                </p>
-                <em>&raquo;</em>
-
-                                <span>Офис Сольвей</span>
-                                        </div>
-            </div>
+            <a href="{{ project.get_absolute_url }}">
+                <div>
+                    <img class="fade" width="300" height="200" 
+                        src="{{ project.pro6.image|thumbnail_url:'pro6_gray' }}" 
+                        style="background: url({{ project.pro6.image|thumbnail_url:'pro6' }});"
+                        />
+                    <div class="recent-desc">
+                        <p>{{ project.short_name }}</p>
+                        <em>&raquo;</em>
+                        <span>{{ project.short_name }}</span>
+                    </div>
+                </div>
             </a>
         </li>
-
-
-        <li>
-            <a href="/ru/projects/view/22/0410">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/d6c59a786e6846e4dbf8104b288afbaf1.jpg" style="background: url(/files/6pro/d6c59a786e6846e4dbf8104b288afbaf1_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Томсон Рейтерс в &laquo;Омега Плаза&raquo;              </p>
-                <em>&raquo;</em>
-
-                                <span>Томсон Рейтерс в &laquo;Омега Плаза&raquo;</span>
-                                        </div>
-            </div>
-            </a>
-        </li>
-
-
-        <li>
-            <a href="/ru/projects/view/4/0412">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/919e66ff76494e0713efb41698d729471.jpg" style="background: url(/files/6pro/919e66ff76494e0713efb41698d729471_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Вип-Офис в Москва Сити              </p>
-                <em>&raquo;</em>
-
-                                <span>Вип-Офис в Москва Сити</span>
-                                        </div>
-            </div>
-            </a>
-        </li>
-
-
-        <li>
-            <a href="/ru/projects/view/16/0415">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/0f0059334b7c5752e45d630b30253e101.jpg" style="background: url(/files/6pro/0f0059334b7c5752e45d630b30253e101_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Офис &laquo;МСД Фармасьютикалс&raquo;               </p>
-                <em>&raquo;</em>
-
-                                <span>Офис &laquo;МСД Фармасьютикалс&raquo;</span>
-                                        </div>
-            </div>
-            </a>
-        </li>
-
-
-        <li>
-            <a href="/ru/projects/view/6/0411">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/4703c113a453dcd1d05a837361541ca81.jpg" style="background: url(/files/6pro/4703c113a453dcd1d05a837361541ca81_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Офис Google             </p>
-                <em>&raquo;</em>
-
-                                <span>Офис Google</span>
-                                        </div>
-            </div>
-            </a>
-        </li>
-
-
-        <li>
-            <a href="/ru/projects/view/1/0410">
-            <div>
-            <img class="fade" width="300" height="200"  src="/files/6pro/b955390e04cf927455e7d67f86456c661.jpg" style="background: url(/files/6pro/b955390e04cf927455e7d67f86456c661_h.jpg);" />
-            <div class="recent-desc">
-                <p>
-                Томсон Рейтерс              </p>
-                <em>&raquo;</em>
-                        </div>
-            </div>
-            </a>
-        </li>
+        {% endfor %}
+    </ul>
+    <div class="clear"></div>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -126,11 +50,4 @@ $(document).ready(function() {
     });
 });
 </script>
-
-
-        <div class="clear"></div>
-    </ul>
-</div>
-
-
-                <!-- END OF RECENT PROJECTS-->
+<!-- END OF RECENT PROJECTS-->

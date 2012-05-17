@@ -8,6 +8,8 @@ django-admin-tools
 django-salmonella == 0.5.1
 django-autoslug-field
 
+easy_thumbnails
+
 Markdown >= 2.0
 python-dateutil == 1.5
 pytz

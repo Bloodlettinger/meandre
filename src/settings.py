@@ -134,10 +134,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'django_extensions',
+    'django_autoslug',
     'devserver',
+    'easy_thumbnails',
     'south',
     'salmonella',
-    'django_autoslug',
 
     'src.frontend',
     'src.users',
@@ -171,6 +172,14 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+THUMBNAIL_ALIASES = {
+    '': dict(
+        teaser=dict(size=(630, 420), crop=False),
+        pro6=dict(size=(300, 200), crop='smart'),
+        pro6_gray=dict(size=(300, 200), crop='smart', bw=True),
+    ),
 }
 
 try:
