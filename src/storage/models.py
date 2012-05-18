@@ -114,18 +114,18 @@ class Project(models.Model):
     problems = models.TextField(blank=True, null=True)
     results = models.TextField(blank=True, null=True)
     made_for = models.CharField(max_length=255, blank=True, null=True)
-    object_square = models.DecimalField(max_digits=19, decimal_places=4, default=0.0)
+    object_square = models.DecimalField(max_digits=19, decimal_places=4, default=0)
     duration_production = models.IntegerField(default=0)
     duration_changes = models.IntegerField(default=0)
     duration_discussion = models.IntegerField(default=0)
     duration_other = models.IntegerField(default=0)
-    productivity = models.DecimalField(max_digits=19, decimal_places=4, default=0.0)
+    productivity = models.DecimalField(max_digits=19, decimal_places=4, default=0)
     begin = models.DateField(blank=True, null=True)
     end = models.DateField(blank=True, null=True)
-    price_average = models.DecimalField(max_digits=19, decimal_places=4, default=0.0, help_text=u'Цена за квадратный метр')
-    price_full = models.DecimalField(max_digits=19, decimal_places=4, default=0.0)
+    price_average = models.DecimalField(max_digits=19, decimal_places=4, default=0, help_text=u'Цена за квадратный метр')
+    price_full = models.DecimalField(max_digits=19, decimal_places=4, default=0)
     currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
-    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, default=1.0)
+    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, default=1)
     is_public = models.BooleanField(default=False, help_text=u'Публичный проект')
     is_archived = models.BooleanField(default=False, help_text=u'Архивный')
     is_finished = models.BooleanField(default=False, help_text=u'Завершённый')
@@ -150,13 +150,13 @@ class Project(models.Model):
     def save(self, *args, **kwargs):
         try:
             self.productivity = self.object_square / self.duration_production
-        except ZeroDivisionError:
-            self.productivity = 0.0
+        except:
+            self.productivity = 0
 
         try:
             self.price_average = self.price_full / self.object_square
-        except ZeroDivisionError:
-            self.price_average = 0.0
+        except:
+            self.price_average = 0
 
         return super(Project, self).save(*args, **kwargs)
 
