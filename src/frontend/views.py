@@ -2,9 +2,11 @@
 
 from datetime import date
 
-from django.contrib import messages
+from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
+from django.utils import translation
 
 from haystack.query import SearchQuerySet
 
@@ -61,3 +63,15 @@ def project(request, slug):
         roles=role_users,
     )
     return direct_to_template(request, 'frontend/project.html', context)
+
+
+def lang(request, code):
+    next = request.META.get('HTTP_REFERER', '/')
+    response = HttpResponseRedirect(next)
+    if code and translation.check_for_language(code):
+        if hasattr(request, 'session'):
+            request.session['django_language'] = code
+        else:
+            response.set_cookie(settings.LANGUAGE_COOKIE_NAME, code)
+        translation.activate(code)
+    return response

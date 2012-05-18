@@ -47,7 +47,11 @@
         <div id="v22-topnav-wrap" class="wide-wrap">
             <div class="col960">
                 <div id="v22-top-nav-02" class="navstyle-home-2">
-                    <a href="/en/projects/index" id="v22-lang">English</a>
+                    {% if request.session.django_language == "en" %}
+                    <a href="{% url frontend:lang "ru" %}" id="v22-lang">Русский</a>
+                    {% else %}
+                    <a href="{% url frontend:lang "en" %}" id="v22-lang">English</a>
+                    {% endif %}
                     <a id="v22-mail" href="mailto:me@andrgavr.com">me@andrgavr.com</a>
                 </div>
                 <div id="v22-top-nav-03">

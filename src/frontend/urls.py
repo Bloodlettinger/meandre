@@ -7,4 +7,5 @@ urlpatterns = patterns('src.frontend.views',
     url(r'^$', 'index', name='index'),
     url(r'^search/$', 'search', name='search'),
     url(r'^project/(?P<slug>[-\w]+)/$', 'project', name='project'),
+    url(r'^lang/(?P<code>[a-z]{2})/$', 'lang', name='lang'),
 )
