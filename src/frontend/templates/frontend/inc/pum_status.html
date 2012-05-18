@@ -1,22 +1,29 @@
+{% load i18n %}
 {% load staticfiles %}
 {% if user.is_authenticated %}
 <div class="pum-status">
     {% if project.is_public %}
-        <img src="{% static "img/site/PUM-PS-public.png" %}" alt="public" title="public"/>
+        <img src="{% static "img/site/PUM-PS-public.png" %}"
+             title="{% trans "Public" %}"/>
     {% else %}
-        <img src="{% static "img/site/PUM-PS-hidden.png" %}" alt="hidden" title="hidden"/>
+        <img src="{% static "img/site/PUM-PS-hidden.png" %}"
+             title="{% trans "Hidden" %}"/>
     {% endif %}
 
     {% if project.is_archived %}
-        <img src="{% static "img/site/PUM-PS-arch.png" %}" alt="archived" title="archived"/>
+        <img src="{% static "img/site/PUM-PS-arch.png" %}"
+             title="{% trans "Archived" %}"/>
     {% else %}
-        <img src="{% static "img/site/PUM-PS-nonarch.png" %}" alt="active" title="active">
+        <img src="{% static "img/site/PUM-PS-nonarch.png" %}"
+             title="{% trans "Active" %}">
     {% endif %}
 
     {% if project.in_stats %}
-        <img src="{% static "img/site/PUM-PS-stats.png" %}" alt="in statistics" title="in statistics"/>
+        <img src="{% static "img/site/PUM-PS-stats.png" %}"
+             title="{% trans "In statistics" %}"/>
     {% else %}
-        <img src="{% static "img/site/PUM-PS-nostats.png" %}" alt="not in statistics" title="not in statistics"/>
+        <img src="{% static "img/site/PUM-PS-nostats.png" %}"
+             title="{% trans "Not in statistics" %}"/>
     {% endif %}
 </div>
 {% endif %}

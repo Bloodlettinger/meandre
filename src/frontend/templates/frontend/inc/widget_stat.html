@@ -1,11 +1,12 @@
+{% load i18n %}
 {% load staticfiles %}
 {% load statistichelpers %}
 <!-- START OF STATISTIC -->
 <div id="v22-stats-section-wrap">
     <h1>
-        <div class="section-stats-name nova">Статистика</div>
+        <div class="section-stats-name nova">{% trans "Statistics" %}</div>
         <div class="section-stats-menu">
-            <a href="/ru/statistics_constants/index">Настройки статистики</a>&nbsp;|&nbsp;<a href="/ru/project_types/index">Иконки</a>
+            <a href="/ru/statistics_constants/index">{% trans "Configuration" %}</a>&nbsp;|&nbsp;<a href="/ru/project_types/index">{% trans "Icons" %}</a>
         </div>
     </h1>
 
@@ -13,43 +14,43 @@
         <div class="stat_wrap_01">
             <div class="stat_win_projects_this_year">
                 <span>{{ stat.total_A.winned }}</span>
-                <em class="ptserif">проектов в {{ stat.year_A }} из</em>
+                <em class="ptserif">{% trans "won in" context "statistics" %} {{ stat.year_A }} {% trans "from" context "statistics" %}</em>
                 <span>{{ stat.total_A.total }}</span>
-                <em class="ptserif">Всего</em>
+                <em class="ptserif">{% trans "Total" %}</em>
             </div>
             <div class="stat_total_projects_this_year">
                 <span>4</span>
-                <em class="ptserif">предложений в {{ stat.year_A }} из</em>
+                <em class="ptserif">{% trans "inquiries in" %} {{ stat.year_A }} {% trans "from" context "statistics" %}</em>
                 <span>777</span>
-                <em class="ptserif">Всего</em>
+                <em class="ptserif">{% trans "Total" %}</em>
             </div>
             <div class="stat_speed_of_project_process">
                 <span>{{ stat.total_A.speed|floatformat:-2 }}</span>
-                <em class="ptserif">скорость м.кв./час за год</em>
+                <em class="ptserif">{% trans "Design Speed qs.m./h last year" %}</em>
             </div>
         </div>
         <div class="stat_time_spent_this_year">
             <span>{{ stat.total_A.production }}</span>
-            <em class="ptserif">Потрачено часов в {{ stat.year_A }} году на архитектурное проектирование</em>
+            <em class="ptserif">{% trans "Total Working Hours Spent In" context "statistics" %} {{ stat.year_A }} {% trans "On Architectural Design Projects" context "statistics" %}</em>
         </div>
         <div class="stat_win_objects_square">
             <span>{{ stat.total_A.square|floatformat:-2 }}</span>
-            <em class="ptserif">квадратных метров спроектировано в {{ stat.year_A }}</em>
+            <em class="ptserif">{% trans "Total Square Meters Of Various Spaces Designed In" context "statistics" %} {{ stat.year_A }}</em>
         </div>
         <div class="clear"></div>
         <hr/>
 
         <div class="stat_years_1">
             <span>19</span>
-            <em>Лет в проектировании</em>
+            <em>{% trans "Years in Design" %}</em>
         </div>
         <div class="stat_years_2">
             <span>11</span>
-            <em>Лет с западными заказчиками</em>
+            <em>{% trans "Years with Western Customers" %}</em>
         </div>
         <div class="meetings">
             <span>{{ stat.total_A.discuss }}</span>
-            <em>часов проведено на встречах</em>
+            <em>{% trans "Hours Spent on Meetings" %}</em>
         </div>
         <div class="clear"></div>
 
@@ -59,15 +60,15 @@
         <div class="stat_wrap_02">
             <div class="cost_tracking">
                 <span class="positive_trend">{{ stat.total_A.price|floatformat:-2 }}&nbsp;R.</span>
-                <em class="ptserif">выиграно в {{ stat.year_A }} по сравнению с</em>
+                <em class="ptserif">{% trans "won in" context "won in YEAR in relation to last year" %} {{ stat.year_A }} {% trans "in relation to" context "won in YEAR in relation to last year" %}</em>
                 <span>{{ stat.total_B.price|floatformat:-2 }}&nbsp;R.</span>
-                <em class="ptserif">в прошлом году</em>
+                <em class="ptserif">{% trans "last year" context "won in YEAR in relation to last year" %}</em>
             </div>
         </div>
         <hr/>
 
         <div class="line_stat">
-            <span>Выиграно проектов ({{ stat.year_A }}/{{ stat.year_B }})</span>
+            <span>{% trans "Projects Won" %} ({{ stat.year_A }}/{{ stat.year_B }})</span>
             <em class="">
                 <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.count }}/{{ stat.total_B.dist.5.count}}
             </em>
@@ -87,7 +88,7 @@
         </div>
 
         <div class="line_stat">
-            <span>Стоимость по типам, &#8374; (2012):</span>
+            <span>{% trans "Total Sales" %}, &#8374; ({{ stat.year_A }}):</span>
             <em class="">
                 <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price|moneyformat }}
             </em>
@@ -107,7 +108,7 @@
         </div>
 
         <div class="line_stat">
-            <span>Стоимость за м.кв., &#8374; (2012):</span>
+            <span>{% trans "Total Rate, sq.m." %}, &#8374; ({{ stat.year_A }}):</span>
             <em class="">
                 <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price_avg|moneyformat }}
             </em>

@@ -15,7 +15,7 @@ def moneyformat(value):
     except (TypeError, ValueError, UnicodeDecodeError):
         return ungettext("%(size)d", "%(size)d", 0) % {'size': 0}
 
-    _format = lambda value:formats.number_format(round(value, 1), 1)
+    _format = lambda value: formats.number_format(round(value, 1), 1)
 
     if value < 1024:
         return ungettext("%(size)d", "%(size)d", 0) % {'size': value}

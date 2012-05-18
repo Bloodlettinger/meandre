@@ -1,8 +1,9 @@
+{% load i18n %}
 <!-- START OF SOLUTIONS-->
 <div id="v22-tools-wrap">
     {% if roles %}
     {#  отображение на странице проекта #}
-    <h1 class="nova">Виды работ</h1>
+    <h1 class="nova">{% trans "Project Scope" %}</h1>
     <div id="v22-tools-cont">
         <div id="tools-nav-wrap-02">
             {% for job in all_job_types %}
@@ -15,7 +16,7 @@
     </div>
     {% else %}
     {#  отображение на главной странице #}
-    <h1><div class="section-tools-name nova">Виды работ</div></h1>
+    <h1><div class="section-tools-name nova">{% trans "Project Scope" %}</div></h1>
     <div id="v22-tools-cont">
         <div id="tools-nav-wrap">
             {% for job in all_job_types %}

@@ -1,14 +1,14 @@
-{% load thumbnail %}
+{% load thumbnail i18n %}
 <!-- START OF RECENT PROJECTS-->
 <div id="v22-recent-project-section">
-    <h1 class="nova header-01">В Работе/Свежие</h1>
+    <h1 class="nova header-01">{% trans "In Progress/Just Finished" %}</h1>
     <ul id="recent-projects">
         {% for project in projects %}
         <li>
             <a href="{{ project.get_absolute_url }}">
                 <div>
-                    <img class="fade" width="300" height="200" 
-                        src="{{ project.pro6.image|thumbnail_url:'pro6_gray' }}" 
+                    <img class="fade" width="300" height="200"
+                        src="{{ project.pro6.image|thumbnail_url:'pro6_gray' }}"
                         style="background: url({{ project.pro6.image|thumbnail_url:'pro6' }});"
                         />
                     <div class="recent-desc">

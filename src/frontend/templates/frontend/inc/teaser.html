@@ -1,3 +1,4 @@
+{% load i18n %}
 <!-- START OF TEASER -->
 <div id="top-teaser" class="nova">
     <ul>
@@ -5,13 +6,13 @@
         <li>
             <div class="TT-text-container">
                 <div class="TT-link">
-                    <a href="{{ project.get_absolute_url }}">Посмотреть проект&nbsp;&rsaquo;</a>
+                    <a href="{{ project.get_absolute_url }}">{% trans "Explore Project" %}&nbsp;&rsaquo;</a>
                 </div>
                 <div class="TT-description">{{ project.desc_short }}</div>
             </div>
 
             <div class="TT-img-container">
-                <img src="{{ project.teaser.image.url }}" alt="{{ project.short_name }}" title="{{ project.short_name }}" width="630" height="420" />
+                <img src="{{ project.teaser.image.url }}" title="{{ project.short_name }}" width="630" height="420" />
             </div>
             <div class="clear"></div>
         </li>

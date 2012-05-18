@@ -1,5 +1,5 @@
 {% extends "frontend/base.html" %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 {% block extra_styles %}
 <link rel="stylesheet" type="text/css" href="{% static "css/projects.css" %}" />
@@ -18,8 +18,8 @@
         <div id="v22-adminmenu-section-wrap">
             <h1>
                 <div class="section-am-menu">
-                    |&nbsp;<a href="{% url frontend:index %}">К Главной Странице</a>
-                    |&nbsp;<a href="{% url admin:storage_project_change project.pk %}">Редактировать</a>
+                    |&nbsp;<a href="{% url frontend:index %}">{% trans "Main Page %}</a>
+                    |&nbsp;<a href="{% url admin:storage_project_change project.pk %}">{% trans "Edit Project" %}</a>
                     &nbsp;|
                 </div>
             </h1>
@@ -35,17 +35,17 @@
                 <em class="p-navigation ptserif">
                     {% with prev_url=prev.get_absolute_url %}
                       {% if prev_url %}
-                    <a href="{{ prev_url }}">&larr;&nbsp;Предыдущий проект</a>
+                    <a href="{{ prev_url }}">&larr;&nbsp;{% trans "Previous Project" %}</a>
                       {% else %}
-                    &larr;&nbsp;Предыдущий проект
+                    &larr;&nbsp;{% trans "Previous Project" %}
                       {% endif %}
                     {% endwith %}
                     &nbsp;|&nbsp;
                     {% with next_url=next.get_absolute_url %}
                       {% if next_url %}
-                    <a href="{{ next_url }}">Следующий проект&nbsp;&rarr;</a>
+                    <a href="{{ next_url }}">{% trans "Next Project" %}&nbsp;&rarr;</a>
                       {% else %}
-                    Следующий проект&nbsp;&rarr;
+                    {% trans "Next Project" %}&nbsp;&rarr;
                       {% endif %}
                     {% endwith %}
                 </em>

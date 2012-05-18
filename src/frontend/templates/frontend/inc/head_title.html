@@ -1,13 +1,17 @@
+{% load i18n %}
+{% load staticfiles %}
 <div id="ultra-header">
     <div id="name-wrap">
         <a href="/ru/projects/index">
-            <div id="site-name-ru" style="background: url('/files/site/AG-big-bg-03_01.png')">Андрей Гаврилов и коллеги</div>
+            <div id="site-name-{{ request.session.django_language }}"
+                 title="{% trans "Andrey Gavrilov and Co." %}">
+            </div>
         </a>
         <div id="short-desc-wrap">
-            Архитектурное и инженерное проектирование интерьеров
+            {% trans "Interior Architects & Engineers" %}
         </div>
         <div id="what-i-do">
-            Мы проектируем интерьеры &mdash; для работы, для отдыха и для жизни.
+            {% trans "We design interior spaces &mdash; for work, for leasure and for living &mdash; with focus on Speed and Creativity." %}
         </div>
     </div>
     <div class="clear"></div>

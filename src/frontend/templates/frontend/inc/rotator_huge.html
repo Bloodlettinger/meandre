@@ -1,12 +1,11 @@
-<!-- START OF HUGE ROTATOR -->
+{% load i18n %}<!-- START OF HUGE ROTATOR -->
 <div class="section-box-dark">
-    <h1 class="nova">ПРОЕКТЫ / {{ project.short_name }}</h1>
+    <h1 class="nova">{% trans "Projects" %} / {{ project.short_name }}</h1>
     <div id="huge-rotator-wrap">
         <div class="huge-rotator-items">
             {% for thumb in project.projectimage_set.all %}
                 <img src="{{ thumb.image.url }}"
                     {% if thumb.comment %}
-                    alt="{{ thumb.comment }}"
                     title="{{ thumb.comment }}"
                     {% endif %}
                     width="960" height="640" />
@@ -14,7 +13,7 @@
         </div>
     </div>
     <div class="nav-wrap">
-        <a class="nav-prev jFlowPrev">&larr;&nbsp;Назад</a>&nbsp;|&nbsp;<a class="nav-next jFlowNext">Вперед&nbsp;&rarr;</a>
+        <a class="nav-prev jFlowPrev">&larr;&nbsp;{% trans "Backward" %}</a>&nbsp;|&nbsp;<a class="nav-next jFlowNext">{% trans "Forward" %}&nbsp;&rarr;</a>
     </div>
 </div>
 

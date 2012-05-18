@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-{% load staticfiles %}
+{% load staticfiles i18n %}
 <head>
     <meta name="google-site-verification" content="Q0p1RX8gjREQ7vME9qAIjGxzGYh8fL4BheiYUCIKd7c" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Студия Андрея Гаврилова</title>
+    <title>{% trans "Andrey Gavrilov Studio" %}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static "css/additional_new.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "css/global_new.css" %}" />
@@ -283,14 +283,14 @@ $(document).ready(function() {
     <div id="footer-container">
         <div id="v22-team-wrap">
             <h1>
-                <div class="footer-header-01 nova">О КОМАНДЕ</div>
+                <div class="footer-header-01 nova">{% trans "The Team" %}</div>
             </h1>
             <div class="about-wrap">
                 <ul class="about">
                     <li>
                         <a href="/files/download/Presentation - Screen 2012 RU.pdf">
-                            <p>Портфолио 2012</p><br />
-                            <p><small>Загрузите наше портфолио в формате PDF</small></p>
+                            <p>{% trans "Portfolio" %} 2012</p><br />
+                            <p><small>{% trans "Download our portfolio in PDF" %}"</small></p>
                         </a>
                     </li>
                     <div class="clear"></div>
@@ -300,20 +300,20 @@ $(document).ready(function() {
 
         <div id="v22-contacts-wrap">
             <h1>
-                <div class="footer-header-02 nova">Контакты</div>
+                <div class="footer-header-02 nova">{% trans "Contacts" %}</div>
             </h1>
             <div class="ft-contacts">
-                <p>ООО &laquo;Меандр&raquo;</p>
-                <p>Москва, ул. Верхняя Масловка, д.9</p>
-                <p>8 (916) 504-0965</p>
+                <p>{% trans "Méandre LLC" %}</p>
+                <p>{% trans "9 Verhnyaya Maslovka, Moscow, Russia" %}</p>
+                <p>+7 (916) 504-0965</p>
                 <p><a href="mailto:me@andrgavr.com">me@andrgavr.com</a></p>
             </div>
             <div class="clear"></div>
         </div>
 
         <div class="copyrights">
-            &copy;1998-2012. Андрей Гаврилов. Все права защищены.<br / >
-            &copy;2011-2012. ООО "Меандр". Все права защищены.<br / >
+            &copy;1998-2012. {% trans "Andrey Gavrilov. All rights reserved." %}<br / >
+            &copy;2011-2012. {% trans "Méandre LLC. All rights reserved." %}<br / >
         &copy; Mark Simonson, 2005. All rights reserved. Webfont Proxima Nova Bold.
         </div>
     </div>

@@ -1,3 +1,4 @@
+{% load i18n %}
 <!-- START OF PROJECT DESCRIPTION -->
 <div id="project-header">
     <p class="nova">{{ project.short_name }}</p>
@@ -12,15 +13,15 @@
     <div id="solutions-wrap">
         <ul class="solutions">
             <li>
-                <strong class="nova">Задача</strong>
+                <strong class="nova">{% trans "Task" %}</strong>
                 <em>{{ project.tasks|safe }}</em>
             </li>
             <li>
-                <strong class="nova">Сложности</strong>
+                <strong class="nova">{% trans "Challenge" %}</strong>
                 <em>{{ project.problems|safe }}</em>
             </li>
             <li>
-                <strong class="nova">Результат</strong>
+                <strong class="nova">{% trans "Result" %}</strong>
                 <em>{{ project.results|safe }}</em>
             </li>
             <div class="clear"></div>
