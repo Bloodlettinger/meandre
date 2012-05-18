@@ -22,10 +22,13 @@ class CustomUser(User):
     Модель пользователя, наследуемая от User. Предназначена для
     хранения дополнительной информации.
     """
-    phone = models.CharField(verbose_name=_(u'Phone'), max_length=16, blank=True, null=True)
-    birth_date = models.DateField(verbose_name=_(u'Birth date'), blank=True, null=True)
-    sex = models.CharField(verbose_name=_(u'Sex'), max_length=1, blank=True, null=True,
-                           choices=(('M', _(u'Male')), ('F', _(u'Female'))))
+    phone = models.CharField(verbose_name=_(u'Phone'), max_length=16,
+        blank=True, null=True)
+    birth_date = models.DateField(verbose_name=_(u'Birth date'),
+        blank=True, null=True)
+    sex = models.CharField(verbose_name=_(u'Sex'), max_length=1,
+        blank=True, null=True,
+        choices=(('M', _(u'Male')), ('F', _(u'Female'))))
 
     objects = UserManager()
 
