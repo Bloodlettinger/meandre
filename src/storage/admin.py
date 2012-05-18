@@ -6,6 +6,7 @@ from django.db.models.fields.files import ImageField
 
 from easy_thumbnails.widgets import ImageClearableFileInput
 from salmonella.admin import SalmonellaMixin
+from modeltranslation.admin import TranslationAdmin
 
 from . import models
 
@@ -66,7 +67,7 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
     salmonella_fields = ('user', 'role', 'company', )
 
 
-class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
+class ProjectAdmin(SalmonellaMixin, TranslationAdmin):
     list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
@@ -83,6 +84,15 @@ class ProjectAdmin(SalmonellaMixin, admin.ModelAdmin):
     save_on_top = True
     salmonella_fields = ('customer',)
 
+    class Media:
+        js = (
+            '/static/modeltranslation/js/force_jquery.js',
+            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js',
+            '/static/modeltranslation/js/tabbed_translation_fields.js',
+        )
+        css = {
+            'screen': ('/static/modeltranslation/css/tabbed_translation_fields.css',),
+        }
 admin.site.register(models.Project, ProjectAdmin)
 
 

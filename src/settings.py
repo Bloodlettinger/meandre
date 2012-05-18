@@ -28,14 +28,6 @@ TIME_ZONE = 'UTC'
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ru-RU'
 
-LANGUAGES = (
-    ('ru', 'Russian'),
-    ('en', 'English'),
-)
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
-MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
-
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -192,6 +184,17 @@ HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SITECONF = 'src.search'
 HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_DIR, 'search', 'xapian_index')
 TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, 'search', 'templates'), )
+
+###
+# modeltranslation
+INSTALLED_APPS += ('modeltranslation', )
+LANGUAGES = (
+    ('ru', 'Russian'),
+    ('en', 'English'),
+)
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
+
 
 try:
     LOCAL_SETTINGS

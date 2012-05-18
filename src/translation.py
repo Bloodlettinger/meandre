@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from modeltranslation.translator import translator, TranslationOptions
-from app.models import Modelka
+
+from . storage.models import Project
 
 
-# class ModelkaTranslationOptions(TranslationOptions):
-#     """
-#     Класс настроек интернационализации полей модели Modelka.
-#     """
+class ProjectTranslationOptions(TranslationOptions):
+    u"""
+    Класс настроек интернационализации полей модели Project.
+    """
+    fields = ('address', 'short_name', 'long_name', 'desc_short', 'desc_long',
+        'tasks', 'problems', 'results')
 
-#     fields = ('name', 'description',)
-
-# translator.register(Modelka, ModelkaTranslationOptions)
+translator.register(Project, ProjectTranslationOptions)
