@@ -25,7 +25,7 @@ admin.site.register(models.Partner, PartnerAdmin)
 
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('code', 'short_name', 'partner', 'customer_type', 'partnership_type', 'workareas')
-    list_filter = ('partnership_type', )
+    list_filter = ('customer_type', 'partnership_type', 'partner')
     search_fields = ('code', 'short_name', 'partner__code', 'partner__name')
     fieldsets = (
         (_(u'Base'), dict(fields=('code', 'short_name', 'long_name', 'customer_type', 'partnership_type', 'partner', 'workarea', 'url', 'logo'))),
