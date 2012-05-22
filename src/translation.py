@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+
 from modeltranslation.translator import translator, TranslationOptions
 
 from . storage.models import Project

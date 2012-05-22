@@ -184,7 +184,7 @@ THUMBNAIL_ALIASES = {
 
 ###
 # haystack
-INSTALLED_APPS += ('haystack', )
+#INSTALLED_APPS += ('haystack', )
 HAYSTACK_INCLUDE_SPELLING = True
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SITECONF = 'src.search'
@@ -195,10 +195,10 @@ TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, 'search', 'templates'), )
 # modeltranslation
 INSTALLED_APPS += ('modeltranslation', )
 LANGUAGES = (
-    ('ru', 'Russian'),
-    ('en', 'English'),
+    ('ru-ru', 'Russian'),
+    ('en-us', 'English'),
 )
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru-ru'
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
 
 

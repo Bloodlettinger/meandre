@@ -3,7 +3,7 @@
 <div id="ultra-header">
     <div id="name-wrap">
         <a href="/ru/projects/index">
-            <div id="site-name-{{ request.session.django_language }}"
+            <div id="site-name-{{ LANGUAGE_CODE|lower }}"
                  title="{% trans "Andrey Gavrilov and Co." %}">
             </div>
         </a>
