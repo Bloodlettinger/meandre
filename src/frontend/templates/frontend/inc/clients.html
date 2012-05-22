@@ -8,13 +8,13 @@
     <div id="clientlogos-wrap">
         <ul class="clientlogos">
             {% for item in clients %}
-            <li>
                 {% if item.logo %}
+            <li>
                 <a href="{{ item.url }}" target="_blank">
                     <img src="{{ item.logo.url }}" />
                 </a>
-                {% endif %}
             </li>
+                {% endif %}
             {% endfor %}
         </ul>
     </div>
