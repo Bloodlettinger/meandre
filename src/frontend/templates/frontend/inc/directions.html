@@ -7,9 +7,9 @@
         <div class="v22-trades-desc">{% trans "Offices, Call Centers, Bank Branches, Creative Bureaus, Data Centers" %}</div>
 
         <ul id="ps-1" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">49 %</li>
-            <li class="v23-trades-stats-count">26<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">42266<br/>{% trans "sq.m." %}</li>
+            <li class="v23-trades-stats-perc">{{ dirs.office.percent }} %</li>
+            <li class="v23-trades-stats-count">{{ dirs.office.count }}<br/>{% trans "projects" %}</li>
+            <li class="v23-trades-stats-area">{{ dirs.office.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
         </ul>
     </div>
 
@@ -20,9 +20,9 @@
         <div class="v22-trades-desc">{% trans "Milti- and Single Brand Shops, Show Rooms" %}</div>
 
         <ul id="ps-2" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">34 %</li>
-            <li class="v23-trades-stats-count">18<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">5536<br/>{% trans "sq.m." %}</li>
+            <li class="v23-trades-stats-perc">{{ dirs.flat.percent }} %</li>
+            <li class="v23-trades-stats-count">{{ dirs.flat.count }} <br/>{% trans "projects" %}</li>
+            <li class="v23-trades-stats-area">{{ dirs.flat.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
         </ul>
     </div>
 
@@ -32,9 +32,9 @@
         <div class="v22-trades-desc">{% trans "Restaurants, Cafes, Clubs, Galleries, Exhibitions" %}</div>
 
         <ul id="ps-3" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">9 %</li>
-            <li class="v23-trades-stats-count">5<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">2605<br/>{% trans "sq.m." %}</li>
+            <li class="v23-trades-stats-perc">{{ dirs.shop.percent }} %</li>
+            <li class="v23-trades-stats-count">{{ dirs.shop.count }}<br/>{% trans "projects" %}</li>
+            <li class="v23-trades-stats-area">{{ dirs.shop.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
         </ul>
     </div>
 
@@ -44,9 +44,9 @@
           <div class="v22-trades-desc">{% trans "Apartments, Houses, Hotels" %}</div>
 
         <ul id="ps-4" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">8 %</li>
-            <li class="v23-trades-stats-count">4<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">2440<br/>{% trans "sq.m." %}</li>
+            <li class="v23-trades-stats-perc">{{ dirs.food.percent }} %</li>
+            <li class="v23-trades-stats-count">{{ dirs.food.count }}<br/>{% trans "projects" %}</li>
+            <li class="v23-trades-stats-area">{{ dirs.food.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
         </ul>
     </div>
 

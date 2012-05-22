@@ -163,3 +163,31 @@ class ProjectStatisticManager(models.Manager):
         qs = qs.values_list('customer__customer_type')
         res = qs.annotate(count=models.Count('customer__customer_type'))
         return dict((a, b) for a, b in sorted(res, key=lambda x: x[0]))
+
+    def directions(self):
+        qs = self.model.objects.winned().exclude(in_stats=False)
+        total = qs.count()
+        qs = qs.values('ptype')
+        qs = qs.annotate(count=models.Count('ptype'), meters=models.Sum('object_square'))
+        qs = qs.values_list('ptype', 'count', 'meters')
+        data = dict((key, (count, meters)) \
+            for key, count, meters in sorted(qs, key=lambda x: x[0]))
+
+        return dict(
+            office=dict(
+                percent=data[1][0] * 100 / total,
+                count=data[1][0],
+                meters=data[1][1]),
+            flat=dict(
+                percent=data[2][0] * 100 / total,
+                count=data[2][0],
+                meters=data[2][1]),
+            shop=dict(
+                percent=data[3][0] * 100 / total,
+                count=data[3][0],
+                meters=data[3][1]),
+            food=dict(
+                percent=data[4][0] * 100 / total,
+                count=data[4][0],
+                meters=data[4][1]),
+            )
