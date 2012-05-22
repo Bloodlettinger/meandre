@@ -1,0 +1,77 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list admin_modify i18n %}
+{% load url from future %}
+
+{% block extrahead %}{{ block.super }}
+{% url 'admin:jsi18n' as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/core.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/jquery.min.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/jquery.init.js"></script>
+<script type="text/javascript" src="{% admin_media_prefix %}js/actions.min.js"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo;
+       <a href="../">
+         {{ app_label|capfirst }}
+      </a>
+      &rsaquo;
+      {{ model_meta.verbose_name_plural|capfirst }}
+    </div>
+  {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <div id="content-main">
+    {% block result_list %}
+    <div class="module" id="changelist">
+
+      {% if results %}
+        <div class="results">
+          <table cellspacing="0" id="result_list">
+            <thead>
+              <tr>
+                {% for header in headers %}
+                  <th scope="col">
+                    {{ header|capfirst }}
+                  </th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+              <tr class="{% cycle 'row1' 'row2' %}">
+                {% for item in result %}<td>{{ item }}</td>{% endfor %}
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    {% endblock %}
+    </div>
+  </div>
+{% endblock %}

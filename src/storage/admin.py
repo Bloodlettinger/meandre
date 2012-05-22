@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from django import template
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 from django.db.models.fields.files import ImageField
+from django.shortcuts import render_to_response
 
 from easy_thumbnails.widgets import ImageClearableFileInput
 from salmonella.admin import SalmonellaMixin
@@ -112,3 +115,48 @@ admin.site.register(models.WalletState, WalletStateAdmin)
 class RecommendationAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'email')
 admin.site.register(models.Recommendation, RecommendationAdmin)
+
+
+class BaseReport(admin.ModelAdmin):
+    u"""Базовый класс со свойствами для отчётов."""
+
+    def has_add_permission(self, request):
+        # запрещаем добавление записей
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if obj is None:
+            # разрешаем отображать список объектов
+            return super(BaseReport, self).has_change_permission(request, obj)
+        else:
+            # не разрешаем редактировать объекты
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        # запрещаем удаление объектов
+        return False
+
+
+class WalletStateReportAdmin(BaseReport):
+    u"""Вывод текущего состояния счетов."""
+
+    change_list_template = 'storage/report.html'
+
+    def changelist_view(self, request, extra_context=None):
+        # убираем ссылку на редактирование объекта
+        self.list_display_links = (None, )
+
+        headers = [_(u'Account'), _(u'Balance')]
+        qs = models.FinanceTransaction.objects.wallets()
+
+        context = dict(
+            action_url=reverse('admin:storage_walletstatereport_changelist'),
+            app_label=u'Storage',
+            model_meta=self.model._meta,
+            headers=headers,
+            results=qs
+            )
+        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        return render_to_response(self.change_list_template, context, context_instance=context_instance)
+
+admin.site.register(models.WalletStateReport, WalletStateReportAdmin)

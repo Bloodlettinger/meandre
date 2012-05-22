@@ -266,6 +266,16 @@ class WalletState(models.Model):
         return u'%s (%f)' % (self.get_wallet_display(), self.amount)
 
 
+class WalletStateReport(models.Model):
+    u"""
+    Фейковая модель для вывода текущего состояния счетов.
+    """
+    class Meta:
+        verbose_name = _(u'Report: Wallet State')
+        verbose_name_plural = _(u'Report: Wallet States')
+        managed = False
+
+
 class Recommendation(models.Model):
     name = models.CharField(max_length=128)
     phone = models.CharField(max_length=32)

@@ -23,6 +23,12 @@ class WalletStateManager(models.Manager):
 
 class FinanceTransactionManager(models.Manager):
 
+    def wallets(self):
+        from . models import WALLET_TYPE
+        return [(title, self.wallet_state(key))\
+            for key, title in WALLET_TYPE]
+
+
     @cache_factory('wallet_%s', 60 * 60)
     def wallet_state(self, wallet_type):
         amount = 0.0
