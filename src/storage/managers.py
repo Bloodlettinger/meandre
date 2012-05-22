@@ -89,18 +89,24 @@ class ProjectStatisticManager(models.Manager):
     def compare_years(self, A, B):
         total_A = self.total_values(year=A)
         total_B = self.total_values(year=B)
+        total = self.model.objects.count()
 
         return dict(
             year_A=A,
             year_B=B,
             total_A=total_A,
             total_B=total_B,
+            total=total,
         )
 
     def total_values(self, year=None):
         winned = self.model.objects.winned(year)
+        if year is None:
+            total = self.all()
+        else:
+            total = self.filter(begin__year=year)
         res = dict(
-            total=self.all().count(),
+            total=total.count(),
             winned=winned.count(),
             dist=self.distribution(winned)
         )
