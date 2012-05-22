@@ -37,6 +37,7 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
+USE_THOUSAND_SEPARATOR = True
 
 LOCALE_PATHS = (
     os.path.join(PROJECT_DIR, 'src', 'users', 'locale'),
