@@ -48,7 +48,6 @@
   <div id="content-main">
     {% block result_list %}
     <div class="module" id="changelist">
-
       {% if results %}
         <div class="results">
           <table cellspacing="0" id="result_list">
@@ -73,5 +72,6 @@
       {% endif %}
     {% endblock %}
     </div>
+    {% include "storage/inc/widget_jqplot.html" %}
   </div>
 {% endblock %}

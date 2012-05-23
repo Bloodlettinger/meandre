@@ -2,6 +2,7 @@
 
 import itertools
 import operator
+from datetime import datetime, date
 
 from django.db import models
 from django.db.models.query import QuerySet
@@ -16,21 +17,25 @@ class WalletStateManager(models.Manager):
 
     def last(self, wallet_type):
         try:
-            return self.filter(wallet=wallet_type).order_by('-end')[0]
+            return self.filter(wallet=wallet_type).order_by('-moment')[0]
         except IndexError:
             raise WalletStateNotFound
+
+    def history(self):
+        return self.values('moment').annotate(models.Sum('amount'))
 
 
 class FinanceTransactionManager(models.Manager):
 
     def wallets(self):
+        u"""Возвращает состояние всех аккаунтов в виде словаря."""
         from . models import WALLET_TYPE
         return [(title, self.wallet_state(key))\
             for key, title in WALLET_TYPE]
 
-
     @cache_factory('wallet_%s', 60 * 60)
-    def wallet_state(self, wallet_type):
+    def wallet_state(self, wallet_type, timepoint=None):
+        u"""Возвращает состояние указанного аккаунта."""
         amount = 0.0
         try:
             from . models import WalletState
@@ -39,7 +44,10 @@ class FinanceTransactionManager(models.Manager):
             qs = self.filter(wallet=wallet_type)
         else:
             amount = state.amount
-            qs = self.filter(wallet=wallet_type, done_at__gt=state.end)
+            qs = self.filter(wallet=wallet_type, done_at__gt=state.moment)
+
+        if isinstance(timepoint, (datetime, date)):
+            qs = qs.filter(done_at__lt=timepoint)
 
         ops = {1: operator.add, 2: operator.sub}
 

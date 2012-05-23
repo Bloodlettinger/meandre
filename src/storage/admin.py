@@ -100,7 +100,8 @@ admin.site.register(models.Project, ProjectAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat', 'exchange_rate', 'contract', 'contractor', 'done_at')
+    list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat',
+        'exchange_rate', 'contract', 'contractor', 'done_at')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
@@ -149,12 +150,21 @@ class WalletStateReportAdmin(BaseReport):
         headers = [_(u'Account'), _(u'Balance')]
         qs = models.FinanceTransaction.objects.wallets()
 
+        history = models.WalletState.objects.history()
+        graph_data = []
+        for item in history:
+            value = u'[\'%s\', %f]' % (
+                item['moment'].strftime('%Y-%m-%d'), item['amount__sum']
+            )
+            graph_data.append(value)
+
         context = dict(
             action_url=reverse('admin:storage_walletstatereport_changelist'),
             app_label=u'Storage',
             model_meta=self.model._meta,
             headers=headers,
-            results=qs
+            results=qs,
+            graph_data=','.join(graph_data)
             )
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response(self.change_list_template, context, context_instance=context_instance)

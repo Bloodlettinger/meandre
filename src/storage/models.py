@@ -252,8 +252,7 @@ class FinanceTransaction(models.Model):
 class WalletState(models.Model):
     wallet = models.IntegerField(choices=WALLET_TYPE)
     amount = models.DecimalField(max_digits=19, decimal_places=4)
-    begin = models.DateTimeField()
-    end = models.DateTimeField()
+    moment = models.DateField()
     registered = models.DateTimeField(auto_now_add=True)
 
     objects = WalletStateManager()
