@@ -50,6 +50,8 @@
                         <a href="{{ item.customer.url }}"><img src="{{ item.customer.logo.url }}" /></a>
                     </div>
                     <hr class="clear"/>
+                    <div class="pum-data-pnum nova">{{ item.code }}</div>
+                    <div class="pum-data ptserif">{{ item.long_name }}</div>
                     {% if item.address %}
                     <div class="pum-data ptserif">
                         <a href="http://maps.yandex.ru?text={{ item.address }}" target="_new">{{ item.address }}</a>
