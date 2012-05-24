@@ -42,7 +42,7 @@
                         <p class="ptserif pum-clo-cn">{{ item.customer.short_name }}</p>
                         {% if user.is_authenticated %}
                         <p class="nova pum-clo-at">
-                            {{ item.customer.get_customer_type_display }}
+                            {{ item.customer.get_customer_type_display|slice:":3" }}
                         </p>
                         {% endif %}
                     </div>
