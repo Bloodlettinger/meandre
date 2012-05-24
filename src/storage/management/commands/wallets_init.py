@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
 
-from datetime import date, timedelta
+from datetime import date
 
 from django.db.models import Min
 from django.core.management.base import NoArgsCommand
@@ -10,7 +10,6 @@ from django.utils.translation import ugettext as _
 from ... models import FinanceTransaction as FT
 from ... models import WalletState
 from ... models import WALLET_TYPE
-from ... exceptions import WalletStateNotFound
 
 
 class Command(NoArgsCommand):
@@ -29,6 +28,7 @@ class Command(NoArgsCommand):
 
             for key, title in WALLET_TYPE:
                 WalletState.objects.create(wallet=key, amount=0, moment=moment)
-                print _(u'\t%s initialized on %s.') % (title, moment)
+                print _(u'\t%(title)s initialized on %(moment)s.') % dict(
+                    title=title, moment=moment)
         else:
             print _(u'Wallets are initialized already.')

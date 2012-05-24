@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-19 00:29+0400\n"
-"PO-Revision-Date: 2012-05-18 23:47+0400\n"
+"POT-Creation-Date: 2012-05-24 17:13+0400\n"
+"PO-Revision-Date: 2012-05-24 17:19+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,33 +19,41 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:31 admin.py:75
+#: admin.py:34 admin.py:78
 msgid "Base"
 msgstr "Основное"
 
-#: admin.py:38
+#: admin.py:41
 msgid "Workarea"
 msgstr "Виды работ"
 
-#: admin.py:76
+#: admin.py:79
 msgid "State"
 msgstr "Состояние"
 
-#: admin.py:77
+#: admin.py:80
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:78
+#: admin.py:81
 msgid "Description"
 msgstr "Описание"
 
-#: admin.py:79
+#: admin.py:82
 msgid "Duration"
 msgstr "Длительность"
 
-#: admin.py:80
+#: admin.py:83
 msgid "Jobs"
 msgstr "Работы"
+
+#: admin.py:150
+msgid "Account"
+msgstr "Аккаунт"
+
+#: admin.py:150
+msgid "Balance"
+msgstr "Баланс"
 
 #: models.py:20
 msgid "primary"
@@ -173,11 +181,11 @@ msgstr "Партнёры"
 
 #: models.py:66
 msgid "Customer"
-msgstr "Клиент"
+msgstr "Заказчик"
 
 #: models.py:67
 msgid "Customers"
-msgstr "Клиенты"
+msgstr "Заказчики"
 
 #: models.py:80
 msgid "Staff: Company"
@@ -226,3 +234,44 @@ msgstr "Присоединился"
 #: models.py:212
 msgid "Leaved"
 msgstr "Покинул"
+
+#: models.py:273
+msgid "Report: Wallet State"
+msgstr "Отчёт: Состояние кошелька"
+
+#: models.py:274
+msgid "Report: Wallet States"
+msgstr "Отчёт: Состояния кошельков"
+
+#: management/commands/wallets_init.py:18
+msgid "Initializes the WalletState model."
+msgstr "Инициализирует модель WalletState."
+
+#: management/commands/wallets_init.py:23
+msgid "No financial transactions. Initialize wallets ..."
+msgstr "Нет финансовых транзакций. Инициализация кошельков ..."
+
+#: management/commands/wallets_init.py:26
+msgid "Financial transactions exists. Initialize wallets ..."
+msgstr "Финансовые транзакции найдены. Инициализация кошельков ..."
+
+#: management/commands/wallets_init.py:32
+#, python-format
+msgid "\t%(title)s initialized on %(moment)s."
+msgstr "\t%(title)s инициализирован в %(moment)s."
+
+#: management/commands/wallets_init.py:35
+msgid "Wallets are initialized already."
+msgstr "Кошельки уже инициализированы."
+
+#: management/commands/wallets_update.py:24
+msgid "Fills the WalletState model."
+msgstr "Заполняет модель WalletState."
+
+#: management/commands/wallets_update.py:28
+msgid "Use `wallets_init` first."
+msgstr "Сначала запустите `wallets_init`."
+
+#: templates/storage/report.html:33
+msgid "Home"
+msgstr "Домой"
