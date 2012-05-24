@@ -1,0 +1,5 @@
+{% load staticfiles %}
+{# Виджет сравнения двух значений. Принимает параметры: icon, a, b. #}
+<em class="{% include "frontend/inc/trend_class.html" with a=a b=b %}">
+    <img src="{% static icon %}" width="32" height="32"/> {{ a }}/{{ b }}
+</em>

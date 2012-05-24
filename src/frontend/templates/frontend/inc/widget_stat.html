@@ -60,7 +60,7 @@
 
         <div class="stat_wrap_02">
             <div class="cost_tracking">
-                <span class="positive_trend">{{ stat.total_A.price|floatformat:-2 }}&nbsp;R.</span>
+                <span class="{% include "frontend/inc/trend_class.html" with a=stat.total_A.price b=stat.total_B.price %}">{{ stat.total_A.price|floatformat:-2 }}&nbsp;R.</span>
                 <em class="ptserif">{% trans "won in" context "won in YEAR in relation to last year" %} {{ stat.year_A|unlocalize }} {% trans "in relation to" context "won in YEAR in relation to last year" %}</em>
                 <span>{{ stat.total_B.price|floatformat:-2 }}&nbsp;R.</span>
                 <em class="ptserif">{% trans "last year" context "won in YEAR in relation to last year" %}</em>
@@ -70,21 +70,11 @@
 
         <div class="line_stat">
             <span>{% trans "Projects Won" %} ({{ stat.year_A|unlocalize }}/{{ stat.year_B|unlocalize }})</span>
-            <em class="">
-                <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.count }}/{{ stat.total_B.dist.5.count}}
-            </em>
-            <em class="">
-                <img src="{% static "img/site/icon_32_dark4.png" %}" width="32" height="32"/> {{ stat.total_A.dist.4.count }}/{{ stat.total_B.dist.4.count}}
-            </em>
-            <em class="">
-                <img src="{% static "img/site/icon_32_dark3.png" %}" width="32" height="32"/> {{ stat.total_A.dist.3.count }}/{{ stat.total_B.dist.3.count}}
-            </em>
-            <em class="">
-                <img src="{% static "img/site/icon_32_dark2.png" %}" width="32" height="32"/> {{ stat.total_A.dist.2.count }}/{{ stat.total_B.dist.2.count}}
-            </em>
-            <em class="">
-                <img src="{% static "img/site/icon_32_dark1.png" %}" width="32" height="32"/> {{ stat.total_A.dist.1.count }}/{{ stat.total_B.dist.1.count}}
-            </em>
+            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark5.png" a=stat.total_A.dist.5.count b=stat.total_B.dist.5.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark4.png" a=stat.total_A.dist.4.count b=stat.total_B.dist.4.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark3.png" a=stat.total_A.dist.3.count b=stat.total_B.dist.3.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark2.png" a=stat.total_A.dist.2.count b=stat.total_B.dist.2.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark1.png" a=stat.total_A.dist.1.count b=stat.total_B.dist.1.count %}
             <div class="clear"></div>
         </div>
 
