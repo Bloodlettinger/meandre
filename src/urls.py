@@ -8,6 +8,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/salmonella/', include('salmonella.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),

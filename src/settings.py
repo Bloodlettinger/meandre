@@ -173,6 +173,18 @@ LOGGING = {
 }
 
 ###
+# django-admin-tools
+INSTALLED_APPS = (
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
+    'admin_tools.dashboard',
+    ) + INSTALLED_APPS
+ADMIN_TOOLS_INDEX_DASHBOARD = 'src.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'src.dashboard.CustomAppIndexDashboard'
+ADMIN_MEDIA_PREFIX = '/static/admin/'  # грязный хак
+
+###
 # easy_thumbnails
 INSTALLED_APPS += ('easy_thumbnails', )
 THUMBNAIL_ALIASES = {
