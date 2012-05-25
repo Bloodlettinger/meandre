@@ -4,7 +4,6 @@ Django == 1.4
 South
 
 django-extensions
-django-admin-tools
 django-salmonella == 0.5.1
 django-autoslug-field
 
@@ -22,5 +21,8 @@ django-tastypie == 0.9.11
 
 django-haystack
 xapian-haystack
+
+-e hg+https://bitbucket.org/rsalmaso/django-admin-tools#g=admin_tool
+feedparser
 
 -e git+git://github.com/code-on/django-chunks.git@fad1e9eb51fc586852234eaf3a4dc6dc59daef8e#egg=django-chunks
