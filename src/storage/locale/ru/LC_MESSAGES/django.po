@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-24 17:13+0400\n"
-"PO-Revision-Date: 2012-05-24 17:19+0400\n"
+"POT-Creation-Date: 2012-05-28 13:34+0400\n"
+"PO-Revision-Date: 2012-05-28 13:35+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,41 +19,65 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:34 admin.py:78
+#: admin.py:35 admin.py:80
 msgid "Base"
 msgstr "Основное"
 
-#: admin.py:41
+#: admin.py:42
 msgid "Workarea"
 msgstr "Виды работ"
 
-#: admin.py:79
+#: admin.py:81
 msgid "State"
 msgstr "Состояние"
 
-#: admin.py:80
+#: admin.py:82
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:81
+#: admin.py:83
 msgid "Description"
 msgstr "Описание"
 
-#: admin.py:82
+#: admin.py:84
 msgid "Duration"
 msgstr "Длительность"
 
-#: admin.py:83
+#: admin.py:85
 msgid "Jobs"
 msgstr "Работы"
 
-#: admin.py:150
+#: admin.py:152
 msgid "Account"
 msgstr "Аккаунт"
 
-#: admin.py:150
+#: admin.py:152
 msgid "Balance"
 msgstr "Баланс"
+
+#: dashdesc.py:10
+msgid "Storage"
+msgstr "Хранилище"
+
+#: dashdesc.py:12
+msgid "Money"
+msgstr "Деньги"
+
+#: dashdesc.py:17
+msgid "Static"
+msgstr "Статика"
+
+#: dashdesc.py:20
+msgid "Dictionary"
+msgstr "Словарь"
+
+#: forms.py:19
+msgid "Only one image may be choosen as teaser!"
+msgstr "Только одно изображение может быть выбрано в качестве тизера!"
+
+#: forms.py:24
+msgid "Only one image may be choosen for pro6 module!"
+msgstr "Только одно изображение может быть выбрано для модуля pro6!"
 
 #: models.py:20
 msgid "primary"
@@ -223,44 +247,44 @@ msgstr "Отметьте, если проект завершён"
 msgid "Check if this project is shown in statistics"
 msgstr "Отметьте, если проект учитывается в статистике"
 
-#: models.py:209
+#: models.py:214
 msgid "Role"
 msgstr "Роль"
 
-#: models.py:211
+#: models.py:216
 msgid "Joined"
 msgstr "Присоединился"
 
-#: models.py:212
+#: models.py:217
 msgid "Leaved"
 msgstr "Покинул"
 
-#: models.py:273
+#: models.py:278
 msgid "Report: Wallet State"
 msgstr "Отчёт: Состояние кошелька"
 
-#: models.py:274
+#: models.py:279
 msgid "Report: Wallet States"
 msgstr "Отчёт: Состояния кошельков"
 
-#: management/commands/wallets_init.py:18
+#: management/commands/wallets_init.py:17
 msgid "Initializes the WalletState model."
 msgstr "Инициализирует модель WalletState."
 
-#: management/commands/wallets_init.py:23
+#: management/commands/wallets_init.py:22
 msgid "No financial transactions. Initialize wallets ..."
 msgstr "Нет финансовых транзакций. Инициализация кошельков ..."
 
-#: management/commands/wallets_init.py:26
+#: management/commands/wallets_init.py:25
 msgid "Financial transactions exists. Initialize wallets ..."
 msgstr "Финансовые транзакции найдены. Инициализация кошельков ..."
 
-#: management/commands/wallets_init.py:32
+#: management/commands/wallets_init.py:31
 #, python-format
 msgid "\t%(title)s initialized on %(moment)s."
 msgstr "\t%(title)s инициализирован в %(moment)s."
 
-#: management/commands/wallets_init.py:35
+#: management/commands/wallets_init.py:34
 msgid "Wallets are initialized already."
 msgstr "Кошельки уже инициализированы."
 

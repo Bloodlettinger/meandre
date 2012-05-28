@@ -12,6 +12,7 @@ from salmonella.admin import SalmonellaMixin
 from modeltranslation.admin import TranslationAdmin
 
 from . import models
+from . import forms
 
 
 class WorkareaAdmin(admin.ModelAdmin):
@@ -55,6 +56,7 @@ admin.site.register(models.JobType, JobTypeAdmin)
 
 class ProjectImageInline(admin.TabularInline):
     model = models.ProjectImage
+    formset = forms.ProjectImageInlineFormset
     extra = 1
 
     def formfield_for_dbfield(self, db_field, **kwargs):
