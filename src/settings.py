@@ -208,10 +208,10 @@ TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, 'search', 'templates'), )
 # modeltranslation
 INSTALLED_APPS += ('modeltranslation', )
 LANGUAGES = (
-    ('ru-ru', 'Russian'),
-    ('en-us', 'English'),
+    ('ru', 'Russian'),
+    ('en', 'English'),
 )
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru-ru'
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
 
 

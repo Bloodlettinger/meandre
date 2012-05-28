@@ -1,6 +1,6 @@
-{% if LANGUAGE_CODE|lower in "en-us" %}
-<a href="{% url frontend:lang "ru-ru" %}" id="v22-lang">Русский</a>
-{% elif LANGUAGE_CODE|lower in "ru-ru" %}
-<a href="{% url frontend:lang "en-us" %}" id="v22-lang">English</a>
+{% if LANGUAGE_CODE|lower|slice:":2" == "en" %}
+<a href="{% url frontend:lang "ru" %}" id="v22-lang">Русский</a>
+{% elif LANGUAGE_CODE|lower|slice:":2" == "ru" %}
+<a href="{% url frontend:lang "en" %}" id="v22-lang">English</a>
 {% endif %}
 <a id="v22-mail" href="mailto:me@andrgavr.com">me@andrgavr.com</a>
