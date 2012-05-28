@@ -18,7 +18,7 @@
                     <a href="http://maps.yandex.ru?text={{ project.address }}" target="_new">{{ project.address }}</a>
                 </em>
             </li>
-            <li>{% trans "Size" %}<em>{{ project.object_square }} {% trans "sq.m." %}</em></li>
+            <li>{% trans "Size" %}<em>{{ project.object_square|floatformat:0 }} {% trans "sq.m." %}</em></li>
 
             <li>&nbsp;</li>
             {% for role, users in roles.items %}
