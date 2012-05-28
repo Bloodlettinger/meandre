@@ -201,6 +201,11 @@ class Project(models.Model):
         u"""Скорость проекта, метров в день."""
         return self.object_square / self.duration_full
 
+    @property
+    def created(self):
+        u"""Дата создания проекта."""
+        return self.registered.date
+
 
 class Membership(models.Model):
     project = models.ForeignKey(Project)

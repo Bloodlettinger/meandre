@@ -6,7 +6,7 @@
         <ul class="stats">
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
-            <li>{% trans "Creation Date" %}<em>{{ project.registered }}</em></li>
+            <li>{% trans "Creation Date" %}<em>{{ project.created }}</em></li>
             <li>{% trans "Start Date" %}<em>{{ project.begin }}</em></li> 
             <li>{% trans "End Date" %}<em>{{ project.end }}</em></li>
             {% endif %}
