@@ -7,7 +7,7 @@
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
             <li>{% trans "Creation Date" %}<em>{{ project.created }}</em></li>
-            <li>{% trans "Start Date" %}<em>{{ project.begin }}</em></li> 
+            <li>{% trans "Start Date" %}<em>{{ project.begin }}</em></li>
             <li>{% trans "End Date" %}<em>{{ project.end }}</em></li>
             {% endif %}
 
@@ -22,13 +22,13 @@
 
             <li>&nbsp;</li>
             {% for role, users in roles.items %}
-                <li>{{ role }}<em>
                 {% for user in users %}
                     {% if user %}
-                        {{ user }}{% if not forloop.last %},{% endif %}
+                        <li>
+                        {% if forloop.first %}{{ role }}{% endif %}
+                        <em>{{ user }}</em></li>
                     {% endif %}
                 {% endfor %}
-                </em></li>
             {% endfor %}
 
             {% if user.is_authenticated %}
