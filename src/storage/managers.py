@@ -128,7 +128,6 @@ class ProjectStatisticManager(models.Manager):
             square=models.Sum('object_square'),
             production=models.Sum('duration_production'),
             change=models.Sum('duration_changes'),
-            discuss=models.Sum('duration_discussion'),
             other=models.Sum('duration_other'),
             price=models.Sum('price_full'),
             ))

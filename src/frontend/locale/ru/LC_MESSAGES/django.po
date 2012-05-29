@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-24 17:13+0400\n"
+"POT-Creation-Date: 2012-05-30 00:50+0400\n"
 "PO-Revision-Date: 2012-05-24 17:08+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -275,93 +275,89 @@ msgstr "Админка"
 msgid "Login"
 msgstr "Войти"
 
-#: templates/frontend/inc/widget_stat.html:7
+#: templates/frontend/inc/widget_stat.html:8
 msgid "Statistics"
 msgstr "Статистика"
 
-#: templates/frontend/inc/widget_stat.html:9
+#: templates/frontend/inc/widget_stat.html:10
 msgid "Configuration"
 msgstr "Настройка"
 
-#: templates/frontend/inc/widget_stat.html:9
+#: templates/frontend/inc/widget_stat.html:10
 msgid "Icons"
 msgstr "Иконки"
 
-#: templates/frontend/inc/widget_stat.html:17
+#: templates/frontend/inc/widget_stat.html:18
 msgctxt "statistics"
 msgid "won in"
 msgstr "выиграно в"
 
-#: templates/frontend/inc/widget_stat.html:17
-#: templates/frontend/inc/widget_stat.html:23
+#: templates/frontend/inc/widget_stat.html:18
+#: templates/frontend/inc/widget_stat.html:24
 msgctxt "statistics"
 msgid "from"
 msgstr "из"
 
-#: templates/frontend/inc/widget_stat.html:19
-#: templates/frontend/inc/widget_stat.html:25
+#: templates/frontend/inc/widget_stat.html:20
+#: templates/frontend/inc/widget_stat.html:26
 msgid "Total"
 msgstr "Всего"
 
-#: templates/frontend/inc/widget_stat.html:23
+#: templates/frontend/inc/widget_stat.html:24
 msgid "inquiries in"
 msgstr "предложений в"
 
-#: templates/frontend/inc/widget_stat.html:29
+#: templates/frontend/inc/widget_stat.html:30
 msgid "Design Speed qs.m./h last year"
 msgstr "Скорость кв.м./час за год"
 
-#: templates/frontend/inc/widget_stat.html:34
+#: templates/frontend/inc/widget_stat.html:35
 msgctxt "statistics"
 msgid "Total Working Hours Spent In"
 msgstr "Потрачено часов в"
 
-#: templates/frontend/inc/widget_stat.html:34
+#: templates/frontend/inc/widget_stat.html:35
 msgctxt "statistics"
 msgid "On Architectural Design Projects"
 msgstr "на архитектурное проектирование"
 
-#: templates/frontend/inc/widget_stat.html:38
+#: templates/frontend/inc/widget_stat.html:39
 msgctxt "statistics"
 msgid "Total Square Meters Of Various Spaces Designed In"
 msgstr "Квадратных метров спроектировано в"
 
-#: templates/frontend/inc/widget_stat.html:45
+#: templates/frontend/inc/widget_stat.html:46
 msgid "Years in Design"
 msgstr "лет в проектировании"
 
-#: templates/frontend/inc/widget_stat.html:49
+#: templates/frontend/inc/widget_stat.html:50
 msgid "Years with Western Customers"
 msgstr "лет с западными заказчиками"
 
-#: templates/frontend/inc/widget_stat.html:53
-msgid "Hours Spent on Meetings"
-msgstr "часов проведено на встречах"
-
-#: templates/frontend/inc/widget_stat.html:63
+#: templates/frontend/inc/widget_stat.html:60
 msgctxt "won in YEAR in relation to last year"
 msgid "won in"
 msgstr "выиграно в"
 
-#: templates/frontend/inc/widget_stat.html:63
+#: templates/frontend/inc/widget_stat.html:60
 msgctxt "won in YEAR in relation to last year"
 msgid "in relation to"
 msgstr "по сравнению с"
 
-#: templates/frontend/inc/widget_stat.html:65
+#: templates/frontend/inc/widget_stat.html:62
 msgctxt "won in YEAR in relation to last year"
 msgid "last year"
 msgstr "в прошлом году"
 
-#: templates/frontend/inc/widget_stat.html:71
+#: templates/frontend/inc/widget_stat.html:68
 msgid "Projects Won"
 msgstr "Выиграно проектов"
 
-#: templates/frontend/inc/widget_stat.html:91
+#: templates/frontend/inc/widget_stat.html:78
 msgid "Total Sales"
 msgstr "Стоимость по типам"
 
-#: templates/frontend/inc/widget_stat.html:111
+#: templates/frontend/inc/widget_stat.html:98
 msgid "Total Rate, sq.m."
 msgstr "Стоимость за кв.м."
 
@@ -396,6 +392,3 @@ msgstr ""
 #, python-format
 msgid "%s P"
 msgstr ""
-
-#~ msgid "Admin Interface"
-#~ msgstr "Интерфейс администратора"
