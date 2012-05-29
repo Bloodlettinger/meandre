@@ -103,10 +103,30 @@ admin.site.register(models.Project, ProjectAdmin)
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat',
-        'exchange_rate', 'done_at')
+        'exchange_rate', 'user', 'done_at')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
+    fieldsets = (
+        (None, dict(fields=('parent', 'wallet', 'amount', 'transaction_type', 'transaction_vat', 'exchange_rate', 'description', 'contract', 'contractor'))), )
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.user = request.user
+        obj.save()
+
+    def has_change_permission(self, request, obj=None):
+        if obj is None:
+            # разрешаем отображать список объектов
+            return super(FinanceTransactionAdmin, self).has_change_permission(request, obj)
+        else:
+            # не разрешаем редактировать объекты
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        # запрещаем удаление объектов
+        return False
+
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
 

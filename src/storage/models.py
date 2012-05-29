@@ -4,11 +4,12 @@ from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
+from django.contrib.auth.models import User
 
 from django_autoslug.fields import AutoSlugField
 
-from src.users.models import CustomUser
-from src.users.models import CustomGroup
+from .. users.models import CustomUser
+from .. users.models import CustomGroup
 
 from . managers import FinanceTransactionManager
 from . managers import ProjectManager
@@ -236,16 +237,17 @@ class ProjectImage(models.Model):
 
 
 class FinanceTransaction(models.Model):
+    user = models.ForeignKey(User, verbose_name=_(u'Registrator'))
     parent = models.ForeignKey('self', blank=True, null=True, verbose_name=_(u'Parent'))
     wallet = models.IntegerField(choices=WALLET_TYPE, verbose_name=_(u'Wallet'))
-    contract = models.CharField(max_length=255, verbose_name=_(u'Contract'))
-    contractor = models.CharField(max_length=255, verbose_name=_(u'Contractor'))
     amount = models.DecimalField(max_digits=19, decimal_places=4, verbose_name=_(u'Amount'))
     description = models.CharField(max_length=255, verbose_name=_(u'Description'))
     transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES, verbose_name=_(u'Type'))
     transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES, verbose_name=_(u'VAT'))
     exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, blank=True, null=True, verbose_name=_(u'Exchange Rate'))
-    done_at = models.DateTimeField(verbose_name=_(u'Done'))
+    contract = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Contract'))
+    contractor = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Contractor'))
+    done_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Done'))
     registered = models.DateTimeField(auto_now_add=True)
 
     objects = FinanceTransactionManager()

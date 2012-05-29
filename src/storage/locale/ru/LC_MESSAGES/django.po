@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-30 00:03+0400\n"
-"PO-Revision-Date: 2012-05-30 00:05+0400\n"
+"POT-Creation-Date: 2012-05-30 00:17+0400\n"
+"PO-Revision-Date: 2012-05-30 00:17+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -35,7 +35,7 @@ msgstr "Состояние"
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:83 models.py:92 models.py:244
+#: admin.py:83 models.py:92 models.py:245
 msgid "Description"
 msgstr "Описание"
 
@@ -47,11 +47,11 @@ msgstr "Длительность"
 msgid "Jobs"
 msgstr "Работы"
 
-#: admin.py:152
+#: admin.py:165
 msgid "Account"
 msgstr "Аккаунт"
 
-#: admin.py:152
+#: admin.py:165
 msgid "Balance"
 msgstr "Баланс"
 
@@ -204,7 +204,7 @@ msgstr "Виды деятельности"
 msgid "Code"
 msgstr "Код"
 
-#: models.py:45 models.py:288
+#: models.py:45 models.py:289
 msgctxt "human"
 msgid "Name"
 msgstr "Имя"
@@ -217,7 +217,7 @@ msgstr "Партнёр"
 msgid "Partners"
 msgstr "Партнёры"
 
-#: models.py:58 models.py:110 models.py:245
+#: models.py:58 models.py:110 models.py:246
 msgid "Type"
 msgstr "Тип"
 
@@ -348,7 +348,7 @@ msgstr "Цена"
 msgid "Currency"
 msgstr "Валюта"
 
-#: models.py:127 models.py:247
+#: models.py:127 models.py:248
 msgid "Exchange Rate"
 msgstr "Кросс курс"
 
@@ -437,70 +437,78 @@ msgid "Pro6 Block"
 msgstr "Блок pro6"
 
 #: models.py:239
+msgid "Registrator"
+msgstr "Регистратор"
+
+#: models.py:240
 msgid "Parent"
 msgstr "Предок"
 
-#: models.py:240 models.py:262
+#: models.py:241 models.py:263
 msgid "Wallet"
 msgstr "Кошелёк"
 
 #: models.py:242
+msgid "Contract"
+msgstr "Контракт"
+
+#: models.py:243
 msgid "Contractor"
 msgstr "Контрактор"
 
-#: models.py:243 models.py:263
+#: models.py:244 models.py:264
 msgid "Amount"
 msgstr "Сумма"
 
-#: models.py:246
+#: models.py:247
 msgid "VAT"
 msgstr "НДС"
 
-#: models.py:248
+#: models.py:249
 msgid "Done"
 msgstr "Выполнено"
 
-#: models.py:254
+#: models.py:255
 msgid "Finance Transaction"
 msgstr "Финансовая транзакция"
 
-#: models.py:255
+#: models.py:256
 msgid "Finance Transactions"
 msgstr "Финансовые транзакции"
 
-#: models.py:264
+#: models.py:265
 msgid "Moment"
 msgstr "Момент"
 
-#: models.py:270
+#: models.py:271
 msgid "Wallet State"
 msgstr "Состояние кошелька"
 
-#: models.py:271
+#: models.py:272
 msgid "Wallet States"
 msgstr "Состояния кошельков"
 
-#: models.py:282
+#: models.py:283
 msgid "Report: Wallet State"
 msgstr "Отчёт: Состояние кошелька"
 
-#: models.py:283
+#: models.py:284
 msgid "Report: Wallet States"
 msgstr "Отчёт: Состояния кошельков"
 
-#: models.py:289
+#: models.py:290
 msgid "Phone"
 msgstr "Телефон"
 
-#: models.py:290
+#: models.py:291
 msgid "E-mail"
 msgstr "Е-почта"
 
-#: models.py:293
+#: models.py:294
 msgid "Recommendation"
 msgstr "Рекомендация"
 
-#: models.py:294
+#: models.py:295
 msgid "Recommendations"
 msgstr "Рекомендации"
 
