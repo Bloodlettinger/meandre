@@ -63,6 +63,7 @@ class Customer(models.Model):
     long_name = models.TextField(blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
     logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True, verbose_name=_(u'Logo'))
     url = models.URLField(blank=True, null=True)
+    registered = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _(u'Customer')
