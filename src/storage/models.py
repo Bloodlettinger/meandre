@@ -3,6 +3,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from django_autoslug.fields import AutoSlugField
 
@@ -28,8 +29,8 @@ PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Winned'), _(u'Loosed')])
 
 
 class Workarea(models.Model):
-    name = models.CharField(max_length=765)
-    enabled = models.BooleanField(default=True)
+    name = models.CharField(max_length=765, verbose_name=pgettext_lazy('item', u'Name'))
+    enabled = models.BooleanField(default=True, verbose_name=_(u'Enabled'))
 
     class Meta:
         verbose_name = _(u'Work Area')
@@ -40,8 +41,8 @@ class Workarea(models.Model):
 
 
 class Partner(models.Model):
-    code = models.CharField(max_length=9)
-    name = models.CharField(max_length=765)
+    code = models.CharField(max_length=9, verbose_name=_(u'Code'))
+    name = models.CharField(max_length=765, verbose_name=pgettext_lazy('human', u'Name'))
 
     class Meta:
         verbose_name = _(u'Partner')
@@ -52,14 +53,14 @@ class Partner(models.Model):
 
 
 class Customer(models.Model):
-    partner = models.ForeignKey(Partner, blank=True, null=True)
-    workarea = models.ManyToManyField(Workarea, blank=True, null=True)
-    customer_type = models.IntegerField(choices=CUSTOMERS_CHOICES)
-    partnership_type = models.IntegerField(choices=PARTNERSHIP_CHOICES)
-    code = models.CharField(max_length=5)
-    short_name = models.CharField(max_length=255)
-    long_name = models.TextField(blank=True, null=True)
-    logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True)
+    partner = models.ForeignKey(Partner, blank=True, null=True, verbose_name=_(u'Partner'))
+    workarea = models.ManyToManyField(Workarea, blank=True, null=True, verbose_name=_(u'Work Area'))
+    customer_type = models.IntegerField(choices=CUSTOMERS_CHOICES, verbose_name=_(u'Type'))
+    partnership_type = models.IntegerField(choices=PARTNERSHIP_CHOICES, verbose_name=_(u'Partnership'))
+    code = models.CharField(max_length=5, verbose_name=_(u'Code'))
+    short_name = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name (short)'))
+    long_name = models.TextField(blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
+    logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True, verbose_name=_(u'Logo'))
     url = models.URLField(blank=True, null=True)
 
     class Meta:
@@ -74,7 +75,7 @@ class CompanyTeam(models.Model):
     u"""
     Модель компаний-исполнителей.
     """
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name'))
 
     class Meta:
         verbose_name = _(u'Staff: Company')
@@ -85,11 +86,11 @@ class CompanyTeam(models.Model):
 
 
 class JobType(models.Model):
-    css = models.CharField(max_length=16)
-    short_title = models.CharField(max_length=255)
-    long_title = models.CharField(max_length=255)
-    description = models.TextField()
-    duration = models.CharField(max_length=32)
+    css = models.CharField(max_length=16, verbose_name=_(u'CSS class'))
+    short_title = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name (short)'))
+    long_title = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name (long)'))
+    description = models.TextField(verbose_name=_(u'Description'))
+    duration = models.CharField(max_length=32, verbose_name=_(u'Duration'))
 
     class Meta:
         verbose_name = _(u'Job Type')
@@ -100,37 +101,39 @@ class JobType(models.Model):
 
 
 class Project(models.Model):
-    customer = models.ForeignKey(Customer)
-    address = models.CharField(max_length=255, blank=True, null=True)
-    staff = models.ManyToManyField(CustomUser, through='Membership')
-    job_type = models.ManyToManyField(JobType)
-    short_name = models.CharField(max_length=128)
-    long_name = models.TextField(blank=True, null=True)
-    ptype = models.IntegerField(choices=PROJECT_TYPE_CHOICES)
-    status = models.IntegerField(choices=PROJECT_STATUS_CHOICES)
-    desc_short = models.TextField(blank=True, null=True)
-    desc_long = models.TextField(blank=True, null=True)
-    tasks = models.TextField(blank=True, null=True)
-    problems = models.TextField(blank=True, null=True)
-    results = models.TextField(blank=True, null=True)
-    made_for = models.CharField(max_length=255, blank=True, null=True)
-    object_square = models.DecimalField(max_digits=19, decimal_places=4, default=0)
-    duration_production = models.IntegerField(default=0)
-    duration_changes = models.IntegerField(default=0)
-    duration_discussion = models.IntegerField(default=0)
-    duration_other = models.IntegerField(default=0)
-    productivity = models.DecimalField(max_digits=19, decimal_places=4, default=0)
-    begin = models.DateField(blank=True, null=True)
-    end = models.DateField(blank=True, null=True)
-    price_average = models.DecimalField(max_digits=19, decimal_places=4, default=0, help_text=_(u'Price for square meter'))
-    price_full = models.DecimalField(max_digits=19, decimal_places=4, default=0)
-    currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES)
-    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, default=1)
-    is_public = models.BooleanField(default=False, help_text=_(u'Check if this project is public'))
-    is_archived = models.BooleanField(default=False, help_text=_(u'Check if this project is archived'))
-    is_finished = models.BooleanField(default=False, help_text=_(u'Check if this prohect is finished'))
-    in_stats = models.BooleanField(default=True, help_text=_(u'Check if this project is shown in statistics'))
+    customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
+    address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
+    staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
+    job_type = models.ManyToManyField(JobType, verbose_name=_(u'Job Type'))
+    short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'))
+    long_name = models.TextField(blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
+    ptype = models.IntegerField(choices=PROJECT_TYPE_CHOICES, verbose_name=_(u'Type'))
+    status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, verbose_name=_(u'Status'))
+    desc_short = models.TextField(blank=True, null=True, verbose_name=_(u'Description (short)'))
+    desc_long = models.TextField(blank=True, null=True, verbose_name=_(u'Description (long)'))
+    tasks = models.TextField(blank=True, null=True, verbose_name=_(u'Tasks'))
+    problems = models.TextField(blank=True, null=True, verbose_name=_(u'Problems'))
+    results = models.TextField(blank=True, null=True, verbose_name=_(u'Results'))
+    made_for = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Made for'))
+    object_square = models.DecimalField(max_digits=19, decimal_places=4, default=0, verbose_name=pgettext_lazy('object', u'Square'))
+    duration_production = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Production'), help_text=_(u'In hours'))
+    duration_changes = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Changes'), help_text=_(u'In hours'))
+    duration_discussion = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Discussion'), help_text=_(u'In hours'))
+    duration_other = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Other'), help_text=_(u'In hours'))
+    begin = models.DateField(blank=True, null=True, verbose_name=_(u'Begin'))
+    end = models.DateField(blank=True, null=True, verbose_name=_(u'End'))
+    price_full = models.DecimalField(max_digits=19, decimal_places=4, default=0, verbose_name=_(u'Price'))
+    currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES, verbose_name=_(u'Currency'))
+    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, default=1, verbose_name=_(u'Exchange Rate'))
+    is_public = models.BooleanField(default=False, verbose_name=_(u'Public'), help_text=_(u'Check if this project is public'))
+    is_archived = models.BooleanField(default=False, verbose_name=_(u'Archived'), help_text=_(u'Check if this project is archived'))
+    is_finished = models.BooleanField(default=False, verbose_name=_(u'Finished'), help_text=_(u'Check if this prohect is finished'))
+    in_stats = models.BooleanField(default=True, verbose_name=_(u'Statistic'), help_text=_(u'Check if this project is shown in statistics'))
     registered = models.DateTimeField(auto_now_add=True)
+
+    # вычисляемые поля, см. метод save()
+    productivity = models.DecimalField(max_digits=19, decimal_places=4, default=0)
+    price_average = models.DecimalField(max_digits=19, decimal_places=4, default=0, help_text=_(u'Price for square meter'))
 
     slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
 
@@ -138,8 +141,8 @@ class Project(models.Model):
     statistic = ProjectStatisticManager()
 
     class Meta:
-        verbose_name = u'Project'
-        verbose_name_plural = u'Projects'
+        verbose_name = _(u'Project')
+        verbose_name_plural = _(u'Projects')
 
     def __unicode__(self):
         return self.short_name
@@ -208,63 +211,64 @@ class Project(models.Model):
 
 
 class Membership(models.Model):
-    project = models.ForeignKey(Project)
-    user = models.ForeignKey(CustomUser, blank=True, null=True)
-    company = models.ForeignKey(CompanyTeam, blank=True, null=True)
+    project = models.ForeignKey(Project, verbose_name=_(u'Project'))
+    user = models.ForeignKey(CustomUser, blank=True, null=True, verbose_name=_(u'User'))
+    company = models.ForeignKey(CompanyTeam, blank=True, null=True, verbose_name=_(u'Company'))
     role = models.ManyToManyField(CustomGroup, verbose_name=_(u'Role'))
     url = models.URLField(blank=True, null=True)
-    joined_at = models.DateTimeField(verbose_name=_(u'Joined'), auto_now_add=True)
-    leaved_at = models.DateTimeField(verbose_name=_(u'Leaved'), blank=True, null=True)
+    joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
+    leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
 
 def upload_with_name(instance, filename):
+    u"""Возвращает путь для загружаемого изображения, учитывая название проекта."""
     return u'project/image/%s/%s' % (instance.project.slug, filename)
 
 
 class ProjectImage(models.Model):
-    project = models.ForeignKey(Project)
-    position = models.IntegerField()
-    image = models.ImageField(upload_to=upload_with_name, max_length=255)
-    comment = models.CharField(max_length=255, blank=True, null=True)
-    is_teaser = models.BooleanField()
-    is_pro6 = models.BooleanField()
-    is_publish = models.BooleanField()
+    project = models.ForeignKey(Project, verbose_name=_(u'Project'))
+    position = models.IntegerField(verbose_name=_(u'Position'))
+    image = models.ImageField(upload_to=upload_with_name, max_length=255, verbose_name=_(u'Image Path'))
+    comment = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Comment'))
+    is_teaser = models.BooleanField(verbose_name=_(u'Teaser'))
+    is_pro6 = models.BooleanField(verbose_name=_(u'Pro6 Block'))
+    is_publish = models.BooleanField(verbose_name=_(u'Public'))
 
 
 class FinanceTransaction(models.Model):
-    parent = models.ForeignKey('self', blank=True, null=True)
-    wallet = models.IntegerField(choices=WALLET_TYPE)
-    contract = models.CharField(max_length=255)
-    contractor = models.CharField(max_length=255)
-    amount = models.DecimalField(max_digits=19, decimal_places=4)
-    description = models.CharField(max_length=255)
-    transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES)
-    transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES)
-    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, blank=True, null=True)
-    done_at = models.DateTimeField()
+    parent = models.ForeignKey('self', blank=True, null=True, verbose_name=_(u'Parent'))
+    wallet = models.IntegerField(choices=WALLET_TYPE, verbose_name=_(u'Wallet'))
+    contract = models.CharField(max_length=255, verbose_name=_(u'Contract'))
+    contractor = models.CharField(max_length=255, verbose_name=_(u'Contractor'))
+    amount = models.DecimalField(max_digits=19, decimal_places=4, verbose_name=_(u'Amount'))
+    description = models.CharField(max_length=255, verbose_name=_(u'Description'))
+    transaction_type = models.IntegerField(choices=FINANCE_TRANSACTION_CHOICES, verbose_name=_(u'Type'))
+    transaction_vat = models.IntegerField(choices=FINANCE_VAT_CHOICES, verbose_name=_(u'VAT'))
+    exchange_rate = models.DecimalField(max_digits=19, decimal_places=4, blank=True, null=True, verbose_name=_(u'Exchange Rate'))
+    done_at = models.DateTimeField(verbose_name=_(u'Done'))
     registered = models.DateTimeField(auto_now_add=True)
 
     objects = FinanceTransactionManager()
 
     class Meta:
-        verbose_name = u'Finance Transaction'
-        verbose_name_plural = u'Finance Transactions'
+        verbose_name = _(u'Finance Transaction')
+        verbose_name_plural = _(u'Finance Transactions')
 
     def __unicode__(self):
         return u'%s, %s, %0.2f' % (self.get_wallet_display(), self.get_transaction_type_display(), self.amount)
 
 
 class WalletState(models.Model):
-    wallet = models.IntegerField(choices=WALLET_TYPE)
-    amount = models.DecimalField(max_digits=19, decimal_places=4)
-    moment = models.DateField()
+    wallet = models.IntegerField(choices=WALLET_TYPE, verbose_name=_(u'Wallet'))
+    amount = models.DecimalField(max_digits=19, decimal_places=4, verbose_name=_(u'Amount'))
+    moment = models.DateField(verbose_name=_(u'Moment'))
     registered = models.DateTimeField(auto_now_add=True)
 
     objects = WalletStateManager()
 
     class Meta:
-        verbose_name = u'Wallet State'
-        verbose_name_plural = u'Wallet States'
+        verbose_name = _(u'Wallet State')
+        verbose_name_plural = _(u'Wallet States')
 
     def __unicode__(self):
         return u'%s (%f)' % (self.get_wallet_display(), self.amount)
@@ -281,13 +285,13 @@ class WalletStateReport(models.Model):
 
 
 class Recommendation(models.Model):
-    name = models.CharField(max_length=128)
-    phone = models.CharField(max_length=32)
-    email = models.CharField(max_length=128)
+    name = models.CharField(verbose_name=pgettext_lazy('human', u'Name'),  max_length=128)
+    phone = models.CharField(verbose_name=_(u'Phone'), max_length=32)
+    email = models.CharField(verbose_name=_(u'E-mail'), max_length=128)
 
     class Meta:
-        verbose_name = u'Recommendation'
-        verbose_name_plural = u'Recommendations'
+        verbose_name = _(u'Recommendation')
+        verbose_name_plural = _(u'Recommendations')
 
     def __unicode__(self):
         return self.name
