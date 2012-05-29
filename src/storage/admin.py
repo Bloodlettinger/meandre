@@ -39,7 +39,7 @@ class CustomerAdmin(admin.ModelAdmin):
     def workareas(self, item):
         qs = item.workarea.all()
         return u', '.join([i.name for i in qs])
-    workareas.short_description = _(u'Workarea')
+    workareas.short_description = _(u'Work Area')
 
 admin.site.register(models.Customer, CustomerAdmin)
 

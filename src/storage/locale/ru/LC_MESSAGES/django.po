@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-28 13:34+0400\n"
-"PO-Revision-Date: 2012-05-28 13:35+0400\n"
+"POT-Creation-Date: 2012-05-29 23:07+0400\n"
+"PO-Revision-Date: 2012-05-29 23:08+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -23,9 +23,9 @@ msgstr ""
 msgid "Base"
 msgstr "Основное"
 
-#: admin.py:42
-msgid "Workarea"
-msgstr "Виды работ"
+#: admin.py:42 models.py:35
+msgid "Work Area"
+msgstr "Вид деятельности"
 
 #: admin.py:81
 msgid "State"
@@ -187,13 +187,9 @@ msgstr "Выигранный"
 msgid "Loosed"
 msgstr "Проигранный"
 
-#: models.py:35
-msgid "Work Area"
-msgstr "Вид работы"
-
 #: models.py:36
 msgid "Work Areas"
-msgstr "Виды работ"
+msgstr "Виды деятельности"
 
 #: models.py:47
 msgid "Partner"
@@ -299,3 +295,6 @@ msgstr "Сначала запустите `wallets_init`."
 #: templates/storage/report.html:33
 msgid "Home"
 msgstr "Домой"
+
+#~ msgid "Workarea"
+#~ msgstr "Виды работ"
