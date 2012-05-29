@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from random import shuffle
 from datetime import date
 
 from django.conf import settings
@@ -17,10 +18,13 @@ from . forms import MainSearchForm
 
 def index(request):
     year = date.today().year
-
+    customers = list(models.Customer.objects.filter(
+        project__status=2  # выигранные
+        ).filter(logo__isnull=False, url__isnull=False).distinct())
+    shuffle(customers)
     context = dict(
         projects=models.Project.objects.winned().public(),
-        clients=models.Customer.objects.filter(logo__isnull=False, url__isnull=False),
+        clients=customers,
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),
         stat=models.Project.statistic.compare_years(year, year - 1),
