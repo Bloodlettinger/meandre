@@ -1,12 +1,13 @@
 {% load i18n %}
+{% load markitup_tags %}
 <!-- START OF PROJECT DESCRIPTION -->
 <div id="project-header">
-    <p class="nova">{{ project.short_name }}</p>
+    <p class="nova title">{{ project.short_name }}</p>
     <a href="{{ project.customer.url }}" target="_blank">
         <img src="{{ project.customer.logo.url }}" />
     </a>
     <div class="clear"></div>
-    <div class="project-memo">{{ project.desc_short }}</div>
+    <div class="project-memo">{{ project.desc_short|render_markup|safe }}</div>
 </div>
 
 <div class="section-box">
@@ -14,15 +15,15 @@
         <ul class="solutions">
             <li>
                 <strong class="nova">{% trans "Task" %}</strong>
-                <em>{{ project.tasks|safe }}</em>
+                <em>{{ project.tasks|render_markup|safe }}</em>
             </li>
             <li>
                 <strong class="nova">{% trans "Challenge" %}</strong>
-                <em>{{ project.problems|safe }}</em>
+                <em>{{ project.problems|render_markup|safe }}</em>
             </li>
             <li>
                 <strong class="nova">{% trans "Result" %}</strong>
-                <em>{{ project.results|safe }}</em>
+                <em>{{ project.results|render_markup|safe }}</em>
             </li>
             <div class="clear"></div>
         </ul>

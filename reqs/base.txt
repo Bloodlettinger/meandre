@@ -6,6 +6,7 @@ South
 django-extensions
 django-salmonella == 0.5.1
 django-autoslug-field
+django-markitup
 
 easy_thumbnails
 

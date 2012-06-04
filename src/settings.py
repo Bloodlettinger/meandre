@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.markup',
 
     'django_extensions',
     'django_autoslug',
@@ -214,6 +215,11 @@ LANGUAGES = (
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
 
+###
+# markitup
+INSTALLED_APPS += ('markitup', )
+MARKITUP_SET = 'markitup/sets/markdown'
+MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True})
 
 try:
     LOCAL_SETTINGS

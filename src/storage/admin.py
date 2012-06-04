@@ -4,12 +4,14 @@ from django import template
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
 
 from easy_thumbnails.widgets import ImageClearableFileInput
 from salmonella.admin import SalmonellaMixin
 from modeltranslation.admin import TranslationAdmin
+from markitup.widgets import AdminMarkItUpWidget
 
 from . import models
 from . import forms
@@ -88,6 +90,7 @@ class ProjectAdmin(SalmonellaMixin, TranslationAdmin):
     filter_horizontal = ('job_type', )
     save_on_top = True
     salmonella_fields = ('customer',)
+    formfield_overrides = {TextField: {'widget': AdminMarkItUpWidget}}
 
     class Media:
         js = (

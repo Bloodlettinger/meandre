@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load markitup_tags %}
 <!-- START OF TEASER -->
 <div id="top-teaser" class="nova">
     <ul>
@@ -8,7 +9,7 @@
                 <div class="TT-link">
                     <a href="{{ project.get_absolute_url }}">{% trans "Explore Project" %}&nbsp;&rsaquo;</a>
                 </div>
-                <div class="TT-description">{{ project.desc_short }}</div>
+                <div class="TT-description">{{ project.desc_short|render_markup|safe }}</div>
             </div>
 
             <div class="TT-img-container">

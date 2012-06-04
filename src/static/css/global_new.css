@@ -425,8 +425,12 @@ body {
 
 .TT-description {
 	position: absolute;
-	top: 10px;
+	top: 0px;
 	left: 0;
+	padding: 0px;
+}
+
+.TT-description > p {
 	padding-left:20px;
 	padding-right:20px;
 	text-transform:uppercase;

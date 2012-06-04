@@ -87,7 +87,7 @@ a.disabled {
     border-bottom:#386753 5px solid;
 }
 
-#project-header p {
+#project-header .title {
     font-size:2.5em;
     color:#386753;
     float:left;
