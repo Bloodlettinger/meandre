@@ -15,6 +15,7 @@ from markitup.widgets import AdminMarkItUpWidget
 
 from . import models
 from . import forms
+from . import widgets
 
 
 class WorkareaAdmin(admin.ModelAdmin):
@@ -101,6 +102,12 @@ class ProjectAdmin(SalmonellaMixin, TranslationAdmin):
         css = {
             'screen': ('/static/modeltranslation/css/tabbed_translation_fields.css',),
         }
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if db_field.name == 'desc_short':
+            kwargs['widget'] = widgets.TeaserPreviewWidget
+        return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
 admin.site.register(models.Project, ProjectAdmin)
 
 
