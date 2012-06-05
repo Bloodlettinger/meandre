@@ -17,10 +17,14 @@ import os
 import sys
 import site
 
+PROJECT_DIR = '/home/sag/site1'
+
 sys.stdout = sys.stderr
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
-sys.path.insert(0, '/home/rad/devel/django/sag')
-site.addsitedir('/home/rad/devel/django/sag/env/lib/python2.6/site-packages')
+sys.path.insert(0, PROJECT_DIR)
+sys.path.insert(1, os.path.join(PROJECT_DIR, 'env/lib/python2.6/site-packages'))
+site.addsitedir(os.path.join(PROJECT_DIR, 'env/lib/python2.6/site-packages'))
+print sys.path
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

@@ -23,7 +23,7 @@ django-tastypie == 0.9.11
 django-haystack
 xapian-haystack
 
--e hg+https://bitbucket.org/rsalmaso/django-admin-tools#g=admin_tool
+-e hg+https://bitbucket.org/rsalmaso/django-admin-tools#egg=admin_tool
 feedparser
 
 -e git+git://github.com/code-on/django-chunks.git@fad1e9eb51fc586852234eaf3a4dc6dc59daef8e#egg=django-chunks
