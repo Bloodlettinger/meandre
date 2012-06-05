@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/salmonella/', include('salmonella.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^markitup/', include('markitup.urls')),
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^', include('src.frontend.urls', namespace='frontend')),
 )
