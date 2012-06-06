@@ -111,6 +111,7 @@
     AddDefaultCharset utf-8
     RewriteEngine On
     RewriteCond %{REQUEST_URI} !^\/static\/
+    RewriteCond %{REQUEST_URI} !^\/media\/
     RewriteRule ^(.*)$ /webapp/$1 [L,QSA]
 
 
@@ -119,6 +120,7 @@
     cd ${PATH_TO_SITE}
     python manage.pyc collectstatic
     ln -s ~/site1/src/public/static/ ~/www/site1/public_html/static
+    ln -s ~/site1/src/public/media/ ~/www/site1/public_html/media
 
 
 Дополнительное ПО
