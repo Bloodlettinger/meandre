@@ -38,11 +38,15 @@
     <script type="text/javascript" src="{% static "js/jquery.hoverIntent.js" %}"></script>
     <script type="text/javascript" src="{% static "js/jquery.totemticker.js" %}"></script>
 
+    <link rel="stylesheet" type="text/css" href="{% static "jgrowl/jquery.jgrowl.css" %}"/>
+    <script type="text/javascript" src="{% static "jgrowl/jquery.jgrowl_compressed.js" %}"></script>
+
     {% block extra_styles %}{% endblock %}
     {% block extra_js %}{% endblock %}
 </head>
 
 <body class="ptserif body-01">
+    {% include "frontend/inc/widget_messages.html" %}
     <div id="everything">
         <div id="v22-topnav-wrap" class="wide-wrap">
             <div class="col960">
