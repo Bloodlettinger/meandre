@@ -25,3 +25,18 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+*.sqlite
+*.sql
+
+.production
+production.sh
+
+sshfs
+tmp
+env
+src/legacy
+src/local_settings.py
+src/prod_settings.py
+src/public
+src/search/whoosh_index/
