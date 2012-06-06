@@ -174,11 +174,6 @@ LOGGING = {
 
 
 ###
-# devserver
-if DEBUG:
-    INSTALLED_APPS += ('devserver', )
-
-###
 # django-admin-tools
 INSTALLED_APPS = (
     'admin_tools',
