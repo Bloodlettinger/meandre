@@ -18,6 +18,18 @@ from . import forms
 from . import widgets
 
 
+class ModelTranslationAdmin(TranslationAdmin):
+    class Media:
+        js = (
+            '/static/modeltranslation/js/force_jquery.js',
+            '/static/modeltranslation/js/tabbed_translation_fields.js',
+            '/static/js/jquery-ui-1.8.13.custom.min.js',
+        )
+        css = {
+            'screen': ('/static/modeltranslation/css/tabbed_translation_fields.css',),
+        }
+
+
 class WorkareaAdmin(admin.ModelAdmin):
     list_display = ('name', )
     list_filter = ('enabled', )
@@ -75,7 +87,7 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
     salmonella_fields = ('user', 'role', 'company', )
 
 
-class ProjectAdmin(SalmonellaMixin, TranslationAdmin):
+class ProjectAdmin(SalmonellaMixin, ModelTranslationAdmin):
     list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
@@ -93,22 +105,17 @@ class ProjectAdmin(SalmonellaMixin, TranslationAdmin):
     salmonella_fields = ('customer',)
     formfield_overrides = {TextField: {'widget': AdminMarkItUpWidget}}
 
-    class Media:
-        js = (
-            '/static/modeltranslation/js/force_jquery.js',
-            'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js',
-            '/static/modeltranslation/js/tabbed_translation_fields.js',
-        )
-        css = {
-            'screen': ('/static/modeltranslation/css/tabbed_translation_fields.css',),
-        }
-
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'desc_short':
             kwargs['widget'] = widgets.TeaserPreviewWidget
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
 admin.site.register(models.Project, ProjectAdmin)
+
+
+class MembershipRoleAdmin(ModelTranslationAdmin):
+    search_fields = ('title', )
+admin.site.register(models.MembershipRole, MembershipRoleAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):

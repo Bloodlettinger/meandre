@@ -52,6 +52,9 @@
     python manage.py runserver --werkzeug
 
 
+Разработка
+==========
+
 Тестирование
 ------------
 
@@ -61,14 +64,22 @@
     python manage.py test storage
     # python manage.py test api
 
-Схема базы данных
------------------
+База данных
+-----------
 
 Создание графической модели::
 
     python manage.py graph_models -e -a -g > models.dot
     dot -Tsvg models.dot > models.svg
     google-chrome models.svg
+
+Миграции
+--------
+
+Новое приложение регистрируется так::
+
+    python manage.py schemamigration APP_NAME --initial
+    python manage.py migrate APP_NAME --fake 0001
 
 
 Продуктив
