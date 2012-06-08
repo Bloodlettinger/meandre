@@ -139,12 +139,12 @@ body {
 	color:#529A7E;
 }
 
-#v22-login-wrap {
+#login-wrap {
 	float:left;
 	padding:10px 0;
 }
 
-#v22-login-wrap form input {
+#login-wrap form input {
 	background:#666;
 	color:#a1a1a1;
 	border:#000;
@@ -162,24 +162,18 @@ body {
 	box-shadow:inset  1px 1px 3px #000;
 }
 
-#v22-login-wrap form label {
+#login-wrap form input[type="submit"] {
 	color:#a1a1a1;
 	border:#000;
-	margin-left:10px;
 	font-size:16px;
 	cursor:pointer;
 }
 
-#v22-login-wrap form label:hover {
-	color:#b1b1b1;
+#login-wrap form input[type="submit"]:hover {
+	color: #b1b1b1;
 }
 
-#v22-login-wrap form label a, v22-login-wrap form label a:visited{
-	color:#a1a1a1;
-	font-size:16px;
-}
-
-#v22-login-wrap form input:focus {
+#login-wrap form input:focus {
 	background:#7a7a7a;
 	color:#cdcdcd;
 	outline:none;

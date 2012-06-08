@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="v22-login-wrap">
+<div id="login-wrap">
     {% if user.is_authenticated %}
     <form method="post" action="{% url auth:logout %}?next={{ request.path|urlencode }}">
         {% csrf_token %}
