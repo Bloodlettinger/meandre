@@ -53,12 +53,12 @@ def project(request, slug):
     role_users = dict()
     for membership in obj.membership_set.all():
         for role in membership.role.all():
-            staff = role_users.get(role.name, list())
+            staff = role_users.get(role.title, list())
             if membership.user:
                 staff.append(membership.user)
             elif membership.company:
                 staff.append(membership.company)
-            role_users[role.name] = staff
+            role_users[role.title] = staff
 
     context = dict(
         project=obj,
