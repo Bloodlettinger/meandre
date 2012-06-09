@@ -30,28 +30,7 @@
 
 <div id="sky-wrap" class="wide-bg-04">
     <div class="col960 skybg">
-        <div id="v22-projnav">
-            <h1>
-                <em class="p-navigation ptserif">
-                    {% with prev_url=prev.get_absolute_url %}
-                      {% if prev_url %}
-                    <a href="{{ prev_url }}">&larr;&nbsp;{% trans "Previous Project" %}</a>
-                      {% else %}
-                    &larr;&nbsp;{% trans "Previous Project" %}
-                      {% endif %}
-                    {% endwith %}
-                    &nbsp;|&nbsp;
-                    {% with next_url=next.get_absolute_url %}
-                      {% if next_url %}
-                    <a href="{{ next_url }}">{% trans "Next Project" %}&nbsp;&rarr;</a>
-                      {% else %}
-                    {% trans "Next Project" %}&nbsp;&rarr;
-                      {% endif %}
-                    {% endwith %}
-                </em>
-            </h1>
-        </div>
-
+        {% include "frontend/inc/project_nav.html" %}
         {% include "frontend/inc/rotator_huge.html" %}
         {% include "frontend/inc/project_desc.html" %}
         {% include "frontend/inc/solutions.html" %}

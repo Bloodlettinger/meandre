@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="projnav">
+    <div class="ptserif">
+        {% spaceless %}
+        {% with url=prev.get_absolute_url %}
+            <span class="{% if url %}enabled{% else %}disabled{% endif %}">
+            {% if url %}
+                <a href="{{ url }}"><span >&larr;</span>
+            {% else %}<span>&times;</span>{% endif %}
+            <span>&nbsp;{% trans "Previous Project" %}</span>
+            {% if url %}</a>{% endif %}
+        {% endwith %}
+        <span>&nbsp;|&nbsp;</span>
+        {% with url=next.get_absolute_url %}
+            <span class="{% if url %}enabled{% else %}disabled{% endif %}">
+            {% if url %}<a href="{{ url }}">{% endif %}
+            <span>{% trans "Next Project" %}&nbsp;</span>
+            {% if url %}</a><span>&rarr;</span>{% else %}<span>&times;</span>{% endif %}
+        {% endwith %}
+        {% endspaceless %}
+    </div>
+</div>

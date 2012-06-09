@@ -928,60 +928,32 @@ em.icon-lost {
 	color:#fff;
 }
 
-.v22-projnav {
-	margin:20px 0px;
+.projnav {
+    position: relative;
+    min-height: 30px;
 }
-
-.v22-projnav h1 {
-	height:40px;
-	line-height:37px;
-	margin:0;
-	padding:0 15px;
-	text-transform:uppercase;
-	font-size:20px;
-	color:#E1E1E1;
-	text-shadow:#000 0px -1px 0px;
-	position:relative;
-
-	-webkit-transition: border-color  1.0s ease;
-	-moz-transition: border-color  1.0s ease;
-	-o-transition: border-color  1.0s ease;
-	transition: border-color  1.0s ease;
+.projnav > div {
+    position: absolute; top: 0; right: 0; width: 400px;
+    margin: 0; padding: 0;
+    line-height: 37px;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    text-shadow: none;
+    text-transform: none;
 }
-
-.v22-projnav h1 em {
-	position:absolute;
-	right:0px;
-	font-style:normal;
-	color:#AD479C;
+.projnav a {
+    test-shadow: none;
+    text-decoration: none;
+    color: black;
 }
-
-em.p-navigation {
-	margin:0;
-	padding:0;
-	display:block;
-	/* position:absolute; */
-	right:10px;
-	top:0px;
-
-	line-height:37px;
-	font-size:18px;
-	text-transform:none;
-	font-style:normal;
-	text-shadow:none;
-	font-weight:normal;
+.projnav a:hover {
+    color:#555;
 }
-
-em.p-navigation a, em.p-navigation a:visited {
-	padding:0;
-	margin:0;
-	color:#333;
-	text-shadow:none;
-	text-decoration:none;
+.projnav .enabled {
 }
-
-em.p-navigation a:hover {
-	color:#555;
+.projnav .disabled {
+    color: gray;
 }
 
 .section-box, .section-box-dark {
