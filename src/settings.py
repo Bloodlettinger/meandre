@@ -198,7 +198,7 @@ THUMBNAIL_ALIASES = {
 
 ###
 # haystack
-#INSTALLED_APPS += ('haystack', )
+INSTALLED_APPS += ('haystack', )
 HAYSTACK_INCLUDE_SPELLING = True
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SITECONF = 'src.search'

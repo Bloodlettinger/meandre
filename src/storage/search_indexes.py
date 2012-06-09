@@ -5,15 +5,15 @@ from __future__ import absolute_import
 from haystack import indexes
 from haystack import site
 
-from . models import Project
+from . import models
 
 
-class ProjectIndex(indexes.SearchIndex):
+class ProjectIndex(indexes.RealTimeSearchIndex):
     description = indexes.CharField(document=True, use_template=True)
     customer = indexes.CharField(model_attr='customer')
     registered = indexes.DateTimeField(model_attr='registered')
 
     def index_queryset(self):
-        return Project.objects.all()
+        return models.Project.objects.all()
 
-site.register(Project, ProjectIndex)
+site.register(models.Project, ProjectIndex)

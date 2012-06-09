@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load markitup_tags %}
 <!-- 04 - PROJECTS START -->
 <div class="section-04-wrap ptserif">
     <h1>
@@ -20,7 +21,7 @@
                   style="background-image: url('../static/img/site/entertainment-emboss-32.png')"
                 {% else %}
                 {% endif %}
-                >{{ item.short_name }}</p>
+                >{{ item.short_name|safe }}</p>
                 {% if user.is_authenticated %}
                     {% if item.status == 3 %}
                         <em class="icon-lost"></em>
@@ -47,11 +48,13 @@
                         {% endif %}
                     </div>
                     <div class="pum-logo">
+                        {% if item.customer.logo %}
                         <a href="{{ item.customer.url }}"><img src="{{ item.customer.logo.url }}" /></a>
+                        {% endif %}
                     </div>
                     <hr class="clear"/>
                     <div class="pum-data-pnum nova">{{ item.code }}</div>
-                    <div class="pum-data ptserif">{{ item.long_name }}</div>
+                    <div class="pum-data ptserif">{{ item.long_name|render_markup|safe }}</div>
                     {% if item.address %}
                     <div class="pum-data ptserif">
                         <a href="http://maps.yandex.ru?text={{ item.address }}" target="_new">{{ item.address }}</a>

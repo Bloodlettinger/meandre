@@ -7,3 +7,6 @@
 {{ object.problems }}
 {{ object.results }}
 {{ object.made_for }}
+{{ object.customer.code }}
+{{ object.customer.short_name }}
+{{ object.customer.long_name }}
