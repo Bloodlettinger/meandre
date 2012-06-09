@@ -33,8 +33,10 @@
 
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
-            <li>{% trans "Full Price" %}:<em>{{ project.price_full|floatformat:-2 }} &#8374;</em></li>
-            <li>{% trans "Price to Square" %}:<em>{{ project.price_meter|floatformat:-2 }} &#8374;/m<sup>2</sup></em></li>
+            <li>{% trans "Full Price" %}:<em>{{ project.price_full|floatformat:-2 }}
+                {% if project.currency == 1 %}&#8374;{% else %}${% endif %}</em></li>
+            <li>{% trans "Price to Square" %}:<em>{{ project.price_meter|floatformat:-2 }}
+                {% if project.currency == 1 %}&#8374;{% else %}${% endif %}/m<sup>2</sup></em></li>
             <li>{% trans "Time Used" %}:<em>{{ project.duration_full }} {% trans "hours" %}</em></li>
             <li>{% trans "Production Time to Total Time" %}:<em>{{ project.production_percent|floatformat:-2 }}%</em></li>
             <li>{% trans "Work Speed" %}:<em>{{ project.meters_per_hour|floatformat:-2 }} m<sup>2</sup>/h</em></li>
