@@ -40,3 +40,4 @@ src/local_settings.py
 src/prod_settings.py
 src/public
 src/search/whoosh_index/
+src/search/xapian_index/

@@ -2,8 +2,8 @@
 
 from __future__ import absolute_import
 
-from haystack import indexes
 from haystack import site
+from haystack import indexes
 
 from . import models
 
