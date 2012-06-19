@@ -116,8 +116,8 @@ admin.site.register(models.MembershipRole, MembershipRoleAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('amount', 'wallet', 'transaction_type', 'transaction_vat',
-        'exchange_rate', 'user', 'done_at')
+    list_display = ('wallet', 'transaction_type', 'contractor', 'contract', 'amount', 
+            'transaction_vat', 'done_at')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
