@@ -107,7 +107,7 @@ class Project(models.Model):
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
     job_type = models.ManyToManyField(JobType, verbose_name=_(u'Job Type'))
     short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'))
-    long_name = models.TextField(blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
+    long_name = models.CharField(max_length=512, blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
     ptype = models.IntegerField(choices=PROJECT_TYPE_CHOICES, verbose_name=_(u'Type'))
     status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, verbose_name=_(u'Status'))
     desc_short = models.TextField(blank=True, null=True, verbose_name=_(u'Description (short)'))
