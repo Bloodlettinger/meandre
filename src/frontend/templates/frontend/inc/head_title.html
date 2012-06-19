@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <div id="ultra-header">
     <div id="name-wrap">
-        <a href="/ru/projects/index">
+        <a href="{% url frontend:index %}">
             <div id="site-name-{{ LANGUAGE_CODE|lower|slice:":2" }}"
                  title="{% trans "Andrey Gavrilov and Co." %}">
             </div>
