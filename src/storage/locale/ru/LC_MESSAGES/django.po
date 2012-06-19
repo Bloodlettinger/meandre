@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-08 18:25+0400\n"
-"PO-Revision-Date: 2012-06-08 18:26+0400\n"
+"POT-Creation-Date: 2012-06-19 23:31+0400\n"
+"PO-Revision-Date: 2012-06-19 23:31+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -307,6 +307,10 @@ msgstr "Сделано для"
 msgctxt "object"
 msgid "Square"
 msgstr "Площадь"
+
+#: models.py:119
+msgid "Square meters"
+msgstr "Квадратные метры"
 
 #: models.py:120
 msgctxt "duration"

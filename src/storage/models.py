@@ -116,7 +116,7 @@ class Project(models.Model):
     problems = models.TextField(blank=True, null=True, verbose_name=_(u'Problems'))
     results = models.TextField(blank=True, null=True, verbose_name=_(u'Results'))
     made_for = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Made for'))
-    object_square = models.DecimalField(max_digits=19, decimal_places=2, default=0, verbose_name=pgettext_lazy('object', u'Square'))
+    object_square = models.IntegerField(default=0, verbose_name=pgettext_lazy('object', u'Square'), help_text=_(u'Square meters'))
     duration_production = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Production'), help_text=_(u'In hours'))
     duration_changes = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Changes'), help_text=_(u'In hours'))
     duration_discussion = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Discussion'), help_text=_(u'In hours'))
