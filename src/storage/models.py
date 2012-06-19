@@ -69,7 +69,7 @@ class Customer(models.Model):
         verbose_name_plural = _(u'Customers')
 
     def __unicode__(self):
-        return self.short_name
+        return u'%s - %s' % (self.code, self.short_name)
 
 
 class CompanyTeam(models.Model):

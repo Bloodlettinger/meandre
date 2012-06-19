@@ -55,7 +55,6 @@ class CustomerAdmin(admin.ModelAdmin):
         qs = item.workarea.all()
         return u', '.join([i.name for i in qs])
     workareas.short_description = _(u'Work Area')
-
 admin.site.register(models.Customer, CustomerAdmin)
 
 
@@ -87,7 +86,7 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
     salmonella_fields = ('user', 'role', 'company', )
 
 
-class ProjectAdmin(SalmonellaMixin, ModelTranslationAdmin):
+class ProjectAdmin(ModelTranslationAdmin):
     list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
@@ -102,14 +101,12 @@ class ProjectAdmin(SalmonellaMixin, ModelTranslationAdmin):
     inlines = (MembershipInline, ProjectImageInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True
-    salmonella_fields = ('customer',)
     formfield_overrides = {TextField: {'widget': AdminMarkItUpWidget}}
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'desc_short':
             kwargs['widget'] = widgets.TeaserPreviewWidget
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
-
 admin.site.register(models.Project, ProjectAdmin)
 
 
@@ -143,7 +140,6 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         # запрещаем удаление объектов
         return False
-
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
 
@@ -207,5 +203,4 @@ class WalletStateReportAdmin(BaseReport):
             )
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response(self.change_list_template, context, context_instance=context_instance)
-
 admin.site.register(models.WalletStateReport, WalletStateReportAdmin)
