@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
 from django.contrib.auth.models import User
+from django.utils.safestring import mark_safe
 
 from django_autoslug.fields import AutoSlugField
 
@@ -26,6 +27,15 @@ FINANCE_TRANSACTION_CHOICES = one_base([_(u'Income'), _(u'Expense')])
 FINANCE_VAT_CHOICES = one_base([_(u'with VAT'), _(u'without VAT'), _(u'VAT not chargable')])
 PROJECT_TYPE_CHOICES = one_base([_(u'Office'), _(u'Flat'), _(u'Shop'), _(u'Food'), _(u'Other')])
 PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Winned'), _(u'Loosed')])
+
+ICON_TPL = u'<img src="/static/img/site/%(value)s-emboss-32.png" title="%(title)s"/>'
+PROJECT_TYPE_ICONS = one_base([
+    mark_safe(ICON_TPL % dict(value='work', title=_(u'Office'))),
+    mark_safe(ICON_TPL % dict(value='home', title=_(u'Flat'))),
+    mark_safe(ICON_TPL % dict(value='shop', title=_(u'Shop'))),
+    mark_safe(ICON_TPL % dict(value='entertainment', title=_(u'Food'))),
+    mark_safe(ICON_TPL % dict(value='other', title=_(u'Other'))),
+    ])
 
 
 class Workarea(models.Model):

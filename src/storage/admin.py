@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
+from django.forms.widgets import RadioSelect
 from django.shortcuts import render_to_response
 
 from easy_thumbnails.widgets import ImageClearableFileInput
@@ -106,6 +107,9 @@ class ProjectAdmin(ModelTranslationAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
         if db_field.name == 'desc_short':
             kwargs['widget'] = widgets.TeaserPreviewWidget
+        elif db_field.name == 'ptype':
+            kwargs['widget'] = RadioSelect(renderer=widgets.HorizontalRadioRenderer)
+            kwargs['choices'] = models.PROJECT_TYPE_ICONS
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 admin.site.register(models.Project, ProjectAdmin)
 

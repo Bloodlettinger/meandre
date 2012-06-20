@@ -24,3 +24,9 @@ class TeaserPreviewWidget(AdminMarkItUpWidget):
         tpl = get_template('storage/teaser_preview.html')
         preview = tpl.render(Context(ctx))
         return mark_safe('%s %s' % (preview, value))
+
+
+class HorizontalRadioRenderer(forms.RadioSelect.renderer):
+
+    def render(self):
+        return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
