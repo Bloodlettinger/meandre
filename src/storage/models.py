@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
@@ -28,13 +29,14 @@ FINANCE_VAT_CHOICES = one_base([_(u'with VAT'), _(u'without VAT'), _(u'VAT not c
 PROJECT_TYPE_CHOICES = one_base([_(u'Office'), _(u'Flat'), _(u'Shop'), _(u'Food'), _(u'Other')])
 PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Winned'), _(u'Loosed')])
 
-ICON_TPL = u'<img src="/static/img/site/%(value)s-emboss-32.png" title="%(title)s"/>'
+ICON_TPL = u'<img src="%(static)simg/site/%(value)s-emboss-32.png" title="%(title)s"/>'
+default = dict(static=settings.STATIC_URL)
 PROJECT_TYPE_ICONS = one_base([
-    mark_safe(ICON_TPL % dict(value='work', title=_(u'Office'))),
-    mark_safe(ICON_TPL % dict(value='home', title=_(u'Flat'))),
-    mark_safe(ICON_TPL % dict(value='shop', title=_(u'Shop'))),
-    mark_safe(ICON_TPL % dict(value='entertainment', title=_(u'Food'))),
-    mark_safe(ICON_TPL % dict(value='other', title=_(u'Other'))),
+    mark_safe(ICON_TPL % dict(default, value='work', title=_(u'Office'))),
+    mark_safe(ICON_TPL % dict(default, value='home', title=_(u'Flat'))),
+    mark_safe(ICON_TPL % dict(default, value='shop', title=_(u'Shop'))),
+    mark_safe(ICON_TPL % dict(default, value='entertainment', title=_(u'Food'))),
+    mark_safe(ICON_TPL % dict(default, value='other', title=_(u'Other'))),
     ])
 
 

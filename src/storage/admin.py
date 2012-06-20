@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
-from django.forms.widgets import RadioSelect
 from django.shortcuts import render_to_response
 
 from easy_thumbnails.widgets import ImageClearableFileInput
@@ -22,12 +22,12 @@ from . import widgets
 class ModelTranslationAdmin(TranslationAdmin):
     class Media:
         js = (
-            '/static/modeltranslation/js/force_jquery.js',
-            '/static/modeltranslation/js/tabbed_translation_fields.js',
-            '/static/js/jquery-ui-1.8.13.custom.min.js',
+            settings.STATIC_URL + 'modeltranslation/js/force_jquery.js',
+            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',
+            settings.STATIC_URL + 'js/jquery-ui-1.8.13.custom.min.js',
         )
         css = {
-            'screen': ('/static/modeltranslation/css/tabbed_translation_fields.css',),
+            'screen': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),
         }
 
 

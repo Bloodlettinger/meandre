@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.conf import settings
 from django.template import Context
 from django.template.loader import get_template
 from django.utils.safestring import mark_safe
@@ -12,11 +13,11 @@ class TeaserPreviewWidget(AdminMarkItUpWidget):
 
     class Media:
         css = dict(all=(
-            '/static/css/widgets/teaser_preview.css',
-            '/static/css/fonts/MyFonts Webfonts Order M2655697.css',
+            settings.STATIC_URL + 'css/widgets/teaser_preview.css',
+            settings.STATIC_URL + 'css/fonts/MyFonts Webfonts Order M2655697.css',
             'http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic',
             ), )
-        js = ('/static/js/teaser_preview.js', )
+        js = (settings.STATIC_URL + 'js/teaser_preview.js', )
 
     def render(self, name, value, attrs=None):
         value = super(TeaserPreviewWidget, self).render(name, value, attrs)
@@ -38,5 +39,5 @@ class RadioSelectHorizontal(forms.RadioSelect):
 
     class Media:
         css = dict(all=(
-            '/static/css/custom_admin.css',
+            settings.STATIC_URL + 'css/custom_admin.css',
             ), )
