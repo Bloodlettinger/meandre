@@ -30,3 +30,13 @@ class HorizontalRadioRenderer(forms.RadioSelect.renderer):
 
     def render(self):
         return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
+
+
+class RadioSelectHorizontal(forms.RadioSelect):
+
+    renderer = HorizontalRadioRenderer
+
+    class Media:
+        css = dict(all=(
+            '/static/css/custom_admin.css',
+            ), )
