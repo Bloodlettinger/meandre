@@ -27,13 +27,13 @@ class TeaserPreviewWidget(AdminMarkItUpWidget):
         return mark_safe('%s %s' % (preview, value))
 
 
-class HorizontalRadioRenderer(forms.RadioSelect.renderer):
+class HorizontalRadioRenderer(forms.widgets.RadioSelect.renderer):
 
     def render(self):
         return mark_safe(u'\n'.join([u'%s\n' % w for w in self]))
 
 
-class RadioSelectHorizontal(forms.RadioSelect):
+class RadioSelectHorizontal(forms.widgets.RadioSelect):
 
     renderer = HorizontalRadioRenderer
 
@@ -41,3 +41,9 @@ class RadioSelectHorizontal(forms.RadioSelect):
         css = dict(all=(
             settings.STATIC_URL + 'css/widgets/custom_admin.css',
             ), )
+
+
+class CurrencySelect(forms.widgets.Select):
+
+    class Media:
+        js = (settings.STATIC_URL + 'js/widgets/currency_select.js', )

@@ -112,6 +112,8 @@ class ProjectAdmin(ModelTranslationAdmin):
             kwargs['choices'] = models.PROJECT_TYPE_ICONS
         elif db_field.name == 'status':
             kwargs['widget'] = widgets.RadioSelectHorizontal
+        elif db_field.name == 'currency':
+            kwargs['widget'] = widgets.CurrencySelect
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 admin.site.register(models.Project, ProjectAdmin)
 
