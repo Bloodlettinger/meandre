@@ -17,7 +17,7 @@ class TeaserPreviewWidget(AdminMarkItUpWidget):
             settings.STATIC_URL + 'css/fonts/MyFonts Webfonts Order M2655697.css',
             'http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic&subset=latin,cyrillic',
             ), )
-        js = (settings.STATIC_URL + 'js/teaser_preview.js', )
+        js = (settings.STATIC_URL + 'js/widgets/teaser_preview.js', )
 
     def render(self, name, value, attrs=None):
         value = super(TeaserPreviewWidget, self).render(name, value, attrs)
@@ -39,5 +39,5 @@ class RadioSelectHorizontal(forms.RadioSelect):
 
     class Media:
         css = dict(all=(
-            settings.STATIC_URL + 'css/custom_admin.css',
+            settings.STATIC_URL + 'css/widgets/custom_admin.css',
             ), )
