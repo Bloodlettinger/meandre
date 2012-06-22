@@ -22,3 +22,10 @@ def storage_common():
                 'src.storage.models.JobType',
             ]),
         ])
+
+
+def chunks_common():
+    return modules.ModelList(_(u'Static Blocks'), [
+        'chunks.models.Chunk',
+        'chunks.models.Image',
+        ])

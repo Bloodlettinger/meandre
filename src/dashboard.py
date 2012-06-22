@@ -7,6 +7,7 @@ from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 from admin_tools.utils import get_admin_site_name
 
 from . storage.dashdesc import storage_common
+from . storage.dashdesc import chunks_common
 
 
 class CustomIndexDashboard(Dashboard):
@@ -56,6 +57,7 @@ class CustomIndexDashboard(Dashboard):
                 ]))
 
         self.children.append(storage_common())
+        self.children.append(chunks_common())
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):
