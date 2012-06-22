@@ -54,6 +54,7 @@
             <div class="col960">
                 <div id="v22-top-nav-02" class="navstyle-home-2">
                     {% include "frontend/inc/widget_lang.html" %}
+                    <a id="v22-mail" href="mailto:{% chunk "contact_email" %}">{% chunk "contact_email" %}</a>
                 </div>
                 <div id="v22-top-nav-03">
                     {% include "frontend/inc/widget_auth.html" %}
@@ -307,7 +308,7 @@ $(document).ready(function() {
                 <p>{% trans "Méandre LLC" %}</p>
                 <p>{% trans "9 Verhnyaya Maslovka, Moscow, Russia" %}</p>
                 <p>+7 (916) 504-0965</p>
-                <p><a href="mailto:me@andrgavr.com">me@andrgavr.com</a></p>
+                <p><a href="mailto:{% chunk "contact_email" %}">{% chunk "contact_email" %}</a></p>
             </div>
             <div class="clear"></div>
         </div>
