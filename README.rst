@@ -150,11 +150,17 @@
 
 Инициализация базы данных::
 
-    python manage.py syncdb --migrate --noinput
+    python manage.pyc syncdb --migrate --noinput
     echo "delete from django_content_type;" | python manage.pyc dbshell
     echo "delete from auth_permission;" | python manage.pyc dbshell
     python manage.pyc dbshell
     \. DUMP.sql
+
+Возможно понадобится имитация миграций для зависимостей::
+
+    python manage.pyc migrate admin_tools.dashboard --fake
+    python manage.pyc migrate admin_tools.menu --fake
+    python manage.pyc migrate easy_thumbnails --fake
 
 
 Запуск

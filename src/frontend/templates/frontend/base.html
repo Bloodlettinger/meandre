@@ -1,10 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-{% load staticfiles i18n %}
+{% load staticfiles i18n chunks %}
 <head>
     <meta name="google-site-verification" content="Q0p1RX8gjREQ7vME9qAIjGxzGYh8fL4BheiYUCIKd7c" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{% trans "Andrey Gavrilov Studio" %}</title>
+
+    <link rel="shortcut icon" href="{% chunk_imgurl "favicon" %}"/>
 
     <link rel="stylesheet" type="text/css" href="{% static "css/additional_new.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "css/global_new.css" %}" />
