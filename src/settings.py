@@ -137,6 +137,7 @@ INSTALLED_APPS = (
     'django_autoslug',
     'south',
     'salmonella',
+    'chunks',
 
     'src.frontend',
     'src.users',
