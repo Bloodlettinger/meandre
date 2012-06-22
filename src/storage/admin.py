@@ -124,7 +124,7 @@ admin.site.register(models.MembershipRole, MembershipRoleAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('wallet', 'transaction_type', 'contractor', 'contract', 'amount', 
+    list_display = ('wallet', 'type_color', 'contractor', 'contract', 'amount',
             'transaction_vat', 'done_at')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
@@ -148,6 +148,16 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         # запрещаем удаление объектов
         return False
+
+    def type_color(self, item):
+        colors = {1: "#458069", 2: "#AD479C"}
+        tpl = """<div style="text-align: center; padding:2px 4px; background-color: %s;">%s</div>"""
+        return tpl % (
+            colors.get(item.transaction_type, "gray"),
+            item.get_transaction_type_display()
+            )
+    type_color.short_model_desc = _(u'Type')
+    type_color.allow_tags = True
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
 
