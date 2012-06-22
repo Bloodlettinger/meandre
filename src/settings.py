@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'salmonella',
     'chunks',
 
+    'src.custom_admin',
     'src.frontend',
     'src.users',
     'src.storage',

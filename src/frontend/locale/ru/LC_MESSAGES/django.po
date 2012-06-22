@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-30 00:50+0400\n"
+"POT-Creation-Date: 2012-06-22 17:55+0400\n"
 "PO-Revision-Date: 2012-05-24 17:08+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,35 +23,35 @@ msgstr ""
 msgid "Andrey Gavrilov Studio"
 msgstr "Студия Андрея Гаврилова"
 
-#: templates/frontend/base.html:281
+#: templates/frontend/base.html:288
 msgid "The Team"
 msgstr "Команда проекта"
 
-#: templates/frontend/base.html:287
+#: templates/frontend/base.html:294
 msgid "Portfolio"
 msgstr "Портфолио"
 
-#: templates/frontend/base.html:288
+#: templates/frontend/base.html:295
 msgid "Download our portfolio in PDF"
 msgstr "Загрузите наше портфолио в формате PDF"
 
-#: templates/frontend/base.html:298
+#: templates/frontend/base.html:305
 msgid "Contacts"
 msgstr "Контакты"
 
-#: templates/frontend/base.html:301
+#: templates/frontend/base.html:308
 msgid "Méandre LLC"
 msgstr "ООО «Меандр»"
 
-#: templates/frontend/base.html:302
+#: templates/frontend/base.html:309
 msgid "9 Verhnyaya Maslovka, Moscow, Russia"
 msgstr "Москва, ул. Верхняя Масловка, д.9"
 
-#: templates/frontend/base.html:310
+#: templates/frontend/base.html:317
 msgid "Andrey Gavrilov. All rights reserved."
 msgstr "Андрей Гаврилов. Все права защищены."
 
-#: templates/frontend/base.html:311
+#: templates/frontend/base.html:318
 msgid "Méandre LLC. All rights reserved."
 msgstr "ООО \"Меандр\". Все права защищены."
 
@@ -62,14 +62,6 @@ msgstr "Главная страница"
 #: templates/frontend/project.html:22
 msgid "Edit Project"
 msgstr "Редактировать проект"
-
-#: templates/frontend/project.html:38 templates/frontend/project.html.py:40
-msgid "Previous Project"
-msgstr "Предыдущий проект"
-
-#: templates/frontend/project.html:46 templates/frontend/project.html.py:48
-msgid "Next Project"
-msgstr "Следующий проект"
 
 #: templates/frontend/inc/clients.html:5
 msgctxt "Block on main page"
@@ -127,31 +119,29 @@ msgstr "Пространства для жизни"
 msgid "Apartments, Houses, Hotels"
 msgstr "Квартиры, интерьеры загородных домов, гостиницы"
 
-#: templates/frontend/inc/head_title.html:7
+#: templates/frontend/inc/head_title.html:8
 msgid "Andrey Gavrilov and Co."
 msgstr "Андрей Гаврилов и коллеги"
 
-#: templates/frontend/inc/head_title.html:11
-msgid "Interior Architects & Engineers"
-msgstr "Архитектурное и инженерное проектирование интерьеров"
-
-#: templates/frontend/inc/head_title.html:14
-msgid ""
-"We design interior spaces &mdash; for work, for leasure and for living "
-"&mdash; with focus on Speed and Creativity."
-msgstr "Мы проектируем интерьеры — для работы, для отдыха и для жизни."
-
-#: templates/frontend/inc/project_desc.html:16
+#: templates/frontend/inc/project_desc.html:17
 msgid "Task"
 msgstr "Задача"
 
-#: templates/frontend/inc/project_desc.html:20
+#: templates/frontend/inc/project_desc.html:21
 msgid "Challenge"
 msgstr "Сложности"
 
-#: templates/frontend/inc/project_desc.html:24
+#: templates/frontend/inc/project_desc.html:25
 msgid "Result"
 msgstr "Результат"
+
+#: templates/frontend/inc/project_nav.html:10
+msgid "Previous Project"
+msgstr "Предыдущий проект"
+
+#: templates/frontend/inc/project_nav.html:17
+msgid "Next Project"
+msgstr "Следующий проект"
 
 #: templates/frontend/inc/project_stat.html:4
 msgid "Project's Statistic"
@@ -185,31 +175,31 @@ msgstr "Площадь"
 msgid "Full Price"
 msgstr "Полная стоимость"
 
-#: templates/frontend/inc/project_stat.html:37
+#: templates/frontend/inc/project_stat.html:38
 msgid "Price to Square"
 msgstr "Стоимость за квадратный метр"
 
-#: templates/frontend/inc/project_stat.html:38
+#: templates/frontend/inc/project_stat.html:40
 msgid "Time Used"
 msgstr "Полные трудозатраты"
 
-#: templates/frontend/inc/project_stat.html:38
+#: templates/frontend/inc/project_stat.html:40
 msgid "hours"
 msgstr "часов"
 
-#: templates/frontend/inc/project_stat.html:39
+#: templates/frontend/inc/project_stat.html:41
 msgid "Production Time to Total Time"
 msgstr "Производственное время к общему времени"
 
-#: templates/frontend/inc/project_stat.html:40
+#: templates/frontend/inc/project_stat.html:42
 msgid "Work Speed"
 msgstr "Скорость проектирования"
 
-#: templates/frontend/inc/project_stat.html:41
+#: templates/frontend/inc/project_stat.html:43
 msgid "Project Speed"
 msgstr "Скорость проекта"
 
-#: templates/frontend/inc/projects.html:5
+#: templates/frontend/inc/projects.html:6
 #: templates/frontend/inc/rotator_huge.html:3
 msgid "Projects"
 msgstr "Проекты"
@@ -259,7 +249,7 @@ msgstr "Вперёд"
 msgid "Project Scope"
 msgstr "Виды работ"
 
-#: templates/frontend/inc/teaser.html:9
+#: templates/frontend/inc/teaser.html:10
 msgid "Explore Project"
 msgstr "Посмотреть проект"
 
@@ -279,85 +269,77 @@ msgstr "Войти"
 msgid "Statistics"
 msgstr "Статистика"
 
-#: templates/frontend/inc/widget_stat.html:10
-msgid "Configuration"
-msgstr "Настройка"
-
-#: templates/frontend/inc/widget_stat.html:10
-msgid "Icons"
-msgstr "Иконки"
-
-#: templates/frontend/inc/widget_stat.html:18
+#: templates/frontend/inc/widget_stat.html:15
 msgctxt "statistics"
 msgid "won in"
 msgstr "выиграно в"
 
-#: templates/frontend/inc/widget_stat.html:18
-#: templates/frontend/inc/widget_stat.html:24
+#: templates/frontend/inc/widget_stat.html:15
+#: templates/frontend/inc/widget_stat.html:21
 msgctxt "statistics"
 msgid "from"
 msgstr "из"
 
-#: templates/frontend/inc/widget_stat.html:20
-#: templates/frontend/inc/widget_stat.html:26
+#: templates/frontend/inc/widget_stat.html:17
+#: templates/frontend/inc/widget_stat.html:23
 msgid "Total"
 msgstr "Всего"
 
-#: templates/frontend/inc/widget_stat.html:24
+#: templates/frontend/inc/widget_stat.html:21
 msgid "inquiries in"
 msgstr "предложений в"
 
-#: templates/frontend/inc/widget_stat.html:30
+#: templates/frontend/inc/widget_stat.html:27
 msgid "Design Speed qs.m./h last year"
 msgstr "Скорость кв.м./час за год"
 
-#: templates/frontend/inc/widget_stat.html:35
+#: templates/frontend/inc/widget_stat.html:32
 msgctxt "statistics"
 msgid "Total Working Hours Spent In"
 msgstr "Потрачено часов в"
 
-#: templates/frontend/inc/widget_stat.html:35
+#: templates/frontend/inc/widget_stat.html:32
 msgctxt "statistics"
 msgid "On Architectural Design Projects"
 msgstr "на архитектурное проектирование"
 
-#: templates/frontend/inc/widget_stat.html:39
+#: templates/frontend/inc/widget_stat.html:36
 msgctxt "statistics"
 msgid "Total Square Meters Of Various Spaces Designed In"
 msgstr "Квадратных метров спроектировано в"
 
-#: templates/frontend/inc/widget_stat.html:46
+#: templates/frontend/inc/widget_stat.html:43
 msgid "Years in Design"
 msgstr "лет в проектировании"
 
-#: templates/frontend/inc/widget_stat.html:50
+#: templates/frontend/inc/widget_stat.html:47
 msgid "Years with Western Customers"
 msgstr "лет с западными заказчиками"
 
-#: templates/frontend/inc/widget_stat.html:60
+#: templates/frontend/inc/widget_stat.html:57
 msgctxt "won in YEAR in relation to last year"
 msgid "won in"
 msgstr "выиграно в"
 
-#: templates/frontend/inc/widget_stat.html:60
+#: templates/frontend/inc/widget_stat.html:57
 msgctxt "won in YEAR in relation to last year"
 msgid "in relation to"
 msgstr "по сравнению с"
 
-#: templates/frontend/inc/widget_stat.html:62
+#: templates/frontend/inc/widget_stat.html:59
 msgctxt "won in YEAR in relation to last year"
 msgid "last year"
 msgstr "в прошлом году"
 
-#: templates/frontend/inc/widget_stat.html:68
+#: templates/frontend/inc/widget_stat.html:65
 msgid "Projects Won"
 msgstr "Выиграно проектов"
 
-#: templates/frontend/inc/widget_stat.html:78
+#: templates/frontend/inc/widget_stat.html:75
 msgid "Total Sales"
 msgstr "Стоимость по типам"
 
-#: templates/frontend/inc/widget_stat.html:98
+#: templates/frontend/inc/widget_stat.html:95
 msgid "Total Rate, sq.m."
 msgstr "Стоимость за кв.м."
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-22 14:29+0400\n"
+"POT-Creation-Date: 2012-06-22 17:55+0400\n"
 "PO-Revision-Date: 2012-06-22 14:30+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,39 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:51 admin.py:95
+#: admin.py:39 admin.py:83
 msgid "Base"
 msgstr "Основное"
 
-#: admin.py:58 models.py:48 models.py:69
+#: admin.py:46 models.py:48 models.py:69
 msgid "Work Area"
 msgstr "Вид деятельности"
 
-#: admin.py:96
+#: admin.py:84
 msgid "State"
 msgstr "Состояние"
 
-#: admin.py:97
+#: admin.py:85
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:98 models.py:105 models.py:267
+#: admin.py:86 models.py:105 models.py:267
 msgid "Description"
 msgstr "Описание"
 
-#: admin.py:99 models.py:106
+#: admin.py:87 models.py:106
 msgid "Duration"
 msgstr "Длительность"
 
-#: admin.py:100
+#: admin.py:88
 msgid "Jobs"
 msgstr "Работы"
 
-#: admin.py:193
+#: admin.py:147 models.py:70 models.py:123 models.py:268
+msgid "Type"
+msgstr "Тип"
+
+#: admin.py:191
 msgid "Account"
 msgstr "Аккаунт"
 
-#: admin.py:193
+#: admin.py:191
 msgid "Balance"
 msgstr "Баланс"
 
@@ -220,10 +224,6 @@ msgstr "Партнёр"
 #: models.py:61
 msgid "Partners"
 msgstr "Партнёры"
-
-#: models.py:70 models.py:123 models.py:268
-msgid "Type"
-msgstr "Тип"
 
 #: models.py:71
 msgid "Partnership"
@@ -572,10 +572,3 @@ msgstr "Домой"
 #: templates/storage/teaser_preview.html:5
 msgid "Explore Project"
 msgstr "Посмотреть проект"
-
-#~ msgctxt "recommendation"
-#~ msgid "Name"
-#~ msgstr "Имя"
-
-#~ msgid "Workarea"
-#~ msgstr "Виды работ"

@@ -3,6 +3,7 @@
 from __future__ import absolute_import
 
 from modeltranslation.translator import translator, TranslationOptions
+from chunks.models import Chunk
 
 from . storage import models
 
@@ -20,3 +21,8 @@ translator.register(models.Project, ProjectOpts)
 class MembershipRoleOpts(TranslationOptions):
     fields = ('title', )
 translator.register(models.MembershipRole, MembershipRoleOpts)
+
+
+class ChunkOpts(TranslationOptions):
+    fields = ('content', )
+translator.register(Chunk, ChunkOpts)

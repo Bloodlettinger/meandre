@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load staticfiles %}
+{% load chunks %}
 <div id="ultra-header">
     <div id="name-wrap">
         <a href="{% url frontend:index %}">
@@ -7,12 +8,8 @@
                  title="{% trans "Andrey Gavrilov and Co." %}">
             </div>
         </a>
-        <div id="short-desc-wrap">
-            {% trans "Interior Architects & Engineers" %}
-        </div>
-        <div id="what-i-do">
-            {% trans "We design interior spaces &mdash; for work, for leasure and for living &mdash; with focus on Speed and Creativity." %}
-        </div>
+        <div id="short-desc-wrap">{% chunk "short_desc" %}</div>
+        <div id="what-i-do">{% chunk "what_i_do" %}</div>
     </div>
     <div class="clear"></div>
 </div>
