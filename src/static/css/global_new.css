@@ -282,18 +282,10 @@ body {
 	float:left;
 }
 
-#site-name-ru {
+#site-name {
 	text-indent:-9999px;
 	width:960px;
 	height:65px;
-	background: url(../img/site/AG-big-bg-03_01.png) no-repeat 0 0;
-}
-
-#site-name-en {
-	text-indent:-9999px;
-	width:960px;
-	height:65px;
-	background: url(../img/site/AG-big-bg-03_02.png) no-repeat 0 0;
 }
 
 #short-desc-wrap {

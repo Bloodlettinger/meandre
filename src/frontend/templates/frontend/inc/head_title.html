@@ -4,8 +4,9 @@
 <div id="ultra-header">
     <div id="name-wrap">
         <a href="{% url frontend:index %}">
-            <div id="site-name-{{ LANGUAGE_CODE|lower|slice:":2" }}"
-                 title="{% trans "Andrey Gavrilov and Co." %}">
+            <div id="site-name"
+                 title="{% trans "Andrey Gavrilov and Co." %}"
+                 style="background: url({% if "ru" == LANGUAGE_CODE|lower|slice:":2" %}{% chunk_imgurl "site_name_ru" %}{% else %}{% chunk_imgurl "site_name_en" %}{% endif %}) no-repeat 0 0;">
             </div>
         </a>
         <div id="short-desc-wrap">{% chunk "short_desc" %}</div>
