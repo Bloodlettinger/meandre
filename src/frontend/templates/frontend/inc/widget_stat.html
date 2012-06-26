@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load l10n %}
-{% load staticfiles %}
 {% load statistichelpers %}
+{% load chunks %}
 <!-- START OF STATISTIC -->
 <div id="v22-stats-section-wrap">
     <h1>
@@ -63,30 +63,30 @@
 
         <div class="line_stat">
             <span>{% trans "Projects Won" %} ({{ stat.year_A|unlocalize }}/{{ stat.year_B|unlocalize }})</span>
-            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark5.png" a=stat.total_A.dist.5.count b=stat.total_B.dist.5.count %}
-            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark4.png" a=stat.total_A.dist.4.count b=stat.total_B.dist.4.count %}
-            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark3.png" a=stat.total_A.dist.3.count b=stat.total_B.dist.3.count %}
-            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark2.png" a=stat.total_A.dist.2.count b=stat.total_B.dist.2.count %}
-            {% include "frontend/inc/widget_compare_two.html" with icon="img/site/icon_32_dark1.png" a=stat.total_A.dist.1.count b=stat.total_B.dist.1.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="icon_32_other" a=stat.total_A.dist.5.count b=stat.total_B.dist.5.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="icon_32_ent" a=stat.total_A.dist.4.count b=stat.total_B.dist.4.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="icon_32_shop" a=stat.total_A.dist.3.count b=stat.total_B.dist.3.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="icon_32_home" a=stat.total_A.dist.2.count b=stat.total_B.dist.2.count %}
+            {% include "frontend/inc/widget_compare_two.html" with icon="icon_32_work" a=stat.total_A.dist.1.count b=stat.total_B.dist.1.count %}
             <div class="clear"></div>
         </div>
 
         <div class="line_stat">
             <span>{% trans "Total Sales" %}, &#8374; ({{ stat.year_A|unlocalize }}):</span>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_other" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark4.png" %}" width="32" height="32"/> {{ stat.total_A.dist.4.price|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_ent" %}" width="32" height="32"/> {{ stat.total_A.dist.4.price|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark3.png" %}" width="32" height="32"/> {{ stat.total_A.dist.3.price|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_shop" %}" width="32" height="32"/> {{ stat.total_A.dist.3.price|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark2.png" %}" width="32" height="32"/> {{ stat.total_A.dist.2.price|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_home" %}" width="32" height="32"/> {{ stat.total_A.dist.2.price|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark1.png" %}" width="32" height="32"/> {{ stat.total_A.dist.1.price|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_work" %}" width="32" height="32"/> {{ stat.total_A.dist.1.price|moneyformat }}
             </em>
             <div class="clear"></div>
         </div>
@@ -94,19 +94,19 @@
         <div class="line_stat">
             <span>{% trans "Total Rate, sq.m." %}, &#8374; ({{ stat.year_A|unlocalize }}):</span>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark5.png" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price_avg|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_other" %}" width="32" height="32"/> {{ stat.total_A.dist.5.price_avg|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark4.png" %}" width="32" height="32"/> {{ stat.total_A.dist.4.price_avg|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_ent" %}" width="32" height="32"/> {{ stat.total_A.dist.4.price_avg|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark3.png" %}" width="32" height="32"/> {{ stat.total_A.dist.3.price_avg|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_shop" %}" width="32" height="32"/> {{ stat.total_A.dist.3.price_avg|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark2.png" %}" width="32" height="32"/> {{ stat.total_A.dist.2.price_avg|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_home" %}" width="32" height="32"/> {{ stat.total_A.dist.2.price_avg|moneyformat }}
             </em>
             <em class="">
-                <img src="{% static "img/site/icon_32_dark1.png" %}" width="32" height="32"/> {{ stat.total_A.dist.1.price_avg|moneyformat }}
+                <img src="{% chunk_imgurl "icon_32_work" %}" width="32" height="32"/> {{ stat.total_A.dist.1.price_avg|moneyformat }}
             </em>
             <div class="clear"></div>
         </div>

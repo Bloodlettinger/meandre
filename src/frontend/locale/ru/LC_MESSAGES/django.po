@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-26 15:11+0400\n"
+"POT-Creation-Date: 2012-06-26 15:57+0400\n"
 "PO-Revision-Date: 2012-05-24 17:08+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,36 +60,20 @@ msgctxt "Block on main page"
 msgid "Customers"
 msgstr "Заказчики"
 
-#: templates/frontend/inc/directions.html:5
-msgid "Office Spaces"
-msgstr "Пространства для работы"
-
-#: templates/frontend/inc/directions.html:11
-#: templates/frontend/inc/directions.html:24
-#: templates/frontend/inc/directions.html:36
-#: templates/frontend/inc/directions.html:48
+#: templates/frontend/inc/directions.html:13
+#: templates/frontend/inc/directions.html:26
+#: templates/frontend/inc/directions.html:39
+#: templates/frontend/inc/directions.html:52
 msgid "projects"
 msgstr "проектов"
 
-#: templates/frontend/inc/directions.html:12
-#: templates/frontend/inc/directions.html:25
-#: templates/frontend/inc/directions.html:37
-#: templates/frontend/inc/directions.html:49
+#: templates/frontend/inc/directions.html:14
+#: templates/frontend/inc/directions.html:27
+#: templates/frontend/inc/directions.html:40
+#: templates/frontend/inc/directions.html:53
 #: templates/frontend/inc/project_stat.html:21
 msgid "sq.m."
 msgstr "кв.м."
-
-#: templates/frontend/inc/directions.html:17
-msgid "Retail Spaces"
-msgstr "Торговые пространства"
-
-#: templates/frontend/inc/directions.html:30
-msgid "Entertainment Spaces"
-msgstr "Пространства для отдыха"
-
-#: templates/frontend/inc/directions.html:42
-msgid "Spaces for Living"
-msgstr "Пространства для жизни"
 
 #: templates/frontend/inc/head_title.html:8
 msgid "Andrey Gavrilov and Co."

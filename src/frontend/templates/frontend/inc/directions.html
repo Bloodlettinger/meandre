@@ -1,8 +1,10 @@
-{% load staticfiles i18n chunks %}
+{% load i18n %}
+{% load chunks %}
 <!-- START OF DIRECTIONS -->
 <div id="v22-trades">
     <div id="v22-trades-work">
-        <img src="{% static "img/site/work-inset-64.png" %}" title="{% trans "Office Spaces" %}" width="64" height="64"  />
+        <img src="{% chunk_imgurl "inset_64_work" %}"
+             title="{% chunk "space_office_title" %}" width="64" height="64"/>
         <div class="v22-trades-head nova">{% chunk "space_office_title" %}</div>
         <div class="v22-trades-desc">{% chunk "space_office_desc" %}</div>
 
@@ -14,8 +16,8 @@
     </div>
 
     <div id="v22-trades-shop">
-        <img src="{% static "img/site/shop-inset-64.png" %}" title="{% trans "Retail Spaces" %}" width="64" height="64"  />
-
+        <img src="{% chunk_imgurl "inset_64_shop" %}"
+             title="{% chunk "space_retail_title" %}" width="64" height="64"/>
         <div class="v22-trades-head nova">{% chunk "space_retail_title" %}</div>
         <div class="v22-trades-desc">{% chunk "space_retail_desc" %}</div>
 
@@ -27,7 +29,8 @@
     </div>
 
     <div id="v22-trades-entr">
-        <img src="{% static "img/site/entertainment-inset-64.png" %}" title="{% trans "Entertainment Spaces" %}" width="64" height="64"  />
+        <img src="{% chunk_imgurl "inset_64_ent" %}"
+             title="{% chunk "space_ent_title" %}" width="64" height="64"/>
         <div class="v22-trades-head nova">{% chunk "space_ent_title" %}</div>
         <div class="v22-trades-desc">{% chunk "space_ent_desc" %}</div>
 
@@ -39,7 +42,8 @@
     </div>
 
     <div id="v22-trades-home">
-        <img src="{% static "img/site/home-inset-64.png" %}" title="{% trans "Spaces for Living" %}" width="64" height="64"  />
+        <img src="{% chunk_imgurl "inset_64_home" %}"
+             title="{% chunk "space_live_title" %}" width="64" height="64"/>
           <div class="v22-trades-head nova">{% chunk "space_live_title" %}</div>
           <div class="v22-trades-desc">{% chunk "space_live_desc" %}</div>
 
