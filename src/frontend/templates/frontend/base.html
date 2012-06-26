@@ -305,9 +305,9 @@ $(document).ready(function() {
                 <div class="footer-header-02 nova">{% trans "Contacts" %}</div>
             </h1>
             <div class="ft-contacts">
-                <p>{% trans "Méandre LLC" %}</p>
-                <p>{% trans "9 Verhnyaya Maslovka, Moscow, Russia" %}</p>
-                <p>+7 (916) 504-0965</p>
+                <p>{% chunk "contact_company" %}</p>
+                <p>{% chunk "contact_address" %}</p>
+                <p>{% chunk "contact_phone" %}</p>
                 <p><a href="mailto:{% chunk "contact_email" %}">{% chunk "contact_email" %}</a></p>
             </div>
             <div class="clear"></div>

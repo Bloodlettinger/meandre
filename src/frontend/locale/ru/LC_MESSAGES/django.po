@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-22 17:55+0400\n"
+"POT-Creation-Date: 2012-06-26 15:11+0400\n"
 "PO-Revision-Date: 2012-05-24 17:08+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,14 +39,6 @@ msgstr "Загрузите наше портфолио в формате PDF"
 msgid "Contacts"
 msgstr "Контакты"
 
-#: templates/frontend/base.html:308
-msgid "Méandre LLC"
-msgstr "ООО «Меандр»"
-
-#: templates/frontend/base.html:309
-msgid "9 Verhnyaya Maslovka, Moscow, Russia"
-msgstr "Москва, ул. Верхняя Масловка, д.9"
-
 #: templates/frontend/base.html:317
 msgid "Andrey Gavrilov. All rights reserved."
 msgstr "Андрей Гаврилов. Все права защищены."
@@ -69,13 +61,8 @@ msgid "Customers"
 msgstr "Заказчики"
 
 #: templates/frontend/inc/directions.html:5
-#: templates/frontend/inc/directions.html:6
 msgid "Office Spaces"
 msgstr "Пространства для работы"
-
-#: templates/frontend/inc/directions.html:7
-msgid "Offices, Call Centers, Bank Branches, Creative Bureaus, Data Centers"
-msgstr "Офисы, колл-центры, отделения банков, мастерские, дата-центры"
 
 #: templates/frontend/inc/directions.html:11
 #: templates/frontend/inc/directions.html:24
@@ -93,31 +80,16 @@ msgid "sq.m."
 msgstr "кв.м."
 
 #: templates/frontend/inc/directions.html:17
-#: templates/frontend/inc/directions.html:19
 msgid "Retail Spaces"
 msgstr "Торговые пространства"
 
-#: templates/frontend/inc/directions.html:20
-msgid "Milti- and Single Brand Shops, Show Rooms"
-msgstr "Магазины, шоу-румы"
-
 #: templates/frontend/inc/directions.html:30
-#: templates/frontend/inc/directions.html:31
 msgid "Entertainment Spaces"
 msgstr "Пространства для отдыха"
 
-#: templates/frontend/inc/directions.html:32
-msgid "Restaurants, Cafes, Clubs, Galleries, Exhibitions"
-msgstr "Рестораны, кафе, столовые, клубы, выставочные залы, галереи"
-
 #: templates/frontend/inc/directions.html:42
-#: templates/frontend/inc/directions.html:43
 msgid "Spaces for Living"
 msgstr "Пространства для жизни"
-
-#: templates/frontend/inc/directions.html:44
-msgid "Apartments, Houses, Hotels"
-msgstr "Квартиры, интерьеры загородных домов, гостиницы"
 
 #: templates/frontend/inc/head_title.html:8
 msgid "Andrey Gavrilov and Co."
