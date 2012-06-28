@@ -21,12 +21,15 @@
             <li>{% trans "Size" %}<em>{{ project.object_square|floatformat:0 }} {% trans "sq.m." %}</em></li>
 
             <li>&nbsp;</li>
-            {% for role, users in roles.items %}
-                {% for user in users %}
-                    {% if user %}
+            {% for role, membership in roles.items %}
+                {% for item in membership %}
+                    {% if item %}
                         <li>
                         {% if forloop.first %}{{ role }}{% endif %}
-                        <em>{{ user }}</em></li>
+                        {% if item.url %}<a href="{{ item.url }}">{% endif %}
+                        <em>{% if item.user %}{{ item.user }}{% else %}{{ item.company }}{% endif %}</em>
+                        {% if item.url %}</a>{% endif %}
+                        </li>
                     {% endif %}
                 {% endfor %}
             {% endfor %}
