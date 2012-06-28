@@ -270,7 +270,7 @@ class FinanceTransaction(models.Model):
     exchange_rate = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True, verbose_name=_(u'Exchange Rate'))
     contract = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Contract'))
     contractor = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Contractor'))
-    done_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Done'))
+    done_at = models.DateTimeField(verbose_name=_(u'Done'))
     registered = models.DateTimeField(auto_now_add=True)
 
     objects = FinanceTransactionManager()

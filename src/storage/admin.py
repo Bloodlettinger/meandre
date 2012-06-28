@@ -118,7 +118,7 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
     fieldsets = (
-        (None, dict(fields=('parent', 'wallet', 'amount', 'transaction_type', 'transaction_vat', 'exchange_rate', 'description', 'contract', 'contractor'))), )
+        (None, dict(fields=('done_at', 'transaction_type', 'amount', 'transaction_vat', 'wallet', 'description', 'contract', 'contractor', 'parent'))), )
 
     def save_model(self, request, obj, form, change):
         if not change:
