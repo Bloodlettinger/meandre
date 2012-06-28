@@ -2548,80 +2548,55 @@ ul.element {
 	text-transform:none;
 }
 
-.about-wrap {
-	width:1000px;
-	position:relative;
-	margin-left:-15px;
+.chunks_media_list {
+    position: relative;
+    width: 1000px;
+    margin-left: -15px;
 }
 
-.about {
-	margin:0;
-	padding:0;
-	list-style:none;
+.chunks_media_list ul {
+    margin:0;
+    padding:0;
+    list-style:none;
 }
 
-.about li {
-/*	float:left;
-	display:block;
+.chunks_media_list ul li {
+/*  float:left;
+    display:block;
 
-	margin:0 30px 20px 0;
-	background: #C7C8CA;*/
+    margin:0 30px 20px 0;
+    background: #C7C8CA;*/
 }
 
-.about li a {
-	display:block;
-	background-color: #4d4d4d;
-	width:254px;
-	height:100px;
-	margin:0px 15px 10px 15px;
-	padding:10px;
-	float:left;
+.chunks_media_list ul li a {
+    display:block;
+    background-color: #4d4d4d;
+    width:254px;
+    height:100px;
+    margin:0px 15px 10px 15px;
+    padding:10px;
+    float:left;
 
-	font-size:16px;
-	font-weight:normal;
-	text-decoration:none;
-	text-align:left;
-	text-shadow:#000 0 1px 0;
-	color:#e1e1e1;
-	position:relative;
+    font-size:16px;
+    font-weight:normal;
+    text-decoration:none;
+    text-align:left;
+    text-shadow:#000 0 1px 0;
+    color:#e1e1e1;
+    position:relative;
 
-	-webkit-transition: all  1.0s ease;
-	-moz-transition: all  1.0s ease;
-	-o-transition: all  1.0s ease;
-	transition: all  1.0s ease;
+    -webkit-transition: all  1.0s ease;
+    -moz-transition: all  1.0s ease;
+    -o-transition: all  1.0s ease;
+    transition: all  1.0s ease;
 }
 
-.about li a:hover {
-	background-color: #666 ;
+.chunks_media_list ul li a:hover {
+    background-color: #666 ;
 }
 
-.about li a p {
-	margin:0;
-	float:left;
-	padding:0 0 0 10px;
-}
-
-.about li a em {
-	display:none;
-}
-
-.about li a:hover em {
-	display:inline;
-	margin-left:5px;
-	font-size:12px;
-	line-height:44px;
-	text-shadow:#fff 0 1px 0;
-	font-weight:bold;
-	color:#385045;
-	position:absolute;
-	right:10px;
-	font-style:normal;
-}
-
-.about li a em.mps-a {
-	color:#090;
-}
-
-.about li a em.mps-i {
-	color:#900;
+.chunks_media_list ul li a p {
+    margin:0;
+    float:left;
+    padding:0 0 0 10px;
 }

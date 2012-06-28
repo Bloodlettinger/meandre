@@ -283,21 +283,12 @@ $(document).ready(function() {
 
 <div class="footer ptserif">
     <div id="footer-container">
+
         <div id="v22-team-wrap">
             <h1>
                 <div class="footer-header-01 nova">{% trans "The Team" %}</div>
             </h1>
-            <div class="about-wrap">
-                <ul class="about">
-                    <li>
-                        <a href="/files/download/Presentation - Screen 2012 RU.pdf">
-                            <p>{% trans "Portfolio" %} 2012</p><br />
-                            <p><small>{% trans "Download our portfolio in PDF" %}"</small></p>
-                        </a>
-                    </li>
-                    <div class="clear"></div>
-                </ul>
-            </div>
+            {% chunk_media_list %}
         </div>
 
         <div id="v22-contacts-wrap">
