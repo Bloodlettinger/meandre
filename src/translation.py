@@ -18,6 +18,11 @@ class ProjectOpts(TranslationOptions):
 translator.register(models.Project, ProjectOpts)
 
 
+class CustomerOpts(TranslationOptions):
+    fields = ('short_name', 'long_name')
+translator.register(models.Customer, CustomerOpts)
+
+
 class MembershipRoleOpts(TranslationOptions):
     fields = ('title', )
 translator.register(models.MembershipRole, MembershipRoleOpts)

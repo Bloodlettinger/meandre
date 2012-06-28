@@ -31,7 +31,7 @@ class PartnerAdmin(admin.ModelAdmin):
 admin.site.register(models.Partner, PartnerAdmin)
 
 
-class CustomerAdmin(admin.ModelAdmin):
+class CustomerAdmin(ModelTranslationAdmin):
     list_display = ('code', 'short_name', 'partner', 'customer_type', 'partnership_type', 'workareas')
     list_filter = ('customer_type', 'partnership_type', 'partner')
     search_fields = ('code', 'short_name', 'partner__code', 'partner__name')
