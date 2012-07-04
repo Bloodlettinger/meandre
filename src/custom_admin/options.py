@@ -17,5 +17,7 @@ class SortableTabularInline(TabularInline):
             js.extend(['urlify.js', 'prepopulate%s.js' % extra])
         if self.filter_vertical or self.filter_horizontal:
             js.extend(['SelectBox.js', 'SelectFilter2.js'])
-        return forms.Media(js=[static('admin/js/%s' % url) for url in js] + \
-            [static('js/jquery-ui-1.8.13.custom.min.js')])
+        return forms.Media(
+            js=[static('admin/js/%s' % url) for url in js] + \
+               [static('js/jquery-ui-1.8.13.custom.min.js')],
+            css=dict(all=[static('custom_admin/css/style.css')]))
