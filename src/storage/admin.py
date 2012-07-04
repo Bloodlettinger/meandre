@@ -13,6 +13,7 @@ from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
 
 from ..custom_admin.admin import ModelTranslationAdmin
+from ..custom_admin.options import SortableTabularInline
 
 from . import models
 from . import forms
@@ -57,10 +58,11 @@ class JobTypeAdmin(admin.ModelAdmin):
 admin.site.register(models.JobType, JobTypeAdmin)
 
 
-class ProjectImageInline(admin.TabularInline):
+class ProjectImageInline(SortableTabularInline):
     model = models.ProjectImage
     formset = forms.ProjectImageInlineFormset
-    extra = 1
+    fields = ('image', 'is_teaser', 'is_pro6', 'is_publish', 'comment', 'position')
+    extra = 0
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if isinstance(db_field, ImageField):

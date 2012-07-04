@@ -258,6 +258,9 @@ class ProjectImage(models.Model):
     is_pro6 = models.BooleanField(verbose_name=_(u'Pro6 Block'))
     is_publish = models.BooleanField(verbose_name=_(u'Public'))
 
+    class Meta:
+        ordering = ('position', )
+
 
 class FinanceTransaction(models.Model):
     user = models.ForeignKey(User, verbose_name=_(u'Registrator'))
