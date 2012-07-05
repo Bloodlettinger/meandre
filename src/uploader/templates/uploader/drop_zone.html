@@ -1,0 +1,31 @@
+{% extends "admin_tools/dashboard/module.html" %}
+{% load static %}
+{% load i18n %}
+{% block module_content %}
+<div id="uploader-container">
+    <div id="upload-box">
+        <div>
+            <p id="upload-status-text">
+                {% trans "Drag and Drop images..." %}
+            </p>
+            <p id="upload-details">
+                {% trans "Then you will be able to crop and resize them." %}
+            </p>
+            <div id="drop-box-overlay">
+                <h1>{% trans "Drop files here to upload..." %}</h1>
+            </div>
+        </div>
+    </div>
+    <noscript>
+        <p>{% trans "JS is disabled" %}</p>
+    </noscript>
+    <div style="text-align: right; padding: 0 1em 0.5em 0;">
+        <a href="">{% trans "Open the images library" %}</a>
+    </div>
+</div>
+<link rel="stylesheet" href="{% static "uploader/css/style.css" %}" media="screen"/>
+<script type="text/javascript" src="{% static "uploader/js/html5uploader.js" %}"></script>
+<script type="text/javascript">
+new uploader('upload-box', 'upload-status-text', '/uploader/image/', false);
+</script>
+{% endblock %}

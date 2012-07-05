@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'src.frontend',
     'src.users',
     'src.storage',
+    'src.uploader',
 )
 
 # A sample logging configuration. The only tangible logging

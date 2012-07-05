@@ -8,6 +8,7 @@ from admin_tools.utils import get_admin_site_name
 
 from . custom_admin.dashdesc import chunks_common
 from . storage.dashdesc import storage_common
+from . uploader.modules import ImageDropZone
 
 
 class CustomIndexDashboard(Dashboard):
@@ -58,6 +59,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(storage_common())
         self.children.append(chunks_common())
+        self.children.append(ImageDropZone())
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

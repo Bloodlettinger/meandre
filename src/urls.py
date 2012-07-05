@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^markitup/', include('markitup.urls')),
     url(r'^auth/login/$', 'src.users.views.login'),
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
+    url(r'^uploader/', include('src.uploader.urls', namespace='uploader')),
     url(r'^', include('src.frontend.urls', namespace='frontend')),
 )
 
