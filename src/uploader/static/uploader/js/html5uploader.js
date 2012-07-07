@@ -16,15 +16,14 @@
 function uploader(place, status, url, show) {
 
     // Upload image files
-    upload = function(file) {
-
+    var upload = function(file) {
         // Firefox 3.6, Chrome 6, WebKit
         if(window.FileReader) {
 
             // Once the process of reading file
             this.loadEnd = function() {
-                bin = reader.result;
-                xhr = new XMLHttpRequest();
+                var bin = reader.result;
+                var xhr = new XMLHttpRequest();
                 xhr.open('POST', url+'?up=true', true);
                 var boundary = 'xxxxxxxxx';
                 var body = '--' + boundary + "\r\n";
@@ -80,7 +79,7 @@ function uploader(place, status, url, show) {
 
             // Preview images
             this.previewNow = function(event) {
-                bin = preview.result;
+                var bin = preview.result;
                 var img = document.createElement("img");
                 img.className = 'addedIMG';
                 img.file = file;
@@ -88,7 +87,7 @@ function uploader(place, status, url, show) {
                 document.getElementById(show).appendChild(img);
             }
 
-            reader = new FileReader();
+            var reader = new FileReader();
             if(reader.addEventListener) {
                 // Firefox 3.6, WebKit
                 reader.addEventListener('loadend', this.loadEnd, false);
@@ -125,7 +124,7 @@ function uploader(place, status, url, show) {
             }
         } else {
             // Safari 5 does not support FileReader
-            xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
             xhr.open('POST', url+'?up=true', true);
             xhr.setRequestHeader('UP-FILENAME', file.name);
             xhr.setRequestHeader('UP-SIZE', file.size);
@@ -143,22 +142,24 @@ function uploader(place, status, url, show) {
         }
     }
 
-    // The inclusion of the event listeners (DragOver and drop)
-    this.uploadPlace =  document.getElementById(place);
-
-    this.uploadPlace.addEventListener("dragover", function(event) {
+    var noopHandler = function(event) {
         event.stopPropagation();
         event.preventDefault();
-    }, true);
+    }
 
-    this.uploadPlace.addEventListener("drop", function(event) {
-        debugger;
-        event.preventDefault();
+    var dropHandler = function(event) {
+        noopHandler(event);
         var dt = event.dataTransfer;
         var files = dt.files;
         for (var i = 0; i<files.length; i++) {
-            var file = files[i];
-            upload(file);
+            upload(files[i]);
         }
-    }, false);
+    }
+
+    // The inclusion of the event listeners (DragOver and drop)
+    this.uploadPlace =  document.getElementById(place);
+    this.uploadPlace.addEventListener("dragover", noopHandler, true);
+    this.uploadPlace.addEventListener("drop", dropHandler, false);
 }
+
+new uploader('upload-box', 'upload-status-text', '/uploader/image/', false);
