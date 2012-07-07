@@ -162,4 +162,4 @@ function uploader(place, status, url, show) {
     this.uploadPlace.addEventListener("drop", dropHandler, false);
 }
 
-new uploader('upload-box', 'upload-status-text', '/uploader/image/', false);
+window.html5uploader = window.html5uploader || new uploader('upload-box', 'upload-status-text', '/uploader/image/', false);
