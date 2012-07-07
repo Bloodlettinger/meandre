@@ -5,7 +5,7 @@
 
 LANGUAGES="ru"
 PROJECTS="src"
-APPS="frontend storage users"
+APPS="frontend storage uploader users"
 
 for lang in ${LANGUAGES}; do
     for project in ${PROJECTS}; do

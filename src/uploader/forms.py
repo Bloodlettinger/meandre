@@ -4,8 +4,5 @@ from django import forms
 
 
 class ImageOptsForm(forms.Form):
-    up = forms.BooleanField(required=False)
-    base64 = forms.BooleanField(required=False)
-
-    def clean(self):
-        pass
+    up = forms.CharField(max_length=5, required=False)
+    base64 = forms.CharField(max_length=5, required=False)
