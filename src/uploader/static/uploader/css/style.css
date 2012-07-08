@@ -98,12 +98,12 @@
 }
 
 #uploader-left-column {
-    float: left; width:384px;
+    float: left; width:400px;
 
 }
 
 #uploader-right-column {
-    margin-left: 384px;
+    margin-left: 400px;
 }
 
 .patch-margins {
@@ -112,6 +112,9 @@
 
 .frame_list .container {
     backgroung-color: #ddd;
+    overflow: auto;
+    height: 300px;
+    width: 100%;
 }
 
 .frame {

@@ -1,0 +1,51 @@
+.jspContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.jspPane {
+    position: absolute;
+}
+
+.jspTrack, .jspDrag, .jspCap.jspCapBottom {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAPqCAYAAACXDK/EAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABFVJREFUeNrs2s9rHGUYB/CZTUyaEBPFCha86cHeBCUgtPQQyMmqVw2BHKKkUOpFBGn/gV4K0nsOPfgnlCLopTSklAaxtYRAakFpCxKqrs1u9kfW513fQqwx7YYVinxe+Obdmfedz868M8sD2S07nU6RWlmWE9FNRg5FhiK/R36OfB9z/shziqdpySy7f8rytdh+N1KPPIxsRZrJynOXY969R/Dq6urA1tbWp/V6/aNarfbm5ubmd9F/FdtfzszMtJM5GJNfqFQq729vb9cy+jC/QTOjA9HejnnfprH19fWBZrP5Tbw+tuMk38p5b3FxcSr6dmV0dPRooNuxUctgOttG7tO+zXa7vTUxMfFGEmLqF4+hO9uxONs0XlTioNfz2bVy0pt0ct/KY41Wq/VyXr+Pn7C+3fFKXNZQBtq7zcv7m7F+3QWOZXt1LziWrDteiUvrPAY9Dnf3xZW184GVJ8Dd8cq/gLudeU+tUvxHDQwGg8FgMBj87MHLy8v9h5eWlor5+fni2rVr/YMvX75czM3NFTdv3iwWFhaKlZWV/sCzs7PF2tpa9/X169eLkydP9ge+c+fOP5bFcwwGg8H/IziVpp2tr6XpUdVIxbSvpSkV01T+UzHta2lKxTSV/1RM+37zUvn3HIPBYDAYDAaDn3G40+lsP814z3Cj0bi/13ir1bq/L/ju3bsX9xrf2Ni4uC/49OnTZ6vV6o3dxur1+g8XLlw4uy/46tWrt6empmZu3bp1vlardf+jl/r19fXzp06d+nB1dfV22pe+z/888mukGtks/v5rhdSnb9HT7wPGIl9nPx33SuSlyGg+biNy/6/71ykG9/k0pTe7l7NrG+zxUfPJA4PBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8FgMBgMBoPBYDAYDAaDwWAwGAwGg8HPKFw+YV7ZMxyt3AMoH+0biNYLXHY6naeePD4+/lm1Wt2Ml79FHkbqkUZkK9LK0w4cPHhwrKc1Pnz48C/RDUWeiwzmpSxzP5jHhicnJxs9wSdOnFgZHh5O6IEE5AzlPu0bjTaysLDwU0/w3Nzc2pkzZ24EPhqbYwnKfcr4yMjI8+fOnXtw/PjxH4u0xj1m4tKlS0ePHDkyOzY29kmA87H2s9PT0x9cuXLlnTSe5vV083a0dOmHIi/m9W5GHkTu5RtZ/CnAALPafD4Vj2jmAAAAAElFTkSuQmCC");
+}
+
+.jspVerticalBar {
+    background-position: -33px 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 11px;
+}
+
+.jspVerticalBar * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.jspTrack {
+    position: relative;
+}
+
+.jspDrag {
+    background-position: -33px 0;
+    position: relative;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.jspCap.jspCapBottom {
+    background-position: -33px 100%;
+    background-color: #fff;
+    bottom: 0;
+    height: 6px;
+    left: 0;
+    position: absolute;
+    right: 0;
+}
+
+.jspCap.jspCapTop { display: none; }
+

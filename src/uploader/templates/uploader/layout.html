@@ -4,10 +4,33 @@
 {% load i18n %}
 {% load static %}
 
+{% block extrahead %}
+{{ block.super }}
+<script type="text/javascript" src="{% static "uploader/js/jquery-1.7.2.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jscrollpane/js/jquery.mousewheel.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jscrollpane/js/jScrollPane.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.frame_list .container').jScrollPane(
+        {
+            scrollbarOnLeft: true,
+            animateTo: true,
+            animateInterval: 50,
+            animateStep: 5,
+            scrollbarWidth: 10,
+            verticalDragMinHeight: 100,
+            verticalDragMaxHeight: 100,
+            scrollbarMargin: 0
+        });
+});
+</script>
+{% endblock %}
+
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
 <link rel="stylesheet" href="{% static "uploader/css/style.css" %}" type="text/css" media="screen,projection"/>
+<link rel="stylesheet" href="{% static "uploader/css/jscroll.css" %}" type="text/css" media="screen,projection"/>
 {% endblock %}
 
 {% block breadcrumbs %}
