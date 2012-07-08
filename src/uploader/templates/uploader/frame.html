@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load thumbnail %}
+<div class="frame">
+    <div class="header" title="{{ obj.file_name }}">{{ obj.file_name }}</div>
+    <div class="footer">
+        <div class="relation" title="{{ obj.project.title|default:"Unlinked" }}">
+            {{ obj.project.title|default:"Unlinked" }}
+        </div>
+        <div class="size" title="{{ obj.image.size|filesizeformat }}">
+            {{ obj.image.size|filesizeformat }}
+        </div>
+        <div class="clear-left"></div>
+    </div>
+    <img class="image" src="{{ obj.image|thumbnail_url:'uploader_frame' }}"
+         title="{% trans "Click to review" %}"/>
+</div>

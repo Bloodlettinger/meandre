@@ -96,3 +96,75 @@
     padding-top: 0.75em;
     text-shadow: 1px 1px 1px #CCCCCC;
 }
+
+#uploader-left-column {
+    float: left; width:384px;
+
+}
+
+#uploader-right-column {
+    margin-left: 384px;
+}
+
+.patch-margins {
+    margin: 2px;
+}
+
+.frame_list .container {
+    backgroung-color: #ddd;
+}
+
+.frame {
+    position: relative;
+    float: left;
+    margin: 4px;
+    width: 180px;
+}
+
+.frame img {
+    width: 180px; height: 135px;
+    border: 1px solid black;
+}
+
+.frame .header {
+    position: absolute;
+    top: 0px; left: 1px;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    color: white;
+    background-color: black;
+    opacity: 0.7;
+    -moz-opacity: 0.7;
+    filter:alpha(opacity=7);
+}
+
+.frame .footer {
+    position: absolute;
+    bottom: 4px; left: 1px;
+    width: 100%;
+    color: white;
+    background-color: black;
+    opacity: 0.7;
+    -moz-opacity: 0.7;
+    filter:alpha(opacity=7);
+}
+
+.frame .relation {
+    float: left; width: 65%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.frame .size {
+    margin-left: 65%;
+    width: 34%;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.clear-left {
+    clear: left;
+}

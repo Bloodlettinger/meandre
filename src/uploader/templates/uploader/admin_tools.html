@@ -1,4 +1,10 @@
 {% extends "admin_tools/dashboard/module.html" %}
+
+{% load i18n %}
+
 {% block module_content %}
 {% include "uploader/drop_zone.html" %}
+<div style="text-align: right; padding: 0 1em 0.5em 0;">
+    <a href="{% url uploader:library %}">{% trans "Open the images library" %}</a>
+</div>
 {% endblock %}

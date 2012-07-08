@@ -1,0 +1,43 @@
+{% extends "admin/base_site.html" %}
+
+{% load adminmedia %}
+{% load i18n %}
+{% load static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
+<link rel="stylesheet" href="{% static "uploader/css/style.css" %}" type="text/css" media="screen,projection"/>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url admin:index %}">{% trans "Home" %}</a> &rsaquo;
+    <a href="{% url admin:app_list "uploader" %}">{% trans "Uploader" context "breadcrumbs" %}</a> &rsaquo;
+    {% trans "Library" context "breadcrumbs" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <div id="uploader-left-column">
+        <div class="dashboard-module patch-margins">
+            <h2>{% trans "Drop Zone" %}</h2>
+            {% include "uploader/drop_zone.html" %}
+        </div>
+        <div class="dashboard-module patch-margins">
+            {% include "uploader/frame_list.html" with title="Queued Images" list=queue_list empty="There are no images. Drop some on Drop Zone." %}
+        </div>
+    </div>
+
+    <div id="uploader-right-column">
+        <div class="dashboard-module patch-margins">
+            {% include "uploader/frame_list.html" with title="Image Library" list=image_list empty="There are no images. Use Drop Zone and review uploaded images." %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<!-- sidebar -->
+{% endblock %}

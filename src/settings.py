@@ -197,6 +197,7 @@ THUMBNAIL_ALIASES = {
         teaser=dict(size=(630, 420), crop=False),
         pro6=dict(size=(300, 200), crop='smart'),
         pro6_gray=dict(size=(300, 200), crop='smart', bw=True),
+        uploader_frame=dict(size=(180, 135), crop='smart'),
     ),
 }
 

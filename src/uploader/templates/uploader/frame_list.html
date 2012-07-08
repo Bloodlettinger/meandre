@@ -1,0 +1,12 @@
+{% load i18n %}
+<div class="frame_list">
+    <h2>{{ title }}</h2>
+    <div class="container">
+        {% for frame in list %}
+        {% include "uploader/frame.html" with obj=frame %}
+        {% empty %}
+        <p class="empty">{{ empty }}</p>
+        {% endfor %}
+    </div>
+    <div class="clear-left"></div>
+</div>

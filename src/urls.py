@@ -5,6 +5,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+from . uploader.admin_site import site as uploader_site
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^markitup/', include('markitup.urls')),
     url(r'^auth/login/$', 'src.users.views.login'),
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
-    url(r'^uploader/', include('src.uploader.urls', namespace='uploader')),
+    url(r'^uploader/', include(uploader_site.urls)),
     url(r'^', include('src.frontend.urls', namespace='frontend')),
 )
 
