@@ -8,7 +8,7 @@ from admin_tools.dashboard.modules import DashboardModule
 class ImageDropZone(DashboardModule):
 
     title = _(u'Image Drop Zone')
-    template = 'uploader/drop_zone.html'
+    template = 'uploader/admin_tools.html'
 
     def __init__(self, *args, **kwargs):
         super(ImageDropZone, self).__init__(*args, **kwargs)
