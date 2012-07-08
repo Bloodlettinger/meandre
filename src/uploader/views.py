@@ -33,9 +33,9 @@ def image(request):
             return u'error'
 
     file_data = ContentFile(data)
-    file_name = request.META.get('HTTP_UP_FILENAME', 'unknown')
-    file_size = request.META.get('HTTP_UP_SIZE', 0)
-    file_type = request.META.get('HTTP_UP_TYPE', 'text/plain')
+    file_name = request.META.get('HTTP_UP_FILENAME', 'unknown').decode('utf-8')
+    file_size = request.META.get('HTTP_UP_SIZE', 0).decode('utf-8')
+    file_type = request.META.get('HTTP_UP_TYPE', 'text/plain').decode('utf-8')
 
     save_model = True
     obj = models.Queue(
