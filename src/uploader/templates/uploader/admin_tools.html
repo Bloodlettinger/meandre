@@ -4,6 +4,15 @@
 
 {% block module_content %}
 {% include "uploader/drop_zone.html" %}
+
+<script type="text/javascript">
+window.html5uploader = window.html5uploader || new uploader(
+    'upload-box', 'upload-status-text', '/uploader/image/',
+    function() {
+        document.location="{% url uploader:library %}";
+    });
+</script>
+
 <div style="text-align: right; padding: 0 1em 0.5em 0;">
     <a href="{% url uploader:library %}">{% trans "Open the images library" %}</a>
 </div>

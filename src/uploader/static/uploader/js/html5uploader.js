@@ -13,7 +13,7 @@
 *   IE 6+
 */
 
-function uploader(place, status, url, show) {
+function uploader(place, status, url, onload_handler) {
 
     // Upload image files
     var upload = function(file) {
@@ -32,21 +32,25 @@ function uploader(place, status, url, show) {
                 body += bin + "\r\n";
                 body += '--' + boundary + '--';
                 xhr.setRequestHeader('content-type', 'multipart/form-data; boundary=' + boundary);
-                // Firefox 3.6 provides a feature sendAsBinary ()
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if(xhr.status == 200) {
+                            onload_handler(xhr.responseText);
+                        }
+                    }
+                };
+
                 if(xhr.sendAsBinary != null) {
+                    // Firefox 3.6 provides a feature sendAsBinary ()
                     xhr.sendAsBinary(body);
-                // Chrome 7 sends data but you must use the base64_decode on the PHP side
                 } else {
+                    // Chrome 7 sends data but you must use the base64_decode on the server side
                     xhr.open('POST', url+'?up=true&base64=true', true);
                     xhr.setRequestHeader('UP-FILENAME', file.name);
                     xhr.setRequestHeader('UP-SIZE', file.size);
                     xhr.setRequestHeader('UP-TYPE', file.type);
                     xhr.send(window.btoa(bin));
-                }
-                if (show) {
-                    var newFile  = document.createElement('div');
-                    newFile.innerHTML = 'Loaded : '+file.name+' size '+file.size+' B';
-                    document.getElementById(show).appendChild(newFile);
                 }
                 if (status) {
                     document.getElementById(status).innerHTML = 'Loaded : 100%<br/>Next file ...';
@@ -77,16 +81,6 @@ function uploader(place, status, url, show) {
                 }
             }
 
-            // Preview images
-            this.previewNow = function(event) {
-                var bin = preview.result;
-                var img = document.createElement("img");
-                img.className = 'addedIMG';
-                img.file = file;
-                img.src = bin;
-                document.getElementById(show).appendChild(img);
-            }
-
             var reader = new FileReader();
             if(reader.addEventListener) {
                 // Firefox 3.6, WebKit
@@ -106,22 +100,8 @@ function uploader(place, status, url, show) {
                 }
             }
 
-            var preview = new FileReader();
-            // Firefox 3.6, WebKit
-            if(preview.addEventListener) {
-                preview.addEventListener('loadend', this.previewNow, false);
-            // Chrome 7
-            } else {
-                preview.onloadend = this.previewNow;
-            }
-
             // The function that starts reading the file as a binary string
             reader.readAsBinaryString(file);
-
-            // Preview uploaded files
-            if (show) {
-                preview.readAsDataURL(file);
-            }
         } else {
             // Safari 5 does not support FileReader
             var xhr = new XMLHttpRequest();
@@ -133,11 +113,6 @@ function uploader(place, status, url, show) {
 
             if (status) {
                 document.getElementById(status).innerHTML = 'Loaded : 100%';
-            }
-            if (show) {
-                var newFile  = document.createElement('div');
-                newFile.innerHTML = 'Loaded : '+file.name+' size '+file.size+' B';
-                document.getElementById(show).appendChild(newFile);
             }
         }
     }
@@ -161,5 +136,3 @@ function uploader(place, status, url, show) {
     this.uploadPlace.addEventListener("dragover", noopHandler, true);
     this.uploadPlace.addEventListener("drop", dropHandler, false);
 }
-
-window.html5uploader = window.html5uploader || new uploader('upload-box', 'upload-status-text', '/uploader/image/', false);

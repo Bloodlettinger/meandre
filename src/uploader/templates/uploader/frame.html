@@ -1,16 +1,15 @@
 {% load i18n %}
 {% load thumbnail %}
+{% spaceless %}
 <div class="frame">
-    <div class="header" title="{{ obj.file_name }}">{{ obj.file_name }}</div>
+    {% with name=obj.file_name  project=obj.project.title|default:"Unlinked" size=obj.image.size|filesizeformat pic=obj.image|thumbnail_url:'uploader_frame' %}
+    <div class="header" title="{{ name }}">{{ name }}</div>
     <div class="footer">
-        <div class="relation" title="{{ obj.project.title|default:"Unlinked" }}">
-            {{ obj.project.title|default:"Unlinked" }}
-        </div>
-        <div class="size" title="{{ obj.image.size|filesizeformat }}">
-            {{ obj.image.size|filesizeformat }}
-        </div>
+        <div class="relation" title="{{ project }}">{{ project }}</div>
+        <div class="size" title="{{ size }}">{{ size }}</div>
         <div class="clear-left"></div>
     </div>
-    <img class="image" src="{{ obj.image|thumbnail_url:'uploader_frame' }}"
-         title="{% trans "Click to review" %}"/>
+    <img class="image" src="{{ pic }}" title="{% trans "Click to review" %}"/>
+    {% endwith %}
 </div>
+{% endspaceless %}

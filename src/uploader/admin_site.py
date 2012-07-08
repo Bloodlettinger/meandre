@@ -11,7 +11,7 @@ from . import models
 class UploaderAdmin(AdminSite):
 
     def get_urls(self):
-        from django.conf.urls.defaults import patterns, url, include
+        from django.conf.urls.defaults import patterns, url
         urls = patterns(
             '',
             url(r'^image/$', views.image, name='image'),

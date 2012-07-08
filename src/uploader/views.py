@@ -3,11 +3,10 @@
 import logging
 
 from django.views.decorators.csrf import csrf_exempt
-from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
+from django.template.response import TemplateResponse
 
-from . import render_to_json
 from . import forms
 from . import models
 
@@ -16,7 +15,6 @@ logger = logging.getLogger(u'uploader')
 
 @login_required
 @csrf_exempt
-@render_to_json()
 def image(request):
     form = forms.ImageOptsForm(request.GET or None)
 
@@ -45,4 +43,6 @@ def image(request):
         file_type=file_type
         )
     obj.image.save(file_name, file_data, save=save_model)
-    return u'ok'
+
+    context = dict(obj=obj)
+    return TemplateResponse(request, 'uploader/frame.html', context)

@@ -49,16 +49,23 @@ $(document).ready(function() {
             {% include "uploader/drop_zone.html" %}
         </div>
         <div class="dashboard-module patch-margins">
-            {% include "uploader/frame_list.html" with title="Queued Images" list=queue_list empty="There are no images. Drop some on Drop Zone." %}
+            {% include "uploader/frame_list.html" with id="queue_list" title="Queued Images" list=queue_list empty="There are no images. Drop some on Drop Zone." %}
         </div>
     </div>
 
     <div id="uploader-right-column">
         <div class="dashboard-module patch-margins">
-            {% include "uploader/frame_list.html" with title="Image Library" list=image_list empty="There are no images. Use Drop Zone and review uploaded images." %}
+            {% include "uploader/frame_list.html" with id="image_list" title="Image Library" list=image_list empty="There are no images. Use Drop Zone and review uploaded images." %}
         </div>
     </div>
 </div>
+<script type="text/javascript">
+window.html5uploader = window.html5uploader || new uploader(
+    'upload-box', 'upload-status-text', '/uploader/image/',
+    function(response) {
+        $('#queue_list .jspPane').prepend(response);
+    });
+</script>
 {% endblock %}
 
 {% block sidebar %}
