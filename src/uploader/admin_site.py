@@ -14,8 +14,9 @@ class UploaderAdmin(AdminSite):
         from django.conf.urls.defaults import patterns, url
         urls = patterns(
             '',
-            url(r'^image/$', views.image, name='image'),
             url(r'^library/$', self.admin_view(self.library), name="library"),
+            url(r'^image/$', views.image, name='image'),
+            url(r'^crop_zone/(?P<area>\w+)/(?P<pk>\d+)/$', views.crop_zone, name='crop_zone'),
             )
         urls += super(UploaderAdmin, self).get_urls()
         return urls

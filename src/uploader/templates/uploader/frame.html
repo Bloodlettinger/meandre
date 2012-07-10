@@ -9,7 +9,9 @@
         <div class="size" title="{{ size }}">{{ size }}</div>
         <div class="clear-left"></div>
     </div>
-    <img class="image" src="{{ pic }}" title="{% trans "Click to review" %}"/>
+    <a class="fancybox" rel="group" href="{{ obj.image.url }}">
+        <img class="image" src="{{ pic }}" title="{% trans "Click to review" %}"/>
+    </a>
     {% endwith %}
 </div>
 {% endspaceless %}

@@ -1,3 +1,7 @@
+.hide {
+    display: none;
+}
+
 #browser-warning {
     display: none;
     padding: 1em;
@@ -122,6 +126,7 @@
     float: left;
     margin: 4px;
     width: 180px;
+    cursor: pointer;
 }
 
 .frame img {
