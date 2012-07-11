@@ -9,9 +9,22 @@
         <div class="size" title="{{ size }}">{{ size }}</div>
         <div class="clear-left"></div>
     </div>
-    <a class="fancybox" rel="group" href="{{ obj.image.url }}">
-        <img class="image" src="{{ pic }}" title="{% trans "Click to review" %}"/>
-    </a>
+    <img class="image" src="{{ pic }}" title="{% trans "Click to review" %}"
+         onclick="
+            $.fancybox.open(
+                [{href: '{{ obj.image.url }}'}],
+                {padding: 2, afterShow: function() {
+                    $('.fancybox-image').Jcrop({
+                        onSelect: function(o) {
+                            console.log(o.x, o.y, o.w, o.h);
+                        },
+                        onChange: function(o) {
+                            console.log(o.x, o.y, o.w, o.h);
+                        }
+                    });
+                }}
+            );
+         "/>
     {% endwith %}
 </div>
 {% endspaceless %}

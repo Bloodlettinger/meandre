@@ -10,6 +10,7 @@
 <script type="text/javascript" src="{% static "uploader/jscrollpane/js/jquery.mousewheel.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/jscrollpane/js/jScrollPane.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/fancybox/jquery.fancybox.pack.js?v=2.0.6" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jcrop/js/jquery.Jcrop.min.js" %}"></script>
 <script type="text/javascript">
 $(document).ready(function() {
     $('.frame_list .container').jScrollPane(
@@ -23,7 +24,6 @@ $(document).ready(function() {
             verticalDragMaxHeight: 100,
             scrollbarMargin: 0
         });
-    $('.fancybox').fancybox();
 });
 </script>
 {% endblock %}
@@ -34,6 +34,7 @@ $(document).ready(function() {
 <link rel="stylesheet" href="{% static "uploader/css/style.css" %}" type="text/css" media="screen,projection"/>
 <link rel="stylesheet" href="{% static "uploader/fancybox/jquery.fancybox.css?v=2.0.6" %}" type="text/css" media="screen,projection"/>
 <link rel="stylesheet" href="{% static "uploader/css/jscroll.css" %}" type="text/css" media="screen,projection"/>
+<link rel="stylesheet" href="{% static "uploader/jcrop/css/jquery.Jcrop.min.css" %}" type="text/css" media="screen,projection"/>
 {% endblock %}
 
 {% block breadcrumbs %}
