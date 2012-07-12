@@ -155,16 +155,45 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'plain': {
+            'format': '%(asctime)s %(message)s',
+        },
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(name)s %(process)d %(message)s',
+        },
+    },
     'filters': {
         'require_debug_false': {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
     'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'main_log': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(PROJECT_DIR, '..', 'logs', 'main.log'),
+            'maxBytes': 1024 * 1024 * 1,
+            'backupCount': 10,
+            'formatter': 'verbose',
+        },
+        'haystack_log': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(PROJECT_DIR, '..', 'logs', 'haystack.log'),
+            'maxBytes': 1024 * 1024 * 1,
+            'backupCount': 5,
+            'formatter': 'verbose',
         }
     },
     'loggers': {
@@ -173,8 +202,21 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
+        'haystack': dict(
+            handlers=['haystack_log'],
+            level='ERROR',
+            propagate=True,
+        ),
+        'uploader': dict(
+            handlers=['main_log'],
+            level='ERROR',
+            propagate=True,
+        )
     }
 }
+
+# if DEBUG:
+#     LOGGING['loggers']['uploader']['handlers'] += ['console']
 
 
 ###
