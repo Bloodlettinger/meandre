@@ -60,14 +60,6 @@
         <input type="submit" name="submit" value="{% trans "Save" %}"/>
     </form>
 </div>
-
-<script type="text/javascript">
-window.html5uploader = window.html5uploader || new uploader(
-    'upload-box', 'upload-status-text', '/uploader/image/',
-    function(response) {
-        $('#queue_list .jspPane').prepend(response);
-    });
-</script>
 {% endblock %}
 
 {% block sidebar %}

@@ -6,6 +6,7 @@ import StringIO as StringIO
 from PIL import Image
 from datetime import datetime
 
+from django.http import Http404
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -14,7 +15,6 @@ from django.template.response import TemplateResponse
 
 from . import forms
 from . import models
-from . import render_to_json
 
 logger = logging.getLogger(u'uploader')
 
@@ -26,7 +26,7 @@ def image(request):
 
     if not form.is_valid():
         logger.error(u'Form ImageOptsForm is not valid!')
-        return u'error'
+        raise Http404
 
     data = request.body
     if u'true' == form.cleaned_data.get('base64'):
@@ -34,7 +34,7 @@ def image(request):
             data = data.decode('base64')
         except Exception, e:
             logger.error(u'%s: %s' % (e, data))
-            return u'error'
+            raise Http404
 
     file_data = ContentFile(data)
     file_name = request.META.get('HTTP_UP_FILENAME', 'unknown').decode('utf-8')
@@ -43,7 +43,7 @@ def image(request):
 
     save_model = True
     obj = models.Queue(
-        user=request.user,
+        uploaded_by=request.user,
         file_name=file_name,
         file_size=file_size,
         file_type=file_type
@@ -56,12 +56,11 @@ def image(request):
 
 @login_required
 @csrf_exempt
-@render_to_json()
 def done(request):
     form = forms.DoneForm(request.POST or None)
     if not form.is_valid():
         logger.error(u'Form DoneForm is not valid!')
-        return u'error'
+        raise Http404
 
     params = form.cleaned_data
 
@@ -70,7 +69,7 @@ def done(request):
         obj = models.Queue.objects.get(pk=pk)
     except models.Queue.DoesNotExist:
         logger.error(u'Unknown image %i in Queue!' % pk)
-        return u'error'
+        raise Http404
 
     if params.get('is_cropped'):
         img = Image.open(obj.image)
@@ -107,4 +106,6 @@ def done(request):
     obj.confirmed_by = request.user
     obj.confirmed_at = datetime.now()
     obj.save()
-    return dict(status=u'ok')
+
+    context = dict(obj=obj)
+    return TemplateResponse(request, 'uploader/frame.html', context)

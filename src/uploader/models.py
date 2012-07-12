@@ -17,6 +17,6 @@ class Queue(models.Model):
     registered = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-registered', )
+        ordering = ('-confirmed_at', '-registered', )
         verbose_name = _(u'Queue Item')
         verbose_name_plural = _(u'Queue Items')

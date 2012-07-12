@@ -176,3 +176,7 @@
 .clear-left {
     clear: left;
 }
+
+#image_list {
+    height: 100%;
+}

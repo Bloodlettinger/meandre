@@ -61,7 +61,8 @@ $(document).ready(function() {
     }
 
     function openCropBox() {
-        var obj_pk = $(this).data('id'),
+        var frame = $(this).parent(),
+            obj_pk = $(this).data('id'),
             image_url = $(this).data('url');
         $.fancybox.open(
             [{href: image_url}],
@@ -85,19 +86,20 @@ $(document).ready(function() {
 
                     $('form', area).each(function() {
                         $(this).ajaxForm({
-                            dataType: 'json',
+                            dataType: 'text',
                             beforeSubmit: function() {
                                 $('input[name=submit]', area).attr('disabled', 'disabled');
                             },
-                            success: function(data) {
+                            success: function(data, status, xhr) {
                                 $('input[name=submit]', area).removeAttr('disabled');
-                                switch($(data).attr('status')) {
-                                    case 'ok':
-                                        $.jGrowl('Saved!');
-                                        break;
-                                    default:
-                                        $.jGrowl('Something goes wrong!');
-                                }
+                                frame.remove();
+                                $('#image_list .jspPane').prepend(data);
+                                $('#image_list .frame img').click(openCropBox);
+                                $.fancybox.close();
+                                $.jGrowl('Saved!');
+                            },
+                            error: function(xhr, status, errMsg) {
+                                $.jGrowl('Error: ' + errMsg);
                             }
                         })
                     });
@@ -109,6 +111,13 @@ $(document).ready(function() {
     }
 
     var flist = $('.frame_list');
+
+    window.html5uploader = window.html5uploader || new uploader(
+        'upload-box', 'upload-status-text', '/uploader/image/',
+        function(response) {
+            $('#queue_list .jspPane').prepend(response);
+            $('#queue_list .frame img').click(openCropBox);
+        });
 
     $('.frame img', flist).click(openCropBox);
 
