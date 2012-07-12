@@ -6,6 +6,7 @@ from django.template.response import TemplateResponse
 
 from . import views
 from . import models
+from . import forms
 
 
 class UploaderAdmin(AdminSite):
@@ -16,7 +17,7 @@ class UploaderAdmin(AdminSite):
             '',
             url(r'^library/$', self.admin_view(self.library), name="library"),
             url(r'^image/$', views.image, name='image'),
-            url(r'^crop_zone/(?P<area>\w+)/(?P<pk>\d+)/$', views.crop_zone, name='crop_zone'),
+            url(r'^done/$', views.done, name='done'),
             )
         urls += super(UploaderAdmin, self).get_urls()
         return urls
@@ -27,6 +28,7 @@ class UploaderAdmin(AdminSite):
     @never_cache
     def library(self, request, extra_context=None):
         context = dict(
+            form=forms.DoneForm(),
             queue_list=models.Queue.objects.all(),
             image_list=models.Image.objects.all()
             )

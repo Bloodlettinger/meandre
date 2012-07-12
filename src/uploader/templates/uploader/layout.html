@@ -7,31 +7,20 @@
 {% block extrahead %}
 {{ block.super }}
 <script type="text/javascript" src="{% static "uploader/js/jquery-1.7.2.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jgrowl/jquery.jgrowl.min.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/jscrollpane/js/jquery.mousewheel.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/jscrollpane/js/jScrollPane.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/fancybox/jquery.fancybox.pack.js?v=2.0.6" %}"></script>
 <script type="text/javascript" src="{% static "uploader/jcrop/js/jquery.Jcrop.min.js" %}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('.frame_list .container').jScrollPane(
-        {
-            scrollbarOnLeft: true,
-            animateTo: true,
-            animateInterval: 50,
-            animateStep: 5,
-            scrollbarWidth: 10,
-            verticalDragMinHeight: 100,
-            verticalDragMaxHeight: 100,
-            scrollbarMargin: 0
-        });
-});
-</script>
+<script type="text/javascript" src="{% static "uploader/js/jquery.form.js?v=3.0.9" %}"></script>
+<script type="text/javascript" src="{% static "uploader/js/uploader.js" %}"></script>
 {% endblock %}
 
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
 <link rel="stylesheet" href="{% static "uploader/css/style.css" %}" type="text/css" media="screen,projection"/>
+<link rel="stylesheet" href="{% static "uploader/jgrowl/jquery.jgrowl.css" %}" type="text/css" media="screen,projection"/>
 <link rel="stylesheet" href="{% static "uploader/fancybox/jquery.fancybox.css?v=2.0.6" %}" type="text/css" media="screen,projection"/>
 <link rel="stylesheet" href="{% static "uploader/css/jscroll.css" %}" type="text/css" media="screen,projection"/>
 <link rel="stylesheet" href="{% static "uploader/jcrop/css/jquery.Jcrop.min.css" %}" type="text/css" media="screen,projection"/>
@@ -62,6 +51,14 @@ $(document).ready(function() {
             {% include "uploader/frame_list.html" with id="image_list" list=image_list title=_("Image Library") empty=_("There are no images. Use Drop Zone and review uploaded images.") %}
         </div>
     </div>
+</div>
+
+{# элемент, хранящий форму с контролами для кропинга #}
+<div id="done_form_container" class="hide">
+    <form id="done_form" method="post" action="{% url uploader:done %}">
+        {{ form }}
+        <input type="submit" name="submit" value="{% trans "Save" %}"/>
+    </form>
 </div>
 
 <script type="text/javascript">

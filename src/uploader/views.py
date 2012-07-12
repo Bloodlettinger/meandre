@@ -9,6 +9,7 @@ from django.template.response import TemplateResponse
 
 from . import forms
 from . import models
+from .import render_to_json
 
 logger = logging.getLogger(u'uploader')
 
@@ -46,3 +47,13 @@ def image(request):
 
     context = dict(obj=obj)
     return TemplateResponse(request, 'uploader/frame.html', context)
+
+
+@login_required
+@csrf_exempt
+@render_to_json()
+def done(request):
+    form = forms.DoneForm(request.POST or None)
+    if form.is_valid():
+        print form.cleaned_data
+    return dict(status=u'ok')
