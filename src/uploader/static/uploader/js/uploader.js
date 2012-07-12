@@ -105,7 +105,7 @@ $(document).ready(function() {
                     });
                 },
                 helpers: {
-                    title: { type: 'inside'}
+                    title: { type: 'outside'}
                 }
             });
     }
