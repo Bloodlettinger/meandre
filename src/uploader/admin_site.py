@@ -29,8 +29,8 @@ class UploaderAdmin(AdminSite):
     def library(self, request, extra_context=None):
         context = dict(
             form=forms.DoneForm(),
-            queue_list=models.Queue.objects.all(),
-            image_list=models.Image.objects.all()
+            queue_list=models.Queue.objects.filter(confirmed_by__isnull=True),
+            image_list=models.Queue.objects.exclude(confirmed_by__isnull=True)
             )
         return TemplateResponse(request, 'uploader/layout.html', context)
 

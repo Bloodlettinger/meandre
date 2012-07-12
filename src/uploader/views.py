@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
+import os
 import logging
+import StringIO as StringIO
+from PIL import Image
+from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
 
 from . import forms
 from . import models
-from .import render_to_json
+from . import render_to_json
 
 logger = logging.getLogger(u'uploader')
 
@@ -20,7 +25,7 @@ def image(request):
     form = forms.ImageOptsForm(request.GET or None)
 
     if not form.is_valid():
-        logger.error(u'Form is not valid!')
+        logger.error(u'Form ImageOptsForm is not valid!')
         return u'error'
 
     data = request.body
@@ -54,6 +59,52 @@ def image(request):
 @render_to_json()
 def done(request):
     form = forms.DoneForm(request.POST or None)
-    if form.is_valid():
-        print form.cleaned_data
+    if not form.is_valid():
+        logger.error(u'Form DoneForm is not valid!')
+        return u'error'
+
+    params = form.cleaned_data
+
+    pk = params.get('image')
+    try:
+        obj = models.Queue.objects.get(pk=pk)
+    except models.Queue.DoesNotExist:
+        logger.error(u'Unknown image %i in Queue!' % pk)
+        return u'error'
+
+    if params.get('is_cropped'):
+        img = Image.open(obj.image)
+        orig_width, orig_height = img.size
+        shown_width = params.get('shown_width')
+        shown_height = params.get('shown_height')
+        crop_x = params.get('point_x')
+        crop_y = params.get('point_y')
+        crop_w = params.get('width')
+        crop_h = params.get('height')
+        ratio_horizontal = float(orig_width) / float(shown_width)
+        ratio_vertical = float(orig_height) / float(shown_height)
+
+        x1 = crop_x * ratio_horizontal
+        y1 = crop_y * ratio_vertical
+        x2 = (crop_x + crop_w) * ratio_horizontal
+        y2 = (crop_y + crop_h) * ratio_vertical
+
+        box = map(int, (x1, y1, x2, y2))
+        region = img.crop(box)
+        region_io = StringIO.StringIO()
+        region.save(region_io, format='PNG')
+
+        obj.file_name = u'%s.png' % os.path.splitext(obj.file_name)[0]
+        obj.file_type = 'image/png'
+        obj.file_size = region_io.len
+
+        file_data = InMemoryUploadedFile(region_io, None,
+            obj.file_name, obj.file_type, obj.file_size, None)
+
+        save_model = False
+        obj.image.save(obj.file_name, file_data, save=save_model)
+
+    obj.confirmed_by = request.user
+    obj.confirmed_at = datetime.now()
+    obj.save()
     return dict(status=u'ok')

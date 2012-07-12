@@ -14,6 +14,8 @@ class ImageOptsForm(forms.Form):
 class DoneForm(forms.Form):
     project = forms.ModelChoiceField(queryset=Project.objects.all(), empty_label=_(u'Choose a Project'))
     image = forms.IntegerField(widget=forms.HiddenInput)
+    shown_width = forms.IntegerField(widget=forms.HiddenInput)
+    shown_height = forms.IntegerField(widget=forms.HiddenInput)
     is_cropped = forms.BooleanField(required=False, widget=forms.HiddenInput)
     point_x = forms.IntegerField(required=False, widget=forms.HiddenInput)
     point_y = forms.IntegerField(required=False, widget=forms.HiddenInput)

@@ -71,11 +71,18 @@ $(document).ready(function() {
                     this.title = 'Choose project and crop the image if needed.<br/>' + $('#done_form_container').html();
                 },
                 afterShow: function() {
-                    var area = $('.fancybox-title');
-                    $('.fancybox-image').Jcrop({
+                    var area = $('.fancybox-title'),
+                        image = $('.fancybox-image');
+
+                    $('#id_image', area).val(obj_pk);
+                    $('#id_shown_width', area).val(image.width());
+                    $('#id_shown_height', area).val(image.height());
+
+                    image.Jcrop({
                         onSelect: function(o) { return setCropData(o, obj_pk); },
                         onChange: function(o) { return setCropData(o, obj_pk); }
                     });
+
                     $('form', area).each(function() {
                         $(this).ajaxForm({
                             dataType: 'json',
