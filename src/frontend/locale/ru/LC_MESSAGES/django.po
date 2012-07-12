@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-26 15:57+0400\n"
+"POT-Creation-Date: 2012-07-12 18:45+0400\n"
 "PO-Revision-Date: 2012-06-28 16:04+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,27 +23,19 @@ msgstr ""
 msgid "Andrey Gavrilov Studio"
 msgstr "Студия Андрея Гаврилова"
 
-#: templates/frontend/base.html:288
+#: templates/frontend/base.html:289
 msgid "The Team"
 msgstr "О команде"
 
-#: templates/frontend/base.html:294
-msgid "Portfolio"
-msgstr "Портфолио"
-
-#: templates/frontend/base.html:295
-msgid "Download our portfolio in PDF"
-msgstr "Загрузите наше портфолио в формате PDF"
-
-#: templates/frontend/base.html:305
+#: templates/frontend/base.html:296
 msgid "Contacts"
 msgstr "Контакты"
 
-#: templates/frontend/base.html:317
+#: templates/frontend/base.html:308
 msgid "Andrey Gavrilov. All rights reserved."
 msgstr "Андрей Гаврилов. Все права защищены."
 
-#: templates/frontend/base.html:318
+#: templates/frontend/base.html:309
 msgid "Méandre LLC. All rights reserved."
 msgstr "ООО \"Меандр\". Все права защищены."
 
@@ -127,31 +119,31 @@ msgstr "Расположение"
 msgid "Size"
 msgstr "Площадь"
 
-#: templates/frontend/inc/project_stat.html:36
+#: templates/frontend/inc/project_stat.html:39
 msgid "Full Price"
 msgstr "Полная стоимость"
 
-#: templates/frontend/inc/project_stat.html:38
+#: templates/frontend/inc/project_stat.html:41
 msgid "Price to Square"
 msgstr "Стоимость за квадратный метр"
 
-#: templates/frontend/inc/project_stat.html:40
+#: templates/frontend/inc/project_stat.html:43
 msgid "Time Used"
 msgstr "Полные трудозатраты"
 
-#: templates/frontend/inc/project_stat.html:40
+#: templates/frontend/inc/project_stat.html:43
 msgid "hours"
 msgstr "часов"
 
-#: templates/frontend/inc/project_stat.html:41
+#: templates/frontend/inc/project_stat.html:44
 msgid "Production Time to Total Time"
 msgstr "Производственное время к общему времени"
 
-#: templates/frontend/inc/project_stat.html:42
+#: templates/frontend/inc/project_stat.html:45
 msgid "Work Speed"
 msgstr "Скорость проектирования"
 
-#: templates/frontend/inc/project_stat.html:43
+#: templates/frontend/inc/project_stat.html:46
 msgid "Project Speed"
 msgstr "Скорость проекта"
 
