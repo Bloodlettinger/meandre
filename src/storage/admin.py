@@ -13,7 +13,7 @@ from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
 
 from ..custom_admin.admin import ModelTranslationAdmin
-from ..custom_admin.options import SortableTabularInline
+from ..custom_admin.options import SortableTabularInlineWithDropZone
 
 from . import models
 from . import forms
@@ -58,7 +58,7 @@ class JobTypeAdmin(admin.ModelAdmin):
 admin.site.register(models.JobType, JobTypeAdmin)
 
 
-class ProjectImageInline(SortableTabularInline):
+class ProjectImageInline(SortableTabularInlineWithDropZone):
     model = models.ProjectImage
     formset = forms.ProjectImageInlineFormset
     fields = ('image', 'is_teaser', 'is_pro6', 'is_publish', 'comment', 'position')
