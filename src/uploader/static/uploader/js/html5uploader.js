@@ -13,7 +13,8 @@
 *   IE 6+
 */
 
-function uploader(place, status, url, onload_handler) {
+function uploader(place, status, url, onload_handler, tag_list) {
+    tag_list = tag_list || '';  // empty string is a default value
 
     // Upload image files
     var upload = function(file) {
@@ -24,7 +25,7 @@ function uploader(place, status, url, onload_handler) {
             this.loadEnd = function() {
                 var bin = reader.result;
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', url+'?up=true', true);
+                xhr.open('POST', url+'?up=true&tags='+tag_list, true);
                 var boundary = 'xxxxxxxxx';
                 var body = '--' + boundary + "\r\n";
                 body += "Content-Disposition: form-data; name='upload'; filename='" + file.name + "'\r\n";
@@ -46,7 +47,7 @@ function uploader(place, status, url, onload_handler) {
                     xhr.sendAsBinary(body);
                 } else {
                     // Chrome 7 sends data but you must use the base64_decode on the server side
-                    xhr.open('POST', url+'?up=true&base64=true', true);
+                    xhr.open('POST', url+'?up=true&base64=true&tags='+tag_list, true);
                     xhr.setRequestHeader('UP-FILENAME', file.name);
                     xhr.setRequestHeader('UP-SIZE', file.size);
                     xhr.setRequestHeader('UP-TYPE', file.type);
@@ -105,7 +106,7 @@ function uploader(place, status, url, onload_handler) {
         } else {
             // Safari 5 does not support FileReader
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', url+'?up=true', true);
+            xhr.open('POST', url+'?up=true&tags='+tag_list, true);
             xhr.setRequestHeader('UP-FILENAME', file.name);
             xhr.setRequestHeader('UP-SIZE', file.size);
             xhr.setRequestHeader('UP-TYPE', file.type);

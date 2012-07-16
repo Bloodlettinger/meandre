@@ -4,7 +4,16 @@
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">
    <h2>{{ inline_admin_formset.opts.verbose_name_plural|capfirst }}</h2>
+
+   {% if dropzone_visible %}
    {% include "uploader/drop_zone.html" %}
+   <div style="text-align: right; padding: 0 1em 0.5em 0;">
+       <a href="{% url uploader:library %}">{% trans "Open the images library" %}</a>
+   </div>
+   {% else %}
+   <p>{% trans "Save this object to make DropZone visible!" %}</p>
+   {% endif %}
+
    {{ inline_admin_formset.formset.non_form_errors }}
    <table>
      <thead><tr>
@@ -146,7 +155,7 @@
             'upload-box', 'upload-status-text', '/uploader/image/',
             function(response) {
                 console.log('update inline content');
-            });
+            }, '{{ tag }}');
     });
 })(django.jQuery);
 </script>

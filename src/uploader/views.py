@@ -48,6 +48,7 @@ def image(request):
         file_size=file_size,
         file_type=file_type
         )
+    obj.tags = form.cleaned_data.get('tags')
     obj.image.save(file_name, file_data, save=save_model)
 
     context = dict(obj=obj)

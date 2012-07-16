@@ -105,6 +105,23 @@ class ProjectAdmin(ModelTranslationAdmin):
         elif db_field.name == 'currency':
             kwargs['widget'] = widgets.CurrencySelect
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+    def add_view(self, request, form_url='', extra_context=None):
+        if extra_context is None:
+            extra_context = dict()
+        extra_context.update(
+            dict(dropzone_visible=False))
+        return super(ProjectAdmin, self).add_view(request, form_url, extra_context)
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        if extra_context is None:
+            extra_context = dict()
+        extra_context.update(
+            dict(
+                dropzone_visible=True,
+                tag=self.model.objects.get(pk=object_id).slug))
+        return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
+
 admin.site.register(models.Project, ProjectAdmin)
 
 

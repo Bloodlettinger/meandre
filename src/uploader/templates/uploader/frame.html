@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% spaceless %}
 <div class="frame">
-    {% with name=obj.file_name  project=obj.project.title|default:"Unlinked" size=obj.image.size|filesizeformat pic=obj.image|thumbnail_url:'uploader_frame' %}
+    {% with name=obj.file_name  project=obj.tags|default:"Unlinked" size=obj.image.size|filesizeformat pic=obj.image|thumbnail_url:'uploader_frame' %}
     <div class="header" title="{{ name }}">{{ name }}</div>
     <div class="footer">
         <div class="relation" title="{{ project }}">{{ project }}</div>
