@@ -268,6 +268,12 @@ INSTALLED_APPS += ('markitup', )
 MARKITUP_SET = 'markitup/sets/markdown'
 MARKITUP_FILTER = ('markdown.markdown', {'safe_mode': True})
 
+###
+# tagging-ng
+INSTALLED_APPS += ('tagging', )
+FORCE_LOWERCASE_TAGS = True
+MAX_TAG_LENGTH = 255
+
 try:
     LOCAL_SETTINGS
 except NameError:

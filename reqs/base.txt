@@ -19,6 +19,7 @@ simplejson
 django-modeltranslation
 django-model-utils == 1.0.0
 django-tastypie == 0.9.11
+django-tagging-ng == 0.3.3
 
 django-haystack
 xapian-haystack
