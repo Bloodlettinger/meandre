@@ -4,6 +4,7 @@ from django import template
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
@@ -13,7 +14,8 @@ from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
 
 from ..custom_admin.admin import ModelTranslationAdmin
-from ..custom_admin.options import SortableTabularInlineWithDropZone
+from ..custom_admin.options import SortableTabularInline
+from ..uploader.models import Queue
 
 from . import models
 from . import forms
@@ -58,7 +60,7 @@ class JobTypeAdmin(admin.ModelAdmin):
 admin.site.register(models.JobType, JobTypeAdmin)
 
 
-class ProjectImageInline(SortableTabularInlineWithDropZone):
+class ProjectImageInline(SortableTabularInline):
     model = models.ProjectImage
     formset = forms.ProjectImageInlineFormset
     fields = ('image', 'is_teaser', 'is_pro6', 'is_publish', 'comment', 'position')
@@ -89,7 +91,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
-    inlines = (MembershipInline, ProjectImageInline, )
+    inlines = (MembershipInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True
     formfield_overrides = {TextField: {'widget': AdminMarkItUpWidget}}
@@ -114,12 +116,16 @@ class ProjectAdmin(ModelTranslationAdmin):
         return super(ProjectAdmin, self).add_view(request, form_url, extra_context)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
+        self.change_form_template = 'storage/admin/change_form.html'
         if extra_context is None:
             extra_context = dict()
+        slug = self.model.objects.get(pk=object_id).slug
+        images = Queue.objects.filter(Q(tags__search=slug))
         extra_context.update(
             dict(
                 dropzone_visible=True,
-                tag=self.model.objects.get(pk=object_id).slug))
+                tag=slug,
+                image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
 
 admin.site.register(models.Project, ProjectAdmin)
