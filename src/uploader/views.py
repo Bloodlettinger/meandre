@@ -21,7 +21,7 @@ logger = logging.getLogger(u'uploader')
 
 @login_required
 @csrf_exempt
-def image(request):
+def image(request, template='uploader/frame.html'):
     form = forms.ImageOptsForm(request.GET or None)
 
     if not form.is_valid():
@@ -52,7 +52,10 @@ def image(request):
     obj.image.save(file_name, file_data, save=save_model)
 
     context = dict(obj=obj)
-    return TemplateResponse(request, 'uploader/frame.html', context)
+    if form.cleaned_data.get('inline'):
+        template = 'uploader/frame_inline.html'
+        context['counter'] = form.cleaned_data.get('inline')
+    return TemplateResponse(request, template, context)
 
 
 @login_required

@@ -100,19 +100,27 @@
 {% prepopulated_fields_js %}
 <script type="text/javascript">
 (function($) {
-    // dropzone activation
-    window.html5uploader = window.html5uploader || new uploader(
-        'upload-box', 'upload-status-text', '/uploader/image/',
-        function(response) {
-            $('#sortable').prepend(response);
-        }, '{{ tag }}');
-
+    // function to init/change position of images
     var ordering = function(o) {
         $('.frame', o).each(function(index){
             $('input[name$=position]', this).val(index);
         });
     }
 
+    // dropzone activation
+    window.html5uploader = window.html5uploader || new uploader(
+        'upload-box', 'upload-status-text', '/uploader/image/',
+        function(response) {
+            $('#sortable').prepend(assign_index(response, 'images_set'));
+        },
+        function() {
+            var totalForms = $('#id_images_set-TOTAL_FORMS').attr('autocomplete', 'off');
+            var nextIndex = parseInt(totalForms.val());
+            ordering($('#sortable'));
+            return nextIndex;
+        }, '{{ tag }}');
+
+    // initialize positions
     ordering($('#sortable'));
 
     $( "#sortable" ).sortable({
@@ -126,8 +134,8 @@
         }
     }).disableSelection();
 
+    // disable floating of frames
     $('.frame').css({'float': 'none'});
-
 })(django.jQuery);
 </script>
 
