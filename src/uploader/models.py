@@ -16,6 +16,7 @@ class Queue(models.Model):
     uploaded_by = models.ForeignKey(User, related_name=u'uploader', verbose_name=pgettext_lazy(u'uploader', u'Uploaded By'))
     confirmed_at = models.DateTimeField(blank=True, null=True)
     confirmed_by = models.ForeignKey(User, related_name=u'confirmer', blank=True, null=True, verbose_name=pgettext_lazy(u'uploader', u'Confirmed By'))
+    position = models.IntegerField(null=True, blank=True, verbose_name=_(u'Position'))
     registered = models.DateTimeField(auto_now_add=True)
 
     tags = TagField()
