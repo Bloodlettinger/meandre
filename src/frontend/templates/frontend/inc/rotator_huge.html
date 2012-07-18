@@ -3,7 +3,7 @@
     <h1 class="nova">{% trans "Projects" %} / {{ project.short_name }}</h1>
     <div id="huge-rotator-wrap">
         <div class="huge-rotator-items">
-            {% for thumb in project.projectimage_set.all %}
+            {% for thumb in images %}
                 <img src="{{ thumb.image.url }}"
                     {% if thumb.comment %}
                     title="{{ thumb.comment }}"
