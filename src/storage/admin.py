@@ -116,15 +116,21 @@ class ProjectAdmin(ModelTranslationAdmin):
         return super(ProjectAdmin, self).add_view(request, form_url, extra_context)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
+        formset = forms.ImagePositionFormSet(request.POST, request.FILES)
+        if request.method == 'POST':
+            if formset.is_valid():
+                formset.save()
+
         self.change_form_template = 'storage/admin/change_form.html'
         if extra_context is None:
             extra_context = dict()
         slug = self.model.objects.get(pk=object_id).slug
-        images = Queue.objects.filter(Q(tags__search=slug))
+        images = Queue.objects.filter(Q(tags__search=slug)).order_by('position')
         extra_context.update(
             dict(
                 dropzone_visible=True,
                 tag=slug,
+                image_fs=formset,
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
 

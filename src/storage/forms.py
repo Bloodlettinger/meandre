@@ -2,7 +2,10 @@
 
 from django import forms
 from django.forms.models import inlineformset_factory
+from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
+
+from ..uploader.models import Queue as ImageQueue
 
 from . import models
 
@@ -26,3 +29,5 @@ def project_inline_formset_clean(self):
 
 ProjectImageInlineFormset = inlineformset_factory(models.Project, models.ProjectImage)
 ProjectImageInlineFormset.clean = project_inline_formset_clean
+
+ImagePositionFormSet = modelformset_factory(ImageQueue, fields=('id', 'position', ))

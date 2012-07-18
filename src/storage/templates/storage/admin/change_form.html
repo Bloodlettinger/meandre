@@ -65,19 +65,26 @@
 {% block after_related_objects %}
     <fieldset class="module">
         <h2>{% trans "Images" %}</h2>
-        {% if dropzone_visible %}
-            {% include "uploader/drop_zone.html" %}
-            <div style="text-align: right; padding: 0 1em 0.5em 0;">
-                <a href="{% url 'uploader:library' %}">{% trans "Open the images library" %}</a>
-            </div>
-        {% else %}
-            <p>{% trans "Save this object to make DropZone visible!" %}</p>
-        {% endif %}
 
-        <div id="frame_container">
-        {% for image in image_list %}
-            {% include "uploader/frame.html" with obj=image %}
-        {% endfor %}
+        {{ image_fs.management_form }}
+
+        <div style="width: 30%; float: left;">
+            {% if dropzone_visible %}
+                {% include "uploader/drop_zone.html" %}
+                <div style="text-align: right; padding: 0 1em 0.5em 0;">
+                    <a href="{% url 'uploader:library' %}">{% trans "Open the images library" %}</a>
+                </div>
+            {% else %}
+                <p>{% trans "Save this object to make DropZone visible!" %}</p>
+            {% endif %}
+        </div>
+
+        <div class="frame_list" style="margin-left: 31%;">
+            <div id="sortable" class="container" style="border: 1px solid red;">
+            {% for image in image_list %}
+                {% include "uploader/frame_inline.html" with obj=image counter=forloop.counter0 %}
+            {% endfor %}
+            </div>
         </div>
         <div style="clear: both;"></div>
     </fieldset>
@@ -97,9 +104,42 @@
     window.html5uploader = window.html5uploader || new uploader(
         'upload-box', 'upload-status-text', '/uploader/image/',
         function(response) {
-            console.log('update inline content');
-            $('#frame_container').prepend(response);
+            $('#sortable').prepend(response);
         }, '{{ tag }}');
+
+    var ordering = function(o) {
+        $('.frame', o).each(function(index){
+            $('input[name$=position]', this).val(index);
+        });
+    }
+
+    ordering($('#sortable'));
+
+    $( "#sortable" ).sortable({
+        axis: 'y',
+        cursor: 'move',
+        delay: 200,
+        distance: 20,
+        opacity: 0.6,
+        update: function(event, ui) {
+            ordering(this);
+        }
+    }).disableSelection();
+    // .jScrollPane(
+    //     {
+    //         scrollbarOnLeft: true,
+    //         animateTo: true,
+    //         animateInterval: 50,
+    //         animateStep: 5,
+    //         scrollbarWidth: 10,
+    //         verticalDragMinHeight: 100,
+    //         verticalDragMaxHeight: 100,
+    //         scrollbarMargin: 0
+    //     }
+    // );
+
+    $('.frame').css({'float': 'none'});
+
 })(django.jQuery);
 </script>
 

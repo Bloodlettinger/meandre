@@ -1,0 +1,24 @@
+{% comment %}
+Данная версия шаблона предназначена для использования при имитации
+поведения inline блоков в админке.
+{% endcomment %}
+{% load i18n %}
+{% load thumbnail %}
+{% spaceless %}
+<div class="frame">
+    <input type="hidden" name="images_set-{{ counter }}-id" value="{{ image.pk }}" id="id_images_set-{{ counter }}-id"/>
+    <input type="hidden" name="images_set-{{ counter }}-position" value="{{ image.position }}" id="id_images_set-{{ counter }}-position"/>
+
+    {% with name=obj.file_name  project=obj.tags|default:"Unlinked" size=obj.image.size|filesizeformat pic=obj.image|thumbnail_url:'uploader_frame' %}
+    <img class="image" src="{{ pic }}"
+         title="{% trans "Click to review" %}"
+         data-id="{{ obj.pk }}" data-url="{{ obj.image.url }}"/>
+    <div class="header" title="{{ name }}">{{ name }}</div>
+    <div class="footer">
+        <div class="relation" title="{{ project }}">{{ project }}</div>
+        <div class="size" title="{{ size }}">{{ size }}</div>
+        <div class="clear-left"></div>
+    </div>
+    {% endwith %}
+</div>
+{% endspaceless %}
