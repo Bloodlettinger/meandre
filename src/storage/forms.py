@@ -30,4 +30,4 @@ def project_inline_formset_clean(self):
 ProjectImageInlineFormset = inlineformset_factory(models.Project, models.ProjectImage)
 ProjectImageInlineFormset.clean = project_inline_formset_clean
 
-ImagePositionFormSet = modelformset_factory(ImageQueue, fields=('id', 'position', ))
+ImagePositionFormSet = modelformset_factory(ImageQueue, fields=('id', 'position', ), extra=0)

@@ -80,7 +80,7 @@
         </div>
 
         <div class="frame_list" style="margin-left: 31%;">
-            <div id="sortable" class="container" style="border: 1px solid red;">
+            <div id="sortable" class="container">
             {% for image in image_list %}
                 {% include "uploader/frame_inline.html" with obj=image counter=forloop.counter0 %}
             {% endfor %}
@@ -125,18 +125,6 @@
             ordering(this);
         }
     }).disableSelection();
-    // .jScrollPane(
-    //     {
-    //         scrollbarOnLeft: true,
-    //         animateTo: true,
-    //         animateInterval: 50,
-    //         animateStep: 5,
-    //         scrollbarWidth: 10,
-    //         verticalDragMinHeight: 100,
-    //         verticalDragMaxHeight: 100,
-    //         scrollbarMargin: 0
-    //     }
-    // );
 
     $('.frame').css({'float': 'none'});
 

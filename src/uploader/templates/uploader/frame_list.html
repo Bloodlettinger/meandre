@@ -4,7 +4,7 @@
     <h2>{{ title }}</h2>
     <div id="{{ id }}" class="container">
         {% for frame in list %}
-        {% include "uploader/frame.html" with area=id obj=frame %}
+        {% include "uploader/frame.html" with obj=frame %}
         {% empty %}
         <p class="empty">{{ empty }}</p>
         {% endfor %}
