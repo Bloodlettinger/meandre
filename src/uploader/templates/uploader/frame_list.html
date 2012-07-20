@@ -1,10 +1,14 @@
 {% load i18n %}
 {% spaceless %}
 <div class="frame_list">
-    <h2>{{ title }}</h2>
+    {% if title != "(hide)" %}<h2>{{ title }}</h2>{% endif %}
     <div id="{{ id }}" class="container">
         {% for frame in list %}
-        {% include "uploader/frame.html" with obj=frame %}
+            {% if inline == "true" %}
+                {% include "uploader/frame_inline.html" with obj=frame counter=forloop.counter0%}
+            {% else %}
+                {% include "uploader/frame.html" with obj=frame %}
+            {% endif %}
         {% empty %}
         <p class="empty">{{ empty }}</p>
         {% endfor %}

@@ -6,8 +6,8 @@
 {% load thumbnail %}
 {% spaceless %}
 <div class="frame">
-    <input type="hidden" name="images_set-{{ counter }}-id" value="{{ image.pk }}" id="id_images_set-{{ counter }}-id"/>
-    <input type="hidden" name="images_set-{{ counter }}-position" value="{{ image.position }}" id="id_images_set-{{ counter }}-position"/>
+    <input type="hidden" name="images_set-{{ counter }}-id" value="{{ obj.pk }}" id="id_images_set-{{ counter }}-id"/>
+    <input type="hidden" name="images_set-{{ counter }}-position" value="{{ obj.position }}" id="id_images_set-{{ counter }}-position"/>
 
     {% with name=obj.file_name  project=obj.tags|default:"Unlinked" size=obj.image.size|filesizeformat pic=obj.image|thumbnail_url:'uploader_frame' %}
     <img class="image" src="{{ pic }}"

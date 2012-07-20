@@ -9,7 +9,9 @@
 {% url 'admin:jsi18n' as jsi18nurl %}
 <script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
 {{ media }}
-<script type="text/javascript" src="{% static "uploader/js/jquery-1.7.2.min.js" %}"></script>
+<script type="text/javascript">
+jQuery = jQuery||django.jQuery;
+</script>
 <script type="text/javascript" src="{% static "uploader/js/jquery-ui-1.8.21.custom.min.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/jgrowl/jquery.jgrowl.min.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/fancybox/jquery.fancybox.pack.js?v=2.0.6" %}"></script>
@@ -21,6 +23,8 @@ $(document).ready(function() {
 
     var flist = $('.frame_list');
 
+    $('.frame img', flist).click(openCropBox);
+
     // function to init/change position of images
     var ordering = function(o) {
         $('.frame', o).each(function(index){
@@ -28,27 +32,25 @@ $(document).ready(function() {
         });
     }
 
-    $('.frame img', flist).click(openCropBox);
+    // initialize positions
+    ordering($('#image_list'));
 
     // dropzone activation
     window.html5uploader = window.html5uploader || new uploader(
         'upload-box', 'upload-status-text', '/uploader/image/',
         function(response) {
-            var container = $('#sortable');
+            var container = $('#image_list');
             container.prepend(response);
             $('.frame img', container).click(openCropBox);
         },
         function() {
             var totalForms = $('#id_images_set-TOTAL_FORMS').attr('autocomplete', 'off');
             var nextIndex = parseInt(totalForms.val());
-            ordering($('#sortable'));
+            ordering($('#image_list'));
             return nextIndex;
         }, '{{ tag }}');
 
-    // initialize positions
-    ordering($('#sortable'));
-
-    $("#sortable").sortable({
+    $("#image_list").sortable({
         cursor: 'move',
         delay: 200,
         distance: 20,
@@ -136,12 +138,8 @@ $(document).ready(function() {
             {% endif %}
         </div>
 
-        <div class="frame_list" style="margin-left: 31%;">
-            <div id="sortable">
-            {% for image in image_list %}
-                {% include "uploader/frame_inline.html" with obj=image counter=forloop.counter0 %}
-            {% endfor %}
-            </div>
+        <div style="margin-left: 31%;">
+            {% include "uploader/frame_list.html" with id="image_list" inline="true" list=image_list title="(hide)" empty=_("There are no images. Use Drop Zone and review uploaded images.") %}
         </div>
         <div style="clear: both;"></div>
     </fieldset>

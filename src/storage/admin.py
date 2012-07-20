@@ -6,16 +6,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.db.models.fields import TextField
-from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
 
-from easy_thumbnails.widgets import ImageClearableFileInput
 from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
 
 from ..custom_admin.admin import ModelTranslationAdmin
-from ..custom_admin.options import SortableTabularInline
-from ..uploader.models import Queue
+from ..uploader.models import Queue as ProjectImage
+from ..uploader.forms import DoneForm as ImageOptsForm
 
 from . import models
 from . import forms
@@ -58,18 +56,6 @@ admin.site.register(models.CompanyTeam, CompanyTeamAdmin)
 class JobTypeAdmin(admin.ModelAdmin):
     model = models.JobType
 admin.site.register(models.JobType, JobTypeAdmin)
-
-
-class ProjectImageInline(SortableTabularInline):
-    model = models.ProjectImage
-    formset = forms.ProjectImageInlineFormset
-    fields = ('image', 'is_teaser', 'is_pro6', 'is_publish', 'comment', 'position')
-    extra = 0
-
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        if isinstance(db_field, ImageField):
-            kwargs['widget'] = ImageClearableFileInput
-        return super(ProjectImageInline, self).formfield_for_dbfield(db_field, **kwargs)
 
 
 class MembershipInline(SalmonellaMixin, admin.TabularInline):
@@ -119,7 +105,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         self.change_form_template = 'storage/admin/change_form.html'
 
         slug = self.model.objects.get(pk=object_id).slug
-        images = Queue.objects.filter(Q(tags__search=slug)).order_by('position')
+        images = ProjectImage.objects.filter(Q(tags__search=slug)).order_by('position')
         formset = forms.ImagePositionFormSet(request.POST or None, prefix='images_set', queryset=images)
         if request.method == 'POST':
             if formset.is_valid():
@@ -130,6 +116,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         extra_context.update(
             dict(
                 dropzone_visible=True,
+                uploader_form=ImageOptsForm(),
                 tag=slug,
                 image_fs=formset,
                 image_list=images))
