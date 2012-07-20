@@ -14,6 +14,34 @@
 <script type="text/javascript" src="{% static "uploader/jcrop/js/jquery.Jcrop.min.js" %}"></script>
 <script type="text/javascript" src="{% static "uploader/js/jquery.form.js?v=3.0.9" %}"></script>
 <script type="text/javascript" src="{% static "uploader/js/uploader.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var flist = $('.frame_list');
+
+    window.html5uploader = window.html5uploader || new uploader(
+        'upload-box', 'upload-status-text', '/uploader/image/',
+        function(response) {
+            $('#queue_list .jspPane').prepend(response);
+            $('#queue_list .frame img').click(openCropBox);
+        });
+
+    $('.frame img', flist).click(openCropBox);
+
+    $('.container', flist).jScrollPane(
+        {
+            scrollbarOnLeft: true,
+            animateTo: true,
+            animateInterval: 50,
+            animateStep: 5,
+            scrollbarWidth: 10,
+            verticalDragMinHeight: 100,
+            verticalDragMaxHeight: 100,
+            scrollbarMargin: 0
+        }
+    );
+});
+</script>
 {% endblock %}
 
 {% block extrastyle %}

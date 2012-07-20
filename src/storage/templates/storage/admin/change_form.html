@@ -9,11 +9,63 @@
 {% url 'admin:jsi18n' as jsi18nurl %}
 <script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
 {{ media }}
+<script type="text/javascript" src="{% static "uploader/js/jquery-1.7.2.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/js/jquery-ui-1.8.21.custom.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jgrowl/jquery.jgrowl.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/fancybox/jquery.fancybox.pack.js?v=2.0.6" %}"></script>
+<script type="text/javascript" src="{% static "uploader/jcrop/js/jquery.Jcrop.min.js" %}"></script>
+<script type="text/javascript" src="{% static "uploader/js/jquery.form.js?v=3.0.9" %}"></script>
+<script type="text/javascript" src="{% static "uploader/js/uploader.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var flist = $('.frame_list');
+
+    // function to init/change position of images
+    var ordering = function(o) {
+        $('.frame', o).each(function(index){
+            $('input[name$=position]', this).val(index);
+        });
+    }
+
+    $('.frame img', flist).click(openCropBox);
+
+    // dropzone activation
+    window.html5uploader = window.html5uploader || new uploader(
+        'upload-box', 'upload-status-text', '/uploader/image/',
+        function(response) {
+            var container = $('#sortable');
+            container.prepend(response);
+            $('.frame img', container).click(openCropBox);
+        },
+        function() {
+            var totalForms = $('#id_images_set-TOTAL_FORMS').attr('autocomplete', 'off');
+            var nextIndex = parseInt(totalForms.val());
+            ordering($('#sortable'));
+            return nextIndex;
+        }, '{{ tag }}');
+
+    // initialize positions
+    ordering($('#sortable'));
+
+    $("#sortable").sortable({
+        cursor: 'move',
+        delay: 200,
+        distance: 20,
+        opacity: 0.6,
+        update: function(event, ui) {
+            ordering(this);
+        }
+    }).disableSelection();
+});
+</script>
 {% endblock %}
 
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+<link rel="stylesheet" href="{% static "uploader/fancybox/jquery.fancybox.css?v=2.0.6" %}" type="text/css" media="screen,projection"/>
+<link rel="stylesheet" href="{% static "uploader/jcrop/css/jquery.Jcrop.min.css" %}" type="text/css" media="screen,projection"/>
 {% endblock %}
 
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
@@ -85,7 +137,7 @@
         </div>
 
         <div class="frame_list" style="margin-left: 31%;">
-            <div id="sortable" class="container">
+            <div id="sortable">
             {% for image in image_list %}
                 {% include "uploader/frame_inline.html" with obj=image counter=forloop.counter0 %}
             {% endfor %}
@@ -103,42 +155,6 @@
 
 {# JavaScript for prepopulated fields #}
 {% prepopulated_fields_js %}
-<script type="text/javascript">
-(function($) {
-    // function to init/change position of images
-    var ordering = function(o) {
-        $('.frame', o).each(function(index){
-            $('input[name$=position]', this).val(index);
-        });
-    }
-
-    // dropzone activation
-    window.html5uploader = window.html5uploader || new uploader(
-        'upload-box', 'upload-status-text', '/uploader/image/',
-        function(response) {
-            $('#sortable').prepend(assign_index(response, 'images_set'));
-        },
-        function() {
-            var totalForms = $('#id_images_set-TOTAL_FORMS').attr('autocomplete', 'off');
-            var nextIndex = parseInt(totalForms.val());
-            ordering($('#sortable'));
-            return nextIndex;
-        }, '{{ tag }}');
-
-    // initialize positions
-    ordering($('#sortable'));
-
-    $("#sortable").sortable({
-        cursor: 'move',
-        delay: 200,
-        distance: 20,
-        opacity: 0.6,
-        update: function(event, ui) {
-            ordering(this);
-        }
-    }).disableSelection();
-})(django.jQuery);
-</script>
 
 </div>
 </form></div>

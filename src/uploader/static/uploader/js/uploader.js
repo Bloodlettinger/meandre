@@ -48,89 +48,62 @@ $.fn.extend({
     }
 });
 
-$(document).ready(function() {
+var setCropData = function (o, pk) {
+    var area = $('.fancybox-title');
+    $('#id_is_cropped', area).val('on');
+    $('#id_point_x', area).val(o.x);
+    $('#id_point_y', area).val(o.y);
+    $('#id_width', area).val(o.w);
+    $('#id_height', area).val(o.h);
+    $('#id_image', area).val(pk);
+}
 
-    function setCropData(o, pk) {
-        var area = $('.fancybox-title');
-        $('#id_is_cropped', area).val('on');
-        $('#id_point_x', area).val(o.x);
-        $('#id_point_y', area).val(o.y);
-        $('#id_width', area).val(o.w);
-        $('#id_height', area).val(o.h);
-        $('#id_image', area).val(pk);
-    }
-
-    function openCropBox() {
-        var frame = $(this).parent(),
-            obj_pk = $(this).data('id'),
-            image_url = $(this).data('url');
-        $.fancybox.open(
-            [{href: image_url}],
-            {
-                padding: 2,
-                beforeShow: function() {
-                    this.title = 'Choose project and crop the image if needed.<br/>' + $('#done_form_container').html();
-                },
-                afterShow: function() {
-                    var area = $('.fancybox-title'),
-                        image = $('.fancybox-image');
-
-                    $('#id_image', area).val(obj_pk);
-                    $('#id_shown_width', area).val(image.width());
-                    $('#id_shown_height', area).val(image.height());
-
-                    image.Jcrop({
-                        onSelect: function(o) { return setCropData(o, obj_pk); },
-                        onChange: function(o) { return setCropData(o, obj_pk); }
-                    });
-
-                    $('form', area).each(function() {
-                        $(this).ajaxForm({
-                            dataType: 'text',
-                            beforeSubmit: function() {
-                                $('input[name=submit]', area).attr('disabled', 'disabled');
-                            },
-                            success: function(data, status, xhr) {
-                                $('input[name=submit]', area).removeAttr('disabled');
-                                frame.remove();
-                                $('#image_list .jspPane').prepend(data);
-                                $('#image_list .frame img').click(openCropBox);
-                                $.fancybox.close();
-                                $.jGrowl('Saved!');
-                            },
-                            error: function(xhr, status, errMsg) {
-                                $.jGrowl('Error: ' + errMsg);
-                            }
-                        })
-                    });
-                },
-                helpers: {
-                    title: { type: 'outside'}
-                }
-            });
-    }
-
-    var flist = $('.frame_list');
-
-    window.html5uploader = window.html5uploader || new uploader(
-        'upload-box', 'upload-status-text', '/uploader/image/',
-        function(response) {
-            $('#queue_list .jspPane').prepend(response);
-            $('#queue_list .frame img').click(openCropBox);
-        });
-
-    $('.frame img', flist).click(openCropBox);
-
-    $('.container', flist).jScrollPane(
+var openCropBox = function() {
+    var frame = $(this).parent(),
+        obj_pk = $(this).data('id'),
+        image_url = $(this).data('url');
+    $.fancybox.open(
+        [{href: image_url}],
         {
-            scrollbarOnLeft: true,
-            animateTo: true,
-            animateInterval: 50,
-            animateStep: 5,
-            scrollbarWidth: 10,
-            verticalDragMinHeight: 100,
-            verticalDragMaxHeight: 100,
-            scrollbarMargin: 0
-        }
-    );
-});
+            padding: 2,
+            beforeShow: function() {
+                this.title = 'Choose project and crop the image if needed.<br/>' + $('#done_form_container').html();
+            },
+            afterShow: function() {
+                var area = $('.fancybox-title'),
+                    image = $('.fancybox-image');
+
+                $('#id_image', area).val(obj_pk);
+                $('#id_shown_width', area).val(image.width());
+                $('#id_shown_height', area).val(image.height());
+
+                image.Jcrop({
+                    onSelect: function(o) { return setCropData(o, obj_pk); },
+                    onChange: function(o) { return setCropData(o, obj_pk); }
+                });
+
+                $('form', area).each(function() {
+                    $(this).ajaxForm({
+                        dataType: 'text',
+                        beforeSubmit: function() {
+                            $('input[name=submit]', area).attr('disabled', 'disabled');
+                        },
+                        success: function(data, status, xhr) {
+                            $('input[name=submit]', area).removeAttr('disabled');
+                            frame.remove();
+                            $('#image_list .jspPane').prepend(data);
+                            $('#image_list .frame img').click(openCropBox);
+                            $.fancybox.close();
+                            $.jGrowl('Saved!');
+                        },
+                        error: function(xhr, status, errMsg) {
+                            $.jGrowl('Error: ' + errMsg);
+                        }
+                    })
+                });
+            },
+            helpers: {
+                title: { type: 'outside'}
+            }
+        });
+}

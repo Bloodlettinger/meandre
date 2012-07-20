@@ -21,7 +21,7 @@ function uploader(place, status, url, onload_handler, inline_counter, tag_list) 
     if (tag_list)
         url_adds += '&tags=' + tag_list;
     if (inline_counter)
-        url_adds += '&inline=' + inline_counter;
+        url_adds += '&inline=' + inline_counter();
 
     // Upload image files
     var upload = function(file) {
