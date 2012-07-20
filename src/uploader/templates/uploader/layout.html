@@ -19,14 +19,14 @@ $(document).ready(function() {
 
     var flist = $('.frame_list');
 
+    $('.frame img', flist).click(openCropBox);
+
     window.html5uploader = window.html5uploader || new uploader(
         'upload-box', 'upload-status-text', '/uploader/image/',
         function(response) {
             $('#queue_list .jspPane').prepend(response);
             $('#queue_list .frame img').click(openCropBox);
         });
-
-    $('.frame img', flist).click(openCropBox);
 
     $('.container', flist).jScrollPane(
         {
@@ -81,14 +81,7 @@ $(document).ready(function() {
     </div>
 </div>
 
-{# элемент, хранящий форму с контролами для кропинга #}
-<div id="done_form_container" class="hide">
-    <form id="done_form" method="post" action="{% url uploader:done %}">
-        {{ form }}
-        <input type="submit" name="save" value="{% trans "Save" %}"/>
-        <input type="submit" name="delete" value="{% trans "Delete" %}"/>
-    </form>
-</div>
+{% include "uploader/form_control.html" %}
 {% endblock %}
 
 {% block sidebar %}
