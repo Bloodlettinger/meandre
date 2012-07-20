@@ -30,7 +30,19 @@ class Queue(models.Model):
 def delete_image(sender, **kwargs):
     u"""
     Автоматически удаляет изображение при удалении соответствующей модели.
+
+    Сначала удаляем файл, привязанный к модели. Затем удаляем миниатюры.
     """
+    import os
+    import glob
+
     model = kwargs.get('instance')
+    path = model.image.path
     model.image.delete(save=False)
+
+    # т.к. расширение может изменяться, то ищем файлы, не учитывая его
+    short_path = os.path.splitext(path)[0]
+    for each in glob.glob(u'%s*' % short_path):
+        os.remove(each)
+
 models.signals.post_delete.connect(delete_image, sender=Queue, weak=False)

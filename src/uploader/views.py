@@ -106,6 +106,9 @@ def done(request):
         region_io = StringIO.StringIO()
         region.save(region_io, format='PNG')
 
+        # удаляем оригинал
+        obj.image.delete(save=False)
+
         obj.file_name = u'%s.png' % os.path.splitext(obj.file_name)[0]
         obj.file_type = 'image/png'
         obj.file_size = region_io.len
