@@ -59,7 +59,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(storage_common())
         self.children.append(chunks_common())
-        self.children.append(ImageDropZone())
+        # self.children.append(ImageDropZone())
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):
