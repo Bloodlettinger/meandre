@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-12 18:45+0400\n"
-"PO-Revision-Date: 2012-07-12 18:49+0400\n"
+"POT-Creation-Date: 2012-07-21 01:00+0400\n"
+"PO-Revision-Date: 2012-07-21 01:07+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,43 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: forms.py:15
-msgid "Choose a Project"
-msgstr "Выберите проект"
-
-#: models.py:10
+#: models.py:17
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:11
+#: models.py:18
 msgctxt "uploader"
 msgid "Name"
 msgstr "Имя"
 
-#: models.py:12
+#: models.py:19
 msgid "MIME"
 msgstr "MIME"
 
-#: models.py:13
+#: models.py:20
 msgctxt "uploader"
 msgid "Size"
 msgstr "Размер"
 
-#: models.py:14
+#: models.py:21
 msgctxt "uploader"
 msgid "Uploaded By"
 msgstr "Загрузил"
 
-#: models.py:16
+#: models.py:23
 msgctxt "uploader"
 msgid "Confirmed By"
 msgstr "Подтвердил"
 
-#: models.py:21
+#: models.py:24
+msgid "Position"
+msgstr "Позиция"
+
+#: models.py:31
 msgid "Queue Item"
 msgstr "Изображение в очереди"
 
-#: models.py:22
+#: models.py:32
 msgid "Queue Items"
 msgstr "Изображения в очереди"
 
@@ -83,46 +83,40 @@ msgstr "Бросайте файлы сюда для загрузки..."
 msgid "JS is disabled"
 msgstr "JS отключен"
 
-#: templates/uploader/frame.html:13
+#: templates/uploader/form_control.html:7
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/uploader/form_control.html:8
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/uploader/frame.html:13 templates/uploader/frame_inline.html:14
 msgid "Click to review"
 msgstr "Нажмите для просмотра"
 
-#: templates/uploader/layout.html:31
+#: templates/uploader/layout.html:59
 msgid "Home"
 msgstr "Главная"
 
-#: templates/uploader/layout.html:32
+#: templates/uploader/layout.html:60
 msgctxt "breadcrumbs"
 msgid "Uploader"
 msgstr "Uploader"
 
-#: templates/uploader/layout.html:33
+#: templates/uploader/layout.html:61
 msgctxt "breadcrumbs"
 msgid "Library"
 msgstr "Библиотека"
 
-#: templates/uploader/layout.html:41
+#: templates/uploader/layout.html:69
 msgid "Drop Zone"
 msgstr "Зона приёма изображений"
 
-#: templates/uploader/layout.html:45
+#: templates/uploader/layout.html:73
 msgid "Queued Images"
 msgstr "Изображения в очереди"
 
-#: templates/uploader/layout.html:45
-msgid "There are no images. Drop some on Drop Zone."
-msgstr "Изображения отсутствуют. Киньте несколько на зону приёма."
-
-#: templates/uploader/layout.html:51
+#: templates/uploader/layout.html:79
 msgid "Image Library"
 msgstr "Библиотека изображений"
-
-#: templates/uploader/layout.html:51
-msgid "There are no images. Use Drop Zone and review uploaded images."
-msgstr ""
-"Изображения отсутствуют. Используйте зону приёма и обработайте загруженные "
-"изображения."
-
-#: templates/uploader/layout.html:60
-msgid "Save"
-msgstr "Сохранить"
