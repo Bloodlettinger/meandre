@@ -1,7 +1,9 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static admin_modify %}
-{% load url from future %}
+{% load admin_static admin_modify %}
 {% load admin_urls %}
+{% load i18n %}
+{% load static %}
+{% load url from future %}
 
 {% block extrahead %}{{ block.super }}
 {% url 'admin:jsi18n' as jsi18nurl %}
@@ -9,7 +11,10 @@
 {{ media }}
 {% endblock %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+{% endblock %}
 
 {% block coltype %}{% if ordered_objects %}colMS{% else %}colM{% endif %}{% endblock %}
 
@@ -123,8 +128,7 @@
     // initialize positions
     ordering($('#sortable'));
 
-    $( "#sortable" ).sortable({
-        axis: 'y',
+    $("#sortable").sortable({
         cursor: 'move',
         delay: 200,
         distance: 20,
@@ -133,9 +137,6 @@
             ordering(this);
         }
     }).disableSelection();
-
-    // disable floating of frames
-    $('.frame').css({'float': 'none'});
 })(django.jQuery);
 </script>
 

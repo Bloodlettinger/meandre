@@ -15,7 +15,7 @@
 
 function uploader(place, status, url, onload_handler, inline_counter, tag_list) {
     tag_list = tag_list || false;  // empty string is a default value
-    inline_counter = inline_counter() || false; // empty params means no inline
+    inline_counter = inline_counter || false; // empty params means no inline
 
     var url_adds = '';
     if (tag_list)
