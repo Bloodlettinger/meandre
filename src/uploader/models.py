@@ -8,8 +8,13 @@ from django.contrib.auth.models import User
 from tagging.fields import TagField
 
 
+def upload_by_tag(instance, filename):
+    u"""Возвращает путь для загружаемого изображения, учитывая название проекта."""
+    return u'uploader/queue/%s/%s' % (instance.tags, filename)
+
+
 class Queue(models.Model):
-    image = models.ImageField(upload_to=u'uploader/queue', max_length=256, verbose_name=_(u'Image'))
+    image = models.ImageField(upload_to=upload_by_tag, max_length=256, verbose_name=_(u'Image'))
     file_name = models.CharField(max_length=256, verbose_name=pgettext_lazy(u'uploader', u'Name'))
     file_type = models.CharField(max_length=80, verbose_name=_(u'MIME'))
     file_size = models.IntegerField(verbose_name=pgettext_lazy(u'uploader', u'Size'))
