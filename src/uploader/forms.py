@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-
-from ..storage.models import Project
 
 
 class ImageOptsForm(forms.Form):
@@ -14,7 +11,6 @@ class ImageOptsForm(forms.Form):
 
 
 class DoneForm(forms.Form):
-    project = forms.ModelChoiceField(queryset=Project.objects.all(), empty_label=_(u'Choose a Project'))
     image = forms.IntegerField(widget=forms.HiddenInput)
     shown_width = forms.IntegerField(widget=forms.HiddenInput)
     shown_height = forms.IntegerField(widget=forms.HiddenInput)

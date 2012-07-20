@@ -25,3 +25,12 @@ class Queue(models.Model):
         ordering = ('-confirmed_at', '-registered', )
         verbose_name = _(u'Queue Item')
         verbose_name_plural = _(u'Queue Items')
+
+
+def delete_image(sender, **kwargs):
+    u"""
+    Автоматически удаляет изображение при удалении соответствующей модели.
+    """
+    model = kwargs.get('instance')
+    model.image.delete(save=False)
+models.signals.post_delete.connect(delete_image, sender=Queue, weak=False)

@@ -85,7 +85,8 @@ $(document).ready(function() {
 <div id="done_form_container" class="hide">
     <form id="done_form" method="post" action="{% url uploader:done %}">
         {{ form }}
-        <input type="submit" name="submit" value="{% trans "Save" %}"/>
+        <input type="submit" name="save" value="{% trans "Save" %}"/>
+        <input type="submit" name="delete" value="{% trans "Delete" %}"/>
     </form>
 </div>
 {% endblock %}

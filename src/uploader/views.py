@@ -7,6 +7,7 @@ from PIL import Image
 from datetime import datetime
 
 from django.http import Http404
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -17,6 +18,10 @@ from . import forms
 from . import models
 
 logger = logging.getLogger(u'uploader')
+
+
+class HttpResponseDeleted(HttpResponse):
+    status_code = 204
 
 
 @login_required
@@ -67,13 +72,17 @@ def done(request):
         raise Http404
 
     params = form.cleaned_data
-
     pk = params.get('image')
+
     try:
         obj = models.Queue.objects.get(pk=pk)
     except models.Queue.DoesNotExist:
         logger.error(u'Unknown image %i in Queue!' % pk)
         raise Http404
+
+    if 'delete' in request.POST:
+        obj.delete()  # the file itself will be deleted with post_delete signal
+        return HttpResponseDeleted()
 
     if params.get('is_cropped'):
         img = Image.open(obj.image)

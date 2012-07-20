@@ -67,7 +67,7 @@ var openCropBox = function() {
         {
             padding: 2,
             beforeShow: function() {
-                this.title = 'Choose project and crop the image if needed.<br/>' + $('#done_form_container').html();
+                this.title = $('#done_form_container').html();
             },
             afterShow: function() {
                 var area = $('.fancybox-title'),
@@ -91,10 +91,19 @@ var openCropBox = function() {
                         success: function(data, status, xhr) {
                             $('input[name=submit]', area).removeAttr('disabled');
                             frame.remove();
-                            $('#image_list .jspPane').prepend(data);
-                            $('#image_list .frame img').click(openCropBox);
                             $.fancybox.close();
-                            $.jGrowl('Saved!');
+                            switch(xhr.status) {
+                                case 200:
+                                    $('#image_list .jspPane').prepend(data);
+                                    $('#image_list .frame img').click(openCropBox);
+                                    $.jGrowl('Saved!');
+                                    break;
+                                case 204:
+                                    $.jGrowl('Deleted!');
+                                    break;
+                                default:
+                                    $.jGrowl('Response status: ' + xhr.status);
+                            }
                         },
                         error: function(xhr, status, errMsg) {
                             $.jGrowl('Error: ' + errMsg);
