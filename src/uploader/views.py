@@ -26,7 +26,7 @@ class HttpResponseDeleted(HttpResponse):
 
 @login_required
 @csrf_exempt
-def image(request, template='uploader/frame.html'):
+def image_upload(request, template='uploader/frame_inline.html'):
     form = forms.ImageOptsForm(request.GET or None)
 
     if not form.is_valid():
@@ -54,18 +54,20 @@ def image(request, template='uploader/frame.html'):
         file_type=file_type
         )
     obj.tags = form.cleaned_data.get('tags')
+    obj.position = form.cleaned_data.get('position')
     obj.image.save(file_name, file_data, save=save_model)
 
-    context = dict(obj=obj)
-    if form.cleaned_data.get('inline'):
-        template = 'uploader/frame_inline.html'
-        context['counter'] = form.cleaned_data.get('inline')
+    context = dict(
+        obj=obj,
+        prefix='images_set',
+        counter=form.cleaned_data.get('position')
+        )
     return TemplateResponse(request, template, context)
 
 
 @login_required
 @csrf_exempt
-def done(request):
+def image_change(request, template='uploader/frame_inline.html'):
     form = forms.DoneForm(request.POST or None)
     if not form.is_valid():
         logger.error(u'Form DoneForm is not valid!')
@@ -124,4 +126,4 @@ def done(request):
     obj.save()
 
     context = dict(obj=obj)
-    return TemplateResponse(request, 'uploader/frame.html', context)
+    return TemplateResponse(request, template, context)

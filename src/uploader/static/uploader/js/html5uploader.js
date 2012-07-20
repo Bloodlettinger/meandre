@@ -13,15 +13,24 @@
 *   IE 6+
 */
 
-function uploader(place, status, url, onload_handler, inline_counter, tag_list) {
-    tag_list = tag_list || false;  // empty string is a default value
-    inline_counter = inline_counter || false; // empty params means no inline
+function uploader(place, status, url, onload_handler, position_handler, tag_list) {
+    var tag_list = tag_list || false;  // empty string is a default value
 
-    var url_adds = '';
-    if (tag_list)
-        url_adds += '&tags=' + tag_list;
-    if (inline_counter)
-        url_adds += '&inline=' + inline_counter();
+    var get_url = function(base64) {
+        var base64 = base64||false;
+        var delim = '?';
+        var opts = '';
+        if (base64)
+            opts += delim + 'base64=true';
+            delim = '&';
+        if (tag_list)
+            opts += delim + 'tags=' + tag_list;
+            delim = '&';
+        if (typeof position_handler == 'function')
+            opts += delim + 'position=' + position_handler();
+            delim = '&';
+        return url + opts;
+    }
 
     // Upload image files
     var upload = function(file) {
@@ -32,7 +41,8 @@ function uploader(place, status, url, onload_handler, inline_counter, tag_list) 
             this.loadEnd = function() {
                 var bin = reader.result;
                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', url+'?up=true'+url_adds , true);
+                var url = get_url(xhr.sendAsBinary == null);
+                xhr.open('POST', url , true);
                 var boundary = 'xxxxxxxxx';
                 var body = '--' + boundary + "\r\n";
                 body += "Content-Disposition: form-data; name='upload'; filename='" + file.name + "'\r\n";
@@ -54,7 +64,6 @@ function uploader(place, status, url, onload_handler, inline_counter, tag_list) 
                     xhr.sendAsBinary(body);
                 } else {
                     // Chrome 7 sends data but you must use the base64_decode on the server side
-                    xhr.open('POST', url+'?up=true&base64=true'+url_adds, true);
                     xhr.setRequestHeader('UP-FILENAME', file.name);
                     xhr.setRequestHeader('UP-SIZE', file.size);
                     xhr.setRequestHeader('UP-TYPE', file.type);
@@ -113,7 +122,7 @@ function uploader(place, status, url, onload_handler, inline_counter, tag_list) 
         } else {
             // Safari 5 does not support FileReader
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', url+'?up=true'+url_adds, true);
+            xhr.open('POST', get_url(), true);
             xhr.setRequestHeader('UP-FILENAME', file.name);
             xhr.setRequestHeader('UP-SIZE', file.size);
             xhr.setRequestHeader('UP-TYPE', file.type);

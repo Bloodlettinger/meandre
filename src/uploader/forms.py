@@ -7,7 +7,7 @@ class ImageOptsForm(forms.Form):
     up = forms.CharField(max_length=5, required=False)
     base64 = forms.CharField(max_length=5, required=False)
     tags = forms.CharField(max_length=255, required=False)
-    inline = forms.IntegerField(required=False)
+    position = forms.IntegerField(required=False)
 
 
 class DoneForm(forms.Form):

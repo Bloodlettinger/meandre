@@ -35,20 +35,21 @@ $(document).ready(function() {
     // initialize positions
     ordering($('#image_list'));
 
+    var frames_count = function() {
+        var container = $('#image_list');
+        var nextIndex = $('input[name$=position]', container).length;
+        return nextIndex;
+    }
     // dropzone activation
     window.html5uploader = window.html5uploader || new uploader(
         'upload-box', 'upload-status-text', '/uploader/image/',
         function(response) {
             var container = $('#image_list');
-            container.prepend(response);
+            container.append(response);
             $('.frame img', container).click(openCropBox);
-        },
-        function() {
-            var totalForms = $('#id_images_set-TOTAL_FORMS').attr('autocomplete', 'off');
-            var nextIndex = parseInt(totalForms.val());
-            ordering($('#image_list'));
-            return nextIndex;
-        }, '{{ tag }}');
+            ordering(container);
+            updateManagementData('images_set');
+        }, frames_count, '{{ tag }}');
 
     $("#image_list").sortable({
         cursor: 'move',
@@ -139,7 +140,7 @@ $(document).ready(function() {
         </div>
 
         <div style="margin-left: 31%;">
-            {% include "uploader/frame_list.html" with id="image_list" inline="true" list=image_list title="(hide)" empty=_("There are no images. Use Drop Zone and review uploaded images.") %}
+            {% include "uploader/frame_list.html" with id="image_list" prefix="images_set" inline="true" list=image_list title="(hide)" %}
         </div>
         <div style="clear: both;"></div>
     </fieldset>

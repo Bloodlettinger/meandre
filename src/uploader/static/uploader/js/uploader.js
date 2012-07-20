@@ -58,6 +58,32 @@ var setCropData = function (o, pk) {
     $('#id_image', area).val(pk);
 }
 
+var updateElementIndex = function(el, prefix, ndx) {
+    var id_regex = new RegExp("(" + prefix + "-(\\d+|__prefix__))");
+    var replacement = prefix + "-" + ndx;
+    if ($(el).attr("for")) {
+        $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    }
+    if (el.id) {
+        el.id = el.id.replace(id_regex, replacement);
+    }
+    if (el.name) {
+        el.name = el.name.replace(id_regex, replacement);
+    }
+};
+
+var updateManagementData = function(prefix) {
+    var area = $('fieldset.module');
+    var container = $('#image_list');
+    var total = $('input[name$=position]', container).length;
+    $('input[name='+prefix+'-TOTAL_FORMS]', area).val(total);
+    $('input[name='+prefix+'-INITIAL_FORMS]', area).val(total);
+    console.log('updateManagementData');
+    console.log('total', total);
+    console.log($('input[name='+prefix+'-TOTAL_FORMS]', area).val());
+    console.log($('input[name='+prefix+'-INITIAL_FORMS]', area).val());
+}
+
 var openCropBox = function() {
     var frame = $(this).parent(),
         obj_pk = $(this).data('id'),
@@ -86,20 +112,32 @@ var openCropBox = function() {
                     $(this).ajaxForm({
                         dataType: 'text',
                         beforeSubmit: function() {
+                            // $('input[name=inline_index]', area).val();
                             $('input[name=submit]', area).attr('disabled', 'disabled');
                         },
                         success: function(data, status, xhr) {
                             $('input[name=submit]', area).removeAttr('disabled');
-                            frame.remove();
                             $.fancybox.close();
+
                             switch(xhr.status) {
-                                case 200:
-                                    $('#image_list .jspPane').prepend(data);
+                                case 200: // changed
+                                    $('img', frame).replaceWith($('img', data));
+                                    $('div.header', frame).replaceWith($('div.header', data));
+                                    $('div.footer', frame).replaceWith($('div.footer', data));
                                     $('#image_list .frame img').click(openCropBox);
                                     $.jGrowl('Saved!');
                                     break;
-                                case 204:
+                                case 204: // removed
+                                    frame.remove();
                                     $.jGrowl('Deleted!');
+
+                                    // refresh formset input indexes
+                                    $('#image_list .frame').each(function(index, frame) {
+                                        $(frame).find('input').each(function() {
+                                            updateElementIndex(this, 'images_set', index);
+                                        });
+                                    });
+                                    updateManagementData('images_set');
                                     break;
                                 default:
                                     $.jGrowl('Response status: ' + xhr.status);

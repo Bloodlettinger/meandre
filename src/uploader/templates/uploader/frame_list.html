@@ -5,12 +5,10 @@
     <div id="{{ id }}" class="container">
         {% for frame in list %}
             {% if inline == "true" %}
-                {% include "uploader/frame_inline.html" with obj=frame counter=forloop.counter0%}
+                {% include "uploader/frame_inline.html" with obj=frame prefix=prefix counter=forloop.counter0 %}
             {% else %}
                 {% include "uploader/frame.html" with obj=frame %}
             {% endif %}
-        {% empty %}
-        <p class="empty">{{ empty }}</p>
         {% endfor %}
     </div>
     <div class="clear-left"></div>

@@ -70,13 +70,13 @@ $(document).ready(function() {
             {% include "uploader/drop_zone.html" %}
         </div>
         <div class="dashboard-module patch-margins">
-            {% include "uploader/frame_list.html" with id="queue_list" list=queue_list title=_("Queued Images") empty=_("There are no images. Drop some on Drop Zone.") %}
+            {% include "uploader/frame_list.html" with id="queue_list" list=queue_list title=_("Queued Images") %}
         </div>
     </div>
 
     <div id="uploader-right-column">
         <div class="dashboard-module patch-margins">
-            {% include "uploader/frame_list.html" with id="image_list" list=image_list title=_("Image Library") empty=_("There are no images. Use Drop Zone and review uploaded images.") %}
+            {% include "uploader/frame_list.html" with id="image_list" list=image_list title=_("Image Library") %}
         </div>
     </div>
 </div>
