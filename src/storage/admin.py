@@ -4,7 +4,6 @@ from django import template
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.db.models.fields import TextField
 from django.shortcuts import render_to_response
 
@@ -105,7 +104,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         self.change_form_template = 'storage/admin/change_form.html'
 
         slug = self.model.objects.get(pk=object_id).slug
-        images = ProjectImage.objects.filter(Q(tags__search=slug)).order_by('position')
+        images = ProjectImage.objects.filter(tags=slug).order_by('position')
         formset = forms.ImagePositionFormSet(request.POST or None, prefix='images_set', queryset=images)
         if request.method == 'POST':
             if formset.is_valid():

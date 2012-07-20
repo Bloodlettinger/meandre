@@ -181,7 +181,7 @@ class Project(models.Model):
     def teaser(self):
         u"""Возвращает главное изображение проекта."""
         try:
-            images = ImageQueue.objects.filter(tags__search=self.slug).order_by('position')
+            images = ImageQueue.objects.filter(tags=self.slug).order_by('position')
             return images[0]
         except self.DoesNotExist:
             return None

@@ -8,7 +8,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 from django.utils import translation
-from django.db.models import Q
 
 from haystack.query import SearchQuerySet
 
@@ -61,7 +60,7 @@ def project(request, slug):
 
     context = dict(
         project=obj,
-        images=ProjectImages.objects.filter(Q(tags__search=obj.slug)).order_by('position'),
+        images=ProjectImages.objects.filter(tags=obj.slug).order_by('position'),
         next=models.Project.objects.get_next(obj),
         prev=models.Project.objects.get_prev(obj),
         all_job_types=models.JobType.objects.all(),
