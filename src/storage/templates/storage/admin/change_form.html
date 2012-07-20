@@ -42,7 +42,7 @@ $(document).ready(function() {
     }
     // dropzone activation
     window.html5uploader = window.html5uploader || new uploader(
-        'upload-box', 'upload-status-text', '/uploader/image/',
+        'upload-box', 'upload-status-text', '{% url 'uploader:image_upload' %}',
         function(response) {
             var container = $('#image_list');
             container.append(response);

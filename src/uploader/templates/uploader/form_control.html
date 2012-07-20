@@ -2,7 +2,7 @@
 {% load url from future %}
 {# элемент, хранящий форму с контролами для кропинга #}
 <div id="done_form_container" class="hide">
-    <form id="done_form" method="post" action="{% url 'uploader:done' %}">
+    <form id="done_form" method="post" action="{% url 'uploader:image_change' %}">
         {{ form }}
         <input type="submit" name="save" value="{% trans "Save" %}"/>
         <input type="submit" name="delete" value="{% trans "Delete" %}"/>

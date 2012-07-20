@@ -22,7 +22,7 @@ $(document).ready(function() {
     $('.frame img', flist).click(openCropBox);
 
     window.html5uploader = window.html5uploader || new uploader(
-        'upload-box', 'upload-status-text', '/uploader/image/',
+        'upload-box', 'upload-status-text', '{% url uploader:image_upload %}',
         function(response) {
             $('#queue_list .jspPane').prepend(response);
             $('#queue_list .frame img').click(openCropBox);
