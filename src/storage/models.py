@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 from django_autoslug.fields import AutoSlugField
 
 from .. users.models import CustomUser
+from .. uploader.models import Queue as ImageQueue
 
 from . managers import FinanceTransactionManager
 from . managers import ProjectManager
@@ -180,17 +181,15 @@ class Project(models.Model):
     def teaser(self):
         u"""Возвращает главное изображение проекта."""
         try:
-            return self.projectimage_set.get(is_teaser=True)
+            images = ImageQueue.objects.filter(tags__search=self.slug).order_by('position')
+            return images[0]
         except self.DoesNotExist:
             return None
 
     @property
     def pro6(self):
         u"""Возвращает изображение проекта для витрины."""
-        try:
-            return self.projectimage_set.get(is_pro6=True)
-        except self.DoesNotExist:
-            return None
+        return self.teaser
 
     @property
     def price_meter(self):

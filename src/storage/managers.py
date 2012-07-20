@@ -8,6 +8,7 @@ from django.db import models
 from django.db.models.query import QuerySet
 
 from model_utils.managers import PassThroughManager
+from tagging.models import Tag
 
 from . decorators import cache_factory
 from . exceptions import WalletStateNotFound
@@ -67,7 +68,9 @@ class ProjectQuerySet(QuerySet):
         return qs
 
     def public(self):
-        return self.filter(is_public=True)
+        return self.filter(is_public=True,
+            slug__in=map(lambda x: x.name, Tag.objects.all())
+            )
 
     def for_stats(self):
         return self.filter(in_stats=True)
