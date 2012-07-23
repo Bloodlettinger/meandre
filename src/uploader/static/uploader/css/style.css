@@ -190,6 +190,7 @@
     float: right;
 }
 #done_form input[type='submit'] {
+    cursor: pointer;
     color: white;
     background: none;
     background-color: black !important;

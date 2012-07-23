@@ -4,10 +4,13 @@ from django import forms
 
 
 class ImageOptsForm(forms.Form):
-    up = forms.CharField(max_length=5, required=False)
     base64 = forms.CharField(max_length=5, required=False)
     tags = forms.CharField(max_length=255, required=False)
     position = forms.IntegerField(required=False)
+
+
+class UploadAsFileForm(forms.Form):
+    upload = forms.ImageField()
 
 
 class DoneForm(forms.Form):

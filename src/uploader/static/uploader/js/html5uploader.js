@@ -18,8 +18,8 @@ function uploader(place, status, url, onload_handler, position_handler, tag_list
 
     var get_url = function(base64) {
         var base64 = base64||false;
-        var delim = '?';
-        var opts = '';
+        var delim = '';
+        var opts = '?';
         if (base64)
             opts += delim + 'base64=true';
             delim = '&';
@@ -45,7 +45,7 @@ function uploader(place, status, url, onload_handler, position_handler, tag_list
                 xhr.open('POST', url , true);
                 var boundary = 'xxxxxxxxx';
                 var body = '--' + boundary + "\r\n";
-                body += "Content-Disposition: form-data; name='upload'; filename='" + file.name + "'\r\n";
+                body += 'Content-Disposition: form-data; name="upload"; filename="' + file.name + '"\r\n';
                 body += "Content-Type: application/octet-stream\r\n\r\n";
                 body += bin + "\r\n";
                 body += '--' + boundary + '--';
@@ -70,7 +70,8 @@ function uploader(place, status, url, onload_handler, position_handler, tag_list
                     xhr.send(window.btoa(bin));
                 }
                 if (status) {
-                    document.getElementById(status).innerHTML = 'Loaded : 100%<br/>Next file ...';
+                    var div = document.getElementById(status);
+                    div.innerHTML = 'Sent : 100%';
                 }
             }
 

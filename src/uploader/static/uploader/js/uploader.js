@@ -78,10 +78,6 @@ var updateManagementData = function(prefix) {
     var total = $('input[name$=position]', container).length;
     $('input[name='+prefix+'-TOTAL_FORMS]', area).val(total);
     $('input[name='+prefix+'-INITIAL_FORMS]', area).val(total);
-    console.log('updateManagementData');
-    console.log('total', total);
-    console.log($('input[name='+prefix+'-TOTAL_FORMS]', area).val());
-    console.log($('input[name='+prefix+'-INITIAL_FORMS]', area).val());
 }
 
 var openCropBox = function() {

@@ -24,11 +24,14 @@ class HttpResponseDeleted(HttpResponse):
     status_code = 204
 
 
+class HttpResponseNotImplemented(HttpResponse):
+    status_code = 501
+
+
 @login_required
 @csrf_exempt
 def image_upload(request, template='uploader/frame_inline.html'):
     form = forms.ImageOptsForm(request.GET or None)
-
     if not form.is_valid():
         logger.error(u'Form ImageOptsForm is not valid!')
         raise Http404
@@ -41,10 +44,32 @@ def image_upload(request, template='uploader/frame_inline.html'):
             logger.error(u'%s: %s' % (e, data))
             raise Http404
 
-    file_data = ContentFile(data)
-    file_name = request.META.get('HTTP_UP_FILENAME', 'unknown').decode('utf-8')
-    file_size = request.META.get('HTTP_UP_SIZE', 0).decode('utf-8')
-    file_type = request.META.get('HTTP_UP_TYPE', 'text/plain').decode('utf-8')
+    user_agent = request.META.get('HTTP_USER_AGENT').lower()
+    if 0 <= user_agent.find('firefox'):
+        post_form = forms.UploadAsFileForm(request.POST, request.FILES)
+        if not post_form.is_valid():
+            logger.error(u'Form UploadAsFileForm is not valid!')
+            raise Http404
+        else:
+            file_data = request.FILES.get('upload')
+            file_name = file_data.name
+    elif 0 <= user_agent.find('chrome'):
+        file_data = ContentFile(data)
+        file_name = request.META.get('HTTP_UP_FILENAME', 'unknown').decode('utf-8')
+    else:
+        raise HttpResponseNotImplemented
+
+    # все изображения конвертируются в PNG
+    data = Image.open(file_data)
+    io = StringIO.StringIO()
+    data.save(io, format='PNG')
+
+    file_name = u'%s.png' % os.path.splitext(file_name)[0]
+    file_type = 'image/png'
+    file_size = io.len
+
+    file_data = InMemoryUploadedFile(
+        io, None, file_name, file_type, file_size, None)
 
     save_model = True
     obj = models.Queue(
