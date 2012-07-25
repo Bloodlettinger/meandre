@@ -14,6 +14,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
 
+from . import settings
 from . import forms
 from . import models
 
@@ -129,7 +130,8 @@ def image_change(request, template='uploader/frame_inline.html'):
         y2 = (crop_y + crop_h) * ratio_vertical
 
         box = map(int, (x1, y1, x2, y2))
-        region = img.crop(box)
+        dim = (settings.UPLOADER_IMAGE_MAX_WIDTH, settings.UPLOADER_IMAGE_MAX_HEIGHT)
+        region = img.crop(box).resize(dim, Image.ANTIALIAS)
         region_io = StringIO.StringIO()
         region.save(region_io, format='PNG')
 
