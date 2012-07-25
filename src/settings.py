@@ -144,7 +144,6 @@ INSTALLED_APPS = (
     'src.frontend',
     'src.users',
     'src.storage',
-    'src.uploader',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -230,6 +229,16 @@ INSTALLED_APPS = (
 ADMIN_TOOLS_INDEX_DASHBOARD = 'src.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'src.dashboard.CustomAppIndexDashboard'
 ADMIN_MEDIA_PREFIX = '/static/admin/'  # грязный хак
+
+###
+# uploader
+
+INSTALLED_APPS += ('src.uploader', )
+TEMPLATE_CONTEXT_PROCESSORS += ('src.uploader.context_processors.settings', )
+UPLOADER_LIMIT_DIMENSIONS = True
+UPLOADER_USE_ASPECT_RATIO = True
+UPLOADER_IMAGE_MAX_WIDTH = 960
+UPLOADER_IMAGE_MAX_HEIGHT = 640
 
 ###
 # easy_thumbnails

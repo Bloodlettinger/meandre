@@ -99,11 +99,14 @@ var openCropBox = function() {
                 $('#id_shown_width', area).val(image.width());
                 $('#id_shown_height', area).val(image.height());
 
-                image.Jcrop({
-                    aspectRatio: 960/640,
+                jcrop_opts = {
                     onSelect: function(o) { return setCropData(o, obj_pk); },
                     onChange: function(o) { return setCropData(o, obj_pk); }
-                });
+                };
+                if (uploader_settings && uploader_settings.use_aspect_ratio)
+                    jcrop_opts['aspectRatio'] = uploader_settings.aspect_ratio || 1;
+
+                image.Jcrop(jcrop_opts);
 
                 $('form', area).each(function() {
                     $(this).ajaxForm({

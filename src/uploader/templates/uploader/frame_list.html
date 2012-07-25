@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 {% spaceless %}
 <div class="frame_list">
     {% if title != "(hide)" %}<h2>{{ title }}</h2>{% endif %}
@@ -14,3 +15,13 @@
     <div class="clear-left"></div>
 </div>
 {% endspaceless %}
+{% localize off %}
+<script type="text/javascript">
+var uploader_settings = {
+    use_aspect_ratio: {% if settings.UPLOADER_USE_ASPECT_RATIO %}true{% else %}false{% endif %},
+    aspect_ratio: {{ settings.UPLOADER_ASPECT_RATIO }},
+    max_width: {{ settings.UPLOADER_IMAGE_MAX_WIDTH }},
+    max_height: {{ settings.UPLOADER_IMAGE_MAX_HEIGHT }}
+};
+</script>
+{% endlocalize %}

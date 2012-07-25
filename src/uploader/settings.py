@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+
+from django.conf import settings
+
+UPLOADER_IMAGE_MAX_WIDTH = getattr(settings, 'UPLOADER_IMAGE_MAX_WIDTH', 1024)
+UPLOADER_IMAGE_MAX_HEIGHT = getattr(settings, 'UPLOADER_IMAGE_MAX_HEIGHT', 768)
+UPLOADER_LIMIT_DIMENSIONS = getattr(settings, 'UPLOADER_LIMIT_DIMENSIONS', False)
+UPLOADER_USE_ASPECT_RATIO = getattr(settings, 'UPLOADER_USE_ASPECT_RATIO', False)
+UPLOADER_ASPECT_RATIO = getattr(settings, 'UPLOADER_ASPECT_RATIO',
+    float(UPLOADER_IMAGE_MAX_WIDTH) / float(UPLOADER_IMAGE_MAX_HEIGHT))
