@@ -100,6 +100,7 @@ var openCropBox = function() {
                 $('#id_shown_height', area).val(image.height());
 
                 image.Jcrop({
+                    aspectRatio: 960/640,
                     onSelect: function(o) { return setCropData(o, obj_pk); },
                     onChange: function(o) { return setCropData(o, obj_pk); }
                 });
