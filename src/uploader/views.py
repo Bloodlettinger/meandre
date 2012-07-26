@@ -152,6 +152,9 @@ def image_change(request, template='uploader/frame_inline.html'):
 
     obj.confirmed_by = request.user
     obj.confirmed_at = datetime.now()
+    obj.visible = params.get('visible')
+    obj.staff = params.get('staff')
+    obj.teaser = params.get('teaser')
     obj.save()
 
     context = dict(obj=obj)
@@ -161,9 +164,9 @@ def image_change(request, template='uploader/frame_inline.html'):
 @login_required
 @render_to_json()
 def image_state(request, pk=None, template='uploader/frame_inline.html'):
-    tags = get_object_or_404(models.Queue, pk=pk).tags
+    obj = get_object_or_404(models.Queue, pk=pk)
     return dict(
-        visible='visible' in tags,
-        staff='staff' in tags,
-        teaser='teaser' in tags
+        visible=obj.visible,
+        staff=obj.staff,
+        teaser=obj.teaser
         )

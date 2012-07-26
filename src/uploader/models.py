@@ -22,6 +22,9 @@ class Queue(models.Model):
     confirmed_at = models.DateTimeField(blank=True, null=True)
     confirmed_by = models.ForeignKey(User, related_name=u'confirmer', blank=True, null=True, verbose_name=pgettext_lazy(u'uploader', u'Confirmed By'))
     position = models.IntegerField(null=True, blank=True, verbose_name=_(u'Position'))
+    visible = models.BooleanField(default=False, verbose_name=_(u'Visible for anonymous'))
+    staff = models.BooleanField(default=False, verbose_name=_(u'Visible for staff'))
+    teaser = models.BooleanField(default=False, verbose_name=_(u'Used for presentation'))
     registered = models.DateTimeField(auto_now_add=True)
 
     tags = TagField()
