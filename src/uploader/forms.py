@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.utils.translation import ugettext_lazy as _
+
+from . import widgets
 
 
 class ImageOptsForm(forms.Form):
@@ -22,3 +25,10 @@ class DoneForm(forms.Form):
     point_y = forms.FloatField(required=False, widget=forms.HiddenInput)
     width = forms.IntegerField(required=False, widget=forms.HiddenInput)
     height = forms.IntegerField(required=False, widget=forms.HiddenInput)
+
+    visible = forms.BooleanField(required=False, label=u'', widget=widgets.StateWidget(
+        attrs=dict(title=_(u'Make this image visible for ordinary users.'))))
+    staff = forms.BooleanField(required=False, label=u'', widget=widgets.StateWidget(
+        attrs=dict(title=_(u'Make this image visible for staff only.'))))
+    teaser = forms.BooleanField(required=False, label=u'', widget=widgets.StateWidget(
+        attrs=dict(title=_(u'Use this image for teaser.'))))

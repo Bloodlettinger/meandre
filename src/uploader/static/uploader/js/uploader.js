@@ -99,6 +99,7 @@ var openCropBox = function() {
                 $('#id_shown_width', area).val(image.width());
                 $('#id_shown_height', area).val(image.height());
 
+                // assign jcrop abilities
                 jcrop_opts = {
                     onSelect: function(o) { return setCropData(o, obj_pk); },
                     onChange: function(o) { return setCropData(o, obj_pk); }
@@ -108,6 +109,7 @@ var openCropBox = function() {
 
                 image.Jcrop(jcrop_opts);
 
+                // ajaxify form
                 $('form', area).each(function() {
                     $(this).ajaxForm({
                         dataType: 'text',

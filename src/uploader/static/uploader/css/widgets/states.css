@@ -1,0 +1,36 @@
+[class^="icon-"], [class*=" icon-"] {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 14px;
+    vertical-align: text-top;
+    background-image: url("../img/glyphicons-halflings.png");
+    background-position: 14px 14px;
+    background-repeat: no-repeat;
+    z-index: 8021;
+}
+
+.icon-visible {
+    background-position: -144px -72px; /* x=24*(pos-1), y=24*(pos-1) */
+}
+.icon-staff {
+    background-position: -96px -120px; /* x=24*(pos-1), y=24*(pos-1) */
+}
+.icon-teaser {
+    background-position: -456px -48px; /* x=24*(pos-1), y=24*(pos-1) */
+}
+
+span[class^="state-"] {
+    display: inline-block;
+    margin: 1px 2px; padding: 1px;
+    color: white;
+    background: none;
+    background-color: #ddd !important;
+    border: 2px solid white;
+    -moz-border-radius: 4px 4px;
+    -webkit-border-radius: 4px 4px;
+    border-bottom-left-radius: 4px 4px;
+    border-bottom-right-radius: 4px 4px;
+    border-top-left-radius: 4px 4px;
+    border-top-right-radius: 4px 4px;
+}
