@@ -154,7 +154,8 @@ def image_change(request, template='uploader/frame_inline.html'):
     obj.confirmed_at = datetime.now()
     obj.visible = params.get('visible')
     obj.staff = params.get('staff')
-    obj.teaser = params.get('teaser')
+    if obj.visible:  # только видимое изображение может быть выбрано
+        obj.teaser = params.get('teaser')
     obj.save()
 
     context = dict(obj=obj)
