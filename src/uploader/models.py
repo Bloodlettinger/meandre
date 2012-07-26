@@ -6,6 +6,7 @@ from django.utils.translation import pgettext_lazy
 from django.contrib.auth.models import User
 
 from tagging.fields import TagField
+from tagging.models import Tag, TaggedItem
 
 
 def upload_by_tag(instance, filename):
@@ -33,6 +34,14 @@ class Queue(models.Model):
         ordering = ('-confirmed_at', '-registered', )
         verbose_name = _(u'Queue Item')
         verbose_name_plural = _(u'Queue Items')
+
+    @staticmethod
+    def set_teaser(item):
+        tag = Tag.objects.get(name=item.tags)  # у нас только один таг
+        id_list = (i.pk for i in TaggedItem.objects.get_by_model(Queue, tag))
+        Queue.objects.filter(pk__in=id_list).update(teaser=False)
+        item.teaser = True
+        item.save()
 
 
 def delete_image(sender, **kwargs):

@@ -155,7 +155,8 @@ def image_change(request, template='uploader/frame_inline.html'):
     obj.visible = params.get('visible')
     obj.staff = params.get('staff')
     if obj.visible:  # только видимое изображение может быть выбрано
-        obj.teaser = params.get('teaser')
+        if params.get('teaser'):
+            models.Queue.set_teaser(obj)
     obj.save()
 
     context = dict(obj=obj)

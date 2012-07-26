@@ -22,5 +22,10 @@
         <div class="clear-left"></div>
     </div>
     {% endwith %}
+    <div class="state_area">
+        {% if obj.visible %}<i class="icon-visible"></i>{% endif %}
+        {% if obj.staff %}<i class="icon-staff"></i>{% endif %}
+        {% if obj.teaser %}<i class="icon-teaser"></i>{% endif %}
+    </div>
 </div>
 {% endspaceless %}

@@ -182,7 +182,7 @@ class Project(models.Model):
     def teaser(self):
         u"""Возвращает главное изображение проекта."""
         try:
-            return ImageQueue.objects.filter(teaser=True)
+            return ImageQueue.objects.get(teaser=True, tags=self.slug)
         except self.DoesNotExist:
             return None
 
