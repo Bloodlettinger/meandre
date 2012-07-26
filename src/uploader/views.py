@@ -13,10 +13,12 @@ from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib.auth.decorators import login_required
 from django.template.response import TemplateResponse
+from django.shortcuts import get_object_or_404
 
 from . import settings
 from . import forms
 from . import models
+from . import render_to_json
 
 logger = logging.getLogger(u'uploader')
 
@@ -154,3 +156,14 @@ def image_change(request, template='uploader/frame_inline.html'):
 
     context = dict(obj=obj)
     return TemplateResponse(request, template, context)
+
+
+@login_required
+@render_to_json()
+def image_state(request, pk=None, template='uploader/frame_inline.html'):
+    tags = get_object_or_404(models.Queue, pk=pk).tags
+    return dict(
+        visible='visible' in tags,
+        staff='staff' in tags,
+        teaser='teaser' in tags
+        )

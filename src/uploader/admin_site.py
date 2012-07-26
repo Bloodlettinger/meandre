@@ -18,6 +18,7 @@ class UploaderAdmin(AdminSite):
             url(r'^library/$', self.admin_view(self.library), name="library"),
             url(r'^image/upload/$', views.image_upload, name='image_upload'),
             url(r'^image/change/$', views.image_change, name='image_change'),
+            url(r'^image/state/(?P<pk>\d+)/$', views.image_state, name='image_state'),
             )
         urls += super(UploaderAdmin, self).get_urls()
         return urls

@@ -83,18 +83,34 @@ var updateManagementData = function(prefix) {
 var openCropBox = function() {
     var frame = $(this).parent(),
         obj_pk = $(this).data('id'),
-        image_url = $(this).data('url');
+        image_url = $(this).data('url'),
+        state_url = $(this).data('state');
+    var state_visible, state_staff, state_teaser;
     $.fancybox.open(
         [{href: image_url}],
         {
             padding: 2,
             beforeShow: function() {
                 this.title = $('#done_form_container').html();
+
+                // get image state
+                var jqxhr = $.ajax(state_url)
+                    .done(function(data) {
+                        state_visible = $(data).attr('visible') || false;
+                        state_staff = $(data).attr('staff') || false;
+                        state_teaser = $(data).attr('teaser') || false;
+                    });
             },
             afterShow: function() {
                 var area = $('.fancybox-title'),
                     image = $('.fancybox-image');
 
+                // show image state
+                $('#id_visible', area).attr('checked', state_visible);
+                $('#id_staff', area).attr('checked', state_staff);
+                $('#id_teaser', area).attr('checked', state_teaser);
+
+                // fill base params
                 $('#id_image', area).val(obj_pk);
                 $('#id_shown_width', area).val(image.width());
                 $('#id_shown_height', area).val(image.height());
