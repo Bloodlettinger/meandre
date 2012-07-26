@@ -60,7 +60,7 @@ def project(request, slug):
 
     context = dict(
         project=obj,
-        images=ProjectImages.objects.filter(tags=obj.slug).order_by('position'),
+        images=ProjectImages.objects.filter(tags=obj.slug, visible=True).order_by('position'),
         next=models.Project.objects.get_next(obj),
         prev=models.Project.objects.get_prev(obj),
         all_job_types=models.JobType.objects.all(),
