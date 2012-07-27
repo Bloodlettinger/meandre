@@ -243,24 +243,6 @@ class Membership(models.Model):
     leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
 
-def upload_with_name(instance, filename):
-    u"""Возвращает путь для загружаемого изображения, учитывая название проекта."""
-    return u'project/image/%s/%s' % (instance.project.slug, filename)
-
-
-class ProjectImage(models.Model):
-    project = models.ForeignKey(Project, verbose_name=_(u'Project'))
-    position = models.IntegerField(verbose_name=_(u'Position'))
-    image = models.ImageField(upload_to=upload_with_name, max_length=255, verbose_name=_(u'Image Path'))
-    comment = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Comment'))
-    is_teaser = models.BooleanField(verbose_name=_(u'Teaser'))
-    is_pro6 = models.BooleanField(verbose_name=_(u'Pro6 Block'))
-    is_publish = models.BooleanField(verbose_name=_(u'Public'))
-
-    class Meta:
-        ordering = ('position', )
-
-
 class FinanceTransaction(models.Model):
     user = models.ForeignKey(User, verbose_name=_(u'Registrator'))
     parent = models.ForeignKey('self', blank=True, null=True, verbose_name=_(u'Parent'))
