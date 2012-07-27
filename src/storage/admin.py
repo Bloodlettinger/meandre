@@ -69,13 +69,14 @@ class ProjectAdmin(ModelTranslationAdmin):
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
-        (_(u'Base'), dict(fields=('customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
+        (_(u'Base'), dict(fields=('code', 'customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
         (_(u'State'), dict(fields=('is_public', 'is_archived', 'is_finished', 'in_stats'))),
         (_(u'Finance'), dict(fields=('currency', 'exchange_rate', 'price_full'))),
         (_(u'Description'), dict(fields=('desc_short', 'desc_long', 'tasks', 'problems', 'results'))),
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
+    form = forms.ProjectForm
     inlines = (MembershipInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True

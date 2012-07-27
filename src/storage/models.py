@@ -117,7 +117,7 @@ class JobType(models.Model):
 
 
 class Project(models.Model):
-    code = models.CharField(max_length=9, blank=True, null=True, unique=True, verbose_name=_(u'Code'))
+    code = models.CharField(max_length=9, blank=True, null=True, unique=True, verbose_name=_(u'Code'), help_text=_(u'In format: {xxxx}A{nn}{yy}'))
     customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
@@ -179,7 +179,8 @@ class Project(models.Model):
         except:
             self.price_average = 0
 
-        if self.code is None:
+        # при создании модели необходимо сгенерировать код проекта
+        if not (self.pk and self.code):
             code = self.customer.code
             count = Project.objects.filter(customer__code=code).count()
             tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
