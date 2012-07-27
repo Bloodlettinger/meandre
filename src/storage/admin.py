@@ -65,7 +65,7 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
+    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (

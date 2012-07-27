@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date
+
 from django.db import models
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -115,6 +117,7 @@ class JobType(models.Model):
 
 
 class Project(models.Model):
+    code = models.CharField(max_length=9, blank=True, null=True, unique=True, verbose_name=_(u'Code'))
     customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
@@ -175,6 +178,16 @@ class Project(models.Model):
             self.price_average = self.price_full / self.object_square
         except:
             self.price_average = 0
+
+        if self.code is None:
+            code = self.customer.code
+            count = Project.objects.filter(customer__code=code).count()
+            tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
+            context = dict(
+                customer_code=code,
+                project_number=count + 1,
+                year=date.today().strftime('%y'))
+            self.code = tpl.format(**context)
 
         return super(Project, self).save(*args, **kwargs)
 
