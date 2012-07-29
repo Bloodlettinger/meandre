@@ -179,8 +179,9 @@ class Project(models.Model):
         except:
             self.price_average = 0
 
-        # при создании модели необходимо сгенерировать код проекта
-        if not (self.pk and self.code):
+        # при создании модели необходимо сгенерировать код проекта,
+        # если он не был явно указан
+        if not self.pk and 0 == len(self.code):
             code = self.customer.code
             count = Project.objects.filter(customer__code=code).count()
             tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'

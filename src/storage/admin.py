@@ -76,7 +76,6 @@ class ProjectAdmin(ModelTranslationAdmin):
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
-    form = forms.ProjectForm
     inlines = (MembershipInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True
@@ -93,6 +92,13 @@ class ProjectAdmin(ModelTranslationAdmin):
         elif db_field.name == 'currency':
             kwargs['widget'] = widgets.CurrencySelect
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = []
+        # поле кода проекта разрешено редактировать только при создании проекта
+        if obj:
+            self.readonly_fields += ('code', )
+        return super(ProjectAdmin, self).get_form(request, obj, **kwargs)
 
     def add_view(self, request, form_url='', extra_context=None):
         if extra_context is None:
