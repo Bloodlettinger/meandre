@@ -117,7 +117,7 @@ class JobType(models.Model):
 
 
 class Project(models.Model):
-    code = models.CharField(max_length=9, blank=True, null=True, unique=True, verbose_name=_(u'Code'))
+    code = models.CharField(max_length=9, unique=True, verbose_name=_(u'Code'))
     customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
