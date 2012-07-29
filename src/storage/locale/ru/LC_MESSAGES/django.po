@@ -342,7 +342,7 @@ msgstr "Обсуждение"
 #: models.py:137
 msgctxt "duration"
 msgid "Other"
-msgstr "ДругоеДругое"
+msgstr "Другое"
 
 #: models.py:138
 msgid "Begin"
