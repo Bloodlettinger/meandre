@@ -104,8 +104,8 @@ class ProjectAdmin(ModelTranslationAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         self.change_form_template = 'storage/admin/change_form.html'
 
-        slug = self.model.objects.get(pk=object_id).slug
-        images = ProjectImage.objects.filter(tags=slug).order_by('position')
+        code = self.model.objects.get(pk=object_id).code.lower()
+        images = ProjectImage.objects.filter(tags=code).order_by('position')
         formset = forms.ImagePositionFormSet(request.POST or None, prefix='images_set', queryset=images)
         if request.method == 'POST':
             if formset.is_valid():
@@ -117,7 +117,7 @@ class ProjectAdmin(ModelTranslationAdmin):
             dict(
                 dropzone_visible=True,
                 uploader_form=ImageOptsForm(),
-                tag=slug,
+                tag=code,
                 image_fs=formset,
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
