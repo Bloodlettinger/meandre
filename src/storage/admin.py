@@ -102,7 +102,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         return super(ProjectAdmin, self).add_view(request, form_url, extra_context)
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
-        self.change_form_template = 'storage/admin/change_form.html'
+        self.change_form_template = 'storage/admin/change_form_project.html'
 
         code = self.model.objects.get(pk=object_id).code.lower()
         images = ProjectImage.objects.filter(tags=code).order_by('position')
