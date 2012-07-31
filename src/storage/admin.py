@@ -31,6 +31,21 @@ class PartnerAdmin(admin.ModelAdmin):
 admin.site.register(models.Partner, PartnerAdmin)
 
 
+class CustomTabularInline(admin.TabularInline):
+    template = 'storage/admin/edit_inline/tabular.html'
+
+
+class ProjectInline(CustomTabularInline):
+    model = models.Project
+    extra = 0
+    fields = ('code', 'short_name', 'registered', 'status')
+    readonly_fields = ('code', 'short_name', 'registered', 'status')
+    can_delete = False
+
+    def has_add_permission(self, request):
+        return False
+
+
 class CustomerAdmin(ModelTranslationAdmin):
     list_display = ('code', 'short_name', 'partner', 'customer_type', 'partnership_type', 'workareas')
     list_filter = ('customer_type', 'partnership_type', 'partner')
@@ -39,11 +54,16 @@ class CustomerAdmin(ModelTranslationAdmin):
         (_(u'Base'), dict(fields=('code', 'short_name', 'long_name', 'customer_type', 'partnership_type', 'partner', 'workarea', 'url', 'logo'))),
         )
     filter_horizontal = ('workarea', )
+    inlines = (ProjectInline, )
 
     def workareas(self, item):
         qs = item.workarea.all()
         return u', '.join([i.name for i in qs])
     workareas.short_description = _(u'Work Area')
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        #import pdb; pdb.set_trace()
+        return super(CustomerAdmin, self).change_view(request, object_id, form_url, extra_context)
 admin.site.register(models.Customer, CustomerAdmin)
 
 

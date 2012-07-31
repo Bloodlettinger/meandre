@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-31 23:55+0400\n"
-"PO-Revision-Date: 2012-07-21 01:03+0400\n"
+"POT-Creation-Date: 2012-08-01 01:02+0400\n"
+"PO-Revision-Date: 2012-08-01 01:04+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,43 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:39 admin.py:72
+#: admin.py:54 admin.py:92
 msgid "Base"
 msgstr "Основное"
 
-#: admin.py:46 models.py:51 models.py:72
+#: admin.py:62 models.py:51 models.py:72
 msgid "Work Area"
 msgstr "Вид деятельности"
 
-#: admin.py:73
+#: admin.py:93
 msgid "State"
 msgstr "Состояние"
 
-#: admin.py:74
+#: admin.py:94
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:75 models.py:108 models.py:266
+#: admin.py:95 models.py:108 models.py:266
 msgid "Description"
 msgstr "Описание"
 
-#: admin.py:76 models.py:109
+#: admin.py:96 models.py:109
 msgid "Duration"
 msgstr "Длительность"
 
-#: admin.py:77
+#: admin.py:97
 msgid "Jobs"
 msgstr "Работы"
 
-#: admin.py:166 models.py:73 models.py:127 models.py:267
+#: admin.py:186 models.py:73 models.py:127 models.py:267
 msgid "Type"
 msgstr "Тип"
 
-#: admin.py:210
+#: admin.py:230
 msgid "Account"
 msgstr "Аккаунт"
 
-#: admin.py:210
+#: admin.py:230
 msgid "Balance"
 msgstr "Баланс"
 
@@ -384,6 +384,10 @@ msgstr "Статистика"
 msgid "Check if this project is shown in statistics"
 msgstr "Отметьте, если проект учитывается в статистике"
 
+#: models.py:149
+msgid "Registered"
+msgstr "Зарегистрирован"
+
 #: models.py:153
 msgid "Price for square meter"
 msgstr "Цена за квадратный метр"
@@ -534,7 +538,8 @@ msgid "Use `wallets_init` first."
 msgstr "Сначала запустите `wallets_init`."
 
 #: templates/storage/report.html:33
-#: templates/storage/admin/change_form.html:82
+#: templates/storage/admin/change_form_customer.html:24
+#: templates/storage/admin/change_form_project.html:82
 msgid "Home"
 msgstr "Домой"
 
@@ -542,29 +547,50 @@ msgstr "Домой"
 msgid "Explore Project"
 msgstr "Посмотреть проект"
 
-#: templates/storage/admin/change_form.html:85
+#: templates/storage/admin/change_form_customer.html:27
+#: templates/storage/admin/change_form_project.html:85
 msgid "Add"
 msgstr "Добавить"
 
-#: templates/storage/admin/change_form.html:95
+#: templates/storage/admin/change_form_customer.html:37
+#: templates/storage/admin/change_form_project.html:95
 msgid "History"
 msgstr "История"
 
-#: templates/storage/admin/change_form.html:96
+#: templates/storage/admin/change_form_customer.html:38
+#: templates/storage/admin/change_form_project.html:96
 msgid "View on site"
 msgstr "Смотреть на сайте"
 
-#: templates/storage/admin/change_form.html:107
+#: templates/storage/admin/change_form_customer.html:49
+#: templates/storage/admin/change_form_project.html:107
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] "Пожалуйста, исправьте ошибку ниже."
 msgstr[1] "Пожалуйста, исправьте ошибки ниже."
 msgstr[2] "Пожалуйста, исправьте ошибки ниже."
 
-#: templates/storage/admin/change_form.html:128
+#: templates/storage/admin/change_form_project.html:128
 msgid "Images"
 msgstr "Изображения"
 
-#: templates/storage/admin/change_form.html:180
+#: templates/storage/admin/change_form_project.html:180
 msgid "Save this object to make DropZone visible!"
 msgstr "Сохраните изменения для того, чтобы отобразить ДропЗону!"
+
+#: templates/storage/admin/edit_inline/tabular.html:17
+msgid "Delete?"
+msgstr "Удалить?"
+
+#: templates/storage/admin/edit_inline/tabular.html:31
+msgid "Edit"
+msgstr "Изменить"
+
+#: templates/storage/admin/edit_inline/tabular.html:116
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr "Добавить другой %(verbose_name)s"
+
+#: templates/storage/admin/edit_inline/tabular.html:119
+msgid "Remove"
+msgstr "Удалить"
