@@ -122,8 +122,7 @@ class Project(models.Model):
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
     job_type = models.ManyToManyField(JobType, blank=True, null=True, verbose_name=_(u'Job Type'))
-    short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'),
-        help_text=_(u'Choose the right name, because it is a tag for project\'s images. If you will change it later, you loose your images.'))
+    short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'))
     long_name = models.CharField(max_length=512, blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
     ptype = models.IntegerField(choices=PROJECT_TYPE_CHOICES, default=1, verbose_name=_(u'Type'))
     status = models.IntegerField(choices=PROJECT_STATUS_CHOICES, default=1, verbose_name=_(u'Status'))
