@@ -68,7 +68,6 @@ class ProjectQuerySet(QuerySet):
         return qs
 
     def public(self):
-        import pdb; pdb.set_trace()
         return self.filter(is_public=True,
             code__in=map(lambda x: x.name, Tag.objects.all())  # т.е. есть изображения
             )

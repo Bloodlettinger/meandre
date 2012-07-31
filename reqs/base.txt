@@ -1,6 +1,6 @@
 # Список зависимостей для работы проекта.
 
-Django == 1.4
+Django == 1.4.1
 South
 
 django-extensions
