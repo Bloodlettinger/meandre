@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-21 01:00+0400\n"
-"PO-Revision-Date: 2012-07-21 01:07+0400\n"
+"POT-Creation-Date: 2012-07-31 23:56+0400\n"
+"PO-Revision-Date: 2012-07-31 23:58+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,43 +19,67 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: models.py:17
+#: forms.py:30
+msgid "Make this image visible for ordinary users."
+msgstr "Сделать это изображение видимым для обычных пользователей."
+
+#: forms.py:32
+msgid "Make this image visible for staff only."
+msgstr "Сделать это изображение видимым только для команды."
+
+#: forms.py:34
+msgid "Use this image for teaser."
+msgstr "Использовать это изображение в качестве тизера."
+
+#: models.py:18
 msgid "Image"
 msgstr "Изображение"
 
-#: models.py:18
+#: models.py:19
 msgctxt "uploader"
 msgid "Name"
 msgstr "Имя"
 
-#: models.py:19
+#: models.py:20
 msgid "MIME"
 msgstr "MIME"
 
-#: models.py:20
+#: models.py:21
 msgctxt "uploader"
 msgid "Size"
 msgstr "Размер"
 
-#: models.py:21
+#: models.py:22
 msgctxt "uploader"
 msgid "Uploaded By"
 msgstr "Загрузил"
 
-#: models.py:23
+#: models.py:24
 msgctxt "uploader"
 msgid "Confirmed By"
 msgstr "Подтвердил"
 
-#: models.py:24
+#: models.py:25
 msgid "Position"
 msgstr "Позиция"
 
-#: models.py:31
+#: models.py:26
+msgid "Visible for anonymous"
+msgstr "Видимое для анонимных пользователей"
+
+#: models.py:27
+msgid "Visible for staff"
+msgstr "Видимое для авторизованных пользователей"
+
+#: models.py:28
+msgid "Used for presentation"
+msgstr "Используется для презентации"
+
+#: models.py:35
 msgid "Queue Item"
 msgstr "Изображение в очереди"
 
-#: models.py:32
+#: models.py:36
 msgid "Queue Items"
 msgstr "Изображения в очереди"
 
@@ -83,15 +107,15 @@ msgstr "Бросайте файлы сюда для загрузки..."
 msgid "JS is disabled"
 msgstr "JS отключен"
 
-#: templates/uploader/form_control.html:7
+#: templates/uploader/form_control.html:8
 msgid "Save"
 msgstr "Сохранить"
 
-#: templates/uploader/form_control.html:8
+#: templates/uploader/form_control.html:9
 msgid "Delete"
 msgstr "Удалить"
 
-#: templates/uploader/frame.html:13 templates/uploader/frame_inline.html:14
+#: templates/uploader/frame.html:13 templates/uploader/frame_inline.html:15
 msgid "Click to review"
 msgstr "Нажмите для просмотра"
 
