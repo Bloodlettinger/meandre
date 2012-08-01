@@ -23,8 +23,8 @@ class DoneForm(forms.Form):
     is_cropped = forms.BooleanField(required=False, widget=forms.HiddenInput)
     point_x = forms.FloatField(required=False, widget=forms.HiddenInput)
     point_y = forms.FloatField(required=False, widget=forms.HiddenInput)
-    width = forms.IntegerField(required=False, widget=forms.HiddenInput)
-    height = forms.IntegerField(required=False, widget=forms.HiddenInput)
+    width = forms.FloatField(required=False, widget=forms.HiddenInput)
+    height = forms.FloatField(required=False, widget=forms.HiddenInput)
 
     visible = forms.BooleanField(required=False, label=u'', widget=widgets.StateWidget(
         attrs=dict(title=_(u'Make this image visible for ordinary users.'))))

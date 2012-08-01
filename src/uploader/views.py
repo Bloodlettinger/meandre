@@ -99,6 +99,9 @@ def image_change(request, template='uploader/frame_inline.html'):
     form = forms.DoneForm(request.POST or None)
     if not form.is_valid():
         logger.error(u'Form DoneForm is not valid!')
+        for key, values in form.errors.items():
+            for value in values:
+                logger.error('\t%s: %s' % (key, value))
         raise Http404
 
     params = form.cleaned_data
