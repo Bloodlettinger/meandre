@@ -3,7 +3,7 @@
 # Скрипт предназначен для компиляции переводов.
 
 PROJECTS="src"
-APPS="frontend storage uploader users"
+APPS="custom_admin frontend storage uploader users"
 
 for project in ${PROJECTS}; do
     for app in ${APPS}; do

@@ -1,0 +1,89 @@
+# custom admin
+# Copyright (C) 2012 Ruslan Popov
+# This file is distributed under the same license as the custom_admin package.
+# Ruslan Popov <ruslan.popov@gmail.com>, 2012.
+# FULL NAME <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-08-02 03:10+0400\n"
+"PO-Revision-Date: 2012-08-02 03:13+0400\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: dashboard.py:20
+msgid "Quick links"
+msgstr "Быстрые ссылки"
+
+#: dashboard.py:26
+msgid "Return to site"
+msgstr "Вернуться на сайт"
+
+#: dashboard.py:27
+msgid "Error Console"
+msgstr "Консоль ошибок"
+
+#: dashboard.py:28
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: dashboard.py:29
+msgid "Log out"
+msgstr "Выйти"
+
+#: dashboard.py:31 dashboard.py:76
+msgid "Recent Actions"
+msgstr "Недавние действия"
+
+#: dashboard.py:34
+msgid "Latest Django News"
+msgstr "Новости от Django"
+
+#: dashboard.py:40
+msgid "Support"
+msgstr "Поддержка"
+
+#: dashboard.py:43
+msgid "Django documentation (RU)"
+msgstr "Документация Django (русский)"
+
+#: dashboard.py:47
+msgid "Django documentation (EN)"
+msgstr "Документация Django (английский)"
+
+#: dashboard.py:51
+msgid "Django \"django-users\" mailing list"
+msgstr "Гугл-группа \"django-users\""
+
+#: dashboard.py:55
+msgid "Django irc channel"
+msgstr "IRC канал Django"
+
+#: dashdesc.py:9
+msgid "Static Blocks"
+msgstr "Статичные блоки"
+
+#: templates/custom_admin/inline/sortable_tabular.html:17
+msgid "Delete?"
+msgstr "Удалить?"
+
+#: templates/custom_admin/inline/sortable_tabular.html:31
+msgid "View on site"
+msgstr "Посмотреть на сайте"
+
+#: templates/custom_admin/inline/sortable_tabular.html:116
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr "Добавить другой %(verbose_name)s"
+
+#: templates/custom_admin/inline/sortable_tabular.html:119
+msgid "Remove"
+msgstr "Удалить"

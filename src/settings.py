@@ -226,8 +226,8 @@ INSTALLED_APPS = (
     'admin_tools.menu',
     'admin_tools.dashboard',
     ) + INSTALLED_APPS
-ADMIN_TOOLS_INDEX_DASHBOARD = 'src.dashboard.CustomIndexDashboard'
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'src.dashboard.CustomAppIndexDashboard'
+ADMIN_TOOLS_INDEX_DASHBOARD = 'src.custom_admin.dashboard.CustomIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'src.dashboard.custom_admin.CustomAppIndexDashboard'
 ADMIN_MEDIA_PREFIX = '/static/admin/'  # грязный хак
 
 ###
