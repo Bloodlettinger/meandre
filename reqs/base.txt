@@ -2,6 +2,7 @@
 
 Django == 1.4.1
 South
+-e hg+https://bitbucket.org/ruslanpopov/django-sentry#egg=sentry
 
 django-extensions
 django-salmonella == 0.5.1

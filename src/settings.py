@@ -231,6 +231,19 @@ ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'src.dashboard.CustomAppIndexDashboard'
 ADMIN_MEDIA_PREFIX = '/static/admin/'  # грязный хак
 
 ###
+# django-sentry
+INSTALLED_APPS += (
+    'indexer',
+    'paging',
+    'sentry',
+    'sentry.client',
+    'sentry.plugins.sentry_servers',
+    'sentry.plugins.sentry_sites',
+    'sentry.plugins.sentry_urls',
+)
+MIDDLEWARE_CLASSES += ('sentry.client.middleware.SentryResponseErrorIdMiddleware', )
+
+###
 # uploader
 
 INSTALLED_APPS += ('src.uploader', )
