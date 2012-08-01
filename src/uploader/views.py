@@ -31,6 +31,21 @@ class HttpResponseNotImplemented(HttpResponse):
     status_code = 501
 
 
+def convert_format(image, filename, format='JPEG', mime='image/jpeg'):
+    u"""
+    Функция для подготовки изображения для сохранения в модели.
+    """
+    io = StringIO.StringIO()
+    image.save(io, format=format)
+
+    file_name = u'%s.%s' % (os.path.splitext(filename)[0], format.lower())
+    file_type = mime
+    file_size = io.len
+
+    file_data = InMemoryUploadedFile(io, None, file_name, file_type, file_size, None)
+    return (file_name, file_type, file_size, file_data)
+
+
 @login_required
 @csrf_exempt
 def image_upload(request, template='uploader/frame_inline.html'):
@@ -62,17 +77,8 @@ def image_upload(request, template='uploader/frame_inline.html'):
     else:
         raise HttpResponseNotImplemented
 
-    # все изображения конвертируются в PNG
-    data = Image.open(file_data)
-    io = StringIO.StringIO()
-    data.save(io, format='PNG')
-
-    file_name = u'%s.png' % os.path.splitext(file_name)[0]
-    file_type = 'image/png'
-    file_size = io.len
-
-    file_data = InMemoryUploadedFile(
-        io, None, file_name, file_type, file_size, None)
+    image = Image.open(file_data)
+    file_name, file_type, file_size, file_data = convert_format(image, file_name)
 
     save_model = True
     obj = models.Queue(
@@ -118,8 +124,8 @@ def image_change(request, template='uploader/frame_inline.html'):
         return HttpResponseDeleted()
 
     if params.get('is_cropped'):
-        img = Image.open(obj.image)
-        orig_width, orig_height = img.size
+        image = Image.open(obj.image)
+        orig_width, orig_height = image.size
         shown_width = params.get('shown_width')
         shown_height = params.get('shown_height')
         crop_x = params.get('point_x')
@@ -136,22 +142,14 @@ def image_change(request, template='uploader/frame_inline.html'):
 
         box = map(int, (x1, y1, x2, y2))
         dim = (settings.UPLOADER_IMAGE_MAX_WIDTH, settings.UPLOADER_IMAGE_MAX_HEIGHT)
-        region = img.crop(box).resize(dim, Image.ANTIALIAS)
-        region_io = StringIO.StringIO()
-        region.save(region_io, format='PNG')
+        image = image.crop(box).resize(dim, Image.ANTIALIAS)
+        file_name, file_type, file_size, file_data = convert_format(image, obj.file_name)
 
         # удаляем оригинал
         obj.image.delete(save=False)
 
-        obj.file_name = u'%s.png' % os.path.splitext(obj.file_name)[0]
-        obj.file_type = 'image/png'
-        obj.file_size = region_io.len
-
-        file_data = InMemoryUploadedFile(region_io, None,
-            obj.file_name, obj.file_type, obj.file_size, None)
-
         save_model = False
-        obj.image.save(obj.file_name, file_data, save=save_model)
+        obj.image.save(file_name, file_data, save=save_model)
 
     obj.confirmed_by = request.user
     obj.confirmed_at = datetime.now()
