@@ -48,6 +48,12 @@ $(document).ready(function() {
             container.append(response);
             $('.frame img', container).click(openCropBox);
             ordering(container);
+            // refresh formset input indexes
+            $('#image_list .frame').each(function(index, frame) {
+                $(frame).find('input').each(function() {
+                    updateElementIndex(this, 'images_set', index);
+                });
+            });
             updateManagementData('images_set');
         }, frames_count, '{{ tag }}');
 
@@ -144,8 +150,7 @@ $(document).ready(function() {
                         дроп зону. Можно перетаскивать сразу пачку изображений.
                         По мере их загрузки, миниатюры изображений будут
                         отображаться справа от дроп зоны. Загруженное изображение
-                        автоматически конвертируется в формат PNG. После загрузки
-                        изображений следует сохранить проект.
+                        автоматически конвертируется в формат PNG.
                     </p>
                     <p>
                         Миниатюры изображений можно сортировать с помощью их
