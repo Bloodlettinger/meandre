@@ -1,7 +1,10 @@
 {% extends "admin/base_site.html" %}
-{% load i18n admin_static admin_modify %}
-{% load url from future %}
+{% load admin_static %}
+{% load admin_modify %}
 {% load admin_urls %}
+{% load i18n %}
+{% load static %}
+{% load url from future %}
 
 {% block extrahead %}{{ block.super }}
 {% url 'admin:jsi18n' as jsi18nurl %}
@@ -31,6 +34,7 @@
 {% if change %}{% if not is_popup %}
   <ul class="object-tools">
     {% block object-tools-items %}
+    <li><a href="{% url 'admin:storage_project_add' %}?customer={{ object_id }}" class="historylink">{% trans "Create Project for this Customer" %}</a></li>
     <li><a href="history/" class="historylink">{% trans "History" %}</a></li>
     {% if has_absolute_url %}<li><a href="../../../r/{{ content_type_id }}/{{ object_id }}/" class="viewsitelink">{% trans "View on site" %}</a></li>{% endif%}
     {% endblock %}
