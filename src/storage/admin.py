@@ -62,7 +62,7 @@ class CustomerAdmin(ModelTranslationAdmin):
     workareas.short_description = _(u'Work Area')
 
     def change_view(self, request, object_id, form_url='', extra_context=None):
-        #import pdb; pdb.set_trace()
+        self.change_form_template = 'storage/admin/change_form_customer.html'
         return super(CustomerAdmin, self).change_view(request, object_id, form_url, extra_context)
 admin.site.register(models.Customer, CustomerAdmin)
 
