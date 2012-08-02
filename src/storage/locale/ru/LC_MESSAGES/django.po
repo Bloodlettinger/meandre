@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-01 01:02+0400\n"
-"PO-Revision-Date: 2012-08-01 01:04+0400\n"
+"POT-Creation-Date: 2012-08-02 12:43+0400\n"
+"PO-Revision-Date: 2012-08-02 12:45+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -539,7 +539,7 @@ msgstr "Сначала запустите `wallets_init`."
 
 #: templates/storage/report.html:33
 #: templates/storage/admin/change_form_customer.html:24
-#: templates/storage/admin/change_form_project.html:82
+#: templates/storage/admin/change_form_project.html:88
 msgid "Home"
 msgstr "Домой"
 
@@ -548,33 +548,37 @@ msgid "Explore Project"
 msgstr "Посмотреть проект"
 
 #: templates/storage/admin/change_form_customer.html:27
-#: templates/storage/admin/change_form_project.html:85
+#: templates/storage/admin/change_form_project.html:91
 msgid "Add"
 msgstr "Добавить"
 
 #: templates/storage/admin/change_form_customer.html:37
-#: templates/storage/admin/change_form_project.html:95
+msgid "Create Project for this Customer"
+msgstr "Создать проект для этого заказчика"
+
+#: templates/storage/admin/change_form_customer.html:38
+#: templates/storage/admin/change_form_project.html:101
 msgid "History"
 msgstr "История"
 
-#: templates/storage/admin/change_form_customer.html:38
-#: templates/storage/admin/change_form_project.html:96
+#: templates/storage/admin/change_form_customer.html:39
+#: templates/storage/admin/change_form_project.html:102
 msgid "View on site"
 msgstr "Смотреть на сайте"
 
-#: templates/storage/admin/change_form_customer.html:49
-#: templates/storage/admin/change_form_project.html:107
+#: templates/storage/admin/change_form_customer.html:50
+#: templates/storage/admin/change_form_project.html:113
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] "Пожалуйста, исправьте ошибку ниже."
 msgstr[1] "Пожалуйста, исправьте ошибки ниже."
 msgstr[2] "Пожалуйста, исправьте ошибки ниже."
 
-#: templates/storage/admin/change_form_project.html:128
+#: templates/storage/admin/change_form_project.html:134
 msgid "Images"
 msgstr "Изображения"
 
-#: templates/storage/admin/change_form_project.html:180
+#: templates/storage/admin/change_form_project.html:185
 msgid "Save this object to make DropZone visible!"
 msgstr "Сохраните изменения для того, чтобы отобразить ДропЗону!"
 
