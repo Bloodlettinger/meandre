@@ -2,6 +2,7 @@
 
 from django import forms
 from django.forms.models import modelformset_factory
+from django.utils.translation import ugettext_lazy as _
 
 from ..uploader.models import Queue as ImageQueue
 
@@ -21,6 +22,7 @@ class ProjectForm(forms.ModelForm):
         # проектов с незаполненным кодом
         if self.instance and self.instance.pk:
             self.fields['code'].widget = forms.widgets.TextInput(attrs=dict(readonly='readonly'))
+            self.fields['customer'].help_text = _(u'This value is immutable for an existing project.')
         else:
             self.fields['code'].required = False
 
@@ -29,3 +31,9 @@ class ProjectForm(forms.ModelForm):
             return self.instance.code
         else:
             return self.cleaned_data['code']
+
+    def clean_customer(self):
+        if self.instance and self.instance.pk:
+            return self.instance.customer
+        else:
+            return self.cleaned_data['customer']
