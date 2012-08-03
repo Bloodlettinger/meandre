@@ -130,14 +130,17 @@ ul.stats {
     color:#000;
 
     font-size:0.9em;
-    height:1.9em;
     line-height:2em;
 }
 
-.stats li em{
-    position:absolute;
-    left:660px;
-    top: 5px;
+.stats li i {
+    float: left;
+    font-style: normal;
+}
+
+.stats li em {
+    margin-left: 660px;
+    display: block;
     font-style:normal;
 }
 

@@ -6,29 +6,29 @@
         <ul class="stats">
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
-            <li>{% trans "Creation Date" %}<em>{{ project.created }}</em></li>
-            <li>{% trans "Start Date" %}<em>{{ project.begin }}</em></li>
-            <li>{% trans "End Date" %}<em>{{ project.end }}</em></li>
+            <li><i>{% trans "Creation Date" %}</i><em>{{ project.created }}</em></li>
+            <li><i>{% trans "Start Date" %}</i><em>{{ project.begin }}</em></li>
+            <li><i>{% trans "End Date" %}</i><em>{{ project.end }}</em></li>
             {% endif %}
 
             <li>&nbsp;</li>
-            <li>{% trans "Year" %}<em>{{ project.begin|date:"Y" }}</em></li>
-            <li>{% trans "Location" %}
+            <li><i>{% trans "Year" %}</i><em>{{ project.begin|date:"Y" }}</em></li>
+            <li><i>{% trans "Location" %}</i>
                 <em>
                     <a href="http://maps.yandex.ru?text={{ project.address }}" target="_new">{{ project.address }}</a>
                 </em>
             </li>
-            <li>{% trans "Size" %}<em>{{ project.object_square|floatformat:0 }} {% trans "sq.m." %}</em></li>
+            <li><i>{% trans "Size" %}</i><em>{{ project.object_square|floatformat:0 }} {% trans "sq.m." %}</em></li>
 
             <li>&nbsp;</li>
             {% for role, membership in roles.items %}
                 {% for item in membership %}
                     {% if item %}
                         <li>
-                        {% if forloop.first %}{{ role }}{% endif %}
-                        {% if item.url %}<a href="{{ item.url }}">{% endif %}
-                        <em>{% if item.user %}{{ item.user }}{% else %}{{ item.company }}{% endif %}</em>
-                        {% if item.url %}</a>{% endif %}
+                            <i>{% if forloop.first %}{{ role }}{% endif %}</i>
+                            {% if item.url %}<a href="{{ item.url }}">{% endif %}
+                            <em>{% if item.user %}{{ item.user }}{% else %}{{ item.company }}{% endif %}</em>
+                            {% if item.url %}</a>{% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -36,14 +36,14 @@
 
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
-            <li>{% trans "Full Price" %}:<em>{{ project.price_full|floatformat:-2 }}
+            <li><i>{% trans "Full Price" %}:</i><em>{{ project.price_full|floatformat:-2 }}
                 {% if project.currency == 1 %}&#8374;{% else %}${% endif %}</em></li>
             <li>{% trans "Price to Square" %}:<em>{{ project.price_meter|floatformat:-2 }}
                 {% if project.currency == 1 %}&#8374;{% else %}${% endif %}/m<sup>2</sup></em></li>
-            <li>{% trans "Time Used" %}:<em>{{ project.duration_full }} {% trans "hours" %}</em></li>
-            <li>{% trans "Production Time to Total Time" %}:<em>{{ project.production_percent|floatformat:-2 }}%</em></li>
-            <li>{% trans "Work Speed" %}:<em>{{ project.meters_per_hour|floatformat:-2 }} m<sup>2</sup>/h</em></li>
-            <li>{% trans "Project Speed" %}:<em>{{ project.speed|floatformat:-2 }} m<sup>2</sup>/d</em></li>
+            <li><i>{% trans "Time Used" %}:</i><em>{{ project.duration_full }} {% trans "hours" %}</em></li>
+            <li><i>{% trans "Production Time to Total Time" %}:</i><em>{{ project.production_percent|floatformat:-2 }}%</em></li>
+            <li><i>{% trans "Work Speed" %}:</i><em>{{ project.meters_per_hour|floatformat:-2 }} m<sup>2</sup>/h</em></li>
+            <li><i>{% trans "Project Speed" %}:</i><em>{{ project.speed|floatformat:-2 }} m<sup>2</sup>/d</em></li>
             {% endif %}
         </ul>
         <div class="clear"></div>
