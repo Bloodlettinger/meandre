@@ -3,6 +3,7 @@
 PREF_VAR = 'ADMIN_PER_USER_PREF'
 ORDER_VAR = 'o'
 FILTER_TAIL = '__exact'
+PATH = '/admin/storage/'
 
 
 class ChangelistPreferencesMiddleware(object):
@@ -16,7 +17,7 @@ class ChangelistPreferencesMiddleware(object):
     """
 
     def process_request(self, request):
-        if request.path.startswith('/admin/storage/'):
+        if request.path.startswith(PATH):
             prefs = request.session.get(PREF_VAR, dict())
             opts = prefs.get(request.path, dict())
 
