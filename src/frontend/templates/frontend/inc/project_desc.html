@@ -3,9 +3,11 @@
 <!-- START OF PROJECT DESCRIPTION -->
 <div id="project-header">
     <p class="nova title">{{ project.short_name }}</p>
+    {% if project.customer.logo %}
     <a href="{{ project.customer.url }}" target="_blank">
         <img src="{{ project.customer.logo.url }}" />
     </a>
+    {% endif %}
     <div class="clear"></div>
     <div class="project-memo">{{ project.desc_short|render_markup|safe }}</div>
 </div>
