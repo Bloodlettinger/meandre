@@ -2,13 +2,17 @@
 
 PREF_VAR = 'ADMIN_PER_USER_PREF'
 ORDER_VAR = 'o'
-CLEAR_VAR = 'PREF_CLEAR'
+FILTER_TAIL = '__exact'
 
 
 class ChangelistPreferencesMiddleware(object):
     u"""
-    Мидлварь обеспечивает сохранение сортировки по полям моделей
-    в админке для каждого пользователя.
+    Мидлварь обеспечивает сохранение параметров сортировки и фильтрации
+    по полям моделей в админке для каждого пользователя.
+
+    Если GET пуст, значит добавляем туда опции из сессии пользователя.
+
+    Иначе, сохраняем параметры сортировки и фильтрации в сессии пользователя.
     """
 
     def process_request(self, request):
@@ -16,14 +20,16 @@ class ChangelistPreferencesMiddleware(object):
             prefs = request.session.get(PREF_VAR, dict())
             opts = prefs.get(request.path, dict())
 
-            if ORDER_VAR in request.GET:
-                opts[ORDER_VAR] = request.GET[ORDER_VAR]
+            if 0 < len(request.GET):
+                # сортировка
+                if ORDER_VAR in request.GET:
+                    opts[ORDER_VAR] = request.GET[ORDER_VAR]
+                # фильтрация
+                for key in filter(lambda x: x.endswith(FILTER_TAIL), request.GET):
+                    opts[key] = request.GET[key]
+                # сохраняем состояние
+                prefs[request.path] = opts
+                request.session[PREF_VAR] = prefs
             else:
-                ordering = opts.get(ORDER_VAR)
-                if ordering:
-                    GET = dict(request.GET)
-                    GET.update({ORDER_VAR: ordering})
-                    request.GET = GET
-
-            prefs.update({request.path: opts})
-            request.session[PREF_VAR] = prefs
+                # выставляем сохранённые параметры
+                request.GET = dict(request.GET, **opts)
