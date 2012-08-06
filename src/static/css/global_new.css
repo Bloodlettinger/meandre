@@ -417,9 +417,12 @@ body {
 }
 
 .TT-description > p {
+	text-transform:uppercase;
 	padding-left:20px;
 	padding-right:20px;
-	text-transform:uppercase;
+	margin: 0px;
+	-webkit-margin: 0px;
+
 }
 
 .TT-img-container {
