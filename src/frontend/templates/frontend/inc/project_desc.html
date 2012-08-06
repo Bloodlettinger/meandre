@@ -12,23 +12,26 @@
     <div class="project-memo">{{ project.desc_short|render_markup|safe }}</div>
 </div>
 
+{% if project.tasks or project.problems or project.results %}
+{# показываем блок, если заполнен хотя бы один раздел в нём #}
 <div class="section-box">
     <div id="solutions-wrap">
         <ul class="solutions">
             <li>
                 <strong class="nova">{% trans "Task" %}</strong>
-                <em>{{ project.tasks|render_markup|safe }}</em>
+                <em>{{ project.tasks|default_if_none:''|render_markup|safe }}</em>
             </li>
             <li>
                 <strong class="nova">{% trans "Challenge" %}</strong>
-                <em>{{ project.problems|render_markup|safe }}</em>
+                <em>{{ project.problems|default_if_none:''|render_markup|safe }}</em>
             </li>
             <li>
                 <strong class="nova">{% trans "Result" %}</strong>
-                <em>{{ project.results|render_markup|safe }}</em>
+                <em>{{ project.results|default_if_none:''|render_markup|safe }}</em>
             </li>
             <div class="clear"></div>
         </ul>
     </div>
 </div>
+{% endif %}
 <!-- END OF PROJECT DESCRIPTION -->
