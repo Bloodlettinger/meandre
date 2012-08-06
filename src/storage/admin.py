@@ -90,6 +90,7 @@ class ProjectAdmin(ModelTranslationAdmin):
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
         (_(u'Base'), dict(fields=('code', 'customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
+        (_(u'System'), dict(fields=('registered', ))),
         (_(u'State'), dict(fields=('is_public', 'is_archived', 'is_finished', 'in_stats'))),
         (_(u'Finance'), dict(fields=('currency', 'exchange_rate', 'price_full'))),
         (_(u'Description'), dict(fields=('desc_short', 'desc_long', 'tasks', 'problems', 'results'))),
