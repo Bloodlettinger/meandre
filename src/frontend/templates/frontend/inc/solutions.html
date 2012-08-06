@@ -1,20 +1,7 @@
 {% load i18n %}
 <!-- START OF SOLUTIONS-->
 <div id="v22-tools-wrap">
-    {% if roles %}
-    {#  отображение на странице проекта #}
-    <h1 class="nova">{% trans "Project Scope" %}</h1>
-    <div id="v22-tools-cont">
-        <div id="tools-nav-wrap-02">
-            {% for job in all_job_types %}
-            <div id="{{ job.css }}" class="tool-slider-wrap tsw-{% if job in project.job_type.all %}on{% else %}off{% endif %}">
-                <div class="tool-slider-button"></div>
-                <div class="tool-slider-text nova">{{ job.short_title|safe }}</div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% else %}
+    {% if projects %}
     {#  отображение на главной странице #}
     <h1><div class="section-tools-name nova">{% trans "Project Scope" %}</div></h1>
     <div id="v22-tools-cont">
@@ -40,6 +27,19 @@
                 <div class="v22-tool-head nova">{{ job.long_title|safe }}</div>
                 <div class="v22-tool-desc">{{ job.description|safe }}</div>
                 <div class="v22-tool-close"></div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    {#  отображение на странице проекта #}
+    <h1 class="nova">{% trans "Project Scope" %}</h1>
+    <div id="v22-tools-cont">
+        <div id="tools-nav-wrap-02">
+            {% for job in all_job_types %}
+            <div id="{{ job.css }}" class="tool-slider-wrap tsw-{% if job in project.job_type.all %}on{% else %}off{% endif %}">
+                <div class="tool-slider-button"></div>
+                <div class="tool-slider-text nova">{{ job.short_title|safe }}</div>
             </div>
             {% endfor %}
         </div>
