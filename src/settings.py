@@ -217,6 +217,9 @@ LOGGING = {
 # if DEBUG:
 #     LOGGING['loggers']['uploader']['handlers'] += ['console']
 
+###
+# custom_admin
+MIDDLEWARE_CLASSES += ('src.custom_admin.middleware.ChangelistPreferencesMiddleware', )
 
 ###
 # django-admin-tools
