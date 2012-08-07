@@ -40,8 +40,9 @@ class ChangelistPreferencesMiddleware(object):
                 prefs[request.path] = opts
                 request.session[PREF_VAR] = prefs
             else:
-                # выполняем перенаправление
-                return redirect(u'%s?%s' % (
-                    request.path,
-                    '&'.join(map(lambda x: '%s=%s' % x, opts.items())))
-                )
+                if 0 < len(opts):
+                    # выполняем перенаправление
+                    return redirect(u'%s?%s' % (
+                        request.path,
+                        '&'.join(map(lambda x: '%s=%s' % x, opts.items())))
+                    )
