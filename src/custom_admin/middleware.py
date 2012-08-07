@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import re
+
 PREF_VAR = 'ADMIN_PER_USER_PREF'
 ORDER_VAR = 'o'
 FILTER_TAIL = '__exact'
 PATH = '/admin/storage/'
+EXCLUDE_RE = re.compile(r'(\d+|add)\/$')
 
 
 class ChangelistPreferencesMiddleware(object):
@@ -17,7 +20,7 @@ class ChangelistPreferencesMiddleware(object):
     """
 
     def process_request(self, request):
-        if request.path.startswith(PATH):
+        if request.path.startswith(PATH) and not EXCLUDE_RE.search(request.path):
             prefs = request.session.get(PREF_VAR, dict())
             opts = prefs.get(request.path, dict())
 
