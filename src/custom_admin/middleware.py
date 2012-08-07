@@ -2,6 +2,8 @@
 
 import re
 
+from django.shortcuts import redirect
+
 PREF_VAR = 'ADMIN_PER_USER_PREF'
 ORDER_VAR = 'o'
 FILTER_TAIL = '__exact'
@@ -20,7 +22,10 @@ class ChangelistPreferencesMiddleware(object):
     """
 
     def process_request(self, request):
-        if request.path.startswith(PATH) and not EXCLUDE_RE.search(request.path):
+        if request.method == 'GET' \
+            and request.path.startswith(PATH) \
+            and not EXCLUDE_RE.search(request.path):
+
             prefs = request.session.get(PREF_VAR, dict())
             opts = prefs.get(request.path, dict())
 
@@ -35,5 +40,8 @@ class ChangelistPreferencesMiddleware(object):
                 prefs[request.path] = opts
                 request.session[PREF_VAR] = prefs
             else:
-                # выставляем сохранённые параметры
-                request.GET = dict(request.GET, **opts)
+                # выполняем перенаправление
+                return redirect(u'%s?%s' % (
+                    request.path,
+                    '&'.join(map(lambda x: '%s=%s' % x, opts.items())))
+                )
