@@ -88,20 +88,6 @@ class Customer(models.Model):
         return u'%s - %s' % (self.code, self.short_name)
 
 
-class CompanyTeam(models.Model):
-    u"""
-    Модель компаний-исполнителей.
-    """
-    name = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name'))
-
-    class Meta:
-        verbose_name = _(u'Staff: Company')
-        verbose_name_plural = _(u'Staff: Companies')
-
-    def __unicode__(self):
-        return self.name
-
-
 class JobType(models.Model):
     css = models.CharField(max_length=16, verbose_name=_(u'CSS class'))
     short_title = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name (short)'))
@@ -253,7 +239,6 @@ class MembershipRole(models.Model):
 class Membership(models.Model):
     project = models.ForeignKey(Project, verbose_name=_(u'Project'))
     user = models.ForeignKey(CustomUser, blank=True, null=True, verbose_name=_(u'User'))
-    company = models.ForeignKey(CompanyTeam, blank=True, null=True, verbose_name=_(u'Company'))
     role = models.ManyToManyField(MembershipRole, verbose_name=_(u'Role'))
     url = models.URLField(blank=True, null=True)
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
