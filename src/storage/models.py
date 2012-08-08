@@ -133,7 +133,8 @@ class Project(models.Model):
     is_archived = models.BooleanField(default=False, verbose_name=_(u'Archived'), help_text=_(u'Check if this project is archived'))
     is_finished = models.BooleanField(default=False, verbose_name=_(u'Finished'), help_text=_(u'Check if this prohect is finished'))
     in_stats = models.BooleanField(default=True, verbose_name=_(u'Statistic'), help_text=_(u'Check if this project is shown in statistics'))
-    registered = models.DateTimeField(default=timezone.now, verbose_name=_(u'Registered'),
+    registered = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Registered'))
+    reg_date = models.DateField(default=timezone.now, verbose_name=_(u'Registered'),
         help_text=_(u'Keep it empty to fill automaticly.'))
 
     # вычисляемые поля, см. метод save()

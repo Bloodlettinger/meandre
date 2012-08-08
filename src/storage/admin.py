@@ -80,12 +80,12 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'registered')
+    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'reg_date')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
         (_(u'Base'), dict(fields=('code', 'customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
-        (_(u'System'), dict(fields=('registered', ))),
+        (_(u'System'), dict(fields=('reg_date', ))),
         (_(u'State'), dict(fields=('is_public', 'is_archived', 'is_finished', 'in_stats'))),
         (_(u'Finance'), dict(fields=('currency', 'exchange_rate', 'price_full'))),
         (_(u'Description'), dict(fields=('desc_short', 'desc_long', 'tasks', 'problems', 'results'))),
