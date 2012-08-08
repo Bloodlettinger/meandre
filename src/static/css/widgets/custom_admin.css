@@ -5,3 +5,7 @@ label {
 .vTextField {
     width: 60em;
 }
+
+.vForeignKeyRawIdAdminField, .vManyToManyRawIdAdminField {
+    display: none;
+}
