@@ -8,8 +8,16 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
+from ..custom_admin.admin import ModelTranslationAdmin
+
 from . import models
 from . import forms
+
+
+class Company(ModelTranslationAdmin):
+    pass
+
+admin.site.register(models.Company, Company)
 
 
 class CustomGroup(GroupAdmin):
@@ -31,7 +39,7 @@ class CustomUser(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name', 'email')}),
-        (_('Profile'), {'fields': ('phone', 'birth_date', 'sex')}),
+        (_('Profile'), {'fields': ('birth_date', 'sex', 'phone', 'company')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
         (_('Groups'), {'fields': ('groups',)}),

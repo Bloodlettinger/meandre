@@ -67,11 +67,6 @@ class CustomerAdmin(ModelTranslationAdmin):
 admin.site.register(models.Customer, CustomerAdmin)
 
 
-class CompanyTeamAdmin(admin.ModelAdmin):
-    model = models.CompanyTeam
-admin.site.register(models.CompanyTeam, CompanyTeamAdmin)
-
-
 class JobTypeAdmin(admin.ModelAdmin):
     model = models.JobType
 admin.site.register(models.JobType, JobTypeAdmin)
@@ -80,8 +75,8 @@ admin.site.register(models.JobType, JobTypeAdmin)
 class MembershipInline(SalmonellaMixin, admin.TabularInline):
     model = models.Membership
     extra = 1
-    fields = ('role', 'user', 'company', 'url')
-    salmonella_fields = ('user', 'role', 'company', )
+    fields = ('role', 'user')
+    salmonella_fields = ('user', 'role')
 
 
 class ProjectAdmin(ModelTranslationAdmin):

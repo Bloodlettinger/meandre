@@ -7,6 +7,22 @@ from django.contrib.auth.models import UserManager
 from django.contrib.auth.models import Group
 
 
+class Company(models.Model):
+    u"""
+    Модель компаний.
+    """
+    name = models.CharField(max_length=255, verbose_name=_(u'Name'))
+    address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
+    site = models.URLField(verbose_name=u'Site URL')
+
+    class Meta:
+        verbose_name = _(u'Company')
+        verbose_name_plural = _(u'Companies')
+
+    def __unicode__(self):
+        return self.name
+
+
 class CustomGroup(Group):
     u"""
     Модель группы, для удобства.
@@ -22,6 +38,7 @@ class CustomUser(User):
     Модель пользователя, наследуемая от User. Предназначена для
     хранения дополнительной информации.
     """
+    company = models.ForeignKey(Company, blank=True, null=True, verbose_name=_(u'Company'))
     phone = models.CharField(verbose_name=_(u'Phone'), max_length=16,
         blank=True, null=True)
     birth_date = models.DateField(verbose_name=_(u'Birth date'),
@@ -41,4 +58,11 @@ class CustomUser(User):
         u"""
         Метод для получения текстового представления экземпляра модели.
         """
-        return self.get_full_name()
+        name = self.get_full_name()
+        if 0 < len(name):
+            if self.company:
+                return u'%s, %s' % (name, self.company.name)
+            else:
+                return name
+        else:
+            return _(u'Person of %s') % self.company.name
