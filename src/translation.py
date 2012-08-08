@@ -6,6 +6,7 @@ from modeltranslation.translator import translator, TranslationOptions
 from chunks.models import Chunk
 
 from . storage import models
+from . users.models import Company
 
 u"""
 Модуль содержит настройки интернационализации для полей моделей.
@@ -31,3 +32,8 @@ translator.register(models.MembershipRole, MembershipRoleOpts)
 class ChunkOpts(TranslationOptions):
     fields = ('content', )
 translator.register(Chunk, ChunkOpts)
+
+
+class CompanyOpts(TranslationOptions):
+    fields = ('name', )
+translator.register(Company, CompanyOpts)
