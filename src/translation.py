@@ -29,6 +29,11 @@ class MembershipRoleOpts(TranslationOptions):
 translator.register(models.MembershipRole, MembershipRoleOpts)
 
 
+class JobTypeOpts(TranslationOptions):
+    fields = ('short_title', 'long_title', 'description')
+translator.register(models.JobType, JobTypeOpts)
+
+
 class ChunkOpts(TranslationOptions):
     fields = ('content', )
 translator.register(Chunk, ChunkOpts)

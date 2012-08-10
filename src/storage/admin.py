@@ -67,8 +67,8 @@ class CustomerAdmin(ModelTranslationAdmin):
 admin.site.register(models.Customer, CustomerAdmin)
 
 
-class JobTypeAdmin(admin.ModelAdmin):
-    model = models.JobType
+class JobTypeAdmin(ModelTranslationAdmin):
+    pass
 admin.site.register(models.JobType, JobTypeAdmin)
 
 
