@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-12 18:45+0400\n"
-"PO-Revision-Date: 2012-06-28 16:04+0400\n"
+"POT-Creation-Date: 2012-08-10 17:30+0400\n"
+"PO-Revision-Date: 2012-08-10 17:32+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -52,17 +52,14 @@ msgctxt "Block on main page"
 msgid "Customers"
 msgstr "Заказчики"
 
-#: templates/frontend/inc/directions.html:13
-#: templates/frontend/inc/directions.html:26
-#: templates/frontend/inc/directions.html:39
-#: templates/frontend/inc/directions.html:52
-msgid "projects"
-msgstr "проектов"
+#: templates/frontend/inc/direction_item.html:12
+msgid "project"
+msgid_plural "projects"
+msgstr[0] "проект"
+msgstr[1] "проектa"
+msgstr[2] "проектов"
 
-#: templates/frontend/inc/directions.html:14
-#: templates/frontend/inc/directions.html:27
-#: templates/frontend/inc/directions.html:40
-#: templates/frontend/inc/directions.html:53
+#: templates/frontend/inc/direction_item.html:14
 #: templates/frontend/inc/project_stat.html:21
 msgid "sq.m."
 msgstr "кв.м."
@@ -71,15 +68,15 @@ msgstr "кв.м."
 msgid "Andrey Gavrilov and Co."
 msgstr "Андрей Гаврилов и коллеги"
 
-#: templates/frontend/inc/project_desc.html:17
+#: templates/frontend/inc/project_desc.html:21
 msgid "Task"
 msgstr "Задача"
 
-#: templates/frontend/inc/project_desc.html:21
+#: templates/frontend/inc/project_desc.html:25
 msgid "Challenge"
 msgstr "Сложности"
 
-#: templates/frontend/inc/project_desc.html:25
+#: templates/frontend/inc/project_desc.html:29
 msgid "Result"
 msgstr "Результат"
 
@@ -193,7 +190,7 @@ msgid "Forward"
 msgstr "Вперёд"
 
 #: templates/frontend/inc/solutions.html:6
-#: templates/frontend/inc/solutions.html:19
+#: templates/frontend/inc/solutions.html:36
 msgid "Project Scope"
 msgstr "Виды работ"
 

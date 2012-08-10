@@ -190,11 +190,11 @@ class ProjectStatisticManager(models.Manager):
             for key, count, meters in sorted(qs, key=lambda x: x[0]))
 
         return dict(
-            office=dict(
+            work=dict(
                 percent=data[1][0] * 100 / total,
                 count=data[1][0],
                 meters=data[1][1]),
-            flat=dict(
+            home=dict(
                 percent=data[2][0] * 100 / total,
                 count=data[2][0],
                 meters=data[2][1]),
@@ -202,7 +202,7 @@ class ProjectStatisticManager(models.Manager):
                 percent=data[3][0] * 100 / total,
                 count=data[3][0],
                 meters=data[3][1]),
-            food=dict(
+            ent=dict(
                 percent=data[4][0] * 100 / total,
                 count=data[4][0],
                 meters=data[4][1]),

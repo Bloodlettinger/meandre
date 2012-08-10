@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load chunks %}
+<div id="v22-trades-{{ type }}">
+    <img src="{% chunk_imgurl icon %}"
+         title="{% chunk "space_office_title" %}" width="64" height="64"/>
+    <div class="v22-trades-head nova">{% chunk title %}</div>
+    <div class="v22-trades-desc">{% chunk desc %}</div>
+
+    <ul id="ps-{{ index }}" class="v23-trades-stats nova">
+        <li class="v23-trades-stats-perc">{{ percent }} %</li>
+        <li class="v23-trades-stats-count">{{ count }}<br/>
+            {% blocktrans count total=count %}project{% plural %}projects{% endblocktrans %}
+        </li>
+        <li class="v23-trades-stats-area">{{ meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
+    </ul>
+</div>

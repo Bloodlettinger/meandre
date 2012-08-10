@@ -1305,7 +1305,7 @@ em.h-navigation a:hover {
 	box-shadow: 1px 1px 8px #444;
 }
 
-#v22-trades-entr {
+#v22-trades-ent {
 	width:230px;
 	height:230px;
 	background:url(../img/site/bg/bg-header.gif) ;
@@ -1321,7 +1321,7 @@ em.h-navigation a:hover {
 	box-shadow: 1px 1px 5px #444;
 }
 
-#v22-trades-entr:hover {
+#v22-trades-ent:hover {
 	border:1px solid #fff;
 	-moz-box-shadow: 1px 1px 8px #444;
 	-webkit-box-shadow: 1px 1px 8px #444;

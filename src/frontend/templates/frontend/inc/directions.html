@@ -2,58 +2,12 @@
 {% load chunks %}
 <!-- START OF DIRECTIONS -->
 <div id="v22-trades">
-    <div id="v22-trades-work">
-        <img src="{% chunk_imgurl "inset_64_work" %}"
-             title="{% chunk "space_office_title" %}" width="64" height="64"/>
-        <div class="v22-trades-head nova">{% chunk "space_office_title" %}</div>
-        <div class="v22-trades-desc">{% chunk "space_office_desc" %}</div>
-
-        <ul id="ps-1" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">{{ dirs.office.percent }} %</li>
-            <li class="v23-trades-stats-count">{{ dirs.office.count }}<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">{{ dirs.office.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
-        </ul>
-    </div>
-
-    <div id="v22-trades-shop">
-        <img src="{% chunk_imgurl "inset_64_shop" %}"
-             title="{% chunk "space_retail_title" %}" width="64" height="64"/>
-        <div class="v22-trades-head nova">{% chunk "space_retail_title" %}</div>
-        <div class="v22-trades-desc">{% chunk "space_retail_desc" %}</div>
-
-        <ul id="ps-2" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">{{ dirs.flat.percent }} %</li>
-            <li class="v23-trades-stats-count">{{ dirs.flat.count }} <br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">{{ dirs.flat.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
-        </ul>
-    </div>
-
-    <div id="v22-trades-entr">
-        <img src="{% chunk_imgurl "inset_64_ent" %}"
-             title="{% chunk "space_ent_title" %}" width="64" height="64"/>
-        <div class="v22-trades-head nova">{% chunk "space_ent_title" %}</div>
-        <div class="v22-trades-desc">{% chunk "space_ent_desc" %}</div>
-
-        <ul id="ps-3" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">{{ dirs.shop.percent }} %</li>
-            <li class="v23-trades-stats-count">{{ dirs.shop.count }}<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">{{ dirs.shop.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
-        </ul>
-    </div>
-
-    <div id="v22-trades-home">
-        <img src="{% chunk_imgurl "inset_64_home" %}"
-             title="{% chunk "space_live_title" %}" width="64" height="64"/>
-          <div class="v22-trades-head nova">{% chunk "space_live_title" %}</div>
-          <div class="v22-trades-desc">{% chunk "space_live_desc" %}</div>
-
-        <ul id="ps-4" class="v23-trades-stats nova">
-            <li class="v23-trades-stats-perc">{{ dirs.food.percent }} %</li>
-            <li class="v23-trades-stats-count">{{ dirs.food.count }}<br/>{% trans "projects" %}</li>
-            <li class="v23-trades-stats-area">{{ dirs.food.meters|floatformat:-2 }}<br/>{% trans "sq.m." %}</li>
-        </ul>
-    </div>
-
+    {% with work=dirs.work shop=dirs.shop ent=dirs.ent home=dirs.home %}
+    {% include "frontend/inc/direction_item.html" with type="work" icon="inset_64_work" title="space_office_title" desc="space_office_desc" percent=work.percent count=work.count meters=work.meters  index="1" %}
+    {% include "frontend/inc/direction_item.html" with type="shop" icon="inset_64_shop" title="space_retail_title" desc="space_retail_desc" percent=shop.percent count=shop.count meters=shop.meters index="2" %}
+    {% include "frontend/inc/direction_item.html" with type="ent" icon="inset_64_ent" title="space_ent_title" desc="space_ent_desc" percent=ent.percent count=ent.count meters=ent.meters index="3" %}
+    {% include "frontend/inc/direction_item.html" with type="home" icon="inset_64_home" title="space_live_title" desc="space_live_desc" percent=home.percent count=home.count meters=home.meters index="4" %}
+    {% endwith %}
     <div class="clear"></div>
 </div>
 <!-- END OF DIRECTIONS   -->
