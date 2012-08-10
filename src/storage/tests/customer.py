@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django_webtest import WebTest
 
 from .. models import Customer
-from . settings import *
+from ... test_settings import *
 
 __all__ = ('CustomerTest', )
 
@@ -14,10 +14,10 @@ __all__ = ('CustomerTest', )
 class CustomerTest(WebTest):
 
     def setUp(self):
-        self.admin = User.objects.create_superuser(ADMIN_LOGIN, ADMIN_EMAIL, ADMIN_PASS)
+        self.admin = User.objects.create_superuser(Test.ADMIN_LOGIN, Test.ADMIN_EMAIL, Test.ADMIN_PASS)
         form = self.app.get(reverse('admin:index')).form
-        form['username'] = ADMIN_LOGIN
-        form['password'] = ADMIN_PASS
+        form['username'] = Test.ADMIN_LOGIN
+        form['password'] = Test.ADMIN_PASS
         self.assertRedirects(form.submit(), reverse('admin:index'))
         self.app.get(reverse('admin:storage_customer_changelist'))
 
