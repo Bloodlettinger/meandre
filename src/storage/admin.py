@@ -5,10 +5,12 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db.models.fields import TextField
+from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
 
 from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
+from easy_thumbnails.widgets import ImageClearableFileInput
 
 from ..custom_admin.admin import ModelTranslationAdmin
 from ..uploader.models import Queue as ProjectImage
@@ -55,6 +57,11 @@ class CustomerAdmin(ModelTranslationAdmin):
         )
     filter_horizontal = ('workarea', )
     inlines = (ProjectInline, )
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        if isinstance(db_field, ImageField):
+            kwargs['widget'] = ImageClearableFileInput
+        return super(CustomerAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def workareas(self, item):
         qs = item.workarea.all()
