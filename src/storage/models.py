@@ -19,6 +19,7 @@ from .. uploader.models import Queue as ImageQueue
 from . managers import FinanceTransactionManager
 from . managers import ProjectManager
 from . managers import ProjectStatisticManager
+from . managers import CustomerStatisticManager
 from . managers import WalletStateManager
 
 
@@ -79,6 +80,9 @@ class Customer(models.Model):
     logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True, verbose_name=_(u'Logo'))
     url = models.URLField(blank=True, null=True)
     registered = models.DateTimeField(auto_now_add=True)
+
+    objects = models.Manager()
+    statistic = CustomerStatisticManager()
 
     class Meta:
         verbose_name = _(u'Customer')

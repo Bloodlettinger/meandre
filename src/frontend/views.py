@@ -28,8 +28,9 @@ def index(request):
         clients=customers,
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),
+        dirs=models.Project.statistic.directions(),
         stat=models.Project.statistic.compare_years(year, year - 1),
-        dirs=models.Project.statistic.directions()
+        ctype=models.Customer.statistic.types()
     )
     return direct_to_template(request, 'frontend/index.html', context)
 

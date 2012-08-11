@@ -114,15 +114,15 @@
         <hr/>
 
         <div class="stat_years_1">
-            <span>{{ stat.total_A.customers.1 }}</span>
+            <span>{{ ctype.1|default:"0" }}</span>
             <em>PRIMARY</em>
         </div>
         <div class="stat_years_2">
-            <span>{{ stat.total_A.customers.2 }}</span>
+            <span>{{ ctype.2|default:"0" }}</span>
             <em>SECONDARY</em>
         </div>
         <div class="meetings">
-            <span>{{ stat.total_A.customers.3 }}</span>
+            <span>{{ ctype.3|default:"0" }}</span>
             <em>CASUAL</em>
         </div>
         <div class="clear"></div>

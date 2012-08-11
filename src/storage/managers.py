@@ -104,6 +104,9 @@ class ProjectStatisticManager(models.Manager):
 
     # CACHE IT
     def compare_years(self, A, B):
+        u"""
+        Метод для сравнения статистики по двум указанным годам.
+        """
         total_A = self.total_values(year=A)
         total_B = self.total_values(year=B)
         total = self.model.objects.count()
@@ -117,6 +120,9 @@ class ProjectStatisticManager(models.Manager):
         )
 
     def total_values(self, year=None):
+        u"""
+        Метод сбора статистической информации за указанный год.
+        """
         winned = self.model.objects.winned(year)
         if year is None:
             total = self.all()
@@ -135,7 +141,6 @@ class ProjectStatisticManager(models.Manager):
             price=models.Sum('price_full'),
             ))
         res['speed'] = res['square'] / res['production']
-        res['customers'] = self.customer_types(year)
         return res
 
     def distribution(self, qs):
@@ -174,12 +179,6 @@ class ProjectStatisticManager(models.Manager):
 
         return out
 
-    def customer_types(self, year=None):
-        qs = self.model.objects.winned(year)
-        qs = qs.values_list('customer__customer_type')
-        res = qs.annotate(count=models.Count('customer__customer_type'))
-        return dict((a, b) for a, b in sorted(res, key=lambda x: x[0]))
-
     def directions(self):
         qs = self.model.objects.winned().exclude(in_stats=False)
         total = qs.count()
@@ -207,3 +206,18 @@ class ProjectStatisticManager(models.Manager):
                 count=data[4][0],
                 meters=data[4][1]),
             )
+
+
+class CustomerStatisticManager(models.Manager):
+
+    def types(self):
+        u"""
+        Метод подсчёта пользователей по типам.
+        """
+        # выгребаем все значения типов
+        qs = self.model.objects.values_list('customer_type')
+        # группируем их, подсчитывая количество
+        res = qs.annotate(count=models.Count('customer_type'))
+        # выполняем сортировку по типу
+        return dict({1: 0, 2: 0, 3: 0},
+            **dict((a, b) for a, b in sorted(res, key=lambda x: x[0])))

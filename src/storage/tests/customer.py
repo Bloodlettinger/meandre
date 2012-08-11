@@ -41,3 +41,12 @@ class CustomerTest(WebTest):
         url = reverse('admin:storage_customer_change', args=(customer.pk, ))
         form = self.app.get(url).click(linkid='related_project_add').forms['project_form']
         self.assertEqual(int(form['customer'].value), customer.pk)
+
+    def test_customer_types(self):
+        PRIMARY = 1
+        SECONDARY = 2
+        self.customer = Customer.objects.create(
+            customer_type=PRIMARY, partnership_type=1, code='0000', short_name='customer')
+        self.customer2 = Customer.objects.create(
+            customer_type=SECONDARY, partnership_type=2, code='0001', short_name='customer2')
+        self.assertEqual({1: 1, 2: 1, 3: 0}, Customer.statistic.types())
