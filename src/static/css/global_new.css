@@ -420,9 +420,7 @@ body {
 	text-transform:uppercase;
 	padding-left:20px;
 	padding-right:20px;
-	margin: 0px;
-	-webkit-margin: 0px;
-
+	margin-top: 10px;
 }
 
 .TT-img-container {
