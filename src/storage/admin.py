@@ -34,15 +34,20 @@ admin.site.register(models.Partner, PartnerAdmin)
 
 
 class CustomTabularInline(admin.TabularInline):
-    template = 'storage/admin/edit_inline/tabular.html'
+    template = 'storage/admin/edit_inline/tabular_customer_projects.html'
 
 
 class ProjectInline(CustomTabularInline):
     model = models.Project
     extra = 0
-    fields = ('code', 'short_name', 'registered', 'status')
-    readonly_fields = ('code', 'short_name', 'registered', 'status')
+    fields = ('code', 'short_name', 'reg_date', 'status')
+    readonly_fields = ('code', 'short_name', 'reg_date', 'status')
     can_delete = False
+
+    def queryset(self, request):
+        # обеспечиваем сортировку по дате регистрации проекта
+        qs = super(ProjectInline, self).queryset(request)
+        return qs.order_by('-reg_date', '-code')
 
     def has_add_permission(self, request):
         return False
