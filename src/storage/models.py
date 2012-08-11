@@ -91,6 +91,17 @@ class Customer(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.code, self.short_name)
 
+    def last_public_project(self):
+        u"""
+        Метод для выдачи последнего публичного проекта.
+        """
+        try:
+            project = self.project_set.public().order_by('-reg_date')[0]
+        except IndexError:
+            return None
+        else:
+            return project.get_absolute_url()
+
 
 class JobType(models.Model):
     css = models.CharField(max_length=16, verbose_name=_(u'CSS class'))
