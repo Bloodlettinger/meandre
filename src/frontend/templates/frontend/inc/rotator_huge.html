@@ -12,9 +12,15 @@
             {% endfor %}
         </div>
     </div>
+    {% spaceless %}
+    {% if images|length > 1 %}
     <div class="nav-wrap">
-        <a class="nav-prev jFlowPrev">&larr;&nbsp;{% trans "Backward" %}</a>&nbsp;|&nbsp;<a class="nav-next jFlowNext">{% trans "Forward" %}&nbsp;&rarr;</a>
+        <a class="nav-prev jFlowPrev">&larr;&nbsp;{% trans "Backward" %}</a>
+        <span>&nbsp;|&nbsp;</span>
+        <a class="nav-next jFlowNext">{% trans "Forward" %}&nbsp;&rarr;</a>
     </div>
+    {% endif %}
+    {% endspaceless %}
 </div>
 
 <script type="text/javascript">
