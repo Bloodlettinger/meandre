@@ -64,5 +64,7 @@ class CustomUser(User):
                 return u'%s, %s' % (name, self.company.name)
             else:
                 return name
-        else:
+        elif self.company:
             return _(u'Person of %s') % self.company.name
+        else:
+            return self.username
