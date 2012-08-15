@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import os
+import glob
+
+from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import pgettext_lazy
@@ -50,16 +54,13 @@ def delete_image(sender, **kwargs):
 
     Сначала удаляем файл, привязанный к модели. Затем удаляем миниатюры.
     """
-    import os
-    import glob
-
     model = kwargs.get('instance')
-    path = model.image.path
+    dir_name = os.path.dirname(model.image.path)
+    file_name = os.path.basename(model.image.path)
     model.image.delete(save=False)
 
-    # т.к. расширение может изменяться, то ищем файлы, не учитывая его
-    short_path = os.path.splitext(path)[0]
-    for each in glob.glob(u'%s*' % short_path):
+    tpl = u'%s/%s/%s*' % (dir_name, settings.THUMBNAIL_SUBDIR, file_name)
+    for each in glob.glob(tpl):
         os.remove(each)
 
 models.signals.post_delete.connect(delete_image, sender=Queue, weak=False)

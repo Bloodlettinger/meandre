@@ -260,6 +260,7 @@ UPLOADER_IMAGE_MAX_HEIGHT = 640
 ###
 # easy_thumbnails
 INSTALLED_APPS += ('easy_thumbnails', )
+THUMBNAIL_SUBDIR = 'thumbs'
 THUMBNAIL_ALIASES = {
     '': dict(
         teaser=dict(size=(630, 420), crop=False),
