@@ -43,18 +43,28 @@ $(document).ready(function() {
     // dropzone activation
     window.html5uploader = window.html5uploader || new uploader(
         'upload-box', 'upload-status-text', '{% url 'uploader:image_upload' %}',
-        function(response) {
-            var container = $('#image_list');
-            container.append(response);
-            $('.frame img', container).click(openCropBox);
-            ordering(container);
-            // refresh formset input indexes
-            $('#image_list .frame').each(function(index, frame) {
-                $(frame).find('input').each(function() {
-                    updateElementIndex(this, 'images_set', index);
+        function(xhr) {
+            switch(xhr.status) {
+            case 200:
+                var container = $('#image_list');
+                container.append(xhr.responseText);
+                $('.frame img', container).click(openCropBox);
+                ordering(container);
+                // refresh formset input indexes
+                $('#image_list .frame').each(function(index, frame) {
+                    $(frame).find('input').each(function() {
+                        updateElementIndex(this, 'images_set', index);
+                    });
                 });
-            });
-            updateManagementData('images_set');
+                updateManagementData('images_set');
+                $.jGrowl('Image uploaded successfully.');
+                break;
+            case 413:
+                $.jGrowl('File size exceeds the server limit.');
+                break;
+            default:
+                $.jGrowl('Uploader status: ' + xhr.status + '.');
+            }
         }, frames_count, '{{ tag }}');
 
     $("#image_list").sortable({

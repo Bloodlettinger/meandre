@@ -53,9 +53,7 @@ function uploader(place, status, url, onload_handler, position_handler, tag_list
 
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4) {
-                        if(xhr.status == 200) {
-                            onload_handler(xhr.responseText);
-                        }
+                        onload_handler(xhr);
                     }
                 };
 
