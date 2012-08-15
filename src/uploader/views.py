@@ -31,12 +31,12 @@ class HttpResponseNotImplemented(HttpResponse):
     status_code = 501
 
 
-def convert_format(image, filename, format='JPEG', mime='image/jpeg'):
+def convert_format(image, filename, format=settings.UPLOADER_IMAGE_FORMAT, mime='image/jpeg'):
     u"""
     Функция для подготовки изображения для сохранения в модели.
     """
     io = StringIO.StringIO()
-    image.save(io, format=format)
+    image.save(io, format=format, quality=settings.UPLOADER_IMAGE_QUALITY)
 
     file_name = u'%s.%s' % (os.path.splitext(filename)[0], format.lower())
     file_type = mime
@@ -78,7 +78,12 @@ def image_upload(request, template='uploader/frame_inline.html'):
         raise HttpResponseNotImplemented
 
     image = Image.open(file_data)
-    file_name, file_type, file_size, file_data = convert_format(image, file_name)
+    # решаем, конвертировать изображение или нет
+    if image.format == settings.UPLOADER_IMAGE_FORMAT:
+        file_type = u'image/%s' % image.format.lower()
+        file_size = file_data.size
+    else:
+        file_name, file_type, file_size, file_data = convert_format(image, file_name)
 
     save_model = True
     obj = models.Queue(
