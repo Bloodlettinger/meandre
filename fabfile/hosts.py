@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from fab_deploy import *
-from . import local_settings as settings
+from src import local_settings as settings
 
 COMMON_OPTIONS = dict(
     ENV_DIR=settings.ENV_DIR,

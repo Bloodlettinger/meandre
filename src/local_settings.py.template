@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+# WARNING:
+#    To obtain production configuration copy
+#    this template to ./prod_settings.py
+
+
+# Local settings for sag project.
+LOCAL_SETTINGS = True
+from settings import *
+
+DEBUG = True
+TEMPLATE_DEBUG = True
+
+ADMINS = (
+    ('Ruslan Popov', 'ruslan.popov@gmail.com'),
+)
+SENTRY_ADMINS = ADMINS
+
+SOUTH_TESTS_MIGRATE = False
+
+DATABASES = {
+    'default': dict(
+        ENGINE='django.db.backends.mysql',
+        NAME='sag',
+        USER='sag',
+        PASSWORD='topsecret',
+        HOST='',
+        PORT='',
+    ),
+    'default2': dict(
+        ENGINE='django.db.backends.sqlite3',
+        NAME=os.path.join(PROJECT_DIR, 'database.sqlite'),
+        USER='',
+        PASSWORD='',
+        HOST='',
+        PORT='',
+    ),
+    'legacy': dict(
+        ENGINE='django.db.backends.mysql',
+        NAME='sag_orig',
+        USER='sag',
+        PASSWORD='topsecret',
+        HOST='',
+        PORT='',
+    ),
+}
+
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '012345689ABCDEF'
+
+SERVER_URL = 'sag@production.ru:22'
+
+if DEBUG:
+    # Show emails in the console during developement.
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+###
+# devserver
+if DEBUG:
+    INSTALLED_APPS += ('devserver', )
+
+
+# WARNING
+#    The following settings are for deploying and backup processes.
+#    So there is no need to copy this part to prod_settings.py.
+
+PROJECT_DIR = '~/project'
+ENV_DIR = '%s/env' % PROJECT_DIR
+
+DB_HOST = 'mysql.production.ru'
+DB_NAME = 'sag'
+DB_USER = 'sag'
+DB_PASS = 'topsecret'
+
+PRE_MIGRATE_DUMP = '%s/pre_migrate.sql' % PROJECT_DIR
