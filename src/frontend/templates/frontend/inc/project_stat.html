@@ -26,9 +26,9 @@
                     {% if item %}
                         <li>
                             <i>{% if forloop.first %}{{ role }}{% endif %}</i>
-                            {% if item.url %}<a href="{{ item.url }}">{% endif %}
-                            <em>{% if item.user %}{{ item.user }}{% else %}{{ item.company }}{% endif %}</em>
-                            {% if item.url %}</a>{% endif %}
+                            {% if item.staff.url %}<a href="{{ item.staff.url }}">{% endif %}
+                            <em>{{ item.staff }}</em>
+                            {% if item.staff.url %}</a>{% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}

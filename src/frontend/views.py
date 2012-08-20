@@ -53,7 +53,7 @@ def project(request, slug):
     obj = get_object_or_404(models.Project, slug=slug)
 
     role_users = dict()
-    for membership in obj.membership_set.all():
+    for membership in obj.membershipstaff_set.all():
         for role in membership.role.all():
             staff = role_users.get(role.title, list())
             staff.append(membership)

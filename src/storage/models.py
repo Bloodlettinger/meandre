@@ -281,6 +281,11 @@ class Staff(models.Model):
         name, obj = self.__slaves__()
         return obj.__unicode__()
 
+    @property
+    def url(self):
+        name, obj = self.__slaves__()
+        return getattr(obj, 'site', None)
+
 
 class StaffPerson(Staff):
     u"""
