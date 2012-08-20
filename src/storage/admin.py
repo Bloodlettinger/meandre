@@ -91,6 +91,14 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
     salmonella_fields = ('user', 'role')
 
 
+class MembershipStaffInline(SalmonellaMixin, admin.TabularInline):
+    template = 'custom_admin/inline/project_staff_tabular.html'
+    model = models.MembershipStaff
+    extra = 1
+    fields = ('role', 'staff')
+    salmonella_fields = ('staff', 'role')
+
+
 class ProjectAdmin(ModelTranslationAdmin):
     list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'reg_date')
     list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
@@ -104,7 +112,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
-    inlines = (MembershipInline, )
+    inlines = (MembershipStaffInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True
     form = forms.ProjectForm
@@ -156,6 +164,21 @@ admin.site.register(models.Project, ProjectAdmin)
 class MembershipRoleAdmin(ModelTranslationAdmin):
     search_fields = ('title', )
 admin.site.register(models.MembershipRole, MembershipRoleAdmin)
+
+
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('which', 'phone', 'email')
+admin.site.register(models.Staff, StaffAdmin)
+
+
+class StaffPersonAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'first_name', 'email', 'phone')
+admin.site.register(models.StaffPerson, StaffPersonAdmin)
+
+
+class StaffCompanyAdmin(admin.ModelAdmin):
+    list_display = ('title', 'email', 'phone', 'site')
+admin.site.register(models.StaffCompany, StaffCompanyAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):

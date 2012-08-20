@@ -123,6 +123,7 @@ class Project(models.Model):
     customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
     staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
+    staff_new = models.ManyToManyField('Staff', through='MembershipStaff', verbose_name=_(u'Staff'))
     job_type = models.ManyToManyField(JobType, blank=True, null=True, verbose_name=_(u'Job Type'))
     short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'))
     long_name = models.CharField(max_length=512, blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
@@ -241,6 +242,84 @@ class Project(models.Model):
         return self.registered.date
 
 
+STAFF_TYPE_PERSON = 1
+STAFF_TYPE_COMPANY = 2
+STAFF_TYPE_CHOICES = (
+    (STAFF_TYPE_PERSON, 'person'),
+    (STAFF_TYPE_COMPANY, 'company'))
+
+
+class Staff(models.Model):
+    u"""
+    Базовая модель члена команды: Человек или компания.
+
+    Поле which используется для быстрого определения типа объекта.
+    """
+    which = models.IntegerField(choices=STAFF_TYPE_CHOICES)
+    phone = models.CharField(max_length=32, blank=True, null=True, verbose_name=_(u'Phone'))
+    email = models.CharField(max_length=128, blank=True, null=True, verbose_name=_(u'E-mail'))
+    address = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Address'))
+
+    slave_models = ('staffperson', 'staffcompany')
+
+    class Meta:
+        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Abstract'))
+        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Abstract'))
+
+    def __slaves__(self):
+        for slave in self.slave_models:
+            try:
+                # подгружаем дочернюю модель
+                return (slave, getattr(self, slave))
+            except models.ObjectDoesNotExist:
+                pass  # проверяем следующую
+        # не нашли
+        raise models.ObjectDoesNotExist(_(u'It seems this method is called on base model '
+            'instance or some previous action broke database consistent.'))
+
+    def __unicode__(self):
+        name, obj = self.__slaves__()
+        return obj.__unicode__()
+
+
+class StaffPerson(Staff):
+    u"""
+    Модель члена команды: Человек.
+    """
+    first_name = models.CharField(max_length=64, verbose_name=_('First Name'))
+    last_name = models.CharField(max_length=64, verbose_name=_('Last Name'))
+
+    class Meta:
+        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Person'))
+        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Persons'))
+
+    def __init__(self, *args, **kwargs):
+        super(StaffPerson, self).__init__(*args, **kwargs)
+        self.which = STAFF_TYPE_PERSON
+
+    def __unicode__(self):
+        return u'%s %s' % (self.first_name, self.last_name)
+
+
+class StaffCompany(Staff):
+    u"""
+    Модель члена команды: Компания.
+    """
+    title = models.CharField(max_length=64, verbose_name=_('Title'))
+    site = models.URLField(verbose_name=u'Site URL')
+
+    class Meta:
+        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Company'))
+        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Companies'))
+
+    def __init__(self, *args, **kwargs):
+        super(StaffCompany, self).__init__(*args, **kwargs)
+        self.which = STAFF_TYPE_COMPANY
+
+    def __unicode__(self):
+        return self.title
+
+
 class MembershipRole(models.Model):
     title = models.CharField(max_length=64, verbose_name=_(u'Title'))
 
@@ -257,6 +336,18 @@ class Membership(models.Model):
     user = models.ForeignKey(CustomUser, blank=True, null=True, verbose_name=_(u'User'))
     role = models.ManyToManyField(MembershipRole, verbose_name=_(u'Role'))
     url = models.URLField(blank=True, null=True)
+    joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
+    leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
+
+    class Meta:
+        verbose_name = _(u'Membership')
+        verbose_name_plural = _(u'Membership')
+
+
+class MembershipStaff(models.Model):
+    project = models.ForeignKey(Project, verbose_name=_(u'Project'))
+    staff = models.ForeignKey(Staff, verbose_name=_(u'User'))
+    role = models.ManyToManyField(MembershipRole, verbose_name=_(u'Role'))
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
     leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
