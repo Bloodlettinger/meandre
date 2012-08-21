@@ -197,22 +197,21 @@ class Migration(SchemaMigration):
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '32'})
         },
         'storage.staff': {
-            'Meta': {'ordering': "('position',)", 'object_name': 'Staff'},
+            'Meta': {'object_name': 'Staff'},
             'address': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
             'email': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
-            'position': ('django.db.models.fields.IntegerField', [], {}),
             'which': ('django.db.models.fields.IntegerField', [], {})
         },
         'storage.staffcompany': {
-            'Meta': {'ordering': "('position',)", 'object_name': 'StaffCompany', '_ormbases': ['storage.Staff']},
+            'Meta': {'object_name': 'StaffCompany', '_ormbases': ['storage.Staff']},
             'site': ('django.db.models.fields.URLField', [], {'max_length': '200'}),
             'staff_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['storage.Staff']", 'unique': 'True', 'primary_key': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
         },
         'storage.staffperson': {
-            'Meta': {'ordering': "('position',)", 'object_name': 'StaffPerson', '_ormbases': ['storage.Staff']},
+            'Meta': {'object_name': 'StaffPerson', '_ormbases': ['storage.Staff']},
             'company': ('django.db.models.fields.CharField', [], {'max_length': '256', 'null': 'True', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
