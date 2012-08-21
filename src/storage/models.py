@@ -299,15 +299,15 @@ class StaffPerson(Staff):
         verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Person'))
         verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Persons'))
 
-    def __init__(self, *args, **kwargs):
-        super(StaffPerson, self).__init__(*args, **kwargs)
-        self.which = STAFF_TYPE_PERSON
-
     def __unicode__(self):
         value = u'%s %s' % (self.first_name, self.last_name)
         if self.company and self.company != '':
             value = u'%s (%s)' % (value, self.company)
         return value
+
+    def save(self, *args, **kwargs):
+        self.which = STAFF_TYPE_PERSON
+        super(StaffPerson, self).save(*args, **kwargs)
 
 
 class StaffCompany(Staff):
@@ -321,12 +321,12 @@ class StaffCompany(Staff):
         verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Company'))
         verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Companies'))
 
-    def __init__(self, *args, **kwargs):
-        super(StaffCompany, self).__init__(*args, **kwargs)
-        self.which = STAFF_TYPE_COMPANY
-
     def __unicode__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        self.which = STAFF_TYPE_COMPANY
+        super(StaffCompany, self).save(*args, **kwargs)
 
 
 class MembershipRole(models.Model):
