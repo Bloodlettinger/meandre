@@ -293,6 +293,7 @@ class StaffPerson(Staff):
     """
     first_name = models.CharField(max_length=64, verbose_name=_('First Name'))
     last_name = models.CharField(max_length=64, verbose_name=_('Last Name'))
+    company = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Company'))
 
     class Meta:
         verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Person'))
@@ -303,7 +304,10 @@ class StaffPerson(Staff):
         self.which = STAFF_TYPE_PERSON
 
     def __unicode__(self):
-        return u'%s %s' % (self.first_name, self.last_name)
+        value = u'%s %s' % (self.first_name, self.last_name)
+        if self.company and self.company != '':
+            value = u'%s (%s)' % (value, self.company)
+        return value
 
 
 class StaffCompany(Staff):
