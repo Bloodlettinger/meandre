@@ -13,6 +13,7 @@ from markitup.widgets import AdminMarkItUpWidget
 from easy_thumbnails.widgets import ImageClearableFileInput
 
 from ..custom_admin.admin import ModelTranslationAdmin
+from ..custom_admin.options import SortableTabularInline
 from ..uploader.models import Queue as ProjectImage
 from ..uploader.forms import DoneForm as ImageOptsForm
 
@@ -91,11 +92,11 @@ class MembershipInline(SalmonellaMixin, admin.TabularInline):
     salmonella_fields = ('user', 'role')
 
 
-class MembershipStaffInline(SalmonellaMixin, admin.TabularInline):
+class MembershipStaffInline(SalmonellaMixin, SortableTabularInline):
     template = 'custom_admin/inline/project_staff_tabular.html'
     model = models.MembershipStaff
     extra = 1
-    fields = ('role', 'staff')
+    fields = ('role', 'staff', 'position')
     salmonella_fields = ('staff', 'role')
 
 

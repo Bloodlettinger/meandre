@@ -357,12 +357,14 @@ class MembershipStaff(models.Model):
     project = models.ForeignKey(Project, verbose_name=_(u'Project'))
     staff = models.ForeignKey(Staff, verbose_name=_(u'User'))
     role = models.ManyToManyField(MembershipRole, verbose_name=_(u'Role'))
+    position = models.IntegerField(verbose_name=_(u'Position'))
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
     leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
     class Meta:
         verbose_name = _(u'Membership')
         verbose_name_plural = _(u'Membership')
+        ordering = ('position', )
 
 
 class FinanceTransaction(models.Model):
