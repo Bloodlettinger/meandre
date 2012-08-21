@@ -136,9 +136,17 @@
             })
         });
 
-        var ordering = function(event, ui){
+        var is_even = function(value) {
+          return value%2 == 0;
+        };
+        var ordering = function(event, ui) {
             $('tr:visible', this).each(function(index){
                 $('input[name$=position]', this).val(index);
+                if (is_even(index)) {
+                  $(this).removeClass('row1').addClass('row2');
+                } else {
+                  $(this).removeClass('row2').addClass('row1');
+                }
             });
         }
         $( "#sortable" ).sortable({
