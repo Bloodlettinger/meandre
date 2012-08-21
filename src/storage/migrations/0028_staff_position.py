@@ -120,10 +120,11 @@ class Migration(SchemaMigration):
             'title_ru': ('django.db.models.fields.CharField', [], {'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
         'storage.membershipstaff': {
-            'Meta': {'object_name': 'MembershipStaff'},
+            'Meta': {'ordering': "('position',)", 'object_name': 'MembershipStaff'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'joined_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'leaved_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'position': ('django.db.models.fields.IntegerField', [], {}),
             'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['storage.Project']"}),
             'role': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['storage.MembershipRole']", 'symmetrical': 'False'}),
             'staff': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['storage.Staff']"})
