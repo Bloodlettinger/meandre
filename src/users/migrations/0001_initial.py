@@ -1,16 +1,27 @@
 # -*- coding: utf-8 -*-
-import datetime
+
 from south.db import db
 from south.v2 import SchemaMigration
-from django.db import models
 
 
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Company'
+        db.create_table('users_company', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('name_ru', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('name_en', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('address', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
+            ('site', self.gf('django.db.models.fields.URLField')(max_length=200)),
+        ))
+        db.send_create_signal('users', ['Company'])
+
         # Adding model 'CustomUser'
         db.create_table('users_customuser', (
             ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('company', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['users.Company'], null=True, blank=True)),
             ('phone', self.gf('django.db.models.fields.CharField')(max_length=16, null=True, blank=True)),
             ('birth_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('sex', self.gf('django.db.models.fields.CharField')(max_length=1, null=True, blank=True)),
@@ -18,6 +29,9 @@ class Migration(SchemaMigration):
         db.send_create_signal('users', ['CustomUser'])
 
     def backwards(self, orm):
+        # Deleting model 'Company'
+        db.delete_table('users_company')
+
         # Deleting model 'CustomUser'
         db.delete_table('users_customuser')
 
@@ -58,9 +72,19 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
+        'users.company': {
+            'Meta': {'object_name': 'Company'},
+            'address': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'name_en': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'name_ru': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'site': ('django.db.models.fields.URLField', [], {'max_length': '200'})
+        },
         'users.customuser': {
             'Meta': {'ordering': "('last_name', 'first_name')", 'object_name': 'CustomUser', '_ormbases': ['auth.User']},
             'birth_date': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
+            'company': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['users.Company']", 'null': 'True', 'blank': 'True'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '16', 'null': 'True', 'blank': 'True'}),
             'sex': ('django.db.models.fields.CharField', [], {'max_length': '1', 'null': 'True', 'blank': 'True'}),
             'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})

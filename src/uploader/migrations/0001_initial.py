@@ -10,33 +10,25 @@ class Migration(SchemaMigration):
         # Adding model 'Queue'
         db.create_table('uploader_queue', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=256)),
             ('file_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('file_type', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('file_size', self.gf('django.db.models.fields.IntegerField')()),
+            ('uploaded_by', self.gf('django.db.models.fields.related.ForeignKey')(related_name=u'uploader', to=orm['auth.User'])),
+            ('confirmed_at', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('confirmed_by', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name=u'confirmer', null=True, to=orm['auth.User'])),
+            ('position', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
+            ('visible', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('teaser', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('registered', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=256)),
+            ('tags', self.gf('tagging.fields.TagField')()),
         ))
         db.send_create_signal('uploader', ['Queue'])
-
-        # Adding model 'Image'
-        db.create_table('uploader_image', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('file_name', self.gf('django.db.models.fields.CharField')(max_length=256)),
-            ('file_type', self.gf('django.db.models.fields.CharField')(max_length=80)),
-            ('file_size', self.gf('django.db.models.fields.IntegerField')()),
-            ('registered', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=256)),
-        ))
-        db.send_create_signal('uploader', ['Image'])
 
     def backwards(self, orm):
         # Deleting model 'Queue'
         db.delete_table('uploader_queue')
-
-        # Deleting model 'Image'
-        db.delete_table('uploader_image')
 
     models = {
         'auth.group': {
@@ -75,25 +67,22 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        'uploader.image': {
-            'Meta': {'ordering': "('-registered',)", 'object_name': 'Image'},
-            'file_name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
-            'file_size': ('django.db.models.fields.IntegerField', [], {}),
-            'file_type': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '256'}),
-            'registered': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
-        },
         'uploader.queue': {
-            'Meta': {'ordering': "('-registered',)", 'object_name': 'Queue'},
+            'Meta': {'ordering': "('-confirmed_at', '-registered')", 'object_name': 'Queue'},
+            'confirmed_at': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'confirmed_by': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'confirmer'", 'null': 'True', 'to': "orm['auth.User']"}),
             'file_name': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'file_size': ('django.db.models.fields.IntegerField', [], {}),
             'file_type': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '256'}),
+            'position': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
             'registered': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
+            'staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'tags': ('tagging.fields.TagField', [], {}),
+            'teaser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'uploaded_by': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "u'uploader'", 'to': "orm['auth.User']"}),
+            'visible': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         }
     }
 
