@@ -52,20 +52,13 @@ def search(request):
 def project(request, slug):
     obj = get_object_or_404(models.Project, slug=slug)
 
-    role_users = dict()
-    for membership in obj.membershipstaff_set.all():
-        for role in membership.role.all():
-            staff = role_users.get(role.title, list())
-            staff.append(membership)
-            role_users[role.title] = staff
-
     context = dict(
         project=obj,
         images=ProjectImages.objects.filter(tags=obj.code, visible=True).order_by('position'),
         next=models.Project.objects.get_next(obj),
         prev=models.Project.objects.get_prev(obj),
         all_job_types=models.JobType.objects.all(),
-        roles=role_users,
+        membership_set=models.Membership.objects.filter(project=obj)
     )
     return direct_to_template(request, 'frontend/project.html', context)
 

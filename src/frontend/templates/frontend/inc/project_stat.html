@@ -21,18 +21,20 @@
             <li><i>{% trans "Size" %}</i><em>{{ project.object_square|floatformat:0 }} {% trans "sq.m." %}</em></li>
 
             <li>&nbsp;</li>
-            {% for role, membership in roles.items %}
-                {% for item in membership %}
-                    {% if item %}
-                        <li>
-                            <i>{% if forloop.first %}{{ role }}{% endif %}</i>
-                            {% if item.staff.url %}<a href="{{ item.staff.url }}">{% endif %}
-                            <em>{{ item.staff }}</em>
-                            {% if item.staff.url %}</a>{% endif %}
-                        </li>
-                    {% endif %}
+            {% spaceless %}
+            {% for membership in membership_set %}
+                {% for staff in membership.staff.all %}
+                    <li>
+                        <i>{% if forloop.first %}{{ membership.role }}{% endif %}</i>
+                        {% with url=staff.url %}
+                        {% if url %}<a href="{{ url }}">{% endif %}
+                        <em>{{ staff }}</em>
+                        {% if url %}</a>{% endif %}
+                        {% endwith %}
+                    </li>
                 {% endfor %}
             {% endfor %}
+            {% endspaceless %}
 
             {% if user.is_authenticated %}
             <li>&nbsp;</li>
