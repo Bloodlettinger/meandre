@@ -122,7 +122,7 @@ class Project(models.Model):
     code = models.CharField(max_length=9, unique=True, verbose_name=_(u'Code'))
     customer = models.ForeignKey(Customer, verbose_name=_(u'Customer'))
     address = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Address'))
-    staff = models.ManyToManyField(CustomUser, through='Membership', verbose_name=_(u'Staff'))
+    staff_roles = models.ManyToManyField('MembershipRole', through='Membership', verbose_name=_(u'Staff'))
     staff_new = models.ManyToManyField('Staff', through='MembershipStaff', verbose_name=_(u'Staff'))
     job_type = models.ManyToManyField(JobType, blank=True, null=True, verbose_name=_(u'Job Type'))
     short_name = models.CharField(max_length=128, verbose_name=pgettext_lazy('item', u'Name (short)'))
@@ -342,15 +342,16 @@ class MembershipRole(models.Model):
 
 class Membership(models.Model):
     project = models.ForeignKey(Project, verbose_name=_(u'Project'))
-    user = models.ForeignKey(CustomUser, blank=True, null=True, verbose_name=_(u'User'))
-    role = models.ManyToManyField(MembershipRole, verbose_name=_(u'Role'))
-    url = models.URLField(blank=True, null=True)
+    role = models.ForeignKey(MembershipRole, verbose_name=_(u'Role'))
+    staff = models.ManyToManyField(Staff, verbose_name=_(u'User'))
+    position = models.IntegerField(verbose_name=_(u'Position'))
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
     leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
     class Meta:
         verbose_name = _(u'Membership')
         verbose_name_plural = _(u'Membership')
+        ordering = ('position', )
 
 
 class MembershipStaff(models.Model):
