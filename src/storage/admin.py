@@ -85,19 +85,12 @@ class JobTypeAdmin(ModelTranslationAdmin):
 admin.site.register(models.JobType, JobTypeAdmin)
 
 
-class MembershipInline(SalmonellaMixin, admin.TabularInline):
-    model = models.Membership
-    extra = 1
-    fields = ('role', 'staff')
-    salmonella_fields = ('role', 'staff')
-
-
-class MembershipStaffInline(SalmonellaMixin, SortableTabularInline):
+class MembershipInline(SalmonellaMixin, SortableTabularInline):
     template = 'custom_admin/inline/project_staff_tabular.html'
-    model = models.MembershipStaff
-    extra = 1
+    model = models.Membership
+    extra = 0
     fields = ('role', 'staff', 'position')
-    salmonella_fields = ('staff', 'role')
+    salmonella_fields = ('role', 'staff')
 
 
 class ProjectAdmin(ModelTranslationAdmin):
@@ -113,7 +106,7 @@ class ProjectAdmin(ModelTranslationAdmin):
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
         (_(u'Jobs'), dict(fields=('job_type', ))),
         )
-    inlines = (MembershipInline, MembershipStaffInline, )
+    inlines = (MembershipInline, )
     filter_horizontal = ('job_type', )
     save_on_top = True
     form = forms.ProjectForm
