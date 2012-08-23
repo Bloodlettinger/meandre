@@ -160,7 +160,7 @@ class MembershipRoleAdmin(ModelTranslationAdmin):
 admin.site.register(models.MembershipRole, MembershipRoleAdmin)
 
 
-class StaffAdmin(admin.ModelAdmin):
+class StaffAdmin(ModelTranslationAdmin):
     list_display = ('__unicode__', 'which', 'phone', 'email')
 admin.site.register(models.Staff, StaffAdmin)
 

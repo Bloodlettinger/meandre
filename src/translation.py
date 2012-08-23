@@ -34,6 +34,11 @@ class JobTypeOpts(TranslationOptions):
 translator.register(models.JobType, JobTypeOpts)
 
 
+class StaffOpts(TranslationOptions):
+    fields = ('address', 'first_name', 'last_name', 'company')
+translator.register(models.Staff, StaffOpts)
+
+
 class ChunkOpts(TranslationOptions):
     fields = ('content', )
 translator.register(Chunk, ChunkOpts)
