@@ -38,6 +38,10 @@ for param in $@; do
         FAB="${FAB}${DELIM}static=True"
         DELIM=","
     fi
+    if test 'i18n' = ${param}; then
+        FAB="${FAB}${DELIM}i18n=True"
+        DELIM=","
+    fi
     if test 'noapply' = ${param}; then
         FAB="${FAB}${DELIM}touch=False"
         DELIM=","
