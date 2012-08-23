@@ -161,20 +161,8 @@ admin.site.register(models.MembershipRole, MembershipRoleAdmin)
 
 
 class StaffAdmin(admin.ModelAdmin):
-    list_display = ('which', 'phone', 'email')
+    list_display = ('__unicode__', 'which', 'phone', 'email')
 admin.site.register(models.Staff, StaffAdmin)
-
-
-class StaffPersonAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'email', 'phone')
-    fieldsets = ((None, dict(fields=('last_name', 'first_name', 'company', 'phone', 'email', 'address'))), )
-admin.site.register(models.StaffPerson, StaffPersonAdmin)
-
-
-class StaffCompanyAdmin(admin.ModelAdmin):
-    list_display = ('title', 'email', 'phone', 'site')
-    fieldsets = ((None, dict(fields=('title', 'site', 'phone', 'email', 'address'))), )
-admin.site.register(models.StaffCompany, StaffCompanyAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):

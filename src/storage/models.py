@@ -244,8 +244,8 @@ class Project(models.Model):
 STAFF_TYPE_PERSON = 1
 STAFF_TYPE_COMPANY = 2
 STAFF_TYPE_CHOICES = (
-    (STAFF_TYPE_PERSON, 'person'),
-    (STAFF_TYPE_COMPANY, 'company'))
+    (STAFF_TYPE_PERSON, _(u'Person')),
+    (STAFF_TYPE_COMPANY, _('Company')))
 
 
 class Staff(models.Model):
@@ -254,42 +254,43 @@ class Staff(models.Model):
 
     Поле which используется для быстрого определения типа объекта.
     """
-    which = models.IntegerField(choices=STAFF_TYPE_CHOICES)
+    which = models.IntegerField(choices=STAFF_TYPE_CHOICES, verbose_name=_(u'Type'))
     phone = models.CharField(max_length=32, blank=True, null=True, verbose_name=_(u'Phone'))
     email = models.CharField(max_length=128, blank=True, null=True, verbose_name=_(u'E-mail'))
     address = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Address'))
-
-    slave_models = ('staffperson', 'staffcompany')
+    first_name = models.CharField(max_length=64, blank=True, null=True, verbose_name=_('First Name'))
+    last_name = models.CharField(max_length=64, blank=True, null=True, verbose_name=_('Last Name'))
+    company = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Company'))
+    site = models.URLField(blank=True, null=True, verbose_name=u'Site URL')
 
     class Meta:
-        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Abstract'))
-        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Abstract'))
-
-    def __slaves__(self):
-        for slave in self.slave_models:
-            try:
-                # подгружаем дочернюю модель
-                return (slave, getattr(self, slave))
-            except models.ObjectDoesNotExist:
-                pass  # проверяем следующую
-        # не нашли
-        raise models.ObjectDoesNotExist(_(u'It seems this method is called on base model '
-            'instance or some previous action broke database consistent.'))
+        verbose_name = _(u'Staff')
+        verbose_name_plural = _(u'Staff')
 
     def __unicode__(self):
-        name, obj = self.__slaves__()
-        return obj.__unicode__()
+        if self.which == STAFF_TYPE_PERSON:
+            value = u'%s %s' % (self.first_name, self.last_name)
+            if self.company and self.company != '':
+                value = u'%s (%s)' % (value, self.company)
+            return value
+        elif self.which == STAFF_TYPE_COMPANY:
+            return self.company
+        else:
+            return _(u'Unknown type of record.')
 
     @property
     def url(self):
-        name, obj = self.__slaves__()
-        return getattr(obj, 'site', None)
+        if self.which == STAFF_TYPE_COMPANY:
+            return self.site
+        else:
+            return None
 
 
-class StaffPerson(Staff):
+class StaffPerson(models.Model):
     u"""
     Модель члена команды: Человек.
     """
+    staff_ptr = models.OneToOneField(Staff, primary_key=True)
     first_name = models.CharField(max_length=64, verbose_name=_('First Name'))
     last_name = models.CharField(max_length=64, verbose_name=_('Last Name'))
     company = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Company'))
@@ -309,10 +310,11 @@ class StaffPerson(Staff):
         super(StaffPerson, self).save(*args, **kwargs)
 
 
-class StaffCompany(Staff):
+class StaffCompany(models.Model):
     u"""
     Модель члена команды: Компания.
     """
+    staff_ptr = models.OneToOneField(Staff, primary_key=True)
     title = models.CharField(max_length=64, verbose_name=_('Title'))
     site = models.URLField(verbose_name=u'Site URL')
 
