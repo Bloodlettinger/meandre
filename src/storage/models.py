@@ -286,50 +286,6 @@ class Staff(models.Model):
             return None
 
 
-class StaffPerson(models.Model):
-    u"""
-    Модель члена команды: Человек.
-    """
-    staff_ptr = models.OneToOneField(Staff, primary_key=True)
-    first_name = models.CharField(max_length=64, verbose_name=_('First Name'))
-    last_name = models.CharField(max_length=64, verbose_name=_('Last Name'))
-    company = models.CharField(max_length=256, blank=True, null=True, verbose_name=_(u'Company'))
-
-    class Meta:
-        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Person'))
-        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Persons'))
-
-    def __unicode__(self):
-        value = u'%s %s' % (self.first_name, self.last_name)
-        if self.company and self.company != '':
-            value = u'%s (%s)' % (value, self.company)
-        return value
-
-    def save(self, *args, **kwargs):
-        self.which = STAFF_TYPE_PERSON
-        super(StaffPerson, self).save(*args, **kwargs)
-
-
-class StaffCompany(models.Model):
-    u"""
-    Модель члена команды: Компания.
-    """
-    staff_ptr = models.OneToOneField(Staff, primary_key=True)
-    title = models.CharField(max_length=64, verbose_name=_('Title'))
-    site = models.URLField(verbose_name=u'Site URL')
-
-    class Meta:
-        verbose_name = u'%s: %s' % (_(u'Staff'), _(u'Company'))
-        verbose_name_plural = u'%s: %s' % (_(u'Staff'), _(u'Companies'))
-
-    def __unicode__(self):
-        return self.title
-
-    def save(self, *args, **kwargs):
-        self.which = STAFF_TYPE_COMPANY
-        super(StaffCompany, self).save(*args, **kwargs)
-
-
 class MembershipRole(models.Model):
     title = models.CharField(max_length=64, verbose_name=_(u'Title'))
 
