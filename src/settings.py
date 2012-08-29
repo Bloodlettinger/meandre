@@ -193,6 +193,14 @@ LOGGING = {
             'maxBytes': 1024 * 1024 * 1,
             'backupCount': 5,
             'formatter': 'verbose',
+        },
+        'sentry_log': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(PROJECT_DIR, '..', 'logs', 'sentry.log'),
+            'maxBytes': 1024 * 1024 * 1,
+            'backupCount': 5,
+            'formatter': 'verbose',
         }
     },
     'loggers': {
@@ -203,6 +211,11 @@ LOGGING = {
         },
         'haystack': dict(
             handlers=['haystack_log'],
+            level='ERROR',
+            propagate=True,
+        ),
+        'sentry.errors': dict(
+            handlers=['sentry_log'],
             level='ERROR',
             propagate=True,
         ),
