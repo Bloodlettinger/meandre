@@ -5,6 +5,8 @@ from settings import *
 del(DATABASES['default2'])
 del(DATABASES['legacy'])
 
+HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_DIR, 'search', 'xapian_index_test')
+
 
 class Test(object):
     ADMIN_LOGIN = 'admin'

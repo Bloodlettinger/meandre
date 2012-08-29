@@ -43,8 +43,11 @@ def search(request):
     if form.is_valid():
         query = form.cleaned_data.get('query', '')
         sqs = SearchQuerySet().filter(description=query)
+        projects = models.Project.objects.filter(pk__in=[i.pk for i in sqs])
+        if not request.user.is_authenticated():
+            projects = projects.winned().public()
         context = dict(context,
-            projects=models.Project.objects.filter(pk__in=[i.pk for i in sqs]),
+            projects=projects,
             searching_for=query)
     return direct_to_template(request, 'frontend/search.html', context)
 

@@ -13,7 +13,6 @@ from django.utils import timezone
 
 from django_autoslug.fields import AutoSlugField
 
-from .. users.models import CustomUser
 from .. uploader.models import Queue as ImageQueue
 
 from . managers import FinanceTransactionManager

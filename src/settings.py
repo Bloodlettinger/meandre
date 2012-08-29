@@ -275,7 +275,7 @@ THUMBNAIL_ALIASES = {
 INSTALLED_APPS += ('haystack', )
 HAYSTACK_INCLUDE_SPELLING = True
 HAYSTACK_SEARCH_ENGINE = 'xapian'
-HAYSTACK_SITECONF = 'src.search'
+HAYSTACK_SITECONF = 'src.search.siteconf'
 HAYSTACK_XAPIAN_PATH = os.path.join(PROJECT_DIR, 'search', 'xapian_index')
 TEMPLATE_DIRS += (os.path.join(PROJECT_DIR, 'search', 'templates'), )
 
