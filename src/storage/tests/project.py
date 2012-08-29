@@ -3,12 +3,31 @@
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
+import factory
 from django_webtest import WebTest
 
-from .. models import Customer
+from .. models import Customer, Project
 from ... test_settings import *
 
 __all__ = ('ProjectTest', )
+
+
+class CustomerFactory(factory.Factory):
+    FACTORY_FOR = Customer
+
+    customer_type = 1  # primary
+    partnership_type = 1  # internal
+
+
+class ProjectFactory(factory.Factory):
+    FACTORY_FOR = Project
+
+    customer = factory.LazyAttribute(lambda x: CustomerFactory())
+    is_public = True
+    price_full = 0
+    exchange_rate = 0
+    productivity = 0
+    price_average = 0
 
 
 class ProjectTest(WebTest):
@@ -51,3 +70,10 @@ class ProjectTest(WebTest):
         form['customer'] = self.customer2.pk
         form = form.submit(name='_continue', index=0).follow().forms['project_form']
         self.assertEqual(int(form['customer'].value), self.customer.pk)
+
+    def test_finished_at(self):
+        project = ProjectFactory(short_name='test')
+        assert project.finished_at is None
+        project.is_finished = True
+        project.save()
+        assert project.finished_at is not None

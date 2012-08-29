@@ -150,6 +150,7 @@ class Project(models.Model):
     registered = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Registered'))
     reg_date = models.DateField(default=timezone.now, verbose_name=_(u'Registered'),
         help_text=_(u'Keep it empty to fill automaticly.'))
+    finished_at = models.DateField(blank=True, null=True, verbose_name=_(u'Finished'))
 
     # вычисляемые поля, см. метод save()
     productivity = models.DecimalField(max_digits=19, decimal_places=2, default=0)
@@ -193,6 +194,10 @@ class Project(models.Model):
                 project_number=count + 1,
                 year=date.today().strftime('%y'))
             self.code = tpl.format(**context)
+
+        # фиксируем дату закрытия проекта
+        if not self.finished_at and self.is_finished:
+            self.finished_at = timezone.now()
 
         return super(Project, self).save(*args, **kwargs)
 
