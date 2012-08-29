@@ -124,28 +124,6 @@ FIXTURE_DIRS = (
     os.path.join(PROJECT_DIR, 'fixtures'),
 )
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.markup',
-
-    'django_extensions',
-    'django_autoslug',
-    'south',
-    'salmonella',
-    'chunks',
-
-    'src.custom_admin',
-    'src.frontend',
-    'src.users',
-    'src.storage',
-)
-
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -230,6 +208,29 @@ LOGGING = {
 # if DEBUG:
 #     LOGGING['loggers']['uploader']['handlers'] += ['console']
 
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.markup',
+
+    'haystack',
+    'django_extensions',
+    'django_autoslug',
+    'south',
+    'salmonella',
+    'chunks',
+
+    'src.custom_admin',
+    'src.frontend',
+    'src.users',
+    'src.storage',
+)
+
 ###
 # custom_admin
 MIDDLEWARE_CLASSES += ('src.custom_admin.middleware.ChangelistPreferencesMiddleware', )
@@ -284,8 +285,8 @@ THUMBNAIL_ALIASES = {
 }
 
 ###
-# haystack
-INSTALLED_APPS += ('haystack', )
+# haystack должен быть подключен до своих приложений
+#INSTALLED_APPS += ('haystack', )
 HAYSTACK_INCLUDE_SPELLING = True
 HAYSTACK_SEARCH_ENGINE = 'xapian'
 HAYSTACK_SITECONF = 'src.search.siteconf'
