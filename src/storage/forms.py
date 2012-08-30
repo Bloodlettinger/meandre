@@ -37,3 +37,27 @@ class ProjectForm(forms.ModelForm):
             return self.instance.customer
         else:
             return self.cleaned_data['customer']
+
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+
+        created_at = cleaned_data.get('reg_date')
+        begin_at = cleaned_data.get('begin')
+        end_at = cleaned_data.get('end')
+        finished_at = cleaned_data.get('finished_at')
+
+        if created_at > begin_at:
+            self._errors['begin'] = self.error_class([
+                _('The value is lower than a value of `Registered` field.')])
+            del cleaned_data['begin']
+
+        if begin_at > end_at:
+            self._errors['end'] = self.error_class([
+                _('The value is lower than a value of `Begin` field.')])
+            del cleaned_data['end']
+
+        if finished_at and end_at > finished_at:
+            self._errors['end'] = self.error_class([
+                _('The value is greater than a value of `Finished` field.')])
+
+        return cleaned_data

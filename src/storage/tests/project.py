@@ -2,6 +2,7 @@
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 import factory
 from django_webtest import WebTest
@@ -10,6 +11,11 @@ from .. models import Customer, Project
 from ... test_settings import *
 
 __all__ = ('ProjectTest', )
+
+
+CREATED, BEGIN, END, FINISHED = map(
+    lambda x: timezone.datetime(*x).date(),
+    ((2012, 1, 1), (2012, 1, 2), (2012, 1, 3), (2012, 1, 4)))
 
 
 class CustomerFactory(factory.Factory):
@@ -58,6 +64,9 @@ class ProjectTest(WebTest):
         form['customer'] = customer_id
         form['short_name_ru'] = u'тест'
         form['short_name_en'] = u'test'
+        form['reg_date'] = CREATED
+        form['begin'] = BEGIN
+        form['end'] = END
         self.assertRedirects(form.submit(), reverse('admin:storage_project_changelist'))
 
     def test_create(self):
@@ -77,3 +86,30 @@ class ProjectTest(WebTest):
         project.is_finished = True
         project.save()
         assert project.finished_at is not None
+
+    def test_dates(self):
+        project = ProjectFactory(
+            short_name_en='test', short_name_ru='test',
+            reg_date=CREATED, begin=BEGIN, end=END, finished_at=FINISHED
+        )
+
+        url = reverse('admin:storage_project_change', args=(project.pk, ))
+        form = self.app.get(url).forms['project_form']
+
+        form['reg_date'] = BEGIN
+        form['begin'] = CREATED
+        response = form.submit(name='_continue', index=0)
+        el = response.lxml.xpath('//ul[@class="errorlist"]')
+        self.assertEqual(1, len(el))
+
+        form['begin'] = END
+        form['end'] = BEGIN
+        response = form.submit(name='_continue', index=0)
+        el = response.lxml.xpath('//ul[@class="errorlist"]')
+        self.assertEqual(1, len(el))
+
+        form['reg_date'] = CREATED
+        form['begin'] = BEGIN
+        form['end'] = END
+        response = form.submit(name='_save', index=0)
+        self.assertRedirects(response, reverse('admin:storage_project_changelist'))
