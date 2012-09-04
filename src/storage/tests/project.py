@@ -66,7 +66,6 @@ class ProjectTest(WebTest):
         form['short_name_en'] = u'test'
         form['reg_date'] = CREATED
         form['begin'] = BEGIN
-        form['end'] = END
         self.assertRedirects(form.submit(), reverse('admin:storage_project_changelist'))
 
     def test_create(self):
