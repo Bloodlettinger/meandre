@@ -17,14 +17,14 @@ import os
 import sys
 import site
 
-PROJECT_DIR = '/home/sag/site1'
-PACKAGE_DIR = os.path.join(PROJECT_DIR, 'env/lib/python2.6/site-packages')
+HOSTING_DIR = '/home/sag/site1'
+PACKAGE_DIR = os.path.join(HOSTING_DIR, 'env/lib/python2.6/site-packages')
 
 sys.stdout = sys.stderr
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
 
-sys.path.insert(0, PROJECT_DIR)
+sys.path.insert(0, HOSTING_DIR)
 sys.path.insert(1, PACKAGE_DIR)
 site.addsitedir(PACKAGE_DIR)
 

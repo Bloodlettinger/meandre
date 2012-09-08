@@ -65,12 +65,12 @@ if DEBUG:
 #    The following settings are for deploying and backup processes.
 #    So there is no need to copy this part to prod_settings.py.
 
-PROJECT_DIR = '~/project'
-ENV_DIR = '%s/env' % PROJECT_DIR
+HOSTING_DIR = '~/project'
+ENV_DIR = '%s/env' % HOSTING_DIR
 
 DB_HOST = 'mysql.production.ru'
 DB_NAME = 'sag'
 DB_USER = 'sag'
 DB_PASS = 'topsecret'
 
-PRE_MIGRATE_DUMP = '%s/pre_migrate.sql' % PROJECT_DIR
+PRE_MIGRATE_DUMP = '%s/pre_migrate.sql' % HOSTING_DIR
