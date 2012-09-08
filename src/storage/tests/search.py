@@ -27,6 +27,7 @@ class CustomerFactory(factory.Factory):
 
     customer_type = 1  # primary
     partnership_type = 1  # internal
+    code = factory.Sequence(lambda n: '{0:04}'.format(int(n)))
 
 
 class ProjectFactory(factory.Factory):

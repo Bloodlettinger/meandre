@@ -185,15 +185,7 @@ class Project(models.Model):
         # при создании модели необходимо сгенерировать код проекта,
         # если он не был явно указан
         if not self.pk and 0 == len(self.code):
-            cust_id = self.customer.code
-            count = Project.objects.filter(customer__code=cust_id,
-                code__iregex=r'^[0-9]{4}A[0-9]{4}').count()
-            tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
-            context = dict(
-                customer_code=cust_id,
-                project_number=count + 1,
-                year=date.today().strftime('%y'))
-            self.code = tpl.format(**context)
+            self.code = Project.code_factory(code=self.customer.code)
 
         # фиксируем дату закрытия проекта
         if not self.finished_at and self.is_finished:
@@ -243,6 +235,26 @@ class Project(models.Model):
     def created(self):
         u"""Дата создания проекта."""
         return self.registered.date
+
+    @staticmethod
+    def code_factory(pk=None, code=None):
+        try:
+            if pk:
+                customer = Customer.objects.get(pk=pk)
+            elif code:
+                customer = Customer.objects.get(code=code)
+            else:
+                return None
+        except Customer.DoesNotExist:
+            return None
+        count = Project.objects.filter(customer__code=customer.code,
+            code__iregex=r'^[0-9]{4}A[0-9]{4}').count()
+        tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
+        context = dict(
+            customer_code=customer.code,
+            project_number=count + 1,
+            year=date.today().strftime('%y'))
+        return tpl.format(**context)
 
 
 STAFF_TYPE_PERSON = 1

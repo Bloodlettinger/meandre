@@ -2,6 +2,7 @@
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 from django_webtest import WebTest
 
@@ -39,8 +40,12 @@ class CustomerTest(WebTest):
             short_name='customer'
             )
         url = reverse('admin:storage_customer_change', args=(customer.pk, ))
+        # проверяем, что подставлен правильный заказчик
         form = self.app.get(url).click(linkid='related_project_add').forms['project_form']
         self.assertEqual(int(form['customer'].value), customer.pk)
+        # проверяем, что подставлен правильный код
+        code = '%sA01%s' % (customer.code, timezone.now().strftime('%y'))
+        self.assertEqual(form['code'].value, code)
 
     def test_customer_types(self):
         PRIMARY = 1

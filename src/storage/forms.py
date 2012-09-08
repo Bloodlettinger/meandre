@@ -17,6 +17,13 @@ class ProjectForm(forms.ModelForm):
         model = models.Project
 
     def __init__(self, *args, **kwargs):
+        # при создании формы и наличии идентификатора заказчика заполняем поле с кодом проекта
+        if 'initial' in kwargs and 'customer' in kwargs['initial']:
+            customer_pk = kwargs['initial']['customer']
+            code = models.Project.code_factory(pk=customer_pk)
+            if code:
+                kwargs['initial']['code'] = code
+        # создаём форму
         super(ProjectForm, self).__init__(*args, **kwargs)
         # поле кода проекта разрешено редактировать только для существующих
         # проектов с незаполненным кодом

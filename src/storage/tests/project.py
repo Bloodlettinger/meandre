@@ -23,6 +23,8 @@ class CustomerFactory(factory.Factory):
 
     customer_type = 1  # primary
     partnership_type = 1  # internal
+    code = factory.Sequence(lambda n: '{0:04}'.format(int(n)))
+    short_name = factory.Sequence(lambda n: 'customer{0}'.format(int(n)))
 
 
 class ProjectFactory(factory.Factory):
@@ -40,18 +42,8 @@ class ProjectTest(WebTest):
 
     def setUp(self):
         self.admin = User.objects.create_superuser(Test.ADMIN_LOGIN, Test.ADMIN_EMAIL, Test.ADMIN_PASS)
-        self.customer = Customer.objects.create(
-            customer_type=1,
-            partnership_type=1,
-            code='0000',
-            short_name='customer'
-            )
-        self.customer2 = Customer.objects.create(
-            customer_type=2,
-            partnership_type=2,
-            code='0001',
-            short_name='customer2'
-            )
+        self.customer = CustomerFactory(customer_type=1, partnership_type=1)
+        self.customer2 = CustomerFactory(customer_type=2, partnership_type=2)
         form = self.app.get(reverse('admin:index')).form
         form['username'] = Test.ADMIN_LOGIN
         form['password'] = Test.ADMIN_PASS
@@ -70,6 +62,10 @@ class ProjectTest(WebTest):
 
     def test_create(self):
         self._create_project(self.customer.pk)
+        # проверить, что код сгенерирован правильно
+        project = Project.objects.all()[0]
+        code = '%sA01%s' % (self.customer.code, timezone.now().strftime('%y'))
+        assert project.code == code, u'Code does not match.'
 
     def test_existed_change_customer(self):
         self._create_project(self.customer.pk)

@@ -41,3 +41,4 @@ src/prod_settings.py
 src/public
 src/search/whoosh_index/
 src/search/xapian_index/
+src/search/xapian_index_test/
