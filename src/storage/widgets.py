@@ -22,7 +22,7 @@ class TeaserPreviewWidget(AdminMarkItUpWidget):
     def render(self, name, value, attrs=None):
         value = super(TeaserPreviewWidget, self).render(name, value, attrs)
         ctx = dict(lang=attrs['id'][-2:])
-        tpl = get_template('storage/teaser_preview.html')
+        tpl = get_template('storage/widgets/teaser_preview.html')
         preview = tpl.render(Context(ctx))
         return mark_safe('%s %s' % (preview, value))
 
