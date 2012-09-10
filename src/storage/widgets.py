@@ -47,3 +47,15 @@ class CurrencySelect(forms.widgets.Select):
 
     class Media:
         js = (static('js/widgets/currency_select.js'), )
+
+
+class CustomerCodeWidget(forms.widgets.TextInput):
+
+    class Media:
+        js = (static('storage/js/customer_code.js'), )
+
+    def render(self, name, value, attrs=None):
+        value = super(CustomerCodeWidget, self).render(name, value, attrs)
+        ctx = dict(input=value)
+        tpl = get_template('storage/widgets/customer_code.html')
+        return mark_safe(tpl.render(Context(ctx)))

@@ -67,6 +67,8 @@ class CustomerAdmin(ModelTranslationAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
         if isinstance(db_field, ImageField):
             kwargs['widget'] = ImageClearableFileInput
+        if db_field.name == 'code':
+            kwargs['widget'] = widgets.CustomerCodeWidget
         return super(CustomerAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def workareas(self, item):

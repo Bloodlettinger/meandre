@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^sentry/', include('sentry.urls')),
     url(r'^uploader/', include(uploader_site.urls)),
+    url(r'^admin/storage/get_customer_code/$', 'src.storage.ajax.get_customer_code', name='get_customer_code'),
     url(r'^', include('src.frontend.urls', namespace='frontend')),
 )
 

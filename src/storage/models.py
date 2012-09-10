@@ -101,6 +101,30 @@ class Customer(models.Model):
         else:
             return project.get_absolute_url()
 
+    @staticmethod
+    def generate_code(lowest=True):
+        seq = map(
+            lambda x: int(x[0]),
+            Customer.objects.values_list('code'))
+        if 0 == len(seq):
+            seq = (0, )
+        # если затребован минимальный номер, то ищем "дырку" в последовательности
+        if 1 < len(seq) and lowest:
+            i = iter(seq)
+            f = next(i)
+            while True:
+                try:
+                    n = next(i)
+                    if 1 == n - f:
+                        f = n
+                        continue
+                    return f + 1
+                    break
+                except StopIteration:
+                    pass
+        # если "дырку" найти не получилось, то берём следующий по списку номер
+        return max(seq) + 1
+
 
 class JobType(models.Model):
     css = models.CharField(max_length=16, verbose_name=_(u'CSS class'))

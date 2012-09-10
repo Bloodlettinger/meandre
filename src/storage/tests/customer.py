@@ -55,3 +55,21 @@ class CustomerTest(WebTest):
         self.customer2 = Customer.objects.create(
             customer_type=SECONDARY, partnership_type=2, code='0001', short_name='customer2')
         self.assertEqual({1: 1, 2: 1, 3: 0}, Customer.statistic.types())
+
+    def test_customer_codes(self):
+        PRIMARY = 1
+        self.customer = Customer.objects.create(code='0000', customer_type=PRIMARY, partnership_type=1)
+
+        response = self.app.get(reverse('get_customer_code'), params=dict(action='hc'))
+        self.assertContains(response, '0001')
+        response = self.app.get(reverse('get_customer_code'), params=dict(action='hm'))
+        self.assertContains(response, '0001')
+
+        self.customer = Customer.objects.create(code='0001', customer_type=PRIMARY, partnership_type=1)
+        self.customer = Customer.objects.create(code='0003', customer_type=PRIMARY, partnership_type=1)
+        self.customer = Customer.objects.create(code='0005', customer_type=PRIMARY, partnership_type=1)
+
+        response = self.app.get(reverse('get_customer_code'), params=dict(action='hc'))
+        self.assertContains(response, '0002')
+        response = self.app.get(reverse('get_customer_code'), params=dict(action='hm'))
+        self.assertContains(response, '0006')
