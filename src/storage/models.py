@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from datetime import date
 
 from django.db import models
@@ -21,6 +22,8 @@ from . managers import ProjectStatisticManager
 from . managers import CustomerStatisticManager
 from . managers import WalletStateManager
 
+
+PROJECT_CODE_RE = re.compile(r'^\d{4}A(?P<ordering>\d{2})\d{2}$')
 
 one_base = lambda values: list(enumerate(values, 1))
 
@@ -182,12 +185,16 @@ class Project(models.Model):
 
     slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
 
+    # поле для работы сортировки
+    ordering = models.IntegerField(default=0)
+
     objects = ProjectManager()
     statistic = ProjectStatisticManager()
 
     class Meta:
         verbose_name = _(u'Project')
         verbose_name_plural = _(u'Projects')
+        ordering = ('-ordering', )
 
     def __unicode__(self):
         return self.short_name
@@ -214,6 +221,11 @@ class Project(models.Model):
         # фиксируем дату закрытия проекта
         if not self.finished_at and self.is_finished:
             self.finished_at = timezone.now()
+
+        # сохраняем информацию о сортировке
+        re_obj = PROJECT_CODE_RE.search(self.code)
+        if re_obj:
+            self.ordering = int(re_obj.group('ordering'))
 
         return super(Project, self).save(*args, **kwargs)
 

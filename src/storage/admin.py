@@ -45,11 +45,6 @@ class ProjectInline(CustomTabularInline):
     readonly_fields = ('code', 'short_name', 'reg_date', 'status')
     can_delete = False
 
-    def queryset(self, request):
-        # обеспечиваем сортировку по дате регистрации проекта
-        qs = super(ProjectInline, self).queryset(request)
-        return qs.order_by('-reg_date', '-code')
-
     def has_add_permission(self, request):
         return False
 
