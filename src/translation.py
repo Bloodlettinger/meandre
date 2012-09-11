@@ -30,7 +30,7 @@ translator.register(models.MembershipRole, MembershipRoleOpts)
 
 
 class JobTypeOpts(TranslationOptions):
-    fields = ('short_title', 'long_title', 'description')
+    fields = ('short_title', 'long_title', 'description', 'duration')
 translator.register(models.JobType, JobTypeOpts)
 
 
