@@ -271,12 +271,21 @@ class Project(models.Model):
                 return None
         except Customer.DoesNotExist:
             return None
-        count = Project.objects.filter(customer__code=customer.code,
-            code__iregex=r'^[0-9]{4}A[0-9]{4}').count()
+
+        # получаем список кодов для всех проектов заказчика, выделяем из них
+        # порядковые номера и превращаем их в список целых чисел.
+        project_ids = map(
+            lambda x: int(x[0][5:7]),
+            Project.objects.filter(
+                customer__code=customer.code,
+                code__iregex=r'^[0-9]{4}A[0-9]{4}'
+            ).values_list('code')
+        )
+
         tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
         context = dict(
             customer_code=customer.code,
-            project_number=count + 1,
+            project_number=max(project_ids) + 1,
             year=date.today().strftime('%y'))
         return tpl.format(**context)
 
