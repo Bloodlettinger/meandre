@@ -65,12 +65,24 @@ if DEBUG:
 #    The following settings are for deploying and backup processes.
 #    So there is no need to copy this part to prod_settings.py.
 
-HOSTING_DIR = '~/project'
-ENV_DIR = '%s/env' % HOSTING_DIR
+PROD_WSGI = '/path/to/wsgi'
+PROD_HOST_NAME = 'prod.ru'
+PROD_HOST_USER = 'sag'
+PROD_HOST_DIR = '~/site1'
+PROD_ENV_DIR = '%s/env' % PROD_HOST_DIR
+PROD_DB_HOST = 'mysql.prod.ru'
+PROD_DB_NAME = 'sag_prod'
+PROD_DB_USER = 'sag_prod'
+PROD_DB_PASS = 'prod_top_secret'
+PROD_MIGRATE_DUMP = '%s/pre_migrate.sql' % PROD_HOST_DIR
 
-DB_HOST = 'mysql.production.ru'
-DB_NAME = 'sag'
-DB_USER = 'sag'
-DB_PASS = 'topsecret'
-
-PRE_MIGRATE_DUMP = '%s/pre_migrate.sql' % HOSTING_DIR
+TEST_WSGI = '/path/to/wsgi'
+TEST_HOST_NAME = 'prod.ru'
+TEST_HOST_USER = 'sag'
+TEST_HOST_DIR = '~/site2'
+TEST_ENV_DIR = '%s/env' % TEST_HOST_DIR
+TEST_DB_HOST = 'mysql.test.ru'
+TEST_DB_NAME = 'sag_test'
+TEST_DB_USER = 'sag_test'
+TEST_DB_PASS = 'test_top_secret'
+TEST_MIGRATE_DUMP = '%s/pre_migrate.sql' % TEST_HOST_DIR

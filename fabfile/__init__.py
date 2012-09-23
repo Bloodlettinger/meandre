@@ -25,9 +25,10 @@ def deploy_server(migrate=False, static=False, i18n=False, haystack=False, touch
     if haystack:
         utils.manage('rebuild_index --noinput')
     if touch:
-        api.run('touch ~/www/site1/webapp/webapp.wsgi', shell=False)
+        api.run('touch %s' % api.env.conf.WSGI, shell=False)
 
 
-from . hosts import production
+from . hosts import production, testing
 
 production()
+testing()
