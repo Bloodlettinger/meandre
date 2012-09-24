@@ -93,15 +93,13 @@ class Customer(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.code, self.short_name)
 
-    def is_translated(self):
+    def is_translated(self, lang):
         from .. translation import CustomerOpts as opts
-        languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
-            for lang in languages:
-                field_name = u'%s_%s' % (field, lang)
-                value = getattr(self, field_name)
-                if value is None or 0 == len(value.strip()):
-                    return False
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
         return True
 
     def last_public_project(self):
@@ -154,15 +152,14 @@ class JobType(models.Model):
     def __unicode__(self):
         return self.short_title
 
-    def is_translated(self):
+    def is_translated(self, lang):
         from .. translation import JobTypeOpts as opts
         languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
-            for lang in languages:
-                field_name = u'%s_%s' % (field, lang)
-                value = getattr(self, field_name)
-                if value is None or 0 == len(value.strip()):
-                    return False
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
         return True
 
 
@@ -192,7 +189,8 @@ class Project(models.Model):
     price_full = models.DecimalField(max_digits=19, decimal_places=2, default=0, verbose_name=_(u'Price'), help_text=_(u'Fractional part is not required'))
     currency = models.IntegerField(choices=WALLET_CURRENCY_CHOICES, default=1, verbose_name=_(u'Currency'))
     exchange_rate = models.DecimalField(max_digits=19, decimal_places=2, default=1.0, verbose_name=_(u'Exchange Rate'))
-    is_public = models.BooleanField(default=False, verbose_name=_(u'Public'), help_text=_(u'Check if this project is public'))
+    is_public_ru = models.BooleanField(default=False, verbose_name=_(u'Public for RU area'), help_text=_(u'Check if this project is public for russian auditory'))
+    is_public_en = models.BooleanField(default=False, verbose_name=_(u'Public for EN area'), help_text=_(u'Check if this project is public for english auditory'))
     is_archived = models.BooleanField(default=False, verbose_name=_(u'Archived'), help_text=_(u'Check if this project is archived'))
     is_finished = models.BooleanField(default=False, verbose_name=_(u'Finished'), help_text=_(u'Check if this prohect is finished'))
     in_stats = models.BooleanField(default=True, verbose_name=_(u'Statistic'), help_text=_(u'Check if this project is shown in statistics'))
@@ -224,15 +222,14 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('frontend:project', kwargs=dict(slug=self.slug))
 
-    def is_translated(self):
+    def is_translated(self, lang):
         from .. translation import ProjectOpts as opts
         languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
-            for lang in languages:
-                field_name = u'%s_%s' % (field, lang)
-                value = getattr(self, field_name)
-                if value is None or 0 == len(value.strip()):
-                    return False
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
         return True
 
     def save(self, *args, **kwargs):
@@ -372,15 +369,14 @@ class Staff(models.Model):
         else:
             return _(u'Unknown type of record.')
 
-    def is_translated(self):
+    def is_translated(self, lang):
         from .. translation import StaffOpts as opts
         languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
-            for lang in languages:
-                field_name = u'%s_%s' % (field, lang)
-                value = getattr(self, field_name)
-                if value is None or 0 == len(value.strip()):
-                    return False
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
         return True
 
     @property
@@ -401,15 +397,14 @@ class MembershipRole(models.Model):
     def __unicode__(self):
         return self.title
 
-    def is_translated(self):
+    def is_translated(self, lang):
         from .. translation import MembershipRoleOpts as opts
         languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
-            for lang in languages:
-                field_name = u'%s_%s' % (field, lang)
-                value = getattr(self, field_name)
-                if value is None or 0 == len(value.strip()):
-                    return False
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
         return True
 
 

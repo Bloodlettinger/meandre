@@ -6,6 +6,7 @@ from datetime import datetime, date
 
 from django.db import models
 from django.db.models.query import QuerySet
+from django.utils import translation
 
 from model_utils.managers import PassThroughManager
 from tagging.models import Tag
@@ -68,9 +69,11 @@ class ProjectQuerySet(QuerySet):
         return qs
 
     def public(self):
-        return self.filter(is_public=True,
-            code__in=map(lambda x: x.name, Tag.objects.all())  # т.е. есть изображения
-            )
+        field_name = u'is_public_%s' % translation.get_language()[:2]
+        # т.е. есть изображения
+        qs = self.filter(code__in=map(lambda x: x.name, Tag.objects.all()))
+        qs = qs.filter(**{field_name: True})
+        return qs
 
     def for_stats(self):
         return self.filter(in_stats=True)

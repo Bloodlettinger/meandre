@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.conf import settings
 from django.contrib import admin
+from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.db.models.fields import TextField
@@ -91,13 +93,13 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public', 'reg_date', 'finished_at')
-    list_filter = ('ptype', 'status', 'is_public', 'is_archived', 'is_finished', 'in_stats')
+    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
+    list_filter = ('ptype', 'status', 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
         (_(u'Base'), dict(fields=('code', 'customer', 'address', 'short_name', 'long_name', 'ptype', 'status', 'begin', 'end', 'object_square'))),
         (_(u'System'), dict(fields=('reg_date', ))),
-        (_(u'State'), dict(fields=('is_public', 'is_archived', 'is_finished', 'in_stats'))),
+        (_(u'State'), dict(fields=('is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats'))),
         (_(u'Finance'), dict(fields=('currency', 'exchange_rate', 'price_full'))),
         (_(u'Description'), dict(fields=('desc_short', 'desc_long', 'tasks', 'problems', 'results'))),
         (_(u'Duration'), dict(fields=('duration_production', 'duration_changes', 'duration_discussion', 'duration_other'))),
@@ -120,6 +122,21 @@ class ProjectAdmin(ModelTranslationAdmin):
         elif db_field.name == 'currency':
             kwargs['widget'] = widgets.CurrencySelect
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+    def save_model(self, request, obj, form, change):
+        for lang in [i[0] for i in settings.LANGUAGES]:
+            field_name = u'is_public_%s' % lang
+            value_old = getattr(obj, field_name, False)
+            value_new = obj.is_translated(lang)
+            if value_old != value_new:
+                setattr(obj, field_name, value_new)
+                params = dict(
+                    name=obj.short_name,
+                    state=_(u'visible') if value_new else _(u'hidden'),
+                    lang=lang.upper()
+                )
+                messages.warning(request, _(u'The project "%(name)s" is %(state)s for %(lang)s auditory.') % params)
+        obj.save()
 
     def add_view(self, request, form_url='', extra_context=None):
         if extra_context is None:
