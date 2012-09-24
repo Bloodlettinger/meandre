@@ -93,6 +93,17 @@ class Customer(models.Model):
     def __unicode__(self):
         return u'%s - %s' % (self.code, self.short_name)
 
+    def is_translated(self):
+        from .. translation import CustomerOpts as opts
+        languages = [i[0] for i in settings.LANGUAGES]
+        for field in opts.fields:
+            for lang in languages:
+                field_name = u'%s_%s' % (field, lang)
+                value = getattr(self, field_name)
+                if value is None or 0 == len(value.strip()):
+                    return False
+        return True
+
     def last_public_project(self):
         u"""
         Метод для выдачи последнего публичного проекта.
@@ -142,6 +153,17 @@ class JobType(models.Model):
 
     def __unicode__(self):
         return self.short_title
+
+    def is_translated(self):
+        from .. translation import JobTypeOpts as opts
+        languages = [i[0] for i in settings.LANGUAGES]
+        for field in opts.fields:
+            for lang in languages:
+                field_name = u'%s_%s' % (field, lang)
+                value = getattr(self, field_name)
+                if value is None or 0 == len(value.strip()):
+                    return False
+        return True
 
 
 class Project(models.Model):
@@ -201,6 +223,17 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse('frontend:project', kwargs=dict(slug=self.slug))
+
+    def is_translated(self):
+        from .. translation import ProjectOpts as opts
+        languages = [i[0] for i in settings.LANGUAGES]
+        for field in opts.fields:
+            for lang in languages:
+                field_name = u'%s_%s' % (field, lang)
+                value = getattr(self, field_name)
+                if value is None or 0 == len(value.strip()):
+                    return False
+        return True
 
     def save(self, *args, **kwargs):
         try:
@@ -339,6 +372,17 @@ class Staff(models.Model):
         else:
             return _(u'Unknown type of record.')
 
+    def is_translated(self):
+        from .. translation import StaffOpts as opts
+        languages = [i[0] for i in settings.LANGUAGES]
+        for field in opts.fields:
+            for lang in languages:
+                field_name = u'%s_%s' % (field, lang)
+                value = getattr(self, field_name)
+                if value is None or 0 == len(value.strip()):
+                    return False
+        return True
+
     @property
     def url(self):
         if self.which == STAFF_TYPE_COMPANY:
@@ -356,6 +400,17 @@ class MembershipRole(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def is_translated(self):
+        from .. translation import MembershipRoleOpts as opts
+        languages = [i[0] for i in settings.LANGUAGES]
+        for field in opts.fields:
+            for lang in languages:
+                field_name = u'%s_%s' % (field, lang)
+                value = getattr(self, field_name)
+                if value is None or 0 == len(value.strip()):
+                    return False
+        return True
 
 
 class Membership(models.Model):

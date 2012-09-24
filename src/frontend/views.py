@@ -24,7 +24,7 @@ def index(request):
         ).filter(logo__isnull=False, url__isnull=False).distinct())
     shuffle(customers)
     context = dict(
-        projects=models.Project.objects.winned().public(),
+        projects=filter(lambda x: x.is_translated(), models.Project.objects.winned().public()),
         clients=customers,
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),
