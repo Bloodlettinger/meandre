@@ -53,7 +53,10 @@ def search(request):
 
 
 def project(request, slug):
-    obj = get_object_or_404(models.Project, slug=slug)
+    obj = get_object_or_404(models.Project, **{
+        'slug': slug,
+        u'is_public_%s' % translation.get_language()[:2]: True
+    })
 
     context = dict(
         project=obj,
