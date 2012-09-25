@@ -39,6 +39,11 @@ class StaffOpts(TranslationOptions):
 translator.register(models.Staff, StaffOpts)
 
 
+class RecommendationOpts(TranslationOptions):
+    fields = ('name', )
+translator.register(models.Recommendation, RecommendationOpts)
+
+
 class ChunkOpts(TranslationOptions):
     fields = ('content', )
 translator.register(Chunk, ChunkOpts)

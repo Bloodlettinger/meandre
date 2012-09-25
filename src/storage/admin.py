@@ -222,7 +222,7 @@ class WalletStateAdmin(admin.ModelAdmin):
 admin.site.register(models.WalletState, WalletStateAdmin)
 
 
-class RecommendationAdmin(admin.ModelAdmin):
+class RecommendationAdmin(ModelTranslationAdmin):
     list_display = ('name', 'phone', 'email')
 admin.site.register(models.Recommendation, RecommendationAdmin)
 
