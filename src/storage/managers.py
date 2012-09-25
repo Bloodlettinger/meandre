@@ -61,6 +61,10 @@ class FinanceTransactionManager(models.Manager):
 
 class ProjectQuerySet(QuerySet):
 
+    def get_public_fn(self):
+        u"""Метод для получения имени поля, разрешающего отображение."""
+        return u'is_public_%s' % translation.get_language()[:2]
+
     def winned(self, year=None):
         WINNED = 2
         qs = self.filter(status=WINNED)
@@ -69,17 +73,18 @@ class ProjectQuerySet(QuerySet):
         return qs
 
     def public(self):
-        field_name = u'is_public_%s' % translation.get_language()[:2]
         # т.е. есть изображения
         qs = self.filter(code__in=map(lambda x: x.name, Tag.objects.all()))
-        qs = qs.filter(**{field_name: True})
+        qs = qs.filter(**{self.get_public_fn(): True})
         return qs
 
     def for_stats(self):
         return self.filter(in_stats=True)
 
     def get_neighbour(self, obj, next=True):
-        default = dict(slug__isnull=False, customer__logo__isnull=False, is_public=True)
+        default = dict(slug__isnull=False, customer__logo__isnull=False)
+        default[self.get_public_fn()] = True
+
         if next:
             direction, params = 'pk', dict(default, pk__gt=obj.pk)
         else:
