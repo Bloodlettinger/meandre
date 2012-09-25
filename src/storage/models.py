@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import decimal
 from datetime import date
 
 from django.db import models
@@ -224,7 +225,6 @@ class Project(models.Model):
 
     def is_translated(self, lang):
         from .. translation import ProjectOpts as opts
-        languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
             field_name = u'%s_%s' % (field, lang)
             value = getattr(self, field_name)
@@ -275,7 +275,10 @@ class Project(models.Model):
     @property
     def price_meter(self):
         u"""Цена за квадратный метр."""
-        return self.price_full / self.object_square
+        try:
+            return self.price_full / self.object_square
+        except decimal.DivisionByZero:
+            return 0
 
     @property
     def duration_full(self):
@@ -285,17 +288,26 @@ class Project(models.Model):
     @property
     def production_percent(self):
         u"""Процент производственного времени."""
-        return self.duration_production * 100 / self.duration_full
+        try:
+            return self.duration_production * 100 / self.duration_full
+        except ZeroDivisionError:
+            return 0
 
     @property
     def meters_per_hour(self):
         u"""Скорость проектирования, метров в час."""
-        return self.object_square / self.duration_production
+        try:
+            return self.object_square / self.duration_production
+        except ZeroDivisionError:
+            return 0
 
     @property
     def speed(self):
         u"""Скорость проекта, метров в день."""
-        return self.object_square / self.duration_full
+        try:
+            return self.object_square / self.duration_full
+        except ZeroDivisionError:
+            return 0
 
     @property
     def created(self):
@@ -371,7 +383,6 @@ class Staff(models.Model):
 
     def is_translated(self, lang):
         from .. translation import StaffOpts as opts
-        languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
             field_name = u'%s_%s' % (field, lang)
             value = getattr(self, field_name)
@@ -399,7 +410,6 @@ class MembershipRole(models.Model):
 
     def is_translated(self, lang):
         from .. translation import MembershipRoleOpts as opts
-        languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
             field_name = u'%s_%s' % (field, lang)
             value = getattr(self, field_name)
