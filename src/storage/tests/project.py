@@ -31,7 +31,8 @@ class ProjectFactory(factory.Factory):
     FACTORY_FOR = Project
 
     customer = factory.LazyAttribute(lambda x: CustomerFactory())
-    is_public = True
+    is_public_ru = True
+    is_public_en = True
     price_full = 0
     exchange_rate = 0
     productivity = 0

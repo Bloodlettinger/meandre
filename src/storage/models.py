@@ -340,7 +340,7 @@ class Project(models.Model):
         tpl = '{customer_code:0>4}A{project_number:0>2}{year:0>2}'
         context = dict(
             customer_code=customer.code,
-            project_number=max(project_ids) + 1,
+            project_number=(max(project_ids) if 0 < len(project_ids) else 0) + 1,
             year=date.today().strftime('%y'))
         return tpl.format(**context)
 
