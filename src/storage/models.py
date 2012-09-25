@@ -80,7 +80,8 @@ class Customer(models.Model):
     code = models.CharField(max_length=5, verbose_name=_(u'Code'))
     short_name = models.CharField(max_length=255, verbose_name=pgettext_lazy('item', u'Name (short)'))
     long_name = models.TextField(blank=True, null=True, verbose_name=pgettext_lazy('item', u'Name (long)'))
-    logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True, verbose_name=_(u'Logo'))
+    logo = models.ImageField(upload_to='customer/logo', max_length=255, blank=True, null=True, verbose_name=_(u'Logo'),
+        help_text=_(u'Resize it to 135х93 and set background to transparent or white.'))
     url = models.URLField(blank=True, null=True)
     registered = models.DateTimeField(auto_now_add=True)
 

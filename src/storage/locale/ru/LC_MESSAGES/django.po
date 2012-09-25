@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-25 00:09+0400\n"
-"PO-Revision-Date: 2012-09-25 00:10+0400\n"
+"POT-Creation-Date: 2012-09-25 00:27+0400\n"
+"PO-Revision-Date: 2012-09-25 00:28+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -39,11 +39,11 @@ msgstr "Состояние"
 msgid "Finance"
 msgstr "Финансы"
 
-#: admin.py:104 models.py:145 models.py:430
+#: admin.py:104 models.py:146 models.py:431
 msgid "Description"
 msgstr "Описание"
 
-#: admin.py:105 models.py:146
+#: admin.py:105 models.py:147
 msgid "Duration"
 msgstr "Длительность"
 
@@ -64,7 +64,7 @@ msgstr "спрятанным"
 msgid "The project \"%(name)s\" is %(state)s for %(lang)s auditory."
 msgstr "Проект \"%(name)s\" является %(state)s для %(lang)s аудитории."
 
-#: admin.py:215 models.py:77 models.py:174 models.py:348 models.py:431
+#: admin.py:215 models.py:77 models.py:175 models.py:349 models.py:432
 msgid "Type"
 msgstr "Тип"
 
@@ -229,11 +229,11 @@ msgstr "Используется"
 msgid "Work Areas"
 msgstr "Виды деятельности"
 
-#: models.py:63 models.py:79 models.py:167
+#: models.py:63 models.py:79 models.py:168
 msgid "Code"
 msgstr "Код"
 
-#: models.py:64 models.py:476
+#: models.py:64 models.py:477
 msgctxt "human"
 msgid "Name"
 msgstr "Имя"
@@ -250,12 +250,12 @@ msgstr "Партнёры"
 msgid "Partnership"
 msgstr "Партнёрство"
 
-#: models.py:80 models.py:143 models.py:172
+#: models.py:80 models.py:144 models.py:173
 msgctxt "item"
 msgid "Name (short)"
 msgstr "Наименование (кратко)"
 
-#: models.py:81 models.py:144 models.py:173
+#: models.py:81 models.py:145 models.py:174
 msgctxt "item"
 msgid "Name (long)"
 msgstr "Наименование (подробно)"
@@ -264,308 +264,312 @@ msgstr "Наименование (подробно)"
 msgid "Logo"
 msgstr "Логотип"
 
-#: models.py:90 models.py:168
+#: models.py:83
+msgid "Resize it to 135х93 and set background to transparent or white."
+msgstr "Размер 135х93, фон прозрачный или белый."
+
+#: models.py:91 models.py:169
 msgid "Customer"
 msgstr "Заказчик"
 
-#: models.py:91
+#: models.py:92
 msgid "Customers"
 msgstr "Заказчики"
 
-#: models.py:142
+#: models.py:143
 msgid "CSS class"
 msgstr "Класс CSS"
 
-#: models.py:149 models.py:171
+#: models.py:150 models.py:172
 msgid "Job Type"
 msgstr "Тип работы"
 
-#: models.py:150
+#: models.py:151
 msgid "Job Types"
 msgstr "Типы работ"
 
-#: models.py:169 models.py:351
+#: models.py:170 models.py:352
 msgid "Address"
 msgstr "Адрес"
 
-#: models.py:170 models.py:358 models.py:359
+#: models.py:171 models.py:359 models.py:360
 msgid "Staff"
 msgstr "Команда"
 
-#: models.py:175
+#: models.py:176
 msgid "Status"
 msgstr "Состояние"
 
-#: models.py:176
+#: models.py:177
 msgid "Description (short)"
 msgstr "Описание (кратко)"
 
-#: models.py:177
+#: models.py:178
 msgid "Description (long)"
 msgstr "Описание (подробно)"
 
-#: models.py:178
+#: models.py:179
 msgid "Tasks"
 msgstr "Задачи"
 
-#: models.py:179
+#: models.py:180
 msgid "Problems"
 msgstr "Проблемы"
 
-#: models.py:180
+#: models.py:181
 msgid "Results"
 msgstr "Результаты"
 
-#: models.py:181
+#: models.py:182
 msgid "Made for"
 msgstr "Сделано для"
 
-#: models.py:182
+#: models.py:183
 msgctxt "object"
 msgid "Square"
 msgstr "Площадь"
 
-#: models.py:182
+#: models.py:183
 msgid "Square meters"
 msgstr "Квадратные метры"
 
-#: models.py:183
+#: models.py:184
 msgctxt "duration"
 msgid "Production"
 msgstr "Проектирование"
 
-#: models.py:183 models.py:184 models.py:185 models.py:186
+#: models.py:184 models.py:185 models.py:186 models.py:187
 msgid "In hours"
 msgstr "в часах"
 
-#: models.py:184
+#: models.py:185
 msgctxt "duration"
 msgid "Changes"
 msgstr "Изменения"
 
-#: models.py:185
+#: models.py:186
 msgctxt "duration"
 msgid "Discussion"
 msgstr "Обсуждение"
 
-#: models.py:186
+#: models.py:187
 msgctxt "duration"
 msgid "Other"
 msgstr "Другое"
 
-#: models.py:187
+#: models.py:188
 msgid "Begin"
 msgstr "Начало"
 
-#: models.py:188
+#: models.py:189
 msgid "End"
 msgstr "Конец"
 
-#: models.py:189
+#: models.py:190
 msgid "Price"
 msgstr "Цена"
 
-#: models.py:189
+#: models.py:190
 msgid "Fractional part is not required"
 msgstr "Дробная часть не обязательна"
 
-#: models.py:190
+#: models.py:191
 msgid "Currency"
 msgstr "Валюта"
 
-#: models.py:191 models.py:433
+#: models.py:192 models.py:434
 msgid "Exchange Rate"
 msgstr "Кросс курс"
 
-#: models.py:192
+#: models.py:193
 msgid "Public for RU area"
 msgstr "Показывается для RU"
 
-#: models.py:192
+#: models.py:193
 msgid "Check if this project is public for russian auditory"
 msgstr "Отметьте, если проект открыт для русской аудитории"
 
-#: models.py:193
+#: models.py:194
 msgid "Public for EN area"
 msgstr "Показывается для EN"
 
-#: models.py:193
+#: models.py:194
 msgid "Check if this project is public for english auditory"
 msgstr "Отметьте, если проект открыт для английской аудитории"
 
-#: models.py:194
+#: models.py:195
 msgid "Archived"
 msgstr "Архивный"
 
-#: models.py:194
+#: models.py:195
 msgid "Check if this project is archived"
 msgstr "Отметьте, если проект архивный"
 
-#: models.py:195 models.py:200
+#: models.py:196 models.py:201
 msgid "Finished"
 msgstr "Завершённый"
 
-#: models.py:195
+#: models.py:196
 msgid "Check if this prohect is finished"
 msgstr "Отметьте, если проект завершён"
 
-#: models.py:196
+#: models.py:197
 msgid "Statistic"
 msgstr "Статистика"
 
-#: models.py:196
+#: models.py:197
 msgid "Check if this project is shown in statistics"
 msgstr "Отметьте, если проект учитывается в статистике"
 
-#: models.py:197 models.py:198
+#: models.py:198 models.py:199
 msgid "Registered"
 msgstr "Зарегистрирован"
 
-#: models.py:199
+#: models.py:200
 msgid "Keep it empty to fill automaticly."
 msgstr "Оставьте пустым для автоматического заполнения."
 
-#: models.py:204
+#: models.py:205
 msgid "Price for square meter"
 msgstr "Цена за квадратный метр"
 
-#: models.py:215 models.py:412
+#: models.py:216 models.py:413
 msgid "Project"
 msgstr "Проект"
 
-#: models.py:216
+#: models.py:217
 msgid "Projects"
 msgstr "Проекты"
 
-#: models.py:338
+#: models.py:339
 msgid "Person"
 msgstr "Персона"
 
-#: models.py:339 models.py:354
+#: models.py:340 models.py:355
 msgid "Company"
 msgstr "Компания"
 
-#: models.py:349 models.py:477
+#: models.py:350 models.py:478
 msgid "Phone"
 msgstr "Телефон"
 
-#: models.py:350 models.py:478
+#: models.py:351 models.py:479
 msgid "E-mail"
 msgstr "Е-почта"
 
-#: models.py:352
+#: models.py:353
 msgid "First Name"
 msgstr "Имя"
 
-#: models.py:353
+#: models.py:354
 msgid "Last Name"
 msgstr "Фамилия"
 
-#: models.py:370
+#: models.py:371
 msgid "Unknown type of record."
 msgstr "Неизвестный тип записи."
 
-#: models.py:391
+#: models.py:392
 msgid "Title"
 msgstr "Название"
 
-#: models.py:394
+#: models.py:395
 msgid "Membership Role"
 msgstr "Роль в проекте"
 
-#: models.py:395
+#: models.py:396
 msgid "Membership Roles"
 msgstr "Роли в проекте"
 
-#: models.py:413
+#: models.py:414
 msgid "Role"
 msgstr "Роль"
 
-#: models.py:414
+#: models.py:415
 msgid "User"
 msgstr "Пользователь"
 
-#: models.py:415
+#: models.py:416
 msgid "Position"
 msgstr "Позиция"
 
-#: models.py:416
+#: models.py:417
 msgid "Joined"
 msgstr "Присоединился"
 
-#: models.py:417
+#: models.py:418
 msgid "Leaved"
 msgstr "Покинул"
 
-#: models.py:420 models.py:421
+#: models.py:421 models.py:422
 msgid "Membership"
 msgstr "Роль в проекте"
 
-#: models.py:426
+#: models.py:427
 msgid "Registrator"
 msgstr "Регистратор"
 
-#: models.py:427
+#: models.py:428
 msgid "Parent"
 msgstr "Предок"
 
-#: models.py:428 models.py:450
+#: models.py:429 models.py:451
 msgid "Wallet"
 msgstr "Кошелёк"
 
-#: models.py:429 models.py:451
+#: models.py:430 models.py:452
 msgid "Amount"
 msgstr "Сумма"
 
-#: models.py:432
+#: models.py:433
 msgid "VAT"
 msgstr "НДС"
 
-#: models.py:434
+#: models.py:435
 msgid "Contract"
 msgstr "Контракт"
 
-#: models.py:435
+#: models.py:436
 msgid "Contractor"
 msgstr "Контрактор"
 
-#: models.py:436
+#: models.py:437
 msgid "Done"
 msgstr "Выполнено"
 
-#: models.py:442
+#: models.py:443
 msgid "Finance Transaction"
 msgstr "Финансовая транзакция"
 
-#: models.py:443
+#: models.py:444
 msgid "Finance Transactions"
 msgstr "Финансовые транзакции"
 
-#: models.py:452
+#: models.py:453
 msgid "Moment"
 msgstr "Момент"
 
-#: models.py:458
+#: models.py:459
 msgid "Wallet State"
 msgstr "Состояние кошелька"
 
-#: models.py:459
+#: models.py:460
 msgid "Wallet States"
 msgstr "Состояния кошельков"
 
-#: models.py:470
+#: models.py:471
 msgid "Report: Wallet State"
 msgstr "Отчёт: Состояние кошелька"
 
-#: models.py:471
+#: models.py:472
 msgid "Report: Wallet States"
 msgstr "Отчёт: Состояния кошельков"
 
-#: models.py:481
+#: models.py:482
 msgid "Recommendation"
 msgstr "Рекомендация"
 
-#: models.py:482
+#: models.py:483
 msgid "Recommendations"
 msgstr "Рекомендации"
 
@@ -656,6 +660,9 @@ msgstr "Удалить"
 #: templates/storage/widgets/teaser_preview.html:5
 msgid "Explore Project"
 msgstr "Посмотреть проект"
+
+#~ msgid "Image must be 135х93 with transparent or white background.."
+#~ msgstr "Изображение должно быть 135х93 с прозрачным или белым фоном."
 
 #~ msgid "Public"
 #~ msgstr "Публичный"
