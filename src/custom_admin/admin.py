@@ -4,8 +4,8 @@ from django.conf import settings
 from django.contrib import admin
 
 from modeltranslation.admin import TranslationAdmin
-from chunks.admin import ChunkAdmin
-from chunks.models import Chunk
+from chunks import admin as chunkadmin
+from chunks import models as chunkmodels
 
 
 class ModelTranslationAdmin(TranslationAdmin):
@@ -20,7 +20,13 @@ class ModelTranslationAdmin(TranslationAdmin):
         }
 
 
-class ChunkAdmin(ModelTranslationAdmin, ChunkAdmin):
+class ChunkAdmin(ModelTranslationAdmin, chunkadmin.ChunkAdmin):
     pass
-admin.site.unregister(Chunk)
-admin.site.register(Chunk, ChunkAdmin)
+admin.site.unregister(chunkmodels.Chunk)
+admin.site.register(chunkmodels.Chunk, ChunkAdmin)
+
+
+class MediaAdmin(ModelTranslationAdmin, chunkadmin.MediaAdmin):
+    pass
+admin.site.unregister(chunkmodels.Media)
+admin.site.register(chunkmodels.Media, MediaAdmin)

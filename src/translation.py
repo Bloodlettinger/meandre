@@ -3,8 +3,7 @@
 from __future__ import absolute_import
 
 from modeltranslation.translator import translator, TranslationOptions
-from chunks.models import Chunk
-
+from chunks.models import Chunk, Media
 from . storage import models
 from . users.models import Company
 
@@ -47,6 +46,11 @@ translator.register(models.Recommendation, RecommendationOpts)
 class ChunkOpts(TranslationOptions):
     fields = ('content', )
 translator.register(Chunk, ChunkOpts)
+
+
+class ChunkMediaOpts(TranslationOptions):
+    fields = ('title', 'desc', )
+translator.register(Media, ChunkMediaOpts)
 
 
 class CompanyOpts(TranslationOptions):
