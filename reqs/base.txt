@@ -1,6 +1,7 @@
 # Список зависимостей для работы проекта.
 
 Django == 1.4.1
+pil == 1.1.7
 South
 -e hg+https://bitbucket.org/ruslanpopov/django-sentry#egg=sentry
 

@@ -35,6 +35,14 @@
 По умолчанию, в качестве базы данных используется SQLite3::
 
     python manage.py syncdb --migrate --noinput
+
+Если возникли ошибки, попробуйте::
+
+    python manage.py syncdb --all
+    python manage.py migrate --fake
+
+Загружаем демонстрационные данные::
+
     echo "delete from django_content_type;" | python manage.py dbshell
     echo "delete from auth_permission;" | python manage.py dbshell
     python manage.py loaddata ./src/fixtures/demo_database.json
@@ -194,3 +202,11 @@
 
     ./deploy.sh migrate static
     ./deploy.sh static migrate
+
+Note
+====
+
+Что бы не заморачиваться с настройкой поискового движка, добавьте в ``local_settings.py``::
+
+
+    HAYSTACK_SEARCH_ENGINE = 'simple'
