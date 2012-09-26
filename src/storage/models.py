@@ -35,7 +35,7 @@ WALLET_TYPE = one_base([_(u'Roubles Bank Account'), _(u'Roubles Cash Account'), 
 FINANCE_TRANSACTION_CHOICES = one_base([_(u'Income'), _(u'Expense')])
 FINANCE_VAT_CHOICES = one_base([_(u'with VAT'), _(u'without VAT'), _(u'VAT not chargable')])
 PROJECT_TYPE_CHOICES = one_base([_(u'Office'), _(u'Flat'), _(u'Shop'), _(u'Food'), _(u'Other')])
-PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Winned'), _(u'Loosed')])
+PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Won'), _(u'Lost')])
 
 ICON_TPL = u'<img src="%(static)simg/site/%(value)s-emboss-32.png" title="%(title)s"/>'
 default = dict(static=settings.STATIC_URL)
@@ -181,7 +181,7 @@ class Project(models.Model):
     problems = models.TextField(blank=True, null=True, verbose_name=_(u'Problems'))
     results = models.TextField(blank=True, null=True, verbose_name=_(u'Results'))
     made_for = models.CharField(max_length=255, blank=True, null=True, verbose_name=_(u'Made for'))
-    object_square = models.IntegerField(default=0, verbose_name=pgettext_lazy('object', u'Square'), help_text=_(u'Square meters'))
+    object_square = models.IntegerField(default=0, verbose_name=pgettext_lazy('object', u'Area'), help_text=_(u'Square meters'))
     duration_production = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Production'), help_text=_(u'In hours'))
     duration_changes = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Changes'), help_text=_(u'In hours'))
     duration_discussion = models.IntegerField(default=0, verbose_name=pgettext_lazy('duration', u'Discussion'), help_text=_(u'In hours'))
