@@ -156,7 +156,6 @@ class JobType(models.Model):
 
     def is_translated(self, lang):
         from .. translation import JobTypeOpts as opts
-        languages = [i[0] for i in settings.LANGUAGES]
         for field in opts.fields:
             field_name = u'%s_%s' % (field, lang)
             value = getattr(self, field_name)
@@ -250,7 +249,12 @@ class Project(models.Model):
             self.code = Project.code_factory(code=self.customer.code)
 
         # фиксируем дату закрытия проекта
-        if not self.finished_at and self.is_finished:
+        if self.is_finished and not self.end:
+            self.end = timezone.now()
+        elif self.end and not self.is_finished:
+            self.is_finished = True
+
+        if self.is_finished and not self.finished_at:
             self.finished_at = timezone.now()
 
         # сохраняем информацию о сортировке

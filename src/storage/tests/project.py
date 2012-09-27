@@ -77,11 +77,11 @@ class ProjectTest(WebTest):
         self.assertEqual(int(form['customer'].value), self.customer.pk)
 
     def test_finished_at(self):
-        project = ProjectFactory(short_name='test')
-        assert project.finished_at is None
+        project = ProjectFactory(short_name='test', is_finished=False, finished_at=None, end=None)
         project.is_finished = True
         project.save()
         assert project.finished_at is not None
+        assert project.end is not None
 
     def test_dates(self):
         project = ProjectFactory(
