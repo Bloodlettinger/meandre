@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
+from django.contrib.admin.templatetags.admin_static import static
 
 from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
@@ -284,4 +285,32 @@ class TeaserAdmin(admin.ModelAdmin):
     list_display = ('project', 'lang', 'visible', 'position')
     list_filter = ('lang', 'visible')
     list_editable = ('visible', 'position', )
+    save_on_top = True
+
+    class Media:
+        js = (
+            static('storage/js/admin_jqueryui.min.js'),
+            static('storage/js/admin_list_reorder.js'),
+        )
+        css = {
+            'screen': (
+                static('custom_admin/css/style.css'),
+            ),
+        }
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        if obj is None:
+            # разрешаем отображать список объектов
+            return super(TeaserAdmin, self).has_change_permission(request, obj)
+        else:
+            # не разрешаем редактировать объекты
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        # запрещаем удаление объектов
+        return False
+
 admin.site.register(models.Teaser, TeaserAdmin)
