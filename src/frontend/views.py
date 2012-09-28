@@ -22,8 +22,12 @@ def index(request):
     customers = list(models.Customer.objects.filter(
         project__status=2  # выигранные
         ).filter(logo__isnull=False, url__isnull=False).distinct())
+    teasers = models.Teaser.objects.filter(
+        visible=True,
+        lang=translation.get_language()[:2])
     shuffle(customers)
     context = dict(
+        teasers=teasers,
         projects=models.Project.objects.winned().public(),
         clients=customers,
         recommendations=models.Recommendation.objects.all(),

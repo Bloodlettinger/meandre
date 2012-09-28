@@ -269,13 +269,8 @@ class Project(models.Model):
         u"""Возвращает главное изображение проекта."""
         try:
             return ImageQueue.objects.get(teaser=True, tags=self.code)
-        except self.DoesNotExist:
+        except ImageQueue.DoesNotExist:
             return None
-
-    @property
-    def pro6(self):
-        u"""Возвращает изображение проекта для витрины."""
-        return self.teaser
 
     @property
     def price_meter(self):
