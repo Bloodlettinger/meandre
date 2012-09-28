@@ -14,6 +14,7 @@ from django.contrib.admin.templatetags.admin_static import static
 from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
 from easy_thumbnails.widgets import ImageClearableFileInput
+from easy_thumbnails.files import get_thumbnailer
 
 from ..custom_admin.admin import ModelTranslationAdmin
 from ..custom_admin.options import SortableTabularInline
@@ -283,7 +284,7 @@ admin.site.register(models.WalletStateReport, WalletStateReportAdmin)
 
 class TeaserAdmin(admin.ModelAdmin):
     template = 'storage/admin/edit_inline/change_list_with_note.html'
-    list_display = ('project', 'lang', 'visible', 'position')
+    list_display = ('thumbnail', 'project', 'lang', 'visible', 'position')
     list_filter = ('lang', 'visible')
     list_editable = ('visible', 'position', )
     save_on_top = True
@@ -319,7 +320,13 @@ class TeaserAdmin(admin.ModelAdmin):
         qs = super(TeaserAdmin, self).queryset(request)
         # оставляем только прошедщие проверку, причем не учитывая локаль
         objs = models.Project.objects.winned().public(use_locale=False)
-        allowed_pk = [i[0] for i in objs.values_list('pk')]
-        return qs.filter(project__pk__in=allowed_pk)
+        return qs.filter(project__pk__in=objs)
+
+    def thumbnail(self, item):
+        html = u'<img src="%s"/>'
+        url = get_thumbnailer(item.project.teaser.image)['uploader_frame'].url
+        return html % url
+    thumbnail.short_description = _(u'Thumbnail')
+    thumbnail.allow_tags = True
 
 admin.site.register(models.Teaser, TeaserAdmin)

@@ -9,7 +9,6 @@ from django.db.models.query import QuerySet
 from django.utils import translation
 
 from model_utils.managers import PassThroughManager
-from tagging.models import Tag
 
 from . decorators import cache_factory
 from . exceptions import WalletStateNotFound
@@ -73,8 +72,11 @@ class ProjectQuerySet(QuerySet):
         return qs
 
     def public(self, use_locale=True):
-        # т.е. есть изображения
-        qs = self.filter(code__in=map(lambda x: x.name, Tag.objects.all()))
+        qs = self.all()
+        # проверка наличия тизера
+        allowed_pk = [i.pk for i in qs if i.teaser]
+        qs = qs.filter(pk__in=allowed_pk)
+        # проверка разрешения для текущей локали
         if use_locale:
             qs = qs.filter(**{self.get_public_fn(): True})
         return qs
