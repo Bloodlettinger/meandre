@@ -31,7 +31,7 @@ django.jQuery(document).ready(function() {
 
     // Hide position field
     django.jQuery('#result_list tbody tr').each(function(index) {
-        django.jQuery('td:eq(3)', this).hide();
+        django.jQuery('td:last', this).hide();
     });
 
     // Determine sorted column and order
