@@ -278,3 +278,10 @@ class WalletStateReportAdmin(BaseReport):
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response(self.change_list_template, context, context_instance=context_instance)
 admin.site.register(models.WalletStateReport, WalletStateReportAdmin)
+
+
+class TeaserAdmin(admin.ModelAdmin):
+    list_display = ('project', 'lang', 'visible', 'position')
+    list_filter = ('lang', 'visible')
+    list_editable = ('visible', 'position', )
+admin.site.register(models.Teaser, TeaserAdmin)

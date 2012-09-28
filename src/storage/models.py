@@ -498,3 +498,27 @@ class Recommendation(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class Teaser(models.Model):
+    project = models.ForeignKey(Project, verbose_name=_(u'Project'))
+    lang = models.CharField(max_length=2, choices=settings.LANGUAGES, verbose_name=_(u'Language'))
+    position = models.IntegerField(verbose_name=_(u'Position'))
+    visible = models.BooleanField(default=False, verbose_name=_(u'Visible'))
+
+    class Meta:
+        verbose_name = _(u'Teaser')
+        verbose_name_plural = _(u'Teasers')
+        ordering = ('position', )
+
+
+def register_teaser(sender, instance, created, **kwargs):
+    u"""
+    При создании проекта следует создавать записи для каждого языка
+    в модели управления тизером.
+    """
+    if created:
+        for lang in settings.LANGUAGES:
+            params = dict(project=instance, lang=lang, position=-1, visible=False)
+            Teaser(**params).save()
+models.signals.post_save.connect(register_teaser, Project)
