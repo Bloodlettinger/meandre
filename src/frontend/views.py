@@ -28,7 +28,7 @@ def index(request):
     shuffle(customers)
     context = dict(
         teasers=teasers,
-        projects=models.Project.objects.winned().public(),
+        projects=models.Project.objects.winned().public().order_by('-begin'),
         clients=customers,
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),
