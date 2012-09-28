@@ -283,7 +283,6 @@ admin.site.register(models.WalletStateReport, WalletStateReportAdmin)
 
 
 class TeaserAdmin(admin.ModelAdmin):
-    template = 'storage/admin/edit_inline/change_list_with_note.html'
     list_display = ('thumbnail', 'project', 'begin_date', 'lang', 'visible', 'position')
     list_filter = ('lang', 'visible')
     list_editable = ('visible', 'position', )
