@@ -3,18 +3,18 @@
 <div id="v22-recent-project-section">
     <h1 class="nova header-01">{% trans "In Progress/Just Finished" %}</h1>
     <ul id="recent-projects">
-        {% for item in teasers %}
+        {% for project in projects %}
         <li>
-            <a href="{{ item.project.get_absolute_url }}">
+            <a href="{{ project.get_absolute_url }}">
                 <div>
                     <img class="fade" width="300" height="200"
-                        src="{{ item.project.teaser.image|thumbnail_url:'pro6_gray' }}"
-                        style="background: url({{ item.project.teaser.image|thumbnail_url:'pro6' }});"
+                        src="{{ project.teaser.image|thumbnail_url:'pro6_gray' }}"
+                        style="background: url({{ project.teaser.image|thumbnail_url:'pro6' }});"
                         />
                     <div class="recent-desc">
-                        <p>{{ item.project.short_name }}</p>
+                        <p>{{ project.short_name }}</p>
                         <em>&raquo;</em>
-                        <span>{{ item.project.short_name }}</span>
+                        <span>{{ project.short_name }}</span>
                     </div>
                 </div>
             </a>
