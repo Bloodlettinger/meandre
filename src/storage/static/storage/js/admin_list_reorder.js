@@ -23,7 +23,7 @@ django.jQuery(document).ready(function() {
 
     // Some visual enhancements
     header = django.jQuery('#result_list thead tr').children()[pos_col]
-    django.jQuery(header).css('width', '1em')
+    django.jQuery(header).hide();
     django.jQuery(header).children('a').text('#');
 
     titles = django.jQuery('#result_list tbody tr th');
@@ -31,12 +31,7 @@ django.jQuery(document).ready(function() {
 
     // Hide position field
     django.jQuery('#result_list tbody tr').each(function(index) {
-        pos_td = django.jQuery(this).children()[pos_col];
-        input = django.jQuery(pos_td).children('input').first();
-        input.hide();
-
-        label = django.jQuery('<strong>' + input.attr('value') + '</strong>');
-        django.jQuery(pos_td).append(label);
+        django.jQuery('td:eq(3)', this).hide();
     });
 
     // Determine sorted column and order
