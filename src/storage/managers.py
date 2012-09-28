@@ -72,10 +72,11 @@ class ProjectQuerySet(QuerySet):
             qs = qs.filter(begin__year=year)
         return qs
 
-    def public(self):
+    def public(self, use_locale=True):
         # т.е. есть изображения
         qs = self.filter(code__in=map(lambda x: x.name, Tag.objects.all()))
-        qs = qs.filter(**{self.get_public_fn(): True})
+        if use_locale:
+            qs = qs.filter(**{self.get_public_fn(): True})
         return qs
 
     def for_stats(self):

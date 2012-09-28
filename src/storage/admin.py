@@ -314,4 +314,12 @@ class TeaserAdmin(admin.ModelAdmin):
         # запрещаем удаление объектов
         return False
 
+    def queryset(self, request):
+        # получаем оригинальные значения
+        qs = super(TeaserAdmin, self).queryset(request)
+        # оставляем только прошедщие проверку, причем не учитывая локаль
+        objs = models.Project.objects.winned().public(use_locale=False)
+        allowed_pk = [i[0] for i in objs.values_list('pk')]
+        return qs.filter(project__pk__in=allowed_pk)
+
 admin.site.register(models.Teaser, TeaserAdmin)
