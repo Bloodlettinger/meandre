@@ -40,7 +40,13 @@
                 <div class="pum-header"></div>
                 <div class="pum-secure">
                     <div class="pum-clo">
-                        <p class="ptserif pum-clo-cn">{{ item.customer.short_name }}</p>
+                        <p class="ptserif pum-clo-cn">
+                            {% if user.is_authenticated %}
+                            <a href="{% url admin:storage_customer_change item.customer.pk %}">{{ item.customer.short_name }}</a>
+                            {% else %}
+                            {{ item.customer.short_name }}
+                            {% endif %}
+                        </p>
                         {% if user.is_authenticated %}
                         <p class="nova pum-clo-at">
                             {{ item.customer.get_customer_type_display|slice:":3" }}
