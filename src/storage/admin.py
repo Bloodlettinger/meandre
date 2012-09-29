@@ -330,5 +330,6 @@ class TeaserAdmin(admin.ModelAdmin):
 
     def begin_date(self, item):
         return item.project.begin
+    begin_date.short_description = _(u'Begin')
 
 admin.site.register(models.Teaser, TeaserAdmin)
