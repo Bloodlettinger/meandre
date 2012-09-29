@@ -32,7 +32,7 @@
             <em class="ptserif">{% trans "Total Working Hours Spent In" context "statistics" %} {{ stat.year_A|unlocalize }} {% trans "On Architectural Design Projects" context "statistics" %}</em>
         </div>
         <div class="stat_win_objects_square">
-            <span>{{ stat.total_A.square|floatformat:0|unlocalize }}</span>
+            <span>{{ stat.total_A.square|unlocalize }}</span>
             <em class="ptserif">{% trans "Total Square Meters Of Various Spaces Designed In" context "statistics" %} {{ stat.year_A|unlocalize }}</em>
         </div>
         <div class="clear"></div>
