@@ -26,6 +26,7 @@ class CustomMenu(Menu):
             items.ModelList(_(u'Workflow'), [
                 'src.storage.models.Customer',
                 'src.storage.models.Project',
+                'src.storage.models.Teaser',
                 ]),
             items.ModelList(_(u'Finances'), [
                 'src.storage.models.FinanceTransaction',
