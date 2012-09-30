@@ -18,7 +18,6 @@ pytz
 pytils
 simplejson
 
-django-modeltranslation
 django-model-utils == 1.0.0
 django-tastypie == 0.9.11
 django-tagging == 0.3.1
@@ -30,3 +29,4 @@ xapian-haystack
 feedparser
 
 -e git+git://github.com/RaD/django-chunks.git@rel2.3#egg=django-chunks
+-e git+git://github.com/Alerion/django-modeltranslation.git
