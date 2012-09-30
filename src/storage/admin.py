@@ -319,6 +319,8 @@ class TeaserAdmin(admin.ModelAdmin):
         qs = super(TeaserAdmin, self).queryset(request)
         # оставляем только прошедщие проверку, причем не учитывая локаль
         objs = models.Project.objects.winned().public(use_locale=False)
+        # отбрасываем архивные проекты
+        objs = objs.exclude(is_archived=True)
         return qs.filter(project__pk__in=objs)
 
     def thumbnail(self, item):
