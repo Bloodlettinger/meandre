@@ -48,15 +48,15 @@ class ProjectForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(ProjectForm, self).clean()
 
-        created_at = cleaned_data.get('reg_date')
+        #created_at = cleaned_data.get('reg_date')
         begin_at = cleaned_data.get('begin')
         end_at = cleaned_data.get('end')
         finished_at = cleaned_data.get('finished_at')
 
-        if created_at and begin_at and created_at > begin_at:
-            self._errors['begin'] = self.error_class([
-                _('The value is lower than a value of `Registered` field.')])
-            del cleaned_data['begin']
+        # if created_at and begin_at and created_at > begin_at:
+        #     self._errors['begin'] = self.error_class([
+        #         _('The value is lower than a value of `Registered` field.')])
+        #     del cleaned_data['begin']
 
         if begin_at and end_at and begin_at > end_at:
             self._errors['end'] = self.error_class([
