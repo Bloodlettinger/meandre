@@ -60,6 +60,7 @@ class SearchTest(WebTest):
         file_name = basename(full_path)
         obj = Queue(
             uploaded_by=self.user,
+            teaser=True,
             file_name=file_name,
             file_size=content.size,
             file_type=mimetype(full_path)

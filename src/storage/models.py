@@ -223,15 +223,6 @@ class Project(models.Model):
     def get_absolute_url(self):
         return reverse('frontend:project', kwargs=dict(slug=self.slug))
 
-    def is_translated(self, lang):
-        from .. translation import ProjectOpts as opts
-        for field in opts.fields:
-            field_name = u'%s_%s' % (field, lang)
-            value = getattr(self, field_name)
-            if value is None or 0 == len(value.strip()):
-                return False
-        return True
-
     def save(self, *args, **kwargs):
         try:
             self.productivity = self.object_square / self.duration_production
@@ -271,6 +262,32 @@ class Project(models.Model):
             return ImageQueue.objects.get(teaser=True, tags=self.code)
         except ImageQueue.DoesNotExist:
             return None
+
+    def is_ready_to_public(self, lang, fields=None):
+        u"""
+        Проверяет готовность проекта к публикации на сайте.
+
+        Обязательные поля:
+        * code - проверка на уровне БД;
+        * customer - проверка на уровне БД;
+        * address - проверка на уровне перевода;
+        * short_name - проверка на уровне БД;
+        * ptype - значение по умолчанию;
+        * status - значение по умолчанию;
+        * object_square - значение по умолчанию;
+        * reg_date - проверка на уровне БД.
+
+        Также обязательно наличие тизера, что подразумевает загрузку картинки.
+        """
+        if fields is None:
+            from .. translation import ProjectOpts as opts
+            fields = opts.fields
+        for field in fields:
+            field_name = u'%s_%s' % (field, lang)
+            value = getattr(self, field_name)
+            if value is None or 0 == len(value.strip()):
+                return False
+        return True
 
     @property
     def price_meter(self):
@@ -513,7 +530,7 @@ def register_teaser(sender, instance, created, **kwargs):
     в модели управления тизером.
     """
     if created:
-        for lang in settings.LANGUAGES:
+        for lang, name in settings.LANGUAGES:
             params = dict(project=instance, lang=lang, position=-1, visible=False)
             Teaser(**params).save()
 models.signals.post_save.connect(register_teaser, Project)

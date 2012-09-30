@@ -126,10 +126,11 @@ class ProjectAdmin(ModelTranslationAdmin):
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def save_model(self, request, obj, form, change):
+        fields = ['address', 'short_name']
         for lang in [i[0] for i in settings.LANGUAGES]:
             field_name = u'is_public_%s' % lang
             value_old = getattr(obj, field_name, False)
-            value_new = obj.is_translated(lang)
+            value_new = obj.is_ready_to_public(lang, fields)
             if value_old != value_new:
                 setattr(obj, field_name, value_new)
                 params = dict(
