@@ -29,4 +29,4 @@ xapian-haystack
 feedparser
 
 -e git+git://github.com/RaD/django-chunks.git@rel2.3#egg=django-chunks
--e git+git://github.com/Alerion/django-modeltranslation.git
+-e git+git://github.com/Alerion/django-modeltranslation.git#egg=django-modeltranslation
