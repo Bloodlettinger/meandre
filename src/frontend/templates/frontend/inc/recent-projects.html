@@ -3,7 +3,8 @@
 <div id="v22-recent-project-section">
     <h1 class="nova header-01">{% trans "In Progress/Just Finished" %}</h1>
     <ul id="recent-projects">
-        {% for project in projects %}
+        {# отобрадать только шесть "плиток" #}
+        {% for project in projects|slice:":6" %}
         <li>
             <a href="{{ project.get_absolute_url }}">
                 <div>
