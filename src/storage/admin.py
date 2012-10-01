@@ -3,9 +3,9 @@
 from django import template
 from django.conf import settings
 from django.contrib import admin
-from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
@@ -126,20 +126,8 @@ class ProjectAdmin(ModelTranslationAdmin):
         return super(ProjectAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
     def save_model(self, request, obj, form, change):
-        fields = ['address', 'short_name']
-        for lang in [i[0] for i in settings.LANGUAGES]:
-            field_name = u'is_public_%s' % lang
-            value_old = getattr(obj, field_name, False)
-            value_new = obj.is_ready_to_public(lang, fields)
-            if value_old != value_new:
-                setattr(obj, field_name, value_new)
-                params = dict(
-                    name=obj.short_name,
-                    state=_(u'visible') if value_new else _(u'hidden'),
-                    lang=lang.upper()
-                )
-                messages.warning(request, _(u'The project "%(name)s" is %(state)s for %(lang)s auditory.') % params)
-        obj.save()
+        u"""Обеспечивает передачу request в метод `save()` модели."""
+        obj.save(request=request)
 
     def add_view(self, request, form_url='', extra_context=None):
         if extra_context is None:
@@ -316,13 +304,12 @@ class TeaserAdmin(admin.ModelAdmin):
         return False
 
     def queryset(self, request):
-        # получаем оригинальные значения
-        qs = super(TeaserAdmin, self).queryset(request)
-        # оставляем только прошедщие проверку, причем не учитывая локаль
-        objs = models.Project.objects.winned().public(use_locale=False)
-        # отбрасываем архивные проекты
-        objs = objs.exclude(is_archived=True)
-        return qs.filter(project__pk__in=objs)
+        WINNED = 2
+        return super(TeaserAdmin, self).queryset(request).filter(
+            Q(project__is_public_ru=True, lang='ru') | Q(project__is_public_en=True, lang='en'),
+            project__status=WINNED,
+            project__is_archived=False
+            ).order_by('pk')
 
     def thumbnail(self, item):
         html = u'<img src="%s"/>'

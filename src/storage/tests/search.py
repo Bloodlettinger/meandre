@@ -34,6 +34,8 @@ class ProjectFactory(factory.Factory):
     FACTORY_FOR = Project
 
     customer = factory.LazyAttribute(lambda x: CustomerFactory())
+    address_ru = u'ул. Ленина, 1'
+    address_en = u'Lenin st. 1'
     is_public_ru = True
     is_public_en = True
     price_full = 0
@@ -51,8 +53,8 @@ class SearchTest(WebTest):
     def setUp(self):
         self.user = UserFactory()
         self.projects = (
-            ProjectFactory(short_name='one two three', status=WINNED),
-            ProjectFactory(short_name='raz one tri', status=POTENTIAL)
+            ProjectFactory(short_name_ru=u'раз два три', short_name_en=u'one two three', status=WINNED),
+            ProjectFactory(short_name_ru=u'раз один три', short_name_en=u'raz one tri', status=POTENTIAL)
         )
 
     def _add_image(self, project, full_path):
@@ -77,6 +79,10 @@ class SearchTest(WebTest):
         project_a, project_b = self.projects
         file_name = join(dirname(__file__), '..', '..', '..', 'tests', 'media', 'avatar.jpeg')
         self._add_image(project_a, file_name)
+
+        project_a.is_public_ru = True
+        project_a.is_public_en = True
+        project_a.save()
 
         self._rebuild_index()
 

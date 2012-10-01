@@ -12,6 +12,7 @@ from django.utils.translation import pgettext_lazy
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
 from django.utils import timezone
+from django.contrib import messages
 
 from django_autoslug.fields import AutoSlugField
 
@@ -253,7 +254,37 @@ class Project(models.Model):
         if re_obj:
             self.ordering = int(re_obj.group('ordering'))
 
-        return super(Project, self).save(*args, **kwargs)
+        # проверка настроек публичности и их коррекция по необходимости
+        try:
+            request = kwargs.pop('request')
+        except KeyError:
+            request = None
+
+        if self.teaser is None:
+            for lang, name in settings.LANGUAGES:
+                field_name = u'is_public_%s' % lang
+                setattr(self, field_name, False)
+            if request:
+                messages.warning(request,
+                    _(u'The project "%(name)s" is hidden for auditory.') % {'name': self.short_name})
+        else:
+            fields = ['address', 'short_name']
+            for lang, name in settings.LANGUAGES:
+                field_name = u'is_public_%s' % lang
+                value_old = getattr(self, field_name, False)
+                value_new = self.is_ready_to_public(lang, fields)
+                if value_old != value_new:
+                    setattr(self, field_name, value_new)
+                    if request:
+                        params = dict(
+                            name=self.short_name,
+                            state=_(u'visible') if value_new else _(u'hidden'),
+                            lang=lang.upper()
+                        )
+                        messages.warning(request,
+                            _(u'The project "%(name)s" is %(state)s for %(lang)s auditory.') % params)
+
+        super(Project, self).save(*args, **kwargs)
 
     @property
     def teaser(self):
@@ -279,6 +310,8 @@ class Project(models.Model):
 
         Также обязательно наличие тизера, что подразумевает загрузку картинки.
         """
+        if self.teaser is None:
+            return False
         if fields is None:
             from .. translation import ProjectOpts as opts
             fields = opts.fields
@@ -522,6 +555,9 @@ class Teaser(models.Model):
         verbose_name = _(u'Teaser')
         verbose_name_plural = _(u'Teasers')
         ordering = ('position', )
+
+    def __unicode__(self):
+        return self.project.short_name
 
 
 def register_teaser(sender, instance, created, **kwargs):
