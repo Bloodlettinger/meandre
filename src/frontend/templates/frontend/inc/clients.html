@@ -8,7 +8,6 @@
     <div id="clientlogos-wrap">
         <ul class="clientlogos">
             {% for item in clients|slice:":18" %}
-                {% if item.logo %}
             <li>
                 {% if item.url %}
                 <a href="{{ item.url }}" target="_blank">
@@ -22,7 +21,6 @@
                     <img src="{{ item.logo.url }}" />
                 {% endif %}
             </li>
-                {% endif %}
             {% endfor %}
             <div class="clear"></div>
         </ul>

@@ -20,12 +20,13 @@ from . forms import MainSearchForm
 def index(request):
     year = date.today().year
     customers = list(models.Customer.objects.filter(
-        project__status=2  # выигранные
-        ).filter(logo__isnull=False, url__isnull=False).distinct())
+        project__status=2,  # выигранные
+        url__isnull=False
+        ).exclude(logo=u'').distinct())
+    shuffle(customers)
     teasers = models.Teaser.objects.filter(
         visible=True,
         lang=translation.get_language()[:2])
-    shuffle(customers)
     context = dict(
         teasers=teasers,
         projects=models.Project.objects.winned().public().order_by('-begin'),
