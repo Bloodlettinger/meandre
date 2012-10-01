@@ -301,7 +301,7 @@ LANGUAGES = (
     ('en', 'English'),
 )
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
-MODELTRANSLATION_TRANSLATION_REGISTRY = 'src.translation'
+MODELTRANSLATION_TRANSLATION_FILES = ('src.translation',)
 
 ###
 # markitup

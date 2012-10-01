@@ -11,12 +11,12 @@ from chunks import models as chunkmodels
 class ModelTranslationAdmin(TranslationAdmin):
     class Media:
         js = (
-            settings.STATIC_URL + 'modeltranslation/js/force_jquery.js',
-            settings.STATIC_URL + 'modeltranslation/js/tabbed_translation_fields.js',
-            settings.STATIC_URL + 'js/jquery-ui-1.8.13.custom.min.js',
+            'modeltranslation/js/force_jquery.js',
+            'modeltranslation/js/column_translation_fields.js',
+            'js/jquery-ui-1.8.13.custom.min.js',
         )
         css = {
-            'screen': (settings.STATIC_URL + 'modeltranslation/css/tabbed_translation_fields.css',),
+            'screen': ('modeltranslation/css/column_translation_fields.css',),
         }
 
 
