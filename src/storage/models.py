@@ -472,7 +472,7 @@ class Membership(models.Model):
     project = models.ForeignKey(Project, verbose_name=_(u'Project'))
     role = models.ForeignKey(MembershipRole, verbose_name=_(u'Role'))
     staff = models.ManyToManyField(Staff, verbose_name=_(u'User'))
-    position = models.IntegerField(verbose_name=_(u'Position'))
+    position = models.IntegerField(default=0, verbose_name=_(u'Position'))
     joined_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Joined'))
     leaved_at = models.DateTimeField(blank=True, null=True, verbose_name=_(u'Leaved'))
 
