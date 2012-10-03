@@ -12,7 +12,7 @@
     {% endblocktrans %}
    </p>
 
-   <table>
+   <table class="tabular_inline">
      <thead><tr>
      {% for field in inline_admin_formset.fields %}
        {% if not field.widget.is_hidden %}
@@ -136,27 +136,31 @@
             })
         });
 
-        var is_even = function(value) {
-          return value%2 == 0;
-        };
-        var ordering = function(event, ui) {
-            $('tr:visible', this).each(function(index){
-                $('input[name$=position]', this).val(index);
-                if (is_even(index)) {
-                  $(this).removeClass('row1').addClass('row2');
-                } else {
-                  $(this).removeClass('row2').addClass('row1');
-                }
-            });
-        }
+        var pos_field = 'position';
+        var pos_index = 2;
+
+        // hide position column
+        $('table.tabular_inline thead').find('th:eq(' + (0+pos_index) + ')').hide();
+        $('table.tabular_inline tbody tr').find('td:eq(' + (1+pos_index) + ')').hide();
+
         $( "#sortable" ).sortable({
             axis: 'y',
+            items: 'tr',
             cursor: 'move',
             delay: 200,
             distance: 20,
             opacity: 0.6,
-            create: ordering,
-            update: ordering
+            update: function(event, ui) {
+                // reindex items
+                var items = $(this).find('tr');
+                $(items).each(function(index) {
+                    $(this).find('td:eq('+ (1+pos_index) + ')').children('input').first().attr('value', index);
+                });
+                // update row classes
+                $(this).find('tr').removeClass('row1').removeClass('row2');
+                $(this).find('tr:even').addClass('row1');
+                $(this).find('tr:odd').addClass('row2')
+            }
         }).disableSelection();
     });
 })(django.jQuery);
