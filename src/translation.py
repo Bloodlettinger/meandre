@@ -49,7 +49,7 @@ translator.register(Chunk, ChunkOpts)
 
 
 class ChunkMediaOpts(TranslationOptions):
-    fields = ('title', 'desc', )
+    fields = ('title', 'desc', 'media', )
 translator.register(Media, ChunkMediaOpts)
 
 
