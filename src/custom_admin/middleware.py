@@ -28,21 +28,37 @@ class ChangelistPreferencesMiddleware(object):
 
             prefs = request.session.get(PREF_VAR, dict())
             opts = prefs.get(request.path, dict())
+            current_path = request.META.get('PATH_INFO')
+            http_referer = request.META.get('HTTP_REFERER')
 
-            if 0 < len(request.GET):
+            if 0 == len(request.GET) and http_referer:
+                if current_path not in http_referer:
+                    if 0 < len(opts):
+                        # выполняем перенаправление
+                        return redirect(u'%s?%s' % (
+                            request.path,
+                            '&'.join(map(lambda x: '%s=%s' % x, opts.items())))
+                        )
+                else:
+                    # удаление элементов, отсутствующих в запросе
+                    for key in list(set(opts.keys()) - set(request.GET.keys())):
+                        del(opts[key])
+                    # сохраняем состояние
+                    prefs[request.path] = opts
+                    request.session[PREF_VAR] = prefs
+            else:
                 # сортировка
                 if ORDER_VAR in request.GET:
                     opts[ORDER_VAR] = request.GET[ORDER_VAR]
-                # фильтрация
+                # фильтрация: добавляем/обновляем фильтры, а затем убираем старые
                 for key in filter(lambda x: x.endswith(FILTER_TAIL), request.GET):
                     opts[key] = request.GET[key]
+
+                if http_referer and current_path in http_referer:
+                    # удаление элементов, отсутствующих в запросе
+                    for key in list(set(opts.keys()) - set(request.GET.keys())):
+                        del(opts[key])
+
                 # сохраняем состояние
                 prefs[request.path] = opts
                 request.session[PREF_VAR] = prefs
-            else:
-                if 0 < len(opts):
-                    # выполняем перенаправление
-                    return redirect(u'%s?%s' % (
-                        request.path,
-                        '&'.join(map(lambda x: '%s=%s' % x, opts.items())))
-                    )
