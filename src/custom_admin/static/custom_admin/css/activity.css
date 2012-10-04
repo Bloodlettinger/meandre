@@ -1,0 +1,128 @@
+.activity {
+    background: #4d4d4f;
+    line-height: 1.2em;
+    width: 400px;
+    float: left;
+    margin-right: 2em;
+    margin-bottom: 2em;
+
+}
+
+.activity,
+.activity a {
+    color: #fff;
+}
+
+.activity table.main,
+.activity table.fonts {
+    width: 100%;
+}
+
+.activity table.main td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+.activity table.main td.first,
+.activity table.main td.last {
+    width: 25%;
+}
+
+.block_link {
+    display: block;
+    margin: 10px 0;
+}
+
+.block_link_small {
+    font-size: .8em;
+}
+
+.block_progress {
+    margin-bottom: 22px;
+    font-size: .8em;
+}
+
+.block_progress .str_progress {
+    background: #e1e1e3;
+    border-bottom: 1px solid #979799;
+    border-top: 1px solid #979799;
+    height: 5px;
+    margin: 2px 0;
+}
+
+.str_progress div {
+    background: #4c9d7d;
+    height: 5px;
+    position: relative;
+}
+
+.str_progress div span {
+    bottom: -20px;
+    display: block;
+    position: absolute;
+    right: -42px;
+    text-align: center;
+    width: 84px;
+}
+
+.activity table.fonts {
+    margin-top: 8px;
+}
+
+.activity table.fonts td {
+    text-align: center;
+    font-family: Arial sans-serif;
+}
+
+.big_font {
+    font-size: 3em;
+    font-weight: bold;
+    display: block;
+    margin-top: .5em;
+}
+
+.operation_status {
+    font-size: .8em;
+    padding: 5px;
+    border-top: 1px solid #fefefe;
+}
+
+.operation_status .st {
+    float: left;
+    width: 25%;
+}
+
+.operation_status table {
+    border-spacing: 6px;
+}
+
+.operation_status table th {
+    background: #e1e1e1;
+    color: #848484;
+    font-weight: bold;
+    min-width: 65px;
+    text-transform: uppercase;
+}
+
+.operation_status table th:first-child {
+    background: none;
+}
+
+.operation_status table td {
+    text-align: right;
+}
+
+.color_g { color: #529A7E !important; }
+.color_f { color: #AD479C !important; }
+
+.label {
+    background-color: #7f7f7f;
+    color: #fff;
+    font-weight: bold;
+    padding: 2px 5px;
+    margin-right: 5px;
+}
+
+.text_underline {
+    text-decoration: underline;
+}

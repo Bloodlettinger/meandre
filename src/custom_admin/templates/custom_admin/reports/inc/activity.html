@@ -1,0 +1,122 @@
+{% load i18n %}
+<div class="activity">
+    <table class="main">
+        <tbody>
+            <tr>
+                <td class="first">
+                    <div class="label">{{ project.code }}</div>
+                    <a href="#" class="text_underline block_link">{{ project.customer.short_name }}</a>
+                    <span class="label">{{ project.customer.get_customer_type_display|upper|slice:":3" }}</span><span class="label">--</span>
+                    <a href="#" class="text_underline block_link block_link_small">{{ project.short_name }}</a>
+                    <a href="#" class="text_underline block_link block_link_small color_f">Нижний Новгород</a>
+                </td>
+                <td>
+                    <div class="block_progress">
+                        <span class="text_underline">{% trans "Paid" context "activity" %}</span>
+                        <div class="float_right">
+                            {% trans "From" context "activity" %} {{ project.price_full }} {% trans "rub" context "activity" %}.
+                        </div>
+                        <div class="str_progress">
+                            <!-- you have to add procent width for progress bar in style -->
+                            <div style="width: 70%;"><span>123,345 {% trans "rub" context "activity" %}</span></div>
+                        </div>
+                    </div>
+                    <div class="block_progress">
+                        <span class="text_underline">Текущие расходы</span>
+                        <div class="float_right">
+                            {% trans "From" context "activity" %} 4565,234 руб.
+                        </div>
+                        <div class="str_progress">
+                            <!-- you have to add procent width for progress bar in style -->
+                            <div style="width: 45%;"><span>123,345 руб</span></div>
+                        </div>
+                    </div>
+                    <div class="block_progress">
+                        <span class="text_underline">Текущие трудозатраты</span>
+                        <div class="float_right">
+                            {% trans "From" context "activity" %} 4565,234 руб.
+                        </div>
+                        <div class="str_progress">
+                            <!-- you have to add procent width for progress bar in style -->
+                            <div style="width: 85%;"><span>123,345 руб</span></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="last">
+                    <table class="fonts">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Прибыльность
+                                    <span class="big_font color_g">80%</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Выполнение
+                                    <span class="big_font color_f">47%</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% comment %}
+    <div class="operation_status">
+        <div class="st">Состояние работ</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th class="color_g">ф1</th>
+                    <th class="color_f">ф2</th>
+                    <th class="color_f">ф3</th>
+                    <th class="color_f">ф4</th>
+                    <th>ф5</th>
+                    <th>ф6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Стоимость</td>
+                    <td>50,0000 руб</td>
+                    <td>123 руб</td>
+                    <td>4560000 руб</td>
+                    <td>1234 руб</td>
+                    <td>no</td>
+                    <td>no</td>
+                </tr>
+                <tr>
+                    <td>Выполнение</td>
+                    <td>445000 руб</td>
+                    <td>4500 руб</td>
+                    <td>-- руб</td>
+                    <td>no</td>
+                    <td>no</td>
+                    <td>no</td>
+                </tr>
+                <tr>
+                    <td>Трудозатрачено</td>
+                    <td>55 ч/час</td>
+                    <td>23 ч/час</td>
+                    <td>1 ч/час</td>
+                    <td>-- ч/час</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Лок. прибыль</td>
+                    <td class="color_f">25000 руб [230%]</td>
+                    <td class="color_g">900000 [900%]</td>
+                    <td class="color_f">-3000 [10%]</td>
+                    <td>--</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endcomment %}
+</div>

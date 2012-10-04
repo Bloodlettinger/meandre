@@ -16,6 +16,7 @@ from chunks import models as chunkmodels
 from .. storage import models as storage
 from . import models
 
+PROJECT_STATUS_POTENTIAL = 1
 PROJECT_STATUS_WON = 2
 PROJECT_CURRENCY_DOLLAR = 2
 
@@ -73,8 +74,8 @@ class WonProjectReportAdmin(BaseReport):
         # убираем ссылку на редактирование объекта
         self.list_display_links = (None, )
 
-        headers = [_(u'Project'), _(u'Finished'), _(u'Price, Rub')]
-        qs = storage.Project.objects.filter(status=PROJECT_STATUS_WON, reg_date__year=timezone.now().year)
+        headers = [_(u'Project'), _(u'Begin'), _(u'Price, Rub')]
+        qs = storage.Project.objects.filter(status=PROJECT_STATUS_WON, begin__year=timezone.now().year)
         total = 0
         results = []
         for project in qs:
@@ -99,3 +100,31 @@ class WonProjectReportAdmin(BaseReport):
         return render_to_response(self.change_list_template, context, context_instance=context_instance)
 
 admin.site.register(models.WonProjectReport, WonProjectReportAdmin)
+
+
+class ActivityReportAdmin(BaseReport):
+    u"""Вывод списка активностей."""
+
+    class Media:
+        css = {
+            'screen': ('custom_admin/css/activity.css', ),
+        }
+
+    change_list_template = 'custom_admin/reports/activities.html'
+
+    def changelist_view(self, request, extra_context=None):
+        # убираем ссылку на редактирование объекта
+        self.list_display_links = (None, )
+
+        qs = storage.Project.objects.select_related(depth=1).filter(status__in=(PROJECT_STATUS_POTENTIAL, PROJECT_STATUS_WON))
+
+        context = dict(
+            #action_url=reverse('admin:custom_admin_wonprojectreport_changelist'),
+            app_label=u'Reports',
+            model_meta=self.model._meta,
+            projects=qs
+            )
+        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
+        return render_to_response(self.change_list_template, context, context_instance=context_instance)
+
+admin.site.register(models.ActivityReport, ActivityReportAdmin)

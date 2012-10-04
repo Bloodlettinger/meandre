@@ -29,6 +29,7 @@ class CustomMenu(Menu):
                 'src.storage.models.Teaser',
                 ]),
             items.ModelList(_(u'Reports'), [
+                'src.custom_admin.models.ActivityReport',
                 'src.custom_admin.models.WonProjectReport',
                 ]),
             items.ModelList(_(u'Finances'), [

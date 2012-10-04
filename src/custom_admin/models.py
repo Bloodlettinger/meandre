@@ -13,3 +13,12 @@ class WonProjectReport(models.Model):
         verbose_name_plural = _(u'Won projects')
         managed = False
 
+
+class ActivityReport(models.Model):
+    u"""
+    Фейковая модель для вывода активностей.
+    """
+    class Meta:
+        verbose_name = _(u'Activity')
+        verbose_name_plural = _(u'Activities')
+        managed = False
