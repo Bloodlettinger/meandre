@@ -9,6 +9,7 @@ ORDER_VAR = 'o'
 FILTER_TAIL = '__exact'
 PATH = '/admin/storage/'
 EXCLUDE_RE = re.compile(r'(\d+|add)\/$')
+CHANGE_URL_RE = re.compile(r'.*\/\d+\/$')
 
 
 class ChangelistPreferencesMiddleware(object):
@@ -30,9 +31,11 @@ class ChangelistPreferencesMiddleware(object):
             opts = prefs.get(request.path, dict())
             current_path = request.META.get('PATH_INFO')
             http_referer = request.META.get('HTTP_REFERER')
-
             if 0 == len(request.GET) and http_referer:
-                if current_path not in http_referer:
+                if current_path not in http_referer \
+                    or current_path in http_referer and CHANGE_URL_RE.search(http_referer):
+                    # пришли из другого раздела админки
+                    # или возвратились со страницы редактирования модели
                     if 0 < len(opts):
                         # выполняем перенаправление
                         return redirect(u'%s?%s' % (
