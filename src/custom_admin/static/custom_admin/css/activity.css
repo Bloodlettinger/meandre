@@ -1,5 +1,4 @@
 .activity {
-    background: #4d4d4f;
     line-height: 1.2em;
     width: 400px;
     float: left;
@@ -71,11 +70,13 @@
 
 .activity table.fonts td {
     text-align: center;
+    border: 0px;
     font-family: Arial sans-serif;
 }
 
 .big_font {
-    font-size: 3em;
+    font-family: "Lucida Grande",Verdana,Arial,sans-serif;
+    font-size: 50px !important;
     font-weight: bold;
     display: block;
     margin-top: .5em;
@@ -125,4 +126,11 @@
 
 .text_underline {
     text-decoration: underline;
+}
+
+.status_won {
+    background: #4d4d4f;
+}
+.status_potential {
+    background: #616163;
 }

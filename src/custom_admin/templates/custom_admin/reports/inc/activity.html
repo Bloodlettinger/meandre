@@ -1,14 +1,16 @@
 {% load i18n %}
-<div class="activity">
+{% load url from future %}
+<div class="activity {% if project.status == 1 %}status_potential{% endif %}{% if project.status == 2 %}status_won{% endif %}">
     <table class="main">
         <tbody>
             <tr>
                 <td class="first">
-                    <div class="label">{{ project.code }}</div>
-                    <a href="#" class="text_underline block_link">{{ project.customer.short_name }}</a>
-                    <span class="label">{{ project.customer.get_customer_type_display|upper|slice:":3" }}</span><span class="label">--</span>
-                    <a href="#" class="text_underline block_link block_link_small">{{ project.short_name }}</a>
-                    <a href="#" class="text_underline block_link block_link_small color_f">Нижний Новгород</a>
+                    <div class="label">
+                        <a href="{% url "admin:storage_project_change" project.pk %}">{{ project.code }}</a>
+                    </div>
+                    <a href="{% url "admin:storage_customer_change" project.customer.pk %}" class="text_underline block_link">{{ project.customer.short_name }}</a>
+                    <span class="label">{{ project.customer.get_customer_type_display|upper|slice:":3" }}</span><span class="label">{{ project.customer.code }}</span>
+                    <a href="{% url "admin:storage_project_change" project.pk %}" class="text_underline block_link block_link_small">{{ project.short_name }}</a>
                 </td>
                 <td>
                     <div class="block_progress">
@@ -22,23 +24,23 @@
                         </div>
                     </div>
                     <div class="block_progress">
-                        <span class="text_underline">Текущие расходы</span>
+                        <span class="text_underline">{% trans "Actual Expenses" context "activity" %}</span>
                         <div class="float_right">
-                            {% trans "From" context "activity" %} 4565,234 руб.
+                            {% trans "From" context "activity" %} 4565,234 {% trans "rub" context "activity" %}.
                         </div>
                         <div class="str_progress">
                             <!-- you have to add procent width for progress bar in style -->
-                            <div style="width: 45%;"><span>123,345 руб</span></div>
+                            <div style="width: 45%;"><span>123,345 {% trans "rub" context "activity" %}.</span></div>
                         </div>
                     </div>
                     <div class="block_progress">
-                        <span class="text_underline">Текущие трудозатраты</span>
+                        <span class="text_underline">{% trans "Actual Labor" context "activity" %}</span>
                         <div class="float_right">
-                            {% trans "From" context "activity" %} 4565,234 руб.
+                            {% trans "From" context "activity" %} 4565,234 {% trans "rub" context "activity" %}.
                         </div>
                         <div class="str_progress">
                             <!-- you have to add procent width for progress bar in style -->
-                            <div style="width: 85%;"><span>123,345 руб</span></div>
+                            <div style="width: 85%;"><span>123,345 {% trans "rub" context "activity" %}.</span></div>
                         </div>
                     </div>
                 </td>
@@ -47,13 +49,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    Прибыльность
-                                    <span class="big_font color_g">80%</span>
+                                    {% trans "Profit" context "activity" %}
+                                    <span class="big_font color_g">80%</span><br/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Выполнение
+                                    {% trans "Completion" context "activity" %}
                                     <span class="big_font color_f">47%</span>
                                 </td>
                             </tr>

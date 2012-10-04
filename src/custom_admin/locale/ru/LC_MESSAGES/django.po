@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-04 10:57+0400\n"
-"PO-Revision-Date: 2012-10-04 10:58+0400\n"
+"POT-Creation-Date: 2012-10-05 00:13+0400\n"
+"PO-Revision-Date: 2012-10-05 00:14+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:76
+#: admin.py:77
 msgid "Project"
 msgstr "Проект"
 
-#: admin.py:76
-msgid "Finished"
-msgstr "Завершён"
+#: admin.py:77
+msgid "Begin"
+msgstr "Начало"
 
-#: admin.py:76
+#: admin.py:77
 msgid "Price, Rub"
 msgstr "Цена, руб"
 
@@ -79,7 +79,7 @@ msgstr "Гугл-группа \"django-users\""
 msgid "Django irc channel"
 msgstr "IRC канал Django"
 
-#: dashdesc.py:9 dashmenu.py:41
+#: dashdesc.py:9 dashmenu.py:42
 msgid "Static Blocks"
 msgstr "Статичные блоки"
 
@@ -103,11 +103,11 @@ msgstr "Главное"
 msgid "Reports"
 msgstr "Отчёты"
 
-#: dashmenu.py:34
+#: dashmenu.py:35
 msgid "Finances"
 msgstr "Финансы"
 
-#: dashmenu.py:37
+#: dashmenu.py:38
 msgid "Dictionaries"
 msgstr "Словари"
 
@@ -119,6 +119,14 @@ msgstr "Выигранный проект"
 msgid "Won projects"
 msgstr "Выигранные проекты"
 
+#: models.py:22
+msgid "Activity"
+msgstr "Активность"
+
+#: models.py:23
+msgid "Activities"
+msgstr "Активности"
+
 #: templates/admin/base.html:30
 msgid "Welcome,"
 msgstr "Добро пожаловать,"
@@ -128,6 +136,7 @@ msgid "Documentation"
 msgstr "Документация"
 
 #: templates/admin/base.html:58
+#: templates/custom_admin/reports/activities.html:38
 #: templates/custom_admin/reports/won_projects.html:33
 msgid "Home"
 msgstr "Главная"
@@ -169,3 +178,48 @@ msgstr "Удалить"
 #: templates/custom_admin/reports/won_projects.html:76
 msgid "Total"
 msgstr "Итого"
+
+#: templates/custom_admin/reports/inc/activity.html:17
+msgctxt "activity"
+msgid "Paid"
+msgstr "Оплачено"
+
+#: templates/custom_admin/reports/inc/activity.html:19
+#: templates/custom_admin/reports/inc/activity.html:29
+#: templates/custom_admin/reports/inc/activity.html:39
+msgctxt "activity"
+msgid "From"
+msgstr "Из"
+
+#: templates/custom_admin/reports/inc/activity.html:19
+#: templates/custom_admin/reports/inc/activity.html:23
+#: templates/custom_admin/reports/inc/activity.html:29
+#: templates/custom_admin/reports/inc/activity.html:33
+#: templates/custom_admin/reports/inc/activity.html:39
+#: templates/custom_admin/reports/inc/activity.html:43
+msgctxt "activity"
+msgid "rub"
+msgstr "руб"
+
+#: templates/custom_admin/reports/inc/activity.html:27
+msgctxt "activity"
+msgid "Actual Expenses"
+msgstr "Текущие расходы"
+
+#: templates/custom_admin/reports/inc/activity.html:37
+msgctxt "activity"
+msgid "Actual Labor"
+msgstr "Текущие трудозатраты"
+
+#: templates/custom_admin/reports/inc/activity.html:52
+msgctxt "activity"
+msgid "Profit"
+msgstr "Прибыльность"
+
+#: templates/custom_admin/reports/inc/activity.html:58
+msgctxt "activity"
+msgid "Completion"
+msgstr "Выполнено"
+
+#~ msgid "Finished"
+#~ msgstr "Завершён"
