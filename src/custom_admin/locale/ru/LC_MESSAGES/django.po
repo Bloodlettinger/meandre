@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-21 03:17+0400\n"
-"PO-Revision-Date: 2012-08-21 03:18+0400\n"
+"POT-Creation-Date: 2012-10-04 10:57+0400\n"
+"PO-Revision-Date: 2012-10-04 10:58+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,11 +19,23 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
+#: admin.py:76
+msgid "Project"
+msgstr "Проект"
+
+#: admin.py:76
+msgid "Finished"
+msgstr "Завершён"
+
+#: admin.py:76
+msgid "Price, Rub"
+msgstr "Цена, руб"
+
 #: dashboard.py:20
 msgid "Quick links"
 msgstr "Быстрые ссылки"
 
-#: dashboard.py:26
+#: dashboard.py:26 templates/admin/base.html:51
 msgid "Return to site"
 msgstr "Вернуться на сайт"
 
@@ -31,11 +43,11 @@ msgstr "Вернуться на сайт"
 msgid "Error Console"
 msgstr "Консоль ошибок"
 
-#: dashboard.py:28
+#: dashboard.py:28 templates/admin/base.html:43
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: dashboard.py:29
+#: dashboard.py:29 templates/admin/base.html:50
 msgid "Log out"
 msgstr "Выйти"
 
@@ -67,7 +79,7 @@ msgstr "Гугл-группа \"django-users\""
 msgid "Django irc channel"
 msgstr "IRC канал Django"
 
-#: dashdesc.py:9 dashmenu.py:37
+#: dashdesc.py:9 dashmenu.py:41
 msgid "Static Blocks"
 msgstr "Статичные блоки"
 
@@ -87,13 +99,38 @@ msgstr "Администрирование"
 msgid "Workflow"
 msgstr "Главное"
 
-#: dashmenu.py:30
+#: dashmenu.py:31
+msgid "Reports"
+msgstr "Отчёты"
+
+#: dashmenu.py:34
 msgid "Finances"
 msgstr "Финансы"
 
-#: dashmenu.py:33
+#: dashmenu.py:37
 msgid "Dictionaries"
 msgstr "Словари"
+
+#: models.py:12
+msgid "Won project"
+msgstr "Выигранный проект"
+
+#: models.py:13
+msgid "Won projects"
+msgstr "Выигранные проекты"
+
+#: templates/admin/base.html:30
+msgid "Welcome,"
+msgstr "Добро пожаловать,"
+
+#: templates/admin/base.html:35
+msgid "Documentation"
+msgstr "Документация"
+
+#: templates/admin/base.html:58
+#: templates/custom_admin/reports/won_projects.html:33
+msgid "Home"
+msgstr "Главная"
 
 #: templates/custom_admin/inline/project_staff_tabular.html:10
 msgid ""
@@ -112,18 +149,23 @@ msgstr ""
 msgid "Delete?"
 msgstr "Удалить?"
 
-#: templates/custom_admin/inline/project_staff_tabular.html:37
+#: templates/custom_admin/inline/project_staff_tabular.html:39
 #: templates/custom_admin/inline/sortable_tabular.html:31
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: templates/custom_admin/inline/project_staff_tabular.html:122
+#: templates/custom_admin/inline/project_staff_tabular.html:125
 #: templates/custom_admin/inline/sortable_tabular.html:116
 #, python-format
 msgid "Add another %(verbose_name)s"
 msgstr "Добавить другой %(verbose_name)s"
 
-#: templates/custom_admin/inline/project_staff_tabular.html:125
+#: templates/custom_admin/inline/project_staff_tabular.html:128
 #: templates/custom_admin/inline/sortable_tabular.html:119
 msgid "Remove"
 msgstr "Удалить"
+
+#: templates/custom_admin/reports/won_projects.html:65
+#: templates/custom_admin/reports/won_projects.html:76
+msgid "Total"
+msgstr "Итого"
