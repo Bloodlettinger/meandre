@@ -116,7 +116,10 @@ class ActivityReportAdmin(BaseReport):
         # убираем ссылку на редактирование объекта
         self.list_display_links = (None, )
 
-        qs = storage.Project.objects.select_related(depth=1).filter(status__in=(PROJECT_STATUS_POTENTIAL, PROJECT_STATUS_WON))
+        qs = storage.Project.objects.select_related(depth=1).filter(
+            status__in=(PROJECT_STATUS_POTENTIAL, PROJECT_STATUS_WON),
+            end__isnull=True
+        )
 
         context = dict(
             #action_url=reverse('admin:custom_admin_wonprojectreport_changelist'),
