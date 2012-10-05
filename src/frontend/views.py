@@ -48,7 +48,13 @@ def search(request):
     if form.is_valid():
         query = form.cleaned_data.get('query', '')
         sqs = SearchQuerySet().filter(description=query)
-        projects = models.Project.objects.filter(pk__in=[i.pk for i in sqs])
+
+        params = {
+            u'pk__in': [i.pk for i in sqs],
+            u'is_public_%s' % translation.get_language()[:2]: True
+        }
+        projects = models.Project.objects.select_related(depth=1).filter(**params)
+
         if not request.user.is_authenticated():
             projects = projects.winned().public()
         context = dict(context,
