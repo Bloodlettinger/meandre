@@ -19,7 +19,7 @@ from . forms import MainSearchForm
 
 def index(request):
     year = date.today().year
-    customers = list(models.Customer.objects.filter(
+    customers = list(models.Customer.objects.select_related(depth=1).filter(
         project__status=2,  # выигранные
         url__isnull=False
         ).exclude(logo=u'').distinct())
@@ -29,7 +29,7 @@ def index(request):
         lang=translation.get_language()[:2])
     context = dict(
         teasers=teasers,
-        projects=models.Project.objects.winned().public().order_by('-begin'),
+        projects=models.Project.objects.select_related(depth=1).winned().public().order_by('-begin'),
         clients=customers,
         recommendations=models.Recommendation.objects.all(),
         all_job_types=models.JobType.objects.all(),
@@ -71,11 +71,11 @@ def project(request, slug):
 
     context = dict(
         project=obj,
-        images=ProjectImages.objects.filter(tags=obj.code, visible=True).order_by('position'),
-        next=models.Project.objects.get_next(obj),
-        prev=models.Project.objects.get_prev(obj),
+        images=ProjectImages.objects.select_related().filter(tags=obj.code, visible=True).order_by('position'),
+        next=models.Project.objects.select_related(depth=1).get_next(obj),
+        prev=models.Project.objects.select_related(depth=1).get_prev(obj),
         all_job_types=models.JobType.objects.all(),
-        membership_set=models.Membership.objects.filter(project=obj)
+        membership_set=models.Membership.objects.select_related(depth=1).filter(project=obj)
     )
     return direct_to_template(request, 'frontend/project.html', context)
 
