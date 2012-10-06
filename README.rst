@@ -15,12 +15,28 @@
 
 Выполняем::
 
-    virtualenv --python=python2.6 --system-site-packages env    # начиная с версии 1.7
-    virtualenv --python=python2.6 env                           # до версии 1.7
+    virtualenv --no-site-packages env
 
-    ./env/bin/pip install -E ./env -r ./reqs/base.txt
-    ./env/bin/pip install -E ./env -r ./reqs/dev.txt
     . ./env/bin/activate
+
+    mkdir -p ./cache/pip
+
+    ./env/bin/pip install --download-cache=./cache/pip/ -r ./reqs/base.txt
+    ./env/bin/pip install --download-cache=./cache/pip/ -r ./reqs/dev.txt
+
+Может потребоваться обновить локальное ПО:
+
+    easy_install -U distribute
+
+Дополнительное ПО
+-----------------
+
+Установка поискового движка::
+
+    mkdir -p cache/haystack
+    cd cache/haystack
+    nice -n 19 bash ../../addon/xapian_install.sh
+    cd -
 
 Конфигурация проекта
 --------------------
@@ -31,6 +47,10 @@
 
 Подготовка базы данных
 ----------------------
+
+Если планируется использовать MySQL, то надо создать базу:
+
+    mysql -u root -p < ./addon/mysql_create_db.sql
 
 По умолчанию, в качестве базы данных используется SQLite3::
 
@@ -116,10 +136,23 @@
 
     cd ${PATH_TO_SITE}
 
-    virtualenv --python=python2.6 --system-site-packages env    # начиная с версии 1.7
-    virtualenv --python=python2.6 env                           # до версии 1.7
+    virtualenv --python=python2.7 --no-site-packages env
 
-    ./env/bin/pip install -r ./reqs/base.txt
+    . ./env/bin/activate
+
+    mkdir -p ~/cache/pip/
+    ./env/bin/pip install --download-cache=~/cache/pip/ -r ./reqs/base.txt
+
+
+Дополнительное ПО
+-----------------
+
+Установка поискового движка::
+
+    mkdir -p ~/cache/haystack
+    cd ~/cache/haystack
+    nice -n 19 bash ../../${PATH_TO_SITE}/addon/xapian_install.sh
+    cd -
 
 
 Настройка Apache
@@ -140,17 +173,6 @@
     python manage.pyc collectstatic
     ln -s ~/site1/src/public/static/ ~/www/site1/public_html/static
     ln -s ~/site1/src/public/media/ ~/www/site1/public_html/media
-
-
-Дополнительное ПО
------------------
-
-Установка поискового движка::
-
-    cd ~/tmp
-    nice -n 19 bash ${PATH_TO_SITE}/addon/xapian_install.sh
-    rm -rf ./xapian*
-    cd -
 
 
 База данных

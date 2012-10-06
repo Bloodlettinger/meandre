@@ -3,6 +3,7 @@
 Django == 1.4.1
 pil == 1.1.7
 South
+mysql-python
 -e hg+https://bitbucket.org/ruslanpopov/django-sentry#egg=sentry
 
 django-extensions
