@@ -73,7 +73,9 @@ class WonProjectReportAdmin(BaseReport):
         self.list_display_links = (None, )
 
         headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'Price, Rub')]
-        qs = storage.Project.objects.filter(status=storage.PROJECT_STATUS_WON, begin__year=timezone.now().year)
+        qs = storage.Project.objects.filter(
+            status=storage.PROJECT_STATUS_WON,
+            begin__year=timezone.now().year).order_by('-begin')
         total = 0
         results = []
         for project in qs:
