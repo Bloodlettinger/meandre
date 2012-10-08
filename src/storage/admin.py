@@ -26,6 +26,9 @@ from . import forms
 from . import widgets
 
 PROJECT_CURRENCY_DOLLAR = 2
+PROJECT_STATUS_POTENTIAL = 1
+PROJECT_STATUS_WON = 2
+PROJECT_STATUS_LOST = 3
 
 
 class WorkareaAdmin(admin.ModelAdmin):
@@ -97,7 +100,7 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
+    list_display = ('code', 'short_name', 'ptype', 'customer', 'status_colored', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
     list_filter = ('ptype', 'status', 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
@@ -158,6 +161,22 @@ class ProjectAdmin(ModelTranslationAdmin):
                 image_fs=formset,
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+    def status_colored(self, item):
+        if item.status == PROJECT_STATUS_POTENTIAL:
+            color = '#BFBFBF'
+        elif item.status == PROJECT_STATUS_LOST:
+            color = '#DEBFBF'
+        elif item.status == PROJECT_STATUS_WON:
+            if item.is_finished:
+                color = '#84C184'
+            else:
+                color = '#BFDEBF'
+        else:
+            color = 'red'  # неизвестное состояние
+        return u'<div style="background-color: %s;">%s</div>' % (color, item.get_status_display())
+    status_colored.short_description = _(u'Status')
+    status_colored.allow_tags = True
 
     def price_in_rubs(self, item):
         if item.currency == PROJECT_CURRENCY_DOLLAR:
