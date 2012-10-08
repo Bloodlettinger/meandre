@@ -30,7 +30,7 @@ class CustomMenu(Menu):
                 ]),
             items.ModelList(_(u'Reports'), [
                 'src.custom_admin.models.ActivityReport',
-                'src.custom_admin.models.WonProjectReport',
+                'src.custom_admin.models.SalesReport',
                 ]),
             items.ModelList(_(u'Finances'), [
                 'src.storage.models.FinanceTransaction',

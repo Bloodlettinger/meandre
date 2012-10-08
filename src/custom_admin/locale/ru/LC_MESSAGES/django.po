@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 22:32+0400\n"
-"PO-Revision-Date: 2012-10-08 22:32+0400\n"
+"POT-Creation-Date: 2012-10-08 22:38+0400\n"
+"PO-Revision-Date: 2012-10-08 22:37+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -34,6 +34,10 @@ msgstr "Начало"
 #: admin.py:75
 msgid "Price, Rub"
 msgstr "Цена, руб"
+
+#: admin.py:93 admin.py:126 dashmenu.py:31
+msgid "Reports"
+msgstr "Отчёты"
 
 #: dashboard.py:20
 msgid "Quick links"
@@ -103,10 +107,6 @@ msgstr "Администрирование"
 msgid "Workflow"
 msgstr "Главное"
 
-#: dashmenu.py:31
-msgid "Reports"
-msgstr "Отчёты"
-
 #: dashmenu.py:35
 msgid "Finances"
 msgstr "Финансы"
@@ -115,13 +115,9 @@ msgstr "Финансы"
 msgid "Dictionaries"
 msgstr "Словари"
 
-#: models.py:12
-msgid "Won project"
-msgstr "Выигранный проект"
-
-#: models.py:13
-msgid "Won projects"
-msgstr "Выигранные проекты"
+#: models.py:12 models.py:13
+msgid "Sales"
+msgstr "Продажи"
 
 #: models.py:22
 msgid "Activity"
@@ -141,7 +137,7 @@ msgstr "Документация"
 
 #: templates/admin/base.html:58
 #: templates/custom_admin/reports/activities.html:38
-#: templates/custom_admin/reports/won_projects.html:33
+#: templates/custom_admin/reports/sales.html:33
 msgid "Home"
 msgstr "Главная"
 
@@ -178,13 +174,13 @@ msgstr "Добавить другой %(verbose_name)s"
 msgid "Remove"
 msgstr "Удалить"
 
-#: templates/custom_admin/reports/won_projects.html:65
-#: templates/custom_admin/reports/won_projects.html:77
+#: templates/custom_admin/reports/sales.html:65
+#: templates/custom_admin/reports/sales.html:77
 msgid "Total"
 msgstr "Итого"
 
-#: templates/custom_admin/reports/won_projects.html:66
-#: templates/custom_admin/reports/won_projects.html:78
+#: templates/custom_admin/reports/sales.html:66
+#: templates/custom_admin/reports/sales.html:78
 msgid "rub."
 msgstr "руб."
 
@@ -229,6 +225,12 @@ msgstr "Прибыльность"
 msgctxt "activity"
 msgid "Completion"
 msgstr "Выполнено"
+
+#~ msgid "Won project"
+#~ msgstr "Выигранный проект"
+
+#~ msgid "Won projects"
+#~ msgstr "Выигранные проекты"
 
 #~ msgid "Finished"
 #~ msgstr "Завершён"

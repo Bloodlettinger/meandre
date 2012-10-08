@@ -4,13 +4,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class WonProjectReport(models.Model):
+class SalesReport(models.Model):
     u"""
     Фейковая модель для вывода выигранных проектов текущего года.
     """
     class Meta:
-        verbose_name = _(u'Won project')
-        verbose_name_plural = _(u'Won projects')
+        verbose_name = _(u'Sales')
+        verbose_name_plural = _(u'Sales')
         managed = False
 
 

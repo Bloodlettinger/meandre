@@ -63,10 +63,10 @@ class BaseReport(admin.ModelAdmin):
         return False
 
 
-class WonProjectReportAdmin(BaseReport):
+class SalesReportAdmin(BaseReport):
     u"""Вывод списка выигранных проектов за текущий год."""
 
-    change_list_template = 'custom_admin/reports/won_projects.html'
+    change_list_template = 'custom_admin/reports/sales.html'
 
     def changelist_view(self, request, extra_context=None):
         # убираем ссылку на редактирование объекта
@@ -89,8 +89,8 @@ class WonProjectReportAdmin(BaseReport):
             total += value
 
         context = dict(
-            #action_url=reverse('admin:custom_admin_wonprojectreport_changelist'),
-            app_label=u'Reports',
+            #action_url=reverse('admin:custom_admin_salesreport_changelist'),
+            app_label=_(u'Reports'),
             model_meta=self.model._meta,
             headers=headers,
             results=results,
@@ -99,7 +99,7 @@ class WonProjectReportAdmin(BaseReport):
         context_instance = template.RequestContext(request, current_app=self.admin_site.name)
         return render_to_response(self.change_list_template, context, context_instance=context_instance)
 
-admin.site.register(models.WonProjectReport, WonProjectReportAdmin)
+admin.site.register(models.SalesReport, SalesReportAdmin)
 
 
 class ActivityReportAdmin(BaseReport):
@@ -122,8 +122,8 @@ class ActivityReportAdmin(BaseReport):
         )
 
         context = dict(
-            #action_url=reverse('admin:custom_admin_wonprojectreport_changelist'),
-            app_label=u'Reports',
+            #action_url=reverse('admin:custom_admin_activityreport_changelist'),
+            app_label=_(u'Reports'),
             model_meta=self.model._meta,
             projects=qs
             )
