@@ -25,6 +25,8 @@ from . import models
 from . import forms
 from . import widgets
 
+PROJECT_CURRENCY_DOLLAR = 2
+
 
 class WorkareaAdmin(admin.ModelAdmin):
     list_display = ('name', )
@@ -95,7 +97,7 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_full', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
+    list_display = ('code', 'short_name', 'ptype', 'customer', 'status', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
     list_filter = ('ptype', 'status', 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
@@ -156,6 +158,15 @@ class ProjectAdmin(ModelTranslationAdmin):
                 image_fs=formset,
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+    def price_in_rubs(self, item):
+        if item.currency == PROJECT_CURRENCY_DOLLAR:
+            value = item.price_full * item.exchange_rate
+        else:
+            value = item.price_full
+        return u'<span style="float: right;">%.02f</span>' % value
+    price_in_rubs.short_description = _(u'Price, rub.')
+    price_in_rubs.allow_tags = True
 
 admin.site.register(models.Project, ProjectAdmin)
 
