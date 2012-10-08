@@ -67,7 +67,7 @@
             </tr>
             {% for item in results %}
               <tr class="{% cycle 'row1' 'row2' %}">
-                <td>{{ item.title }}</td>
+                <td><a href="{% url 'admin:storage_project_change' item.pk %}">{{ item.title }}</a></td>
                 <td>{{ item.end }}</td>
                 <td style="text-align: right;">{{ item.price|floatformat:2 }}</td>
               </tr>

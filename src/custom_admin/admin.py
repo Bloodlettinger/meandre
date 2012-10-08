@@ -16,8 +16,6 @@ from chunks import models as chunkmodels
 from .. storage import models as storage
 from . import models
 
-PROJECT_STATUS_POTENTIAL = 1
-PROJECT_STATUS_WON = 2
 PROJECT_CURRENCY_DOLLAR = 2
 
 
@@ -75,11 +73,11 @@ class WonProjectReportAdmin(BaseReport):
         self.list_display_links = (None, )
 
         headers = [_(u'Project'), _(u'Begin'), _(u'Price, Rub')]
-        qs = storage.Project.objects.filter(status=PROJECT_STATUS_WON, begin__year=timezone.now().year)
+        qs = storage.Project.objects.filter(status=storage.PROJECT_STATUS_WON, begin__year=timezone.now().year)
         total = 0
         results = []
         for project in qs:
-            data = dict(title=project.short_name, end=project.end)
+            data = dict(pk=project.pk, title=project.short_name, end=project.end)
             if project.currency == PROJECT_CURRENCY_DOLLAR:
                 value = project.price_full * project.exchange_rate
             else:
@@ -117,7 +115,7 @@ class ActivityReportAdmin(BaseReport):
         self.list_display_links = (None, )
 
         qs = storage.Project.objects.select_related(depth=1).filter(
-            status__in=(PROJECT_STATUS_POTENTIAL, PROJECT_STATUS_WON),
+            status__in=(storage.PROJECT_STATUS_POTENTIAL, storage.PROJECT_STATUS_WON),
             end__isnull=True
         )
 
