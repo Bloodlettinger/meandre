@@ -72,12 +72,12 @@ class WonProjectReportAdmin(BaseReport):
         # убираем ссылку на редактирование объекта
         self.list_display_links = (None, )
 
-        headers = [_(u'Project'), _(u'Begin'), _(u'Price, Rub')]
+        headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'Price, Rub')]
         qs = storage.Project.objects.filter(status=storage.PROJECT_STATUS_WON, begin__year=timezone.now().year)
         total = 0
         results = []
         for project in qs:
-            data = dict(pk=project.pk, title=project.short_name, end=project.end)
+            data = dict(pk=project.pk, code=project.code, title=project.short_name, end=project.end)
             if project.currency == PROJECT_CURRENCY_DOLLAR:
                 value = project.price_full * project.exchange_rate
             else:
