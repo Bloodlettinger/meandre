@@ -36,7 +36,15 @@ WALLET_TYPE = one_base([_(u'Roubles Bank Account'), _(u'Roubles Cash Account'), 
 FINANCE_TRANSACTION_CHOICES = one_base([_(u'Income'), _(u'Expense')])
 FINANCE_VAT_CHOICES = one_base([_(u'with VAT'), _(u'without VAT'), _(u'VAT not chargable')])
 PROJECT_TYPE_CHOICES = one_base([_(u'Office'), _(u'Flat'), _(u'Shop'), _(u'Food'), _(u'Other')])
-PROJECT_STATUS_CHOICES = one_base([_(u'Potential'), _(u'Won'), _(u'Lost')])
+
+PROJECT_STATUS_POTENTIAL = 1
+PROJECT_STATUS_WON = 2
+PROJECT_STATUS_LOST = 3
+PROJECT_STATUS_CHOICES = (
+    (PROJECT_STATUS_POTENTIAL, _(u'Potential')),
+    (PROJECT_STATUS_WON, _(u'Won')),
+    (PROJECT_STATUS_LOST, _(u'Lost'))
+)
 
 ICON_TPL = u'<img src="%(static)simg/site/%(value)s-emboss-32.png" title="%(title)s"/>'
 default = dict(static=settings.STATIC_URL)
