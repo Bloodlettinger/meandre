@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date, datetime
+
 from django import template
 from django.conf import settings
 from django.contrib import admin
@@ -27,6 +29,13 @@ from . import forms
 from . import widgets
 
 PROJECT_CURRENCY_DOLLAR = 2
+
+
+def _ddmmyy(value):
+    if isinstance(value, (date, datetime)):
+        return value.strftime('%d.%m.%y')
+    else:
+        return None
 
 
 class WorkareaAdmin(admin.ModelAdmin):
@@ -98,7 +107,9 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer_urlized', 'status_colored', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
+    list_display = ('code', 'short_name', 'ptype', 'customer_urlized', 'status_colored',
+        'begin_dmy', 'end_dmy', 'price_in_rubs', 'is_public_ru', 'is_public_en',
+        'reg_date_dmy', 'finished_at_dmy')
     list_filter = ('ptype', ProjectActiveFilter, 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
@@ -194,6 +205,22 @@ class ProjectAdmin(ModelTranslationAdmin):
         return u'<span style="float: right;">%.02f</span>' % value
     price_in_rubs.short_description = _(u'Price, rub.')
     price_in_rubs.allow_tags = True
+
+    def begin_dmy(self, item):
+        return _ddmmyy(item.begin)
+    begin_dmy.short_description = _(u'Begin')
+
+    def end_dmy(self, item):
+        return _ddmmyy(item.end)
+    end_dmy.short_description = _(u'End')
+
+    def reg_date_dmy(self, item):
+        return _ddmmyy(item.reg_date)
+    reg_date_dmy.short_description = _(u'Registered')
+
+    def finished_at_dmy(self, item):
+        return _ddmmyy(item.finished_at)
+    finished_at_dmy.short_description = _(u'Finished')
 
 admin.site.register(models.Project, ProjectAdmin)
 
