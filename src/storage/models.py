@@ -215,7 +215,7 @@ class Project(models.Model):
 
     slug = AutoSlugField(populate_from=('short_name',), unique=True, max_length=255, overwrite=True)
 
-    # поле для работы сортировки
+    # поле для работы сортировки проектов на странице заказчика
     ordering = models.IntegerField(default=0)
 
     objects = ProjectManager()
@@ -224,7 +224,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = _(u'Project')
         verbose_name_plural = _(u'Projects')
-        ordering = ('-ordering', )
+        ordering = ('-reg_date', )
 
     def __unicode__(self):
         return self.short_name

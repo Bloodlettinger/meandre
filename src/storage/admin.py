@@ -61,6 +61,11 @@ class ProjectInline(CustomTabularInline):
     readonly_fields = ('code', 'short_name', 'reg_date', 'status')
     can_delete = False
 
+    def queryset(self, request):
+        u"""обеспечивает сортировку по полю сортировки, см. #143"""
+        qs = super(ProjectInline, self).queryset(request)
+        return qs.order_by('-ordering')
+
     def has_add_permission(self, request):
         return False
 
@@ -74,6 +79,10 @@ class CustomerAdmin(ModelTranslationAdmin):
         )
     filter_horizontal = ('workarea', )
     inlines = (ProjectInline, )
+
+    def queryset(self, request):
+        u"""обеспечивает подгрузку связанных моделей"""
+        return super(CustomerAdmin, self).queryset(request).select_related(depth=1)
 
     def formfield_for_dbfield(self, db_field, **kwargs):
         if isinstance(db_field, ImageField):
