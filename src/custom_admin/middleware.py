@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 PREF_VAR = 'ADMIN_PER_USER_PREF'
 ORDER_VAR = 'o'
 FILTER_TAIL = '__exact'
+CUSTOM_FILTERS = ('status', )
 PATH = '/admin/storage/'
 EXCLUDE_RE = re.compile(r'(\d+|add)\/$')
 CHANGE_URL_RE = re.compile(r'.*\/\d+\/$')
@@ -56,6 +57,10 @@ class ChangelistPreferencesMiddleware(object):
                 # фильтрация: добавляем/обновляем фильтры, а затем убираем старые
                 for key in filter(lambda x: x.endswith(FILTER_TAIL), request.GET):
                     opts[key] = request.GET[key]
+                for key in CUSTOM_FILTERS:
+                    value = request.GET.get(key)
+                    if value is not None:
+                        opts[key] = value
 
                 if http_referer and current_path in http_referer:
                     # удаление элементов, отсутствующих в запросе
