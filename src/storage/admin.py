@@ -100,7 +100,7 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer', 'status_colored', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
+    list_display = ('code', 'short_name', 'ptype', 'customer_urlized', 'status_colored', 'begin', 'end', 'price_in_rubs', 'is_public_ru', 'is_public_en', 'reg_date', 'finished_at')
     list_filter = ('ptype', 'status', 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
@@ -134,6 +134,10 @@ class ProjectAdmin(ModelTranslationAdmin):
         u"""Обеспечивает передачу request в метод `save()` модели."""
         obj.save(request=request)
 
+    def queryset(self, request):
+        u"""Подхватываем связанные объекты в одном запросе."""
+        return super(ProjectAdmin, self).queryset(request).select_related(depth=1)
+
     def add_view(self, request, form_url='', extra_context=None):
         if extra_context is None:
             extra_context = dict()
@@ -161,6 +165,12 @@ class ProjectAdmin(ModelTranslationAdmin):
                 image_fs=formset,
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
+
+    def customer_urlized(self, item):
+        url = reverse('admin:storage_customer_change', args=(item.customer.pk, ))
+        return u'<a href="%s">%s</a>' % (url, item.customer)
+    customer_urlized.short_description = _(u'Customer')
+    customer_urlized.allow_tags = True
 
     def status_colored(self, item):
         if item.status == PROJECT_STATUS_POTENTIAL:
