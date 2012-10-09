@@ -31,7 +31,14 @@ one_base = lambda values: list(enumerate(values, 1))
 
 CUSTOMERS_CHOICES = one_base([_(u'primary'), _(u'secondary'), _(u'casual'), _(u'denied')])
 PARTNERSHIP_CHOICES = one_base([_(u'internal'), _(u'master'), _(u'slave'), _(u'external')])
-WALLET_CURRENCY_CHOICES = one_base([_(u'Roubles'), _(u'Dollars')])
+
+WALLET_CURRENCY_ROUBLES = 1
+WALLET_CURRENCY_DOLLARS = 2
+WALLET_CURRENCY_CHOICES = (
+    (WALLET_CURRENCY_ROUBLES, _(u'Roubles')),
+    (WALLET_CURRENCY_DOLLARS, _(u'Dollars'))
+)
+
 WALLET_TYPE = one_base([_(u'Roubles Bank Account'), _(u'Roubles Cash Account'), _(u'Dollars Bank Account'), _(u'Dollars Cash Account')])
 FINANCE_TRANSACTION_CHOICES = one_base([_(u'Income'), _(u'Expense')])
 FINANCE_VAT_CHOICES = one_base([_(u'with VAT'), _(u'without VAT'), _(u'VAT not chargable')])

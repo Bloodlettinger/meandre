@@ -28,8 +28,6 @@ from . import models
 from . import forms
 from . import widgets
 
-PROJECT_CURRENCY_DOLLAR = 2
-
 
 def _ddmmyy(value):
     if isinstance(value, (date, datetime)):
@@ -207,7 +205,7 @@ class ProjectAdmin(ModelTranslationAdmin):
     status_colored.allow_tags = True
 
     def price_in_rubs(self, item):
-        if item.currency == PROJECT_CURRENCY_DOLLAR:
+        if item.currency == models.WALLET_CURRENCY_DOLLARS:
             value = item.price_full * item.exchange_rate
         else:
             value = item.price_full

@@ -1,0 +1,23 @@
+{% extends "admin_tools/dashboard/module.html" %}
+
+{% load i18n %}
+{% load url from future %}
+
+{% block module_content %}
+<ul>
+    {% for child in module.children %}
+    {% spaceless %}
+    <li>
+        <a href="{% url 'admin:storage_project_change' child.pk %}">{{ child.title }}</a>
+        <ul>
+            <li>{{ child.code }}</li>
+            <li style="width: 150px; text-align: right;"><b>{{ child.price }} {% trans "rub." %}</b></li>
+        </ul>
+    </li>
+    {% endspaceless %}
+    {% endfor %}
+</ul>
+<div style="text-align: right; padding: 0 1em 0.5em 0;">
+    <a href="{% url 'admin:custom_admin_salesreport_changelist' %}">{% trans "View More" %}</a>
+</div>
+{% endblock %}

@@ -6,8 +6,9 @@ from django.core.urlresolvers import reverse
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 from admin_tools.utils import get_admin_site_name
 
-from . dashdesc import chunks_common
 from .. storage.dashdesc import storage_common
+from . dashdesc import chunks_common
+from . modules import SalesReport
 
 
 class CustomIndexDashboard(Dashboard):
@@ -59,7 +60,7 @@ class CustomIndexDashboard(Dashboard):
 
         self.children.append(storage_common())
         self.children.append(chunks_common())
-        # self.children.append(ImageDropZone())
+        self.children.append(SalesReport(_(u'Sales')))
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

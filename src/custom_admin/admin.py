@@ -5,9 +5,6 @@ from datetime import date, datetime
 from django import template
 from django.conf import settings
 from django.contrib import admin
-from django.core.urlresolvers import reverse
-from django.db.models import Sum
-from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.shortcuts import render_to_response
 
@@ -17,8 +14,6 @@ from chunks import models as chunkmodels
 
 from .. storage import models as storage
 from . import models
-
-PROJECT_CURRENCY_DOLLAR = 2
 
 
 def _ddmmyy(value):
@@ -82,19 +77,16 @@ class SalesReportAdmin(BaseReport):
         self.list_display_links = (None, )
 
         headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'Price, Rub')]
-        qs = storage.Project.objects.filter(
-            status=storage.PROJECT_STATUS_WON,
-            begin__year=timezone.now().year).order_by('-begin')
         total = 0
         results = []
-        for project in qs:
+        for project in models.SalesReport.get_qs():
             data = dict(
                 pk=project.pk,
                 code=project.code,
                 title=project.short_name,
                 begin=_ddmmyy(project.begin)
             )
-            if project.currency == PROJECT_CURRENCY_DOLLAR:
+            if project.currency == storage.WALLET_CURRENCY_DOLLARS:
                 value = project.price_full * project.exchange_rate
             else:
                 value = project.price_full

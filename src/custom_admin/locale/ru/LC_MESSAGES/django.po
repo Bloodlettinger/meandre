@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-08 22:38+0400\n"
-"PO-Revision-Date: 2012-10-08 22:37+0400\n"
+"POT-Creation-Date: 2012-10-09 11:44+0400\n"
+"PO-Revision-Date: 2012-10-09 11:45+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,73 +19,77 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:75
+#: admin.py:79
 msgid "Code"
 msgstr "Код"
 
-#: admin.py:75
+#: admin.py:79
 msgid "Project"
 msgstr "Проект"
 
-#: admin.py:75
+#: admin.py:79
 msgid "Begin"
 msgstr "Начало"
 
-#: admin.py:75
+#: admin.py:79
 msgid "Price, Rub"
 msgstr "Цена, руб"
 
-#: admin.py:93 admin.py:126 dashmenu.py:31
+#: admin.py:99 admin.py:132 dashmenu.py:31
 msgid "Reports"
 msgstr "Отчёты"
 
-#: dashboard.py:20
+#: dashboard.py:21
 msgid "Quick links"
 msgstr "Быстрые ссылки"
 
-#: dashboard.py:26 templates/admin/base.html:51
+#: dashboard.py:27 templates/admin/base.html:51
 msgid "Return to site"
 msgstr "Вернуться на сайт"
 
-#: dashboard.py:27
+#: dashboard.py:28
 msgid "Error Console"
 msgstr "Консоль ошибок"
 
-#: dashboard.py:28 templates/admin/base.html:43
+#: dashboard.py:29 templates/admin/base.html:43
 msgid "Change password"
 msgstr "Изменить пароль"
 
-#: dashboard.py:29 templates/admin/base.html:50
+#: dashboard.py:30 templates/admin/base.html:50
 msgid "Log out"
 msgstr "Выйти"
 
-#: dashboard.py:31 dashboard.py:76
+#: dashboard.py:32 dashboard.py:77
 msgid "Recent Actions"
 msgstr "Недавние действия"
 
-#: dashboard.py:34
+#: dashboard.py:35
 msgid "Latest Django News"
 msgstr "Новости от Django"
 
-#: dashboard.py:40
+#: dashboard.py:41
 msgid "Support"
 msgstr "Поддержка"
 
-#: dashboard.py:43
+#: dashboard.py:44
 msgid "Django documentation (RU)"
 msgstr "Документация Django (русский)"
 
-#: dashboard.py:47
+#: dashboard.py:48
 msgid "Django documentation (EN)"
 msgstr "Документация Django (английский)"
 
-#: dashboard.py:51
+#: dashboard.py:52
 msgid "Django \"django-users\" mailing list"
 msgstr "Гугл-группа \"django-users\""
 
-#: dashboard.py:55
+#: dashboard.py:56
 msgid "Django irc channel"
 msgstr "IRC канал Django"
+
+#: dashboard.py:63 models.py:15 models.py:16
+msgid "Sales"
+msgstr "Продажи"
 
 #: dashdesc.py:9 dashmenu.py:42
 msgid "Static Blocks"
@@ -115,17 +119,21 @@ msgstr "Финансы"
 msgid "Dictionaries"
 msgstr "Словари"
 
-#: models.py:12 models.py:13
-msgid "Sales"
-msgstr "Продажи"
-
-#: models.py:22
+#: models.py:32
 msgid "Activity"
 msgstr "Активность"
 
-#: models.py:23
+#: models.py:33
 msgid "Activities"
 msgstr "Активности"
+
+#: modules.py:54
+#, python-format
+msgid ""
+"<div style=\"padding: 4px 8px; font-weight: bold;\">Total amount is %s rub.</"
+"div>"
+msgstr ""
+"<div style=\"padding: 4px 8px; font-weight: bold;\">Общая сумма %s руб.</div>"
 
 #: templates/admin/base.html:30
 msgid "Welcome,"
@@ -140,6 +148,16 @@ msgstr "Документация"
 #: templates/custom_admin/reports/sales.html:33
 msgid "Home"
 msgstr "Главная"
+
+#: templates/custom_admin/at_panels/sales.html:14
+#: templates/custom_admin/reports/sales.html:66
+#: templates/custom_admin/reports/sales.html:78
+msgid "rub."
+msgstr "руб."
+
+#: templates/custom_admin/at_panels/sales.html:21
+msgid "View More"
+msgstr "Посмотреть больше"
 
 #: templates/custom_admin/inline/project_staff_tabular.html:10
 msgid ""
@@ -178,11 +196,6 @@ msgstr "Удалить"
 #: templates/custom_admin/reports/sales.html:77
 msgid "Total"
 msgstr "Итого"
-
-#: templates/custom_admin/reports/sales.html:66
-#: templates/custom_admin/reports/sales.html:78
-msgid "rub."
-msgstr "руб."
 
 #: templates/custom_admin/reports/inc/activity.html:17
 msgctxt "activity"
