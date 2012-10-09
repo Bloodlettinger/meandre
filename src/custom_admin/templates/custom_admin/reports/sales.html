@@ -62,19 +62,20 @@
             </thead>
             <tbody>
             <tr>
-              <th colspan="3">{% trans "Total" %}</th>
+              <th colspan="4">{% trans "Total" %}</th>
               <th style="text-align: right;">{{ total|floatformat:2 }} {% trans "rub." %}</th>
             </tr>
             {% for item in results %}
               <tr class="{% cycle 'row1' 'row2' %}">
                 <td><a href="{% url 'admin:storage_project_change' item.pk %}">{{ item.code }}</a></td>
                 <td><a href="{% url 'admin:storage_project_change' item.pk %}">{{ item.title }}</a></td>
-                <td style="text-align: right;">{{ item.begin }}</td>
+                <td style="text-align: right;">{{ item.begin|default_if_none:"--" }}</td>
+                <td style="text-align: right;">{{ item.end|default_if_none:"--" }}</td>
                 <td style="text-align: right;">{{ item.price|floatformat:2 }}</td>
               </tr>
             {% endfor %}
             <tr>
-              <th colspan="3">{% trans "Total" %}</th>
+              <th colspan="4">{% trans "Total" %}</th>
               <th style="text-align: right;">{{ total|floatformat:2 }} {% trans "rub." %}</th>
             </tr>
             </tbody>

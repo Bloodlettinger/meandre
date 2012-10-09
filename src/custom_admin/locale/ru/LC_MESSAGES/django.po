@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 11:52+0400\n"
-"PO-Revision-Date: 2012-10-09 11:52+0400\n"
+"POT-Creation-Date: 2012-10-09 12:04+0400\n"
+"PO-Revision-Date: 2012-10-09 12:04+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -32,10 +32,14 @@ msgid "Begin"
 msgstr "Начало"
 
 #: admin.py:79
+msgid "End"
+msgstr "Конец"
+
+#: admin.py:79
 msgid "Price, Rub"
 msgstr "Цена, руб"
 
-#: admin.py:99 admin.py:132 dashmenu.py:31
+#: admin.py:100 admin.py:133 dashmenu.py:31
 msgid "Reports"
 msgstr "Отчёты"
 
@@ -159,7 +163,7 @@ msgstr "Главная"
 
 #: templates/custom_admin/at_panels/sales.html:14
 #: templates/custom_admin/reports/sales.html:66
-#: templates/custom_admin/reports/sales.html:78
+#: templates/custom_admin/reports/sales.html:79
 msgid "rub."
 msgstr "руб."
 
@@ -201,7 +205,7 @@ msgid "Remove"
 msgstr "Удалить"
 
 #: templates/custom_admin/reports/sales.html:65
-#: templates/custom_admin/reports/sales.html:77
+#: templates/custom_admin/reports/sales.html:78
 msgid "Total"
 msgstr "Итого"
 

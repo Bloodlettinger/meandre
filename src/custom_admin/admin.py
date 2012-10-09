@@ -76,7 +76,7 @@ class SalesReportAdmin(BaseReport):
         # убираем ссылку на редактирование объекта
         self.list_display_links = (None, )
 
-        headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'Price, Rub')]
+        headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'End'),  _(u'Price, Rub')]
         total = 0
         results = []
         for project in models.SalesReport.get_qs():
@@ -84,7 +84,8 @@ class SalesReportAdmin(BaseReport):
                 pk=project.pk,
                 code=project.code,
                 title=project.short_name,
-                begin=_ddmmyy(project.begin)
+                begin=_ddmmyy(project.begin),
+                end=_ddmmyy(project.end)
             )
             if project.currency == storage.WALLET_CURRENCY_DOLLARS:
                 value = project.price_full * project.exchange_rate
