@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date, datetime
+
 from django import template
 from django.conf import settings
 from django.contrib import admin
@@ -17,6 +19,13 @@ from .. storage import models as storage
 from . import models
 
 PROJECT_CURRENCY_DOLLAR = 2
+
+
+def _ddmmyy(value):
+    if isinstance(value, (date, datetime)):
+        return value.strftime('%d.%m.%y')
+    else:
+        return None
 
 
 class ModelTranslationAdmin(TranslationAdmin):
@@ -79,7 +88,12 @@ class SalesReportAdmin(BaseReport):
         total = 0
         results = []
         for project in qs:
-            data = dict(pk=project.pk, code=project.code, title=project.short_name, end=project.end)
+            data = dict(
+                pk=project.pk,
+                code=project.code,
+                title=project.short_name,
+                begin=_ddmmyy(project.begin)
+            )
             if project.currency == PROJECT_CURRENCY_DOLLAR:
                 value = project.price_full * project.exchange_rate
             else:

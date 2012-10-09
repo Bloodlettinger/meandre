@@ -69,7 +69,7 @@
               <tr class="{% cycle 'row1' 'row2' %}">
                 <td><a href="{% url 'admin:storage_project_change' item.pk %}">{{ item.code }}</a></td>
                 <td><a href="{% url 'admin:storage_project_change' item.pk %}">{{ item.title }}</a></td>
-                <td>{{ item.end }}</td>
+                <td style="text-align: right;">{{ item.begin }}</td>
                 <td style="text-align: right;">{{ item.price|floatformat:2 }}</td>
               </tr>
             {% endfor %}
