@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 11:44+0400\n"
-"PO-Revision-Date: 2012-10-09 11:45+0400\n"
+"POT-Creation-Date: 2012-10-09 11:52+0400\n"
+"PO-Revision-Date: 2012-10-09 11:52+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -59,7 +59,7 @@ msgstr "Изменить пароль"
 msgid "Log out"
 msgstr "Выйти"
 
-#: dashboard.py:32 dashboard.py:77
+#: dashboard.py:32 dashboard.py:85
 msgid "Recent Actions"
 msgstr "Недавние действия"
 
@@ -72,22 +72,30 @@ msgid "Support"
 msgstr "Поддержка"
 
 #: dashboard.py:44
+msgid "Source Code Repository"
+msgstr "Репозиторий с исходным кодом"
+
+#: dashboard.py:48
+msgid "Issues List"
+msgstr "Список задач"
+
+#: dashboard.py:52
 msgid "Django documentation (RU)"
 msgstr "Документация Django (русский)"
 
-#: dashboard.py:48
+#: dashboard.py:56
 msgid "Django documentation (EN)"
 msgstr "Документация Django (английский)"
 
-#: dashboard.py:52
+#: dashboard.py:60
 msgid "Django \"django-users\" mailing list"
 msgstr "Гугл-группа \"django-users\""
 
-#: dashboard.py:56
+#: dashboard.py:64
 msgid "Django irc channel"
 msgstr "IRC канал Django"
 
-#: dashboard.py:63 models.py:15 models.py:16
+#: dashboard.py:71 models.py:15 models.py:16
 msgid "Sales"
 msgstr "Продажи"
 

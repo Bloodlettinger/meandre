@@ -41,6 +41,14 @@ class CustomIndexDashboard(Dashboard):
                 _(u'Support'),
                 children=[
                     dict(
+                        title=_(u'Source Code Repository'),
+                        url='https://github.com/RaD/meandre/',
+                        external=True),
+                    dict(
+                        title=_(u'Issues List'),
+                        url='https://github.com/RaD/meandre/issues/',
+                        external=True),
+                    dict(
                         title=_(u'Django documentation (RU)'),
                         url='http://djbook.ru/rel1.4/',
                         external=True),
