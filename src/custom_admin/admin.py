@@ -74,25 +74,23 @@ class SalesReportAdmin(BaseReport):
         return qs.select_related()
 
     def changelist_view(self, request, extra_context=None):
-        cl = ChangeList(request, self.model, self.list_display,
-            self.list_display_links, self.list_filter, self.date_hierarchy,
-            self.search_fields, self.list_select_related, self.list_per_page,
-            self.list_max_show_all, self.list_editable, self)
-        # getting query set with same filters like current change list
-        filtered_query_set = cl.get_query_set(request)
+        u"""
+        Переопределяя базовый метод, получаем доступ к отфильтрованному результату, используя
+        который переводит долларовые цены в рублёвые, подсчитывая сумму по отфильтрованным проектам.
+        """
+        response = super(SalesReportAdmin, self).changelist_view(request, extra_context=extra_context)
+        ctx = response.context_data
 
         total = 0
-        for project in filtered_query_set:
+        for project in ctx['cl'].result_list:
             if project.currency == storage.WALLET_CURRENCY_DOLLARS:
                 value = project.price_full * project.exchange_rate
             else:
                 value = project.price_full
             total += value
 
-        if extra_context is None:
-            extra_context = dict()
-        extra_context['total_amount'] = floatformat(total, 0)
-        return super(SalesReportAdmin, self).changelist_view(request, extra_context=extra_context)
+        ctx['total_amount'] = floatformat(total, 0)
+        return response
 
     def price_in_rubs(self, item):
         if item.currency == storage.WALLET_CURRENCY_DOLLARS:
