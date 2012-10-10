@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date, datetime
-
 from django import template
 from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from django.shortcuts import render_to_response
 
 from modeltranslation.admin import TranslationAdmin
@@ -13,14 +12,8 @@ from chunks import admin as chunkadmin
 from chunks import models as chunkmodels
 
 from .. storage import models as storage
+from . import ddmmyy
 from . import models
-
-
-def _ddmmyy(value):
-    if isinstance(value, (date, datetime)):
-        return value.strftime('%d.%m.%y')
-    else:
-        return None
 
 
 class ModelTranslationAdmin(TranslationAdmin):
@@ -69,10 +62,43 @@ class BaseReport(admin.ModelAdmin):
 
 class SalesReportAdmin(BaseReport):
     u"""Вывод списка выигранных проектов за текущий год."""
+    list_display = ('code', 'short_name', 'partner_with_type', 'begin_dmy', 'end_dmy', 'price_in_rubs')
+    list_filter = ('customer__customer_type', )
 
-    change_list_template = 'custom_admin/reports/sales.html'
+    def price_in_rubs(self, item):
+        if item.currency == storage.WALLET_CURRENCY_DOLLARS:
+            value = item.price_full * item.exchange_rate
+        else:
+            value = item.price_full
+        return u'<span style="float: right;">%.02f</span>' % value
+    price_in_rubs.short_description = _(u'Price, rub.')
+    price_in_rubs.allow_tags = True
 
-    def changelist_view(self, request, extra_context=None):
+    def partner_with_type(self, item):
+        tpl = u'%(partner)s %(ptype)s'
+        partner = item.customer.partner
+        if partner is None:
+            partner = u'--'
+        parthership = item.customer.partnership_type
+        params = dict(
+            partner=partner,
+            ptype=storage.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
+        )
+        return mark_safe(tpl % params)
+    partner_with_type.short_description = _(u'Partner')
+    partner_with_type.allow_tags = True
+
+    def begin_dmy(self, item):
+        return ddmmyy(item.begin)
+    begin_dmy.short_description = _(u'Begin')
+
+    def end_dmy(self, item):
+        return ddmmyy(item.end)
+    end_dmy.short_description = _(u'End')
+
+    #change_list_template = 'custom_admin/reports/sales.html'
+
+    def zchangelist_view(self, request, extra_context=None):
         # убираем ссылку на редактирование объекта
         self.list_display_links = (None, )
 
@@ -84,8 +110,8 @@ class SalesReportAdmin(BaseReport):
                 pk=project.pk,
                 code=project.code,
                 title=project.short_name,
-                begin=_ddmmyy(project.begin),
-                end=_ddmmyy(project.end)
+                begin=ddmmyy(project.begin),
+                end=ddmmyy(project.end)
             )
             if project.currency == storage.WALLET_CURRENCY_DOLLARS:
                 value = project.price_full * project.exchange_rate

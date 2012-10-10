@@ -5,16 +5,20 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from .. storage import models as storage
+from . managers import SalesReportManager
 
 
-class SalesReport(models.Model):
+class SalesReport(storage.Project):
     u"""
     Фейковая модель для вывода выигранных проектов текущего года.
     """
+
+    objects = SalesReportManager()
+
     class Meta:
         verbose_name = _(u'Sales')
         verbose_name_plural = _(u'Sales')
-        managed = False
+        proxy = True
 
     @staticmethod
     def get_qs():

@@ -30,7 +30,23 @@ PROJECT_CODE_RE = re.compile(r'^\d{4}A(?P<ordering>\d{2})\d{2}$')
 one_base = lambda values: list(enumerate(values, 1))
 
 CUSTOMERS_CHOICES = one_base([_(u'primary'), _(u'secondary'), _(u'casual'), _(u'denied')])
-PARTNERSHIP_CHOICES = one_base([_(u'internal'), _(u'master'), _(u'slave'), _(u'external')])
+
+PARTNERSHIP_INTERNAL = 1
+PARTNERSHIP_MASTER = 2
+PARTNERSHIP_SLAVE = 3
+PARTNERSHIP_EXTERNAL = 4
+PARTNERSHIP_CHOICES = (
+    (PARTNERSHIP_INTERNAL, _(u'internal')),
+    (PARTNERSHIP_MASTER, _(u'master')),
+    (PARTNERSHIP_SLAVE, _(u'slave')),
+    (PARTNERSHIP_EXTERNAL, _(u'external'))
+)
+PARTNERSHIP_SIGNS = {
+    PARTNERSHIP_INTERNAL: '&nbsp;',
+    PARTNERSHIP_MASTER: '&lArr;',
+    PARTNERSHIP_SLAVE: '&rArr;',
+    PARTNERSHIP_EXTERNAL: '&times;',
+}
 
 WALLET_CURRENCY_ROUBLES = 1
 WALLET_CURRENCY_DOLLARS = 2

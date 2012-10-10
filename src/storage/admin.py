@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from datetime import date, datetime
-
 from django import template
 from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.db.models.fields import TextField
@@ -18,22 +17,16 @@ from markitup.widgets import AdminMarkItUpWidget
 from easy_thumbnails.widgets import ImageClearableFileInput
 from easy_thumbnails.files import get_thumbnailer
 
-from ..custom_admin.admin import ModelTranslationAdmin
-from ..custom_admin.options import SortableTabularInline
-from ..uploader.models import Queue as ProjectImage
-from ..uploader.forms import DoneForm as ImageOptsForm
+from .. custom_admin import ddmmyy
+from .. custom_admin.admin import ModelTranslationAdmin
+from .. custom_admin.options import SortableTabularInline
+from .. uploader.models import Queue as ProjectImage
+from .. uploader.forms import DoneForm as ImageOptsForm
 
 from . admin_filters import ProjectActiveFilter
 from . import models
 from . import forms
 from . import widgets
-
-
-def _ddmmyy(value):
-    if isinstance(value, (date, datetime)):
-        return value.strftime('%d.%m.%y')
-    else:
-        return None
 
 
 class WorkareaAdmin(admin.ModelAdmin):
@@ -114,9 +107,9 @@ class MembershipInline(SalmonellaMixin, SortableTabularInline):
 
 
 class ProjectAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'ptype', 'customer_urlized', 'status_colored',
-        'begin_dmy', 'end_dmy', 'price_in_rubs', 'is_public_ru', 'is_public_en',
-        'reg_date_dmy', 'finished_at_dmy')
+    list_display = ('code', 'short_name', 'ptype', 'customer_urlized', 'partner_with_type',
+        'status_colored', 'begin_dmy', 'end_dmy', 'price_in_rubs',
+        'is_public_ru', 'is_public_en', 'reg_date_dmy', 'finished_at_dmy')
     list_filter = ('ptype', ProjectActiveFilter, 'is_public_ru', 'is_public_en', 'is_archived', 'is_finished', 'in_stats')
     search_fields = ('customer__short_name', 'short_name', 'long_name', 'desc_short', 'desc_long')
     fieldsets = (
@@ -188,6 +181,20 @@ class ProjectAdmin(ModelTranslationAdmin):
     customer_urlized.short_description = _(u'Customer')
     customer_urlized.allow_tags = True
 
+    def partner_with_type(self, item):
+        tpl = u'%(partner)s %(ptype)s'
+        partner = item.customer.partner
+        if partner is None:
+            partner = u'--'
+        parthership = item.customer.partnership_type
+        params = dict(
+            partner=partner,
+            ptype=models.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
+        )
+        return mark_safe(tpl % params)
+    partner_with_type.short_description = _(u'Partner')
+    partner_with_type.allow_tags = True
+
     def status_colored(self, item):
         if item.status == models.PROJECT_STATUS_POTENTIAL:
             color = '#BFBFBF'
@@ -214,19 +221,19 @@ class ProjectAdmin(ModelTranslationAdmin):
     price_in_rubs.allow_tags = True
 
     def begin_dmy(self, item):
-        return _ddmmyy(item.begin)
+        return ddmmyy(item.begin)
     begin_dmy.short_description = _(u'Begin')
 
     def end_dmy(self, item):
-        return _ddmmyy(item.end)
+        return ddmmyy(item.end)
     end_dmy.short_description = _(u'End')
 
     def reg_date_dmy(self, item):
-        return _ddmmyy(item.reg_date)
+        return ddmmyy(item.reg_date)
     reg_date_dmy.short_description = _(u'Registered')
 
     def finished_at_dmy(self, item):
-        return _ddmmyy(item.finished_at)
+        return ddmmyy(item.finished_at)
     finished_at_dmy.short_description = _(u'Finished')
 
 admin.site.register(models.Project, ProjectAdmin)
