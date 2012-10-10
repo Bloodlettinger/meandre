@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-09 12:04+0400\n"
-"PO-Revision-Date: 2012-10-09 12:04+0400\n"
+"POT-Creation-Date: 2012-10-10 15:57+0400\n"
+"PO-Revision-Date: 2012-10-10 15:58+0400\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,27 +19,23 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: admin.py:79
-msgid "Code"
-msgstr "Код"
+#: admin.py:103
+msgid "Price, rub."
+msgstr "Цена, руб."
 
-#: admin.py:79
-msgid "Project"
-msgstr "Проект"
+#: admin.py:117
+msgid "Partner"
+msgstr "Партнёр"
 
-#: admin.py:79
+#: admin.py:122
 msgid "Begin"
 msgstr "Начало"
 
-#: admin.py:79
+#: admin.py:126
 msgid "End"
 msgstr "Конец"
 
-#: admin.py:79
-msgid "Price, Rub"
-msgstr "Цена, руб"
-
-#: admin.py:100 admin.py:133 dashmenu.py:31
+#: admin.py:152 dashmenu.py:31
 msgid "Reports"
 msgstr "Отчёты"
 
@@ -99,7 +95,7 @@ msgstr "Гугл-группа \"django-users\""
 msgid "Django irc channel"
 msgstr "IRC канал Django"
 
-#: dashboard.py:71 models.py:15 models.py:16
+#: dashboard.py:71 models.py:19 models.py:20
 msgid "Sales"
 msgstr "Продажи"
 
@@ -131,11 +127,11 @@ msgstr "Финансы"
 msgid "Dictionaries"
 msgstr "Словари"
 
-#: models.py:32
+#: models.py:36
 msgid "Activity"
 msgstr "Активность"
 
-#: models.py:33
+#: models.py:37
 msgid "Activities"
 msgstr "Активности"
 
@@ -156,20 +152,46 @@ msgid "Documentation"
 msgstr "Документация"
 
 #: templates/admin/base.html:58
+#: templates/custom_admin/changelist/sales.html:43
 #: templates/custom_admin/reports/activities.html:38
-#: templates/custom_admin/reports/sales.html:33
 msgid "Home"
 msgstr "Главная"
 
 #: templates/custom_admin/at_panels/sales.html:14
-#: templates/custom_admin/reports/sales.html:66
-#: templates/custom_admin/reports/sales.html:79
 msgid "rub."
 msgstr "руб."
 
 #: templates/custom_admin/at_panels/sales.html:21
 msgid "View More"
 msgstr "Посмотреть больше"
+
+#: templates/custom_admin/changelist/sales.html:53
+msgid "Sales Report"
+msgstr "Отчёт о продажах"
+
+#: templates/custom_admin/changelist/sales.html:54
+msgid "Total amount"
+msgstr "Общая сумма"
+
+#: templates/custom_admin/changelist/sales.html:54
+msgid "rub"
+msgstr "руб"
+
+#: templates/custom_admin/changelist/sales.html:65
+#, python-format
+msgid "Add %(name)s"
+msgstr "Добавить %(name)s"
+
+#: templates/custom_admin/changelist/sales.html:74
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Пожалуйста, исправьте ошибку ниже."
+msgstr[1] "Пожалуйста, исправьте ошибки ниже."
+msgstr[2] "Пожалуйста, исправьте ошибки ниже."
+
+#: templates/custom_admin/changelist/sales.html:85
+msgid "Filter"
+msgstr "Фильтр"
 
 #: templates/custom_admin/inline/project_staff_tabular.html:10
 msgid ""
@@ -203,11 +225,6 @@ msgstr "Добавить другой %(verbose_name)s"
 #: templates/custom_admin/inline/sortable_tabular.html:119
 msgid "Remove"
 msgstr "Удалить"
-
-#: templates/custom_admin/reports/sales.html:65
-#: templates/custom_admin/reports/sales.html:78
-msgid "Total"
-msgstr "Итого"
 
 #: templates/custom_admin/reports/inc/activity.html:17
 msgctxt "activity"
@@ -250,6 +267,18 @@ msgstr "Прибыльность"
 msgctxt "activity"
 msgid "Completion"
 msgstr "Выполнено"
+
+#~ msgid "Total amount is {{ total_amount }} rub."
+#~ msgstr "Общая сумма: {{ total_amount }} руб."
+
+#~ msgid "Code"
+#~ msgstr "Код"
+
+#~ msgid "Project"
+#~ msgstr "Проект"
+
+#~ msgid "Total"
+#~ msgstr "Итого"
 
 #~ msgid "Won project"
 #~ msgstr "Выигранный проект"
