@@ -49,7 +49,10 @@
 
 {% block coltype %}flex{% endblock %}
 
-{% block content_title %}<h1>{% trans "Sales Report" %}</h1>{% endblock %}
+{% block content_title %}
+<h1>{% trans "Sales Report" %}</h1>
+<div style="padding: 4px 8px; font-weight: bold;">Total amount is {{ total_amount }} rub.</div>
+{% endblock %}
 
 {% block content %}
   <div id="content-main">

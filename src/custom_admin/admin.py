@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.shortcuts import render_to_response
+from django.template.defaultfilters import floatformat
+from django.contrib.admin.views.main import ChangeList
 
 from modeltranslation.admin import TranslationAdmin
 from chunks import admin as chunkadmin
@@ -63,13 +65,34 @@ class BaseReport(admin.ModelAdmin):
 class SalesReportAdmin(BaseReport):
     u"""Вывод списка выигранных проектов за текущий год."""
     list_display = ('code', 'short_name', 'partner_with_type', 'begin_dmy', 'end_dmy', 'price_in_rubs')
-    list_filter = ('customer__customer_type', )
+    list_filter = ('customer__partnership_type', )
     change_list_template = 'custom_admin/changelist/sales.html'
 
     def queryset(self, request):
         u"""обеспечивает выборку дополнительных данных"""
         qs = super(SalesReportAdmin, self).queryset(request)
         return qs.select_related()
+
+    def changelist_view(self, request, extra_context=None):
+        cl = ChangeList(request, self.model, self.list_display,
+            self.list_display_links, self.list_filter, self.date_hierarchy,
+            self.search_fields, self.list_select_related, self.list_per_page,
+            self.list_max_show_all, self.list_editable, self)
+        # getting query set with same filters like current change list
+        filtered_query_set = cl.get_query_set(request)
+
+        total = 0
+        for project in filtered_query_set:
+            if project.currency == storage.WALLET_CURRENCY_DOLLARS:
+                value = project.price_full * project.exchange_rate
+            else:
+                value = project.price_full
+            total += value
+
+        if extra_context is None:
+            extra_context = dict()
+        extra_context['total_amount'] = floatformat(total, 0)
+        return super(SalesReportAdmin, self).changelist_view(request, extra_context=extra_context)
 
     def price_in_rubs(self, item):
         if item.currency == storage.WALLET_CURRENCY_DOLLARS:
