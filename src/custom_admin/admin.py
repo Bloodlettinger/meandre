@@ -97,7 +97,7 @@ class SalesReportAdmin(BaseReport):
             value = item.price_full * item.exchange_rate
         else:
             value = item.price_full
-        return u'<span style="float: right;">%.02f</span>' % value
+        return u'<span style="float: right;">%s</span>' % floatformat(value, 0)
     price_in_rubs.short_description = _(u'Price, rub.')
     price_in_rubs.allow_tags = True
 

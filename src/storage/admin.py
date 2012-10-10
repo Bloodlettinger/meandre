@@ -11,6 +11,7 @@ from django.db.models.fields import TextField
 from django.db.models.fields.files import ImageField
 from django.shortcuts import render_to_response
 from django.contrib.admin.templatetags.admin_static import static
+from django.template.defaultfilters import floatformat
 
 from salmonella.admin import SalmonellaMixin
 from markitup.widgets import AdminMarkItUpWidget
@@ -227,7 +228,7 @@ class ProjectAdmin(ModelTranslationAdmin):
             value = item.price_full * item.exchange_rate
         else:
             value = item.price_full
-        return u'<span style="float: right;">%.02f</span>' % value
+        return u'<span style="float: right;">%s</span>' % floatformat(value, 0)
     price_in_rubs.short_description = _(u'Price, rub.')
     price_in_rubs.allow_tags = True
 
