@@ -64,6 +64,12 @@ class SalesReportAdmin(BaseReport):
     u"""Вывод списка выигранных проектов за текущий год."""
     list_display = ('code', 'short_name', 'partner_with_type', 'begin_dmy', 'end_dmy', 'price_in_rubs')
     list_filter = ('customer__customer_type', )
+    change_list_template = 'custom_admin/changelist/sales.html'
+
+    def queryset(self, request):
+        u"""обеспечивает выборку дополнительных данных"""
+        qs = super(SalesReportAdmin, self).queryset(request)
+        return qs.select_related()
 
     def price_in_rubs(self, item):
         if item.currency == storage.WALLET_CURRENCY_DOLLARS:
@@ -95,42 +101,6 @@ class SalesReportAdmin(BaseReport):
     def end_dmy(self, item):
         return ddmmyy(item.end)
     end_dmy.short_description = _(u'End')
-
-    #change_list_template = 'custom_admin/reports/sales.html'
-
-    def zchangelist_view(self, request, extra_context=None):
-        # убираем ссылку на редактирование объекта
-        self.list_display_links = (None, )
-
-        headers = [_(u'Code'), _(u'Project'), _(u'Begin'), _(u'End'),  _(u'Price, Rub')]
-        total = 0
-        results = []
-        for project in models.SalesReport.get_qs():
-            data = dict(
-                pk=project.pk,
-                code=project.code,
-                title=project.short_name,
-                begin=ddmmyy(project.begin),
-                end=ddmmyy(project.end)
-            )
-            if project.currency == storage.WALLET_CURRENCY_DOLLARS:
-                value = project.price_full * project.exchange_rate
-            else:
-                value = project.price_full
-            data['price'] = value
-            results.append(data)
-            total += value
-
-        context = dict(
-            #action_url=reverse('admin:custom_admin_salesreport_changelist'),
-            app_label=_(u'Reports'),
-            model_meta=self.model._meta,
-            headers=headers,
-            results=results,
-            total=total
-            )
-        context_instance = template.RequestContext(request, current_app=self.admin_site.name)
-        return render_to_response(self.change_list_template, context, context_instance=context_instance)
 
 admin.site.register(models.SalesReport, SalesReportAdmin)
 
