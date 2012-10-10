@@ -62,7 +62,7 @@ class ProjectInline(CustomTabularInline):
 
 
 class CustomerAdmin(ModelTranslationAdmin):
-    list_display = ('code', 'short_name', 'partner', 'customer_type', 'partnership_type', 'workareas')
+    list_display = ('code', 'short_name', 'partner_with_type', 'customer_type', 'workareas')
     list_filter = ('customer_type', 'partnership_type', 'partner')
     search_fields = ('code', 'short_name', 'partner__code', 'partner__name')
     fieldsets = (
@@ -81,6 +81,17 @@ class CustomerAdmin(ModelTranslationAdmin):
         if db_field.name == 'code':
             kwargs['widget'] = widgets.CustomerCodeWidget
         return super(CustomerAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+
+    def partner_with_type(self, item):
+        tpl = u'%(partner)s%(ptype)s'
+        parthership = item.partnership_type
+        params = dict(
+            partner=getattr(item.partner, 'code', u'--'),
+            ptype=models.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
+        )
+        return mark_safe(tpl % params)
+    partner_with_type.short_description = _(u'Partner')
+    partner_with_type.allow_tags = True
 
     def workareas(self, item):
         qs = item.workarea.all()
