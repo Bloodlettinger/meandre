@@ -104,13 +104,10 @@ class SalesReportAdmin(BaseReport):
     price_in_rubs.allow_tags = True
 
     def partner_with_type(self, item):
-        tpl = u'%(partner)s %(ptype)s'
-        partner = item.customer.partner
-        if partner is None:
-            partner = u'--'
+        tpl = u'%(partner)s%(ptype)s'
         parthership = item.customer.partnership_type
         params = dict(
-            partner=partner,
+            partner=getattr(item.customer.partner, 'code', u'--'),
             ptype=storage.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
         )
         return mark_safe(tpl % params)
