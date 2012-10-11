@@ -235,14 +235,17 @@ class ProjectAdmin(ModelTranslationAdmin):
     def begin_dmy(self, item):
         return ddmmyy(item.begin)
     begin_dmy.short_description = _(u'Begin')
+    begin_dmy.admin_order_field = 'begin'
 
     def end_dmy(self, item):
         return ddmmyy(item.end)
     end_dmy.short_description = _(u'End')
+    end_dmy.admin_order_field = 'end'
 
     def reg_date_dmy(self, item):
         return ddmmyy(item.reg_date)
     reg_date_dmy.short_description = _(u'Registered')
+    reg_date_dmy.admin_order_field = 'reg_date'
 
 admin.site.register(models.Project, ProjectAdmin)
 
@@ -259,7 +262,7 @@ admin.site.register(models.Staff, StaffAdmin)
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
     list_display = ('wallet', 'type_color', 'contractor', 'contract', 'amount',
-            'transaction_vat', 'done_at')
+            'transaction_vat', 'done_at_dmy')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
     salmonella_fields = ('parent', )
@@ -290,8 +293,14 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
             colors.get(item.transaction_type, "gray"),
             item.get_transaction_type_display()
             )
-    type_color.short_model_desc = _(u'Type')
+    type_color.short_description = _(u'Type')
     type_color.allow_tags = True
+
+    def done_at_dmy(self, item):
+        return ddmmyy(item.done_at)
+    done_at_dmy.short_description = _(u'Done')
+    done_at_dmy.admin_order_field = 'done_at'
+
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
 

@@ -115,10 +115,12 @@ class SalesReportAdmin(BaseReport):
     def begin_dmy(self, item):
         return ddmmyy(item.begin)
     begin_dmy.short_description = _(u'Begin')
+    begin_dmy.admin_order_field = 'begin'
 
     def end_dmy(self, item):
         return ddmmyy(item.end)
     end_dmy.short_description = _(u'End')
+    end_dmy.admin_order_field = 'end'
 
 admin.site.register(models.SalesReport, SalesReportAdmin)
 
