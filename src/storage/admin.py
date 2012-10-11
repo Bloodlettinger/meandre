@@ -4,7 +4,6 @@ from django import template
 from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from django.utils.safestring import mark_safe
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.db.models.fields import TextField
@@ -19,6 +18,7 @@ from easy_thumbnails.widgets import ImageClearableFileInput
 from easy_thumbnails.files import get_thumbnailer
 
 from .. custom_admin import ddmmyy
+from .. custom_admin import decorators
 from .. custom_admin.admin import ModelTranslationAdmin
 from .. custom_admin.options import SortableTabularInline
 from .. uploader.models import Queue as ProjectImage
@@ -76,6 +76,10 @@ class CustomerAdmin(ModelTranslationAdmin):
         u"""обеспечивает подгрузку связанных моделей"""
         return super(CustomerAdmin, self).queryset(request).select_related(depth=1)
 
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        self.change_form_template = 'storage/admin/change_form_customer.html'
+        return super(CustomerAdmin, self).change_view(request, object_id, form_url, extra_context)
+
     def formfield_for_dbfield(self, db_field, **kwargs):
         if isinstance(db_field, ImageField):
             kwargs['widget'] = ImageClearableFileInput
@@ -83,6 +87,8 @@ class CustomerAdmin(ModelTranslationAdmin):
             kwargs['widget'] = widgets.CustomerCodeWidget
         return super(CustomerAdmin, self).formfield_for_dbfield(db_field, **kwargs)
 
+    @decorators.description(_(u'Partner'))
+    @decorators.allow_tags
     def partner_with_type(self, item):
         tpl = u'%(partner)s%(ptype)s'
         parthership = item.partnership_type
@@ -90,18 +96,13 @@ class CustomerAdmin(ModelTranslationAdmin):
             partner=getattr(item.partner, 'code', u'--'),
             ptype=models.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
         )
-        return mark_safe(tpl % params)
-    partner_with_type.short_description = _(u'Partner')
-    partner_with_type.allow_tags = True
+        return tpl % params
 
+    @decorators.description(_(u'Work Area'))
     def workareas(self, item):
         qs = item.workarea.all()
         return u', '.join([i.name for i in qs])
-    workareas.short_description = _(u'Work Area')
 
-    def change_view(self, request, object_id, form_url='', extra_context=None):
-        self.change_form_template = 'storage/admin/change_form_customer.html'
-        return super(CustomerAdmin, self).change_view(request, object_id, form_url, extra_context)
 admin.site.register(models.Customer, CustomerAdmin)
 
 
@@ -187,12 +188,14 @@ class ProjectAdmin(ModelTranslationAdmin):
                 image_list=images))
         return super(ProjectAdmin, self).change_view(request, object_id, form_url, extra_context)
 
+    @decorators.description(_(u'Customer'))
+    @decorators.allow_tags
     def customer_urlized(self, item):
         url = reverse('admin:storage_customer_change', args=(item.customer.pk, ))
         return u'<a href="%s">%s</a>' % (url, item.customer)
-    customer_urlized.short_description = _(u'Customer')
-    customer_urlized.allow_tags = True
 
+    @decorators.description(_(u'Partner'))
+    @decorators.allow_tags
     def partner_with_type(self, item):
         tpl = u'%(partner)s %(ptype)s'
         partner = item.customer.partner
@@ -203,10 +206,10 @@ class ProjectAdmin(ModelTranslationAdmin):
             partner=partner,
             ptype=models.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
         )
-        return mark_safe(tpl % params)
-    partner_with_type.short_description = _(u'Partner')
-    partner_with_type.allow_tags = True
+        return tpl % params
 
+    @decorators.description(_(u'Status'))
+    @decorators.allow_tags
     def status_colored(self, item):
         if item.status == models.PROJECT_STATUS_POTENTIAL:
             color = '#BFBFBF'
@@ -220,32 +223,30 @@ class ProjectAdmin(ModelTranslationAdmin):
         else:
             color = 'red'  # неизвестное состояние
         return u'<div style="background-color: %s;">%s</div>' % (color, item.get_status_display())
-    status_colored.short_description = _(u'Status')
-    status_colored.allow_tags = True
 
+    @decorators.description(_(u'Price, rub.'))
+    @decorators.allow_tags
     def price_in_rubs(self, item):
         if item.currency == models.WALLET_CURRENCY_DOLLARS:
             value = item.price_full * item.exchange_rate
         else:
             value = item.price_full
         return u'<span style="float: right;">%s</span>' % floatformat(value, 0)
-    price_in_rubs.short_description = _(u'Price, rub.')
-    price_in_rubs.allow_tags = True
 
+    @decorators.description(_(u'Begin'))
+    @decorators.order_hint('begin')
     def begin_dmy(self, item):
         return ddmmyy(item.begin)
-    begin_dmy.short_description = _(u'Begin')
-    begin_dmy.admin_order_field = 'begin'
 
+    @decorators.description(_(u'End'))
+    @decorators.order_hint('end')
     def end_dmy(self, item):
         return ddmmyy(item.end)
-    end_dmy.short_description = _(u'End')
-    end_dmy.admin_order_field = 'end'
 
+    @decorators.description(_(u'Registered'))
+    @decorators.order_hint('reg_date')
     def reg_date_dmy(self, item):
         return ddmmyy(item.reg_date)
-    reg_date_dmy.short_description = _(u'Registered')
-    reg_date_dmy.admin_order_field = 'reg_date'
 
 admin.site.register(models.Project, ProjectAdmin)
 
@@ -261,7 +262,7 @@ admin.site.register(models.Staff, StaffAdmin)
 
 
 class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
-    list_display = ('wallet', 'type_color', 'contractor', 'contract', 'amount',
+    list_display = ('wallet', 'type_color', 'contractor', 'contract', 'amount_fmt',
             'transaction_vat', 'done_at_dmy')
     list_filter = ('wallet', 'transaction_type', 'transaction_vat')
     search_fields = ('contract', 'contractor')
@@ -286,6 +287,13 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
         # запрещаем удаление объектов
         return False
 
+    @decorators.description(_(u'Amount'))
+    @decorators.allow_tags
+    def amount_fmt(self, item):
+        return u'<span style="float: right;">%s</span>' % floatformat(item.amount, 0)
+
+    @decorators.description(_(u'Type'))
+    @decorators.allow_tags
     def type_color(self, item):
         colors = {1: "#458069", 2: "#AD479C"}
         tpl = """<div style="text-align: center; padding:2px 4px; background-color: %s;">%s</div>"""
@@ -293,13 +301,11 @@ class FinanceTransactionAdmin(SalmonellaMixin, admin.ModelAdmin):
             colors.get(item.transaction_type, "gray"),
             item.get_transaction_type_display()
             )
-    type_color.short_description = _(u'Type')
-    type_color.allow_tags = True
 
+    @decorators.description(_(u'Done'))
+    @decorators.order_hint('done_at')
     def done_at_dmy(self, item):
         return ddmmyy(item.done_at)
-    done_at_dmy.short_description = _(u'Done')
-    done_at_dmy.admin_order_field = 'done_at'
 
 admin.site.register(models.FinanceTransaction, FinanceTransactionAdmin)
 
@@ -407,15 +413,16 @@ class TeaserAdmin(admin.ModelAdmin):
             project__is_archived=False
             ).order_by('pk')
 
+    @decorators.description(_(u'Thumbnail'))
+    @decorators.allow_tags
     def thumbnail(self, item):
         html = u'<img src="%s"/>'
         url = get_thumbnailer(item.project.teaser.image)['uploader_frame'].url
         return html % url
-    thumbnail.short_description = _(u'Thumbnail')
-    thumbnail.allow_tags = True
 
+    @decorators.description(_(u'Begin'))
+    @decorators.order_hint('begin')
     def begin_date(self, item):
         return item.project.begin
-    begin_date.short_description = _(u'Begin')
 
 admin.site.register(models.Teaser, TeaserAdmin)

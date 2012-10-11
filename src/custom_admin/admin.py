@@ -7,13 +7,13 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from django.shortcuts import render_to_response
 from django.template.defaultfilters import floatformat
-from django.contrib.admin.views.main import ChangeList
 
 from modeltranslation.admin import TranslationAdmin
 from chunks import admin as chunkadmin
 from chunks import models as chunkmodels
 
 from .. storage import models as storage
+from . import decorators
 from . import ddmmyy
 from . import models
 
@@ -92,15 +92,17 @@ class SalesReportAdmin(BaseReport):
         ctx['total_amount'] = floatformat(total, 0)
         return response
 
+    @decorators.description(_(u'Price, rub.'))
+    @decorators.allow_tags
     def price_in_rubs(self, item):
         if item.currency == storage.WALLET_CURRENCY_DOLLARS:
             value = item.price_full * item.exchange_rate
         else:
             value = item.price_full
         return u'<span style="float: right;">%s</span>' % floatformat(value, 0)
-    price_in_rubs.short_description = _(u'Price, rub.')
-    price_in_rubs.allow_tags = True
 
+    @decorators.description(_(u'Partner'))
+    @decorators.allow_tags
     def partner_with_type(self, item):
         tpl = u'%(partner)s%(ptype)s'
         parthership = item.customer.partnership_type
@@ -109,18 +111,16 @@ class SalesReportAdmin(BaseReport):
             ptype=storage.PARTNERSHIP_SIGNS.get(parthership, '&nbsp;')
         )
         return mark_safe(tpl % params)
-    partner_with_type.short_description = _(u'Partner')
-    partner_with_type.allow_tags = True
 
+    @decorators.description(_(u'Begin'))
+    @decorators.order_hint('begin')
     def begin_dmy(self, item):
         return ddmmyy(item.begin)
-    begin_dmy.short_description = _(u'Begin')
-    begin_dmy.admin_order_field = 'begin'
 
+    @decorators.description(_(u'End'))
+    @decorators.order_hint('end')
     def end_dmy(self, item):
         return ddmmyy(item.end)
-    end_dmy.short_description = _(u'End')
-    end_dmy.admin_order_field = 'end'
 
 admin.site.register(models.SalesReport, SalesReportAdmin)
 
