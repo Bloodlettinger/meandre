@@ -3,9 +3,12 @@
 from __future__ import absolute_import
 
 from modeltranslation.translator import translator, TranslationOptions
+
 from chunks.models import Chunk, Media
-from . storage import models
+
+from . phases.models import Phase, Step
 from . users.models import Company
+from . storage import models
 
 u"""
 Модуль содержит настройки интернационализации для полей моделей.
@@ -56,3 +59,13 @@ translator.register(Media, ChunkMediaOpts)
 class CompanyOpts(TranslationOptions):
     fields = ('name', )
 translator.register(Company, CompanyOpts)
+
+
+class PhaseOpts(TranslationOptions):
+    fields = ('title', )
+translator.register(Phase, PhaseOpts)
+
+
+class StepOpts(TranslationOptions):
+    fields = ('title', )
+translator.register(Step, StepOpts)
