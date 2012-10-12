@@ -230,6 +230,7 @@ INSTALLED_APPS = (
     'src.frontend',
     'src.users',
     'src.storage',
+    'src.phases',
 )
 
 ###
