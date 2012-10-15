@@ -8,6 +8,7 @@ from django.http import HttpResponsePermanentRedirect
 
 from chunks.templatetags.chunks import chunk_imgurl
 
+from . phases.admin_site import site as phases_site
 from . uploader.admin_site import site as uploader_site
 
 admin.autodiscover()
@@ -23,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^auth/login/$', 'src.users.views.login'),
     url(r'^auth/', include('django.contrib.auth.urls', namespace='auth')),
     url(r'^sentry/', include('sentry.urls')),
+    url(r'^phases/', include(phases_site.urls)),
     url(r'^uploader/', include(uploader_site.urls)),
     url(r'^admin/storage/get_customer_code/$', 'src.storage.ajax.get_customer_code', name='get_customer_code'),
     url(r'^', include('src.frontend.urls', namespace='frontend')),

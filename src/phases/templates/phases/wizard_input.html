@@ -1,0 +1,56 @@
+{% extends "admin/base_site.html" %}
+
+{% load adminmedia %}
+{% load i18n %}
+{% load static %}
+{% load url from future %}
+
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo;
+    <a href="{% url 'admin:app_list' "phases" %}">{% trans "Phases" context "breadcrumbs" %}</a> &rsaquo;
+    Phase {{ phase }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            <tr>
+                <th style="display: none;">{% trans "Project" %}</th>
+                <th>{% trans "Phase" %} {{ phase }}</th>
+                <th>{% trans "Duration A, in hours" %}</th>
+                <th>{% trans "Duration B, in hours" %}</th>
+                <th>{% trans "Cost, in roubles" %}</th>
+            </tr>
+        {% for form in formset %}
+            <tr>
+                <td style="display: none;">{{ form.id }}{{ form.project }}</td>
+                <td>{{ form.phase }}</td>
+                <td>{{ form.duration_a }}</td>
+                <td>{{ form.duration_b }}</td>
+                <td>{{ form.cost }}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        <input type="submit" name="back" value="{% trans "Back" %}" {% if step == 1 %}disabled="disabled"{% endif %}/>
+        <input type="submit" name="next" value="{% trans "Next" %}" class="default"/>
+    </form>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<!-- sidebar -->
+{% endblock %}
