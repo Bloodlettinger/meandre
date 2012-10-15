@@ -33,7 +33,7 @@ class PhasesWizardAdmin(AdminSite):
     def input(self, request, pk, step, extra_context=None):
         step = int(step)
         if request.method == 'POST' and 'back' in request.POST and step > 1:
-            return redirect('phases_wizard:input', pk=pk, step=step - 1)
+            return redirect('phases:input', pk=pk, step=step - 1)
 
         from .. storage.models import Project
         project = get_object_or_404(Project, pk=pk)
@@ -54,19 +54,27 @@ class PhasesWizardAdmin(AdminSite):
                 request.session['phases'] = phases
 
                 if step < PHASES_MAX_STEP:
-                    return redirect('phases_wizard:input', pk=pk, step=step + 1)
+                    return redirect('phases:input', pk=pk, step=step + 1)
                 else:
-                    if PHASES_MAX_STEP == len(request.session.get('phases', {}).keys()):
+                    phases = request.session.get('phases', {})
+                    if PHASES_MAX_STEP == len(phases.keys()):
+                        # сохраняем расценки этапов проекта
+                        for phase in phases.values():
+                            for step in phase:
+                                relation = step.pop('id')
+                                for field, value in step.items():
+                                    setattr(relation, field, value)
+                                relation.save()
                         return None  # finish
                     else:
                         messages.error(request,
                             _(u'It seems you have missed some steps, go back.'))
-                        return redirect('phases_wizard:input', pk=pk, step=1)
+                        return redirect('phases:input', pk=pk, step=1)
             else:
                 # при ошибках в наборе форм возвращаемся обратно
                 messages.error(request,
                     _(u'Errors: %s') % formset.errors)
-                return redirect('phases_wizard:input', pk=pk, step=step)
+                return redirect('phases:input', pk=pk, step=step)
         else:
             formset = forms.PhasesFormSet(None, queryset=qs)
 
@@ -77,4 +85,4 @@ class PhasesWizardAdmin(AdminSite):
             )
         return TemplateResponse(request, 'phases/wizard_input.html', context)
 
-site = PhasesWizardAdmin(name=u'phases_wizard')
+site = PhasesWizardAdmin(name=u'phases')
