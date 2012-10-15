@@ -47,3 +47,27 @@ class Relation(models.Model):
     duration_a = models.PositiveIntegerField()
     duration_b = models.PositiveIntegerField()
     cost = models.PositiveIntegerField()
+
+    @staticmethod
+    def assign_phases_on(project):
+        if 0 < Relation.objects.filter(project=project).count():
+            return False
+
+        for phase in Phase.objects.all():
+            for step in phase.step_set.all():
+                Relation(
+                    project=project,
+                    phase=step,
+                    duration_a=0,
+                    duration_b=0,
+                    cost=0
+                ).save()
+        return True
+
+
+def register_phases(sender, instance, created, **kwargs):
+    u"""
+    При создании проекта следует создавать записи для его этапов.
+    """
+    if created:
+        Relation.assign_phases_on(instance)
