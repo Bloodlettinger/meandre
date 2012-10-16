@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+
+{% load adminmedia %}
+{% load i18n %}
+{% load static %}
+{% load url from future %}
+
+{% block extrahead %}
+{{ block.super }}
+{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans "Home" %}</a> &rsaquo;
+    <a href="{% url 'admin:app_list' "phases" %}">{% trans "Phases" context "breadcrumbs" %}</a> &rsaquo;
+    {% trans "Cost Card" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    <table>
+    {% for phase, steps in phases.items %}
+        <tr>
+            <th>{{ phase }}</th>
+            {% for header in headers %}
+            <th>{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for step in steps %}
+        <tr>
+            {% for field in step %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<!-- sidebar -->
+{% endblock %}

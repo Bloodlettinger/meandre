@@ -55,8 +55,8 @@ class Migration(SchemaMigration):
             'duration_a': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'duration_b': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'phase': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['phases.Step']"}),
-            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['storage.Project']"})
+            'project': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['storage.Project']"}),
+            'step': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['phases.Step']"})
         },
         'phases.step': {
             'Meta': {'ordering': "('position',)", 'object_name': 'Step'},

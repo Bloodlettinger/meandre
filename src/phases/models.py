@@ -43,7 +43,7 @@ class Relation(models.Model):
     Определяет фазы для проекта.
     """
     project = models.ForeignKey('storage.Project')
-    phase = models.ForeignKey(Step)
+    step = models.ForeignKey(Step)
     duration_a = models.PositiveIntegerField()
     duration_b = models.PositiveIntegerField()
     cost = models.PositiveIntegerField()
@@ -53,15 +53,9 @@ class Relation(models.Model):
         if 0 < Relation.objects.filter(project=project).count():
             return False
 
-        for phase in Phase.objects.all():
-            for step in phase.step_set.all():
-                Relation(
-                    project=project,
-                    phase=step,
-                    duration_a=0,
-                    duration_b=0,
-                    cost=0
-                ).save()
+        for step in Step.objects.all():
+            obj = Relation(project=project, step=step, duration_a=0, duration_b=0, cost=0)
+            obj.save()
         return True
 
 
