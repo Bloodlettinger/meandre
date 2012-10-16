@@ -4,6 +4,7 @@
 {% load i18n %}
 {% load static %}
 {% load url from future %}
+{% load phases %}
 
 {% block extrahead %}
 {{ block.super }}
@@ -25,20 +26,8 @@
 {% block content %}
 <div id="content-main">
     <table>
-    {% for phase, steps in phases.items %}
-        <tr>
-            <th>{{ phase }}</th>
-            {% for header in headers %}
-            <th>{{ header }}</th>
-            {% endfor %}
-        </tr>
-        {% for step in steps %}
-        <tr>
-            {% for field in step %}
-            <td>{{ field }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
+    {% for phase in phases %}
+        {% phase_area phase %}
     {% endfor %}
     </table>
 </div>

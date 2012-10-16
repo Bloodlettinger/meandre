@@ -1,0 +1,9 @@
+<tr>
+    <th>{{ title }}</th>
+    {% for header in headers %}<th>{{ header }}</th>{% endfor %}
+</tr>
+{% for step in steps %}
+<tr>
+    {% for field in step %}<td>{{ field }}</td>{% endfor %}
+</tr>
+{% endfor %}

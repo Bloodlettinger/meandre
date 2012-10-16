@@ -4,7 +4,6 @@ from django.contrib.admin.sites import AdminSite
 from django.views.decorators.cache import never_cache
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext_lazy as _
-from django.utils.datastructures import SortedDict
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -12,13 +11,7 @@ from django.contrib import messages
 from . import models
 from . import forms
 
-ACCOUNT_TYPE = 1
 PHASES_MAX_STEP = 6
-TAX_PFR = 0.336
-TAX_NDFL = 0.13
-K_BASE = 0.1
-K_ADD = 1.1 * ACCOUNT_TYPE
-K_ZAP = K_ADD * (1 + K_BASE)
 
 
 class PhasesWizardAdmin(AdminSite):
@@ -97,38 +90,7 @@ class PhasesWizardAdmin(AdminSite):
         from .. storage.models import Project
         project = get_object_or_404(Project, pk=pk)
         qs = models.Phase.objects.filter(step__relation__project=project).distinct()
-
-        phases = SortedDict()
-        for phase in qs:
-            steps = []
-            for step in phase.step_set.all():
-                item = step.relation_set.all()[0]
-
-                dur_a = item.duration_a
-                dur_b = item.duration_b
-                cost = item.cost
-                STAFF = cost == 0
-
-                price = (dur_a + dur_b) * step.price * step.times if STAFF else cost
-                pfr = price * TAX_PFR
-                ndfl = price * TAX_NDFL
-
-                tax_k = 1.2 if STAFF else 1
-                price_tax = (price + pfr + ndfl) * tax_k
-                price_zap = price_tax * K_ZAP if STAFF else cost
-
-                steps.append((step.title, step.price, step.times, dur_a, dur_b,
-                    cost, price, pfr, ndfl, price_tax, price_zap))
-            phases[phase.title] = steps
-
-        context = dict(
-            headers=(
-                _(u'Ставка'), _(u'K'), _(u'Hours, A'), _(u'Hours, B'), _(u'Cost'),
-                _(u'Price'), _(u'Tax, PFR'), _(u'Tax, NDFL'), _(u'Price with Taxes'),
-                _(u'С запасом'),
-                ),
-            phases=phases
-        )
+        context = dict(phases=qs)
         return TemplateResponse(request, 'phases/cost_card.html', context)
 
 
