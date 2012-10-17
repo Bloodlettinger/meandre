@@ -8,6 +8,27 @@
 
 {% block extrahead %}
 {{ block.super }}
+<script type="text/javascript" src="{% static "js/jquery-1.7.2.min.js" %}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    /*
+     * Logic is simple. First, hide all total lines. Then assign click handlers.
+     * Handler toggles the state of particalar set of lines and total line.
+     */
+    $('tr[class^=total]').hide();
+    $('a.toggle_handler').each(function(index) {
+        $(this).click(function() {
+            var pk = $(this).data('pk');
+            $('tr.collapsable_' + pk).toggle('slow');
+            $('tr.total_' + pk).toggle('slow');
+            if ($(this).html() == '-')
+                $(this).html('+');
+            else
+                $(this).html('-');
+        })
+    })
+});
+</script>
 {% endblock %}
 
 {% block extrastyle %}

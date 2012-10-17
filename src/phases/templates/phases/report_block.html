@@ -1,9 +1,16 @@
+{% load i18n %}
 <tr>
+    <th><a href="#" title="{% trans "Collapse" %}" data-pk="{{ pk }}" class="toggle_handler">-</a></th>
     <th>{{ title }}</th>
     {% for header in headers %}<th>{{ header }}</th>{% endfor %}
 </tr>
 {% for step in steps %}
-<tr>
+<tr class="collapsable_{{ pk }}">
+    <td>&nbsp;</td>
     {% for field in step %}<td>{{ field }}</td>{% endfor %}
 </tr>
 {% endfor %}
+<tr class="total_{{ pk }}">
+    <td>&nbsp;</td>
+    {% for field in total %}<td>{{ field }}</td>{% endfor %}
+</tr>
