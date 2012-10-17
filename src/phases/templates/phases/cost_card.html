@@ -19,12 +19,15 @@ $(document).ready(function() {
     $('a.toggle_handler').each(function(index) {
         $(this).click(function() {
             var pk = $(this).data('pk');
-            $('tr.collapsable_' + pk).toggle('slow');
-            $('tr.total_' + pk).toggle('slow');
-            if ($(this).html() == '-')
-                $(this).html('+');
-            else
-                $(this).html('-');
+            if ($(this).hasClass('ui-icon-circle-minus')) {
+                $(this).removeClass('ui-icon-circle-minus').addClass('ui-icon-circle-plus');
+                $('tr.collapsable_' + pk).toggle('slow');
+                $('tr.total_' + pk).toggle('slow');
+            } else {
+                $(this).removeClass('ui-icon-circle-plus').addClass('ui-icon-circle-minus');
+                $('tr.total_' + pk).toggle('slow');
+                $('tr.collapsable_' + pk).toggle('slow');
+            }
         })
     })
 });
@@ -34,6 +37,7 @@ $(document).ready(function() {
 {% block extrastyle %}
 {{ block.super }}
 <link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
+<link rel="stylesheet" href="{% static "custom_admin/css/style.css" %}" type="text/css" media="screen"/>
 {% endblock %}
 
 {% block breadcrumbs %}
