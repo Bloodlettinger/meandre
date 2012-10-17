@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.contrib import messages
 
+from . import TAX_PFR, TAX_NDFL, K_ZAP
 from . import models
 from . import forms
 
@@ -90,7 +91,16 @@ class PhasesWizardAdmin(AdminSite):
         from .. storage.models import Project
         project = get_object_or_404(Project, pk=pk)
         qs = models.Phase.objects.filter(step__relation__project=project).distinct()
-        context = dict(phases=qs)
+        context = dict(
+            phases=qs,
+            taxes=[
+                dict(title=_(u'PFR'), value=TAX_PFR),
+                dict(title=_(u'NDFL'), value=TAX_NDFL),
+            ],
+            coeffs=[
+                dict(title=_(u'Kzap'), value=K_ZAP),
+            ]
+        )
         return TemplateResponse(request, 'phases/cost_card.html', context)
 
 

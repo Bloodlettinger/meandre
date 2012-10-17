@@ -36,6 +36,7 @@ $(document).ready(function() {
 
 {% block extrastyle %}
 {{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/changelists.css" %}" />
 <link rel="stylesheet" href="{% static "admin_tools/css/dashboard.css" %}" type="text/css" media="screen, projection"/>
 <link rel="stylesheet" href="{% static "custom_admin/css/style.css" %}" type="text/css" media="screen"/>
 {% endblock %}
@@ -50,14 +51,36 @@ $(document).ready(function() {
 
 {% block content %}
 <div id="content-main">
-    <table>
-    {% for phase in phases %}
-        {% phase_area phase %}
-    {% endfor %}
-    </table>
-</div>
-{% endblock %}
+    <div class="module filtered" id="changelist">
+        <div id="changelist-filter">
+            <h2>{% trans "Info" %}</h2>
+            <h3>{% trans "Taxes" %}</h3>
+            <ul>
+                {% for tax in taxes %}
+                <li>
+                    <span class="title">{{ tax.title }}:</span>
+                    <span class="value">{{ tax.value }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            <h3>{% trans "Coefficients" %}</h3>
+            <ul>
+                {% for co in coeffs %}
+                <li>
+                    <span class="title">{{ co.title }}:</span>
+                    <span class="value">{{ co.value }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 
-{% block sidebar %}
-<!-- sidebar -->
+    <div class="results">
+        <table id="result_list">
+        {% for phase in phases %}
+            {% phase_area phase %}
+        {% endfor %}
+        </table>
+    </div>
+</div>
 {% endblock %}

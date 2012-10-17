@@ -4,15 +4,9 @@ from django import template
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 
+from .. import TAX_PFR, TAX_NDFL, K_ZAP
+
 register = template.Library()
-
-
-TAX_PFR = 0.336
-TAX_NDFL = 0.13
-K_BASE = 0.1
-ACCOUNT_TYPE = 1
-K_ADD = 1.1 * ACCOUNT_TYPE
-K_ZAP = K_ADD * (1 + K_BASE)
 
 
 @register.inclusion_tag('phases/report_block.html')
