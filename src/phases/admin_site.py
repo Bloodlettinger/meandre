@@ -66,6 +66,9 @@ class PhasesWizardAdmin(AdminSite):
                                 for field, value in step.items():
                                     setattr(relation, field, value)
                                 relation.save()
+                        # очищаем сессию
+                        del(request.session['phases'])
+                        # переходим в раздел просмотра
                         return redirect('phases:project', pk=pk)
                     else:
                         messages.error(request,

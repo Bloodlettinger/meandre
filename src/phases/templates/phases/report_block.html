@@ -7,10 +7,18 @@
 {% for step in steps %}
 <tr class="collapsable_{{ pk }}">
     <td>&nbsp;</td>
-    {% for field in step %}<td>{{ field }}</td>{% endfor %}
+    {% for field, align, type in step %}
+    <td style="text-align: {{ align }};">
+        {% if type == 'float' %}{{ field|floatformat:"2" }}{% else %}{{ field }}{% endif %}
+    </td>
+    {% endfor %}
 </tr>
 {% endfor %}
 <tr class="total_{{ pk }}">
     <td>&nbsp;</td>
-    {% for field in total %}<td>{{ field }}</td>{% endfor %}
+    {% for field, align, type in total %}
+    <td style="text-align: {{ align }};">
+        {% if type == 'float' %}{{ field|floatformat:"2" }}{% else %}{{ field }}{% endif %}
+    </td>
+    {% endfor %}
 </tr>
